@@ -9,6 +9,7 @@
 #import "InformationListTableView.h"
 //V
 #import "InformationListCell.h"
+#import "InformationListCell2.h"
 
 @interface InformationListTableView()<UITableViewDataSource, UITableViewDelegate>
 
@@ -16,7 +17,8 @@
 
 @implementation InformationListTableView
 
-static NSString *identifierCell = @"InformationListCell";
+static NSString *informationListCell = @"InformationListCell";
+static NSString *informationListCell2 = @"InformationListCell2";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,7 +27,9 @@ static NSString *identifierCell = @"InformationListCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[InformationListCell class] forCellReuseIdentifier:identifierCell];
+        [self registerClass:[InformationListCell class] forCellReuseIdentifier:informationListCell];
+        [self registerClass:[InformationListCell2 class] forCellReuseIdentifier:informationListCell2];
+
     }
     
     return self;
@@ -40,9 +44,20 @@ static NSString *identifierCell = @"InformationListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    InformationListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    InformationModel *info = self.infos[indexPath.row];
     
-    cell.infoModel = self.infos[indexPath.row];
+    if (info.pics.count == 1) {
+        
+        InformationListCell *cell = [tableView dequeueReusableCellWithIdentifier:informationListCell forIndexPath:indexPath];
+        
+        cell.infoModel = info;
+        
+        return cell;
+    }
+    
+    InformationListCell2 *cell = [tableView dequeueReusableCellWithIdentifier:informationListCell2 forIndexPath:indexPath];
+    
+    cell.infoModel = info;
     
     return cell;
 }
@@ -62,7 +77,13 @@ static NSString *identifierCell = @"InformationListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 100;
+    InformationModel *info = self.infos[indexPath.row];
+
+    if (info.pics.count == 1) {
+        
+        return 130;
+    }
+    return info.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

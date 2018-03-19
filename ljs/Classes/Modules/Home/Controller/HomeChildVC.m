@@ -56,7 +56,9 @@
             [arr addObject:model];
         }
         
-        self.flashTableView.news = arr;
+        self.news = arr;
+        
+        self.flashTableView.news = self.news;
         
         [self.flashTableView reloadData];
         
@@ -78,7 +80,7 @@
             model.title = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
             model.time = @"May 1, 2018 3:27:08 AM";
             model.collectNum = 99;
-
+            
             [arr addObject:model];
         }
         
@@ -232,17 +234,21 @@
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([refreshTableview isKindOfClass:[NewsFlashListTableView class]]) {
-        
-        NewsFlashDetailVC *detailVC = [NewsFlashDetailVC new];
-        
-        [self.navigationController pushViewController:detailVC animated:YES];
-        return ;
-    }
-    
     InfoDetailVC *detailVC = [InfoDetailVC new];
     
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    NewsFlashModel *flashModel = self.news[index];
+    
+    NewsFlashDetailVC *detailVC = [NewsFlashDetailVC new];
+    
+    detailVC.flashModel = flashModel;
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+    return ;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -47,15 +47,15 @@
                           @"快讯",
                           @"资讯"];
     
-    CGFloat h = 30;
+    CGFloat h = 34;
     
-    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - 120, (44-h), kWidth(119), h)];
+    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(200), (44-h), kWidth(199), h)];
     
     self.labelUnil.delegate = self;
     self.labelUnil.backgroundColor = [UIColor clearColor];
     self.labelUnil.titleNormalColor = kWhiteColor;
-    self.labelUnil.titleSelectColor = kThemeColor;
-    self.labelUnil.titleFont = Font(16.0);
+    self.labelUnil.titleSelectColor = kAppCustomMainColor;
+    self.labelUnil.titleFont = Font(18);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
     self.labelUnil.layer.cornerRadius = h/2.0;

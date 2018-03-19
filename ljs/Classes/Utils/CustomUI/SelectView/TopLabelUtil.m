@@ -149,7 +149,9 @@
     
     CGFloat lineW = [NSString getWidthWithString:self.titleArray[0] font:self.titleFont.lineHeight];
     
-    self.lineWidth = _lineType == LineTypeTitleLength ? lineW: kWidth(60);
+    CGFloat btnW = self.width/(self.titleArray.count*1.0);
+    
+    self.lineWidth = _lineType == LineTypeTitleLength ? lineW: btnW;
     
     self.bottomLine = [[UIView alloc]initWithFrame:CGRectMake(self.segmentWidth/(2.0*count)-BTN_LINE_WIDTH/(1.0*count)+(self.defaultSelectIndex-1)*(BTN_LINE_WIDTH+self.segmentWidth/(1.0*count)), self.segmentHeight-4, BTN_LINE_WIDTH, 2)];
     self.bottomLine.backgroundColor = kClearColor;

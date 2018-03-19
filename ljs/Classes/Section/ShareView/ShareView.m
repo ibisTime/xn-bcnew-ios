@@ -8,12 +8,17 @@
 
 #import "ShareView.h"
 
-#import "UIView+Responder.h"
-#import "AppMacro.h"
-
-#import "TLBaseVC.h"
-#import "WXApi.h"
+//Manager
 #import "TLWXManager.h"
+//Macro
+#import "AppMacro.h"
+#import "TLUIHeader.h"
+#import "AppColorMacro.h"
+//Category
+#import "UIView+Responder.h"
+#import "NSString+Extension.h"
+//Extension
+#import "WXApi.h"
 
 @interface ShareView ()
 
@@ -67,7 +72,7 @@
         
     }];
     
-    CoinWeakSelf;
+    BaseWeakSelf;
     _shareView.cancleBlock = ^(){
         
         [weakSelf removeFromSuperview];
@@ -85,10 +90,10 @@
 - (void)shareWithTitle:(NSString*)title
 {
  
-    CoinWeakSelf;
+    BaseWeakSelf;
     
-    NSString *shareTitle = PASS_NULL_TO_NIL(_shareTitle).length > 0 ? _shareTitle : @"九州宝";
-    NSString *shareDesc = PASS_NULL_TO_NIL(_shareDesc).length > 0 ? _shareDesc : @"欢迎使用九州宝";
+    NSString *shareTitle = PASS_NULL_TO_NIL(_shareTitle).length > 0 ? _shareTitle : @"美业销帮";
+    NSString *shareDesc = PASS_NULL_TO_NIL(_shareDesc).length > 0 ? _shareDesc : @"欢迎使用美业销帮";
     UIImage *shareImage =  [_shareImgStr isEqualToString:@""] || _shareImgStr == nil? [UIImage imageNamed:@"icon"] : [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_shareImgStr convertImageUrl]]]];
     
     WXMediaMessage *message = [WXMediaMessage message];

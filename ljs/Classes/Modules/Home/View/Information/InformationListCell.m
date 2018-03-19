@@ -10,7 +10,9 @@
 
 //Category
 #import "NSString+Date.h"
+#import "NSString+Extension.h"
 #import <UIImageView+WebCache.h>
+#import "UILabel+Extension.h"
 
 @interface InformationListCell()
 //缩略图
@@ -45,6 +47,7 @@
     
     self.infoIV.contentMode = UIViewContentModeScaleAspectFill;
     self.infoIV.clipsToBounds = YES;
+    self.infoIV.layer.cornerRadius = 4;
     
     [self addSubview:self.infoIV];
     //标题
@@ -93,8 +96,8 @@
         
         make.right.equalTo(@(-x));
         make.top.equalTo(@10);
-        make.width.equalTo(@100);
-        make.height.equalTo(@80);
+        make.width.equalTo(@110);
+        make.height.equalTo(@100);
     }];
     //标题
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,7 +116,7 @@
     //收藏数
     [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.infoIV.mas_left).offset(-10);
+        make.right.equalTo(self.infoIV.mas_left).offset(-x);
         make.centerY.equalTo(self.timeLbl.mas_centerY);
     }];
 }
@@ -123,8 +126,8 @@
     
     _infoModel = infoModel;
     
-    self.titleLbl.text = infoModel.title;
-    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:infoModel.pic] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
+    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.pic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
     self.timeLbl.text = [infoModel.time convertToDetailDate];
     self.collectNumLbl.text = [NSString stringWithFormat:@"%ld个收藏", infoModel.collectNum];
 }

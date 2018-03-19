@@ -53,5 +53,7 @@
 - (NSString *)convertDate;
 //转为指定格式
 - (NSString *)convertDateWithFormat:(NSString *)format;
+//根据时间获得星期几
++ (NSString*)weekdayStringFromDate:(NSString*)date;
 
 @end

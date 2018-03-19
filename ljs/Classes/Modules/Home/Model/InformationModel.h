@@ -17,5 +17,9 @@
 @property (nonatomic, assign) NSInteger collectNum;
 //缩略图
 @property (nonatomic, copy) NSString *pic;
+//
+@property (nonatomic, strong) NSArray <NSString *>*pics;
+//cellHeight
+@property (nonatomic, assign) CGFloat cellHeight;
 
 @end

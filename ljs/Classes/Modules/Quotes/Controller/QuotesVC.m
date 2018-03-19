@@ -68,7 +68,7 @@
     self.labelUnil.delegate = self;
     self.labelUnil.backgroundColor = [UIColor clearColor];
     self.labelUnil.titleNormalColor = kWhiteColor;
-    self.labelUnil.titleSelectColor = kThemeColor;
+    self.labelUnil.titleSelectColor = kAppCustomMainColor;
     self.labelUnil.titleFont = Font(16.0);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;

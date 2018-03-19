@@ -7,6 +7,8 @@
 //
 
 #import "NewsFlashListTableView.h"
+//Category
+#import "NSString+Date.h"
 //V
 #import "NewsFlashListCell.h"
 
@@ -47,9 +49,39 @@ static NSString *identifierCell = @"NewsFlashListCell";
     
     NewsFlashListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
-    cell.flashModel = self.news[indexPath.section];
+    NewsFlashModel *new = self.news[indexPath.section];
+    
+    new.isShowDate = [self isShowDateWithIndexPath:indexPath];
+    
+    cell.flashModel = new;
+    cell.shareBtn.tag = 2000 + indexPath.section;
+    
+    [cell.shareBtn addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
+}
+
+- (BOOL)isShowDateWithIndexPath:(NSIndexPath *)indexPath {
+    
+    //第一个直接
+    if (indexPath.section == 0) {
+        
+        return NO;
+        
+    }
+    //后面的时间跟前面比对
+    NewsFlashModel *new1 = self.news[indexPath.section - 1];
+    NewsFlashModel *new2 = self.news[indexPath.section];
+    
+    NSString *day1 = [new1.time convertDateWithFormat:@"d"];
+    NSString *day2 = [new2.time convertDateWithFormat:@"d"];
+    
+    if ([day1 integerValue] == [day2 integerValue]) {
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark - UITableViewDelegate
@@ -57,11 +89,13 @@ static NSString *identifierCell = @"NewsFlashListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    NewsFlashModel *model = self.news[indexPath.section];
     
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
-        
-        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
-    }
+    model.isSelect = !model.isSelect;
+    model.isRead = YES;
+    
+    [self reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,7 +105,7 @@ static NSString *identifierCell = @"NewsFlashListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 10;
+    return 0.1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -87,6 +121,17 @@ static NSString *identifierCell = @"NewsFlashListCell";
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     return [UIView new];
+}
+
+#pragma mark - Events
+- (void)clickShare:(UIButton *)sender {
+    
+    NSInteger index = sender.tag - 2000;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
+    }
 }
 
 @end

@@ -45,6 +45,28 @@
 		2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170111F384216007C9855 /* ZHAddressChooseVC.m */; };
 		2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170131F384216007C9855 /* ZHReceivingAddress.m */; };
 		2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */; };
+		2124BE0A205FB57E00CB79E8 /* InformationListCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE09205FB57E00CB79E8 /* InformationListCell2.m */; };
+		2124BE15205FD40700CB79E8 /* CustomShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE11205FD40600CB79E8 /* CustomShareView.m */; };
+		2124BE16205FD40700CB79E8 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE14205FD40700CB79E8 /* ShareView.m */; };
+		2124BE19205FD42D00CB79E8 /* TLWXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE17205FD42D00CB79E8 /* TLWXManager.m */; };
+		2124BE21205FD45300CB79E8 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE1D205FD45300CB79E8 /* README.txt */; };
+		2124BE22205FD45300CB79E8 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2124BE1F205FD45300CB79E8 /* libWeChatSDK.a */; };
+		2124BE23205FD45300CB79E8 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE20205FD45300CB79E8 /* read_me.txt */; };
+		2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE25205FD4F700CB79E8 /* NewsFlashShareView.m */; };
+		2124BE29205FE40F00CB79E8 /* NewsFlashDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE28205FE40F00CB79E8 /* NewsFlashDetailView.m */; };
+		2124BE42205FEEE100CB79E8 /* SGGenerateQRCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE2C205FEEE100CB79E8 /* SGGenerateQRCodeVC.m */; };
+		2124BE43205FEEE100CB79E8 /* SGScanningQRCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE30205FEEE100CB79E8 /* SGScanningQRCodeVC.m */; };
+		2124BE44205FEEE100CB79E8 /* ScanSuccessJumpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE31205FEEE100CB79E8 /* ScanSuccessJumpVC.m */; };
+		2124BE45205FEEE100CB79E8 /* QRCodebottomRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE33205FEEE100CB79E8 /* QRCodebottomRight@2x.png */; };
+		2124BE46205FEEE100CB79E8 /* QRCodebottomLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE35205FEEE100CB79E8 /* QRCodebottomLeft@2x.png */; };
+		2124BE47205FEEE100CB79E8 /* SGScanningQRCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE36205FEEE100CB79E8 /* SGScanningQRCodeView.m */; };
+		2124BE48205FEEE100CB79E8 /* QRCodeLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE37205FEEE100CB79E8 /* QRCodeLine@2x.png */; };
+		2124BE49205FEEE100CB79E8 /* QRCodeTopRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE38205FEEE100CB79E8 /* QRCodeTopRight@2x.png */; };
+		2124BE4A205FEEE100CB79E8 /* QRCodeTopLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE39205FEEE100CB79E8 /* QRCodeTopLeft@2x.png */; };
+		2124BE4B205FEEE100CB79E8 /* SGAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE3C205FEEE100CB79E8 /* SGAlertView.m */; };
+		2124BE4C205FEEE100CB79E8 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE3E205FEEE100CB79E8 /* sound.caf */; };
+		2124BE4D205FEEE100CB79E8 /* SGQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE40205FEEE100CB79E8 /* SGQRCodeTool.m */; };
+		2124BE51205FF36400CB79E8 /* UIScrollView+SnapShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE50205FF36400CB79E8 /* UIScrollView+SnapShot.m */; };
 		21288241205771EB00A57A5A /* QuotesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288240205771EB00A57A5A /* QuotesManager.m */; };
 		21288247205776F000A57A5A /* OptionalTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288246205776F000A57A5A /* OptionalTableView.m */; };
 		2128824A2057774900A57A5A /* OptionalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882492057774900A57A5A /* OptionalCell.m */; };
@@ -240,6 +262,44 @@
 		212170131F384216007C9855 /* ZHReceivingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHReceivingAddress.m; sourceTree = "<group>"; };
 		2121703B1F3842BC007C9855 /* ZHAddressChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHAddressChooseView.h; sourceTree = "<group>"; };
 		2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAddressChooseView.m; sourceTree = "<group>"; };
+		2124BE08205FB57E00CB79E8 /* InformationListCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationListCell2.h; sourceTree = "<group>"; };
+		2124BE09205FB57E00CB79E8 /* InformationListCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationListCell2.m; sourceTree = "<group>"; };
+		2124BE11205FD40600CB79E8 /* CustomShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomShareView.m; sourceTree = "<group>"; };
+		2124BE12205FD40600CB79E8 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		2124BE13205FD40700CB79E8 /* CustomShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomShareView.h; sourceTree = "<group>"; };
+		2124BE14205FD40700CB79E8 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		2124BE17205FD42D00CB79E8 /* TLWXManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLWXManager.m; sourceTree = "<group>"; };
+		2124BE18205FD42D00CB79E8 /* TLWXManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLWXManager.h; sourceTree = "<group>"; };
+		2124BE1B205FD45300CB79E8 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		2124BE1C205FD45300CB79E8 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		2124BE1D205FD45300CB79E8 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		2124BE1E205FD45300CB79E8 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		2124BE1F205FD45300CB79E8 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2124BE20205FD45300CB79E8 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
+		2124BE24205FD4F700CB79E8 /* NewsFlashShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsFlashShareView.h; sourceTree = "<group>"; };
+		2124BE25205FD4F700CB79E8 /* NewsFlashShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsFlashShareView.m; sourceTree = "<group>"; };
+		2124BE27205FE40F00CB79E8 /* NewsFlashDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsFlashDetailView.h; sourceTree = "<group>"; };
+		2124BE28205FE40F00CB79E8 /* NewsFlashDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsFlashDetailView.m; sourceTree = "<group>"; };
+		2124BE2C205FEEE100CB79E8 /* SGGenerateQRCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGGenerateQRCodeVC.m; sourceTree = "<group>"; };
+		2124BE2D205FEEE100CB79E8 /* SGScanningQRCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScanningQRCodeVC.h; sourceTree = "<group>"; };
+		2124BE2E205FEEE100CB79E8 /* ScanSuccessJumpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanSuccessJumpVC.h; sourceTree = "<group>"; };
+		2124BE2F205FEEE100CB79E8 /* SGGenerateQRCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGGenerateQRCodeVC.h; sourceTree = "<group>"; };
+		2124BE30205FEEE100CB79E8 /* SGScanningQRCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScanningQRCodeVC.m; sourceTree = "<group>"; };
+		2124BE31205FEEE100CB79E8 /* ScanSuccessJumpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanSuccessJumpVC.m; sourceTree = "<group>"; };
+		2124BE33205FEEE100CB79E8 /* QRCodebottomRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodebottomRight@2x.png"; sourceTree = "<group>"; };
+		2124BE34205FEEE100CB79E8 /* SGScanningQRCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScanningQRCodeView.h; sourceTree = "<group>"; };
+		2124BE35205FEEE100CB79E8 /* QRCodebottomLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodebottomLeft@2x.png"; sourceTree = "<group>"; };
+		2124BE36205FEEE100CB79E8 /* SGScanningQRCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScanningQRCodeView.m; sourceTree = "<group>"; };
+		2124BE37205FEEE100CB79E8 /* QRCodeLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLine@2x.png"; sourceTree = "<group>"; };
+		2124BE38205FEEE100CB79E8 /* QRCodeTopRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopRight@2x.png"; sourceTree = "<group>"; };
+		2124BE39205FEEE100CB79E8 /* QRCodeTopLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopLeft@2x.png"; sourceTree = "<group>"; };
+		2124BE3B205FEEE100CB79E8 /* SGAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAlertView.h; sourceTree = "<group>"; };
+		2124BE3C205FEEE100CB79E8 /* SGAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAlertView.m; sourceTree = "<group>"; };
+		2124BE3E205FEEE100CB79E8 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
+		2124BE40205FEEE100CB79E8 /* SGQRCodeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeTool.m; sourceTree = "<group>"; };
+		2124BE41205FEEE100CB79E8 /* SGQRCodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeTool.h; sourceTree = "<group>"; };
+		2124BE4F205FF36400CB79E8 /* UIScrollView+SnapShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SnapShot.h"; sourceTree = "<group>"; };
+		2124BE50205FF36400CB79E8 /* UIScrollView+SnapShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SnapShot.m"; sourceTree = "<group>"; };
 		2128823F205771EB00A57A5A /* QuotesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuotesManager.h; sourceTree = "<group>"; };
 		21288240205771EB00A57A5A /* QuotesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuotesManager.m; sourceTree = "<group>"; };
 		21288245205776F000A57A5A /* OptionalTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionalTableView.h; sourceTree = "<group>"; };
@@ -482,6 +542,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2124BE22205FD45300CB79E8 /* libWeChatSDK.a in Frameworks */,
 				216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */,
 				216AB7F21F189F30006C26A1 /* libc++.tbd in Frameworks */,
 				216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */,
@@ -600,6 +661,7 @@
 		21111B4C1F8B5EFF0021B3FE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				2124BE4E205FF36400CB79E8 /* UIScrollView */,
 				21EB9C6220561AF700394C3C /* UIViewController */,
 				21EB9C5E20561AB600394C3C /* UIImage */,
 				21111B5A1F8B5EFF0021B3FE /* UILabel */,
@@ -855,6 +917,95 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
+		2124BE1A205FD45300CB79E8 /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE1B205FD45300CB79E8 /* WXApi.h */,
+				2124BE1C205FD45300CB79E8 /* WXApiObject.h */,
+				2124BE1D205FD45300CB79E8 /* README.txt */,
+				2124BE1E205FD45300CB79E8 /* WechatAuthSDK.h */,
+				2124BE1F205FD45300CB79E8 /* libWeChatSDK.a */,
+				2124BE20205FD45300CB79E8 /* read_me.txt */,
+			);
+			path = WeChat;
+			sourceTree = "<group>";
+		};
+		2124BE2A205FEEE100CB79E8 /* SGQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE2B205FEEE100CB79E8 /* Controller */,
+				2124BE32205FEEE100CB79E8 /* View */,
+				2124BE3A205FEEE100CB79E8 /* SGAlertView */,
+				2124BE3D205FEEE100CB79E8 /* Sound */,
+				2124BE3F205FEEE100CB79E8 /* Tool */,
+			);
+			name = SGQRCode;
+			path = "../../../../../健康e购/健康e购/YS_iOS/Class/Section/SGQRCode";
+			sourceTree = "<group>";
+		};
+		2124BE2B205FEEE100CB79E8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE2C205FEEE100CB79E8 /* SGGenerateQRCodeVC.m */,
+				2124BE2D205FEEE100CB79E8 /* SGScanningQRCodeVC.h */,
+				2124BE2E205FEEE100CB79E8 /* ScanSuccessJumpVC.h */,
+				2124BE2F205FEEE100CB79E8 /* SGGenerateQRCodeVC.h */,
+				2124BE30205FEEE100CB79E8 /* SGScanningQRCodeVC.m */,
+				2124BE31205FEEE100CB79E8 /* ScanSuccessJumpVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2124BE32205FEEE100CB79E8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE33205FEEE100CB79E8 /* QRCodebottomRight@2x.png */,
+				2124BE34205FEEE100CB79E8 /* SGScanningQRCodeView.h */,
+				2124BE35205FEEE100CB79E8 /* QRCodebottomLeft@2x.png */,
+				2124BE36205FEEE100CB79E8 /* SGScanningQRCodeView.m */,
+				2124BE37205FEEE100CB79E8 /* QRCodeLine@2x.png */,
+				2124BE38205FEEE100CB79E8 /* QRCodeTopRight@2x.png */,
+				2124BE39205FEEE100CB79E8 /* QRCodeTopLeft@2x.png */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2124BE3A205FEEE100CB79E8 /* SGAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE3B205FEEE100CB79E8 /* SGAlertView.h */,
+				2124BE3C205FEEE100CB79E8 /* SGAlertView.m */,
+			);
+			path = SGAlertView;
+			sourceTree = "<group>";
+		};
+		2124BE3D205FEEE100CB79E8 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE3E205FEEE100CB79E8 /* sound.caf */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
+		2124BE3F205FEEE100CB79E8 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE40205FEEE100CB79E8 /* SGQRCodeTool.m */,
+				2124BE41205FEEE100CB79E8 /* SGQRCodeTool.h */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		2124BE4E205FF36400CB79E8 /* UIScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE4F205FF36400CB79E8 /* UIScrollView+SnapShot.h */,
+				2124BE50205FF36400CB79E8 /* UIScrollView+SnapShot.m */,
+			);
+			name = UIScrollView;
+			path = "../../../../../../../C端_基础工程/Base_iOS/Base_iOS/Classes/Utils/Category/UIKit/UIScrollView";
+			sourceTree = "<group>";
+		};
 		21288242205776C300A57A5A /* Optional */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,6 +1208,10 @@
 		21AC59291FDE7A1B00F19DE8 /* ShareView */ = {
 			isa = PBXGroup;
 			children = (
+				2124BE13205FD40700CB79E8 /* CustomShareView.h */,
+				2124BE11205FD40600CB79E8 /* CustomShareView.m */,
+				2124BE12205FD40600CB79E8 /* ShareView.h */,
+				2124BE14205FD40700CB79E8 /* ShareView.m */,
 			);
 			path = ShareView;
 			sourceTree = "<group>";
@@ -1283,6 +1438,8 @@
 				21CFFB2520566D9A00D245ED /* InformationListTableView.m */,
 				21CFFB1520566B7800D245ED /* InformationListCell.h */,
 				21CFFB1620566B7800D245ED /* InformationListCell.m */,
+				2124BE08205FB57E00CB79E8 /* InformationListCell2.h */,
+				2124BE09205FB57E00CB79E8 /* InformationListCell2.m */,
 			);
 			path = Information;
 			sourceTree = "<group>";
@@ -1294,6 +1451,10 @@
 				21CFFB1920566BA700D245ED /* NewsFlashListTableView.m */,
 				21CFFB1B20566BC500D245ED /* NewsFlashListCell.h */,
 				21CFFB1C20566BC500D245ED /* NewsFlashListCell.m */,
+				2124BE27205FE40F00CB79E8 /* NewsFlashDetailView.h */,
+				2124BE28205FE40F00CB79E8 /* NewsFlashDetailView.m */,
+				2124BE24205FD4F700CB79E8 /* NewsFlashShareView.h */,
+				2124BE25205FD4F700CB79E8 /* NewsFlashShareView.m */,
 			);
 			path = NewsFlash;
 			sourceTree = "<group>";
@@ -1449,6 +1610,8 @@
 			children = (
 				21F82B771F17719D0019B176 /* TLAuthHelper.h */,
 				21F82B781F17719D0019B176 /* TLAuthHelper.m */,
+				2124BE18205FD42D00CB79E8 /* TLWXManager.h */,
+				2124BE17205FD42D00CB79E8 /* TLWXManager.m */,
 			);
 			path = BaseManager;
 			sourceTree = "<group>";
@@ -1468,6 +1631,7 @@
 		21F82C911F17719D0019B176 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				2124BE1A205FD45300CB79E8 /* WeChat */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1488,6 +1652,7 @@
 		21FB2F7D1F26E9EE0028ADEE /* Section */ = {
 			isa = PBXGroup;
 			children = (
+				2124BE2A205FEEE100CB79E8 /* SGQRCode */,
 				212882702057A37700A57A5A /* ImageClip */,
 				21111AD21F8B5ED00021B3FE /* AddressPicker */,
 				21111B121F8B5ED10021B3FE /* CircleGuideView */,
@@ -1654,8 +1819,16 @@
 			files = (
 				21F82D201F17719D0019B176 /* Main.storyboard in Resources */,
 				21F82D1C1F17719D0019B176 /* Assets.xcassets in Resources */,
+				2124BE46205FEEE100CB79E8 /* QRCodebottomLeft@2x.png in Resources */,
+				2124BE45205FEEE100CB79E8 /* QRCodebottomRight@2x.png in Resources */,
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
 				21F82D1D1F17719D0019B176 /* Info.plist in Resources */,
+				2124BE4A205FEEE100CB79E8 /* QRCodeTopLeft@2x.png in Resources */,
+				2124BE23205FD45300CB79E8 /* read_me.txt in Resources */,
+				2124BE49205FEEE100CB79E8 /* QRCodeTopRight@2x.png in Resources */,
+				2124BE48205FEEE100CB79E8 /* QRCodeLine@2x.png in Resources */,
+				2124BE4C205FEEE100CB79E8 /* sound.caf in Resources */,
+				2124BE21205FD45300CB79E8 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,6 +1902,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21CFFB2320566C2E00D245ED /* InformationModel.m in Sources */,
+				2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
 				21CFFB1A20566BA700D245ED /* NewsFlashListTableView.m in Sources */,
 				21111B9F1F8B5F2C0021B3FE /* City.m in Sources */,
@@ -1741,6 +1915,7 @@
 				21111BA21F8B5F2C0021B3FE /* CircleGuideView.m in Sources */,
 				21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */,
 				21AC589F1FDE754400F19DE8 /* AppConfig.m in Sources */,
+				2124BE15205FD40700CB79E8 /* CustomShareView.m in Sources */,
 				21AC58AD1FDE75AA00F19DE8 /* HttpRequestService.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
@@ -1755,6 +1930,7 @@
 				21111BB71F8B5F2C0021B3FE /* WTReTextField.m in Sources */,
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
+				2124BE0A205FB57E00CB79E8 /* InformationListCell2.m in Sources */,
 				212882642057A11100A57A5A /* MineHeaderView.m in Sources */,
 				21111BB91F8B5F2C0021B3FE /* TLDisplayPhotoVC.m in Sources */,
 				21111BBA1F8B5F2C0021B3FE /* TLImagePickerController.m in Sources */,
@@ -1763,15 +1939,18 @@
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
 				2128827C2057A3A200A57A5A /* SettingModel.m in Sources */,
+				2124BE51205FF36400CB79E8 /* UIScrollView+SnapShot.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
 				2128828D2057A3C600A57A5A /* SettingTableView.m in Sources */,
 				2128828E2057A3C600A57A5A /* SettingCell.m in Sources */,
+				2124BE29205FE40F00CB79E8 /* NewsFlashDetailView.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
 				212882632057A11100A57A5A /* MineCell.m in Sources */,
 				21AC588F1FDE73FE00F19DE8 /* TLUserExt.m in Sources */,
 				21AC595B1FDE804500F19DE8 /* UILable+convience.m in Sources */,
 				2128825220577D3900A57A5A /* ForumModel.m in Sources */,
 				21AC593E1FDE7A1B00F19DE8 /* TopLabelUtil.m in Sources */,
+				2124BE16205FD40700CB79E8 /* ShareView.m in Sources */,
 				21AC58AA1FDE75AA00F19DE8 /* HttpLogger.m in Sources */,
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				21EB9C6120561AB600394C3C /* UIImage+Tint.m in Sources */,
@@ -1809,6 +1988,7 @@
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
 				2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */,
 				21EB9C7020562D3E00394C3C /* BaseTableViewCell.m in Sources */,
+				2124BE44205FEEE100CB79E8 /* ScanSuccessJumpVC.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21288241205771EB00A57A5A /* QuotesManager.m in Sources */,
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
@@ -1833,9 +2013,11 @@
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21CFFB1D20566BC500D245ED /* NewsFlashListCell.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
+				2124BE4D205FEEE100CB79E8 /* SGQRCodeTool.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				2128825B20579D8600A57A5A /* ForumListTableView.m in Sources */,
 				212882732057A37700A57A5A /* YYImageClipViewController.m in Sources */,
+				2124BE4B205FEEE100CB79E8 /* SGAlertView.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				212882922057A3EB00A57A5A /* SettingVC.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
@@ -1843,6 +2025,7 @@
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				21AC596C1FDE814C00F19DE8 /* UIView+Extension.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
+				2124BE47205FEEE100CB79E8 /* SGScanningQRCodeView.m in Sources */,
 				21AC59701FDE81D500F19DE8 /* UIBarButtonItem+convience.m in Sources */,
 				21F82C9E1F17719D0019B176 /* NavigationController.m in Sources */,
 				21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */,
@@ -1853,8 +2036,10 @@
 				212170291F384216007C9855 /* ZHAddAddressVC.m in Sources */,
 				21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */,
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
+				2124BE19205FD42D00CB79E8 /* TLWXManager.m in Sources */,
 				21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */,
 				2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */,
+				2124BE43205FEEE100CB79E8 /* SGScanningQRCodeVC.m in Sources */,
 				21AC593C1FDE7A1B00F19DE8 /* TLTableView.m in Sources */,
 				21AC593F1FDE7A1B00F19DE8 /* SelectScrollView.m in Sources */,
 				21158E491F1C502400A07266 /* BarButton.m in Sources */,
@@ -1865,6 +2050,7 @@
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
 				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
 				2128826D2057A13D00A57A5A /* MineModel.m in Sources */,
+				2124BE42205FEEE100CB79E8 /* SGGenerateQRCodeVC.m in Sources */,
 				21CFFB2020566C1C00D245ED /* NewsFlashModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

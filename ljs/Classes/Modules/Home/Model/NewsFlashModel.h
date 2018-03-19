@@ -18,5 +18,11 @@
 @property (nonatomic, copy) NSString *content;
 //CellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
+//是否选中
+@property (nonatomic, assign) BOOL isSelect;
+//是否阅读
+@property (nonatomic, assign) BOOL isRead;
+//是否显示日期
+@property (nonatomic, assign) BOOL isShowDate;
 
 @end

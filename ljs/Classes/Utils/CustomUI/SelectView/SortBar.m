@@ -69,8 +69,12 @@ static const float kAnimationdDuration = 0.3;
     CGFloat lineW = [NSString getWidthWithString:self.sortNames[0] font:MIN(kWidth(16.0), 16)];
     
     CGFloat leftM = self.allBtnWidth > kScreenWidth ? 10: (widthItem - lineW)/2.0;
+    CGFloat h = 4;
     
     _selectLine = [[UIView alloc] init];
+    
+    _selectLine.layer.cornerRadius = h/2.0;
+    _selectLine.clipsToBounds = YES;
     
     _selectLine.backgroundColor = kAppCustomMainColor;
     [self addSubview:_selectLine];
@@ -80,7 +84,7 @@ static const float kAnimationdDuration = 0.3;
         make.left.equalTo(@(leftM));
         make.bottom.equalTo(@(self.frame.size.height -1));
         make.width.equalTo(@(lineW));
-        make.height.equalTo(@2);
+        make.height.equalTo(@(h));
     }];
 }
 

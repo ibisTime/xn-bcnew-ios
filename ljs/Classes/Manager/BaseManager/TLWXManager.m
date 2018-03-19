@@ -8,6 +8,7 @@
 
 #import "TLWXManager.h"
 #import "AppConfig.h"
+#import "TLAlert.h"
 
 @implementation TLWXManager
 
@@ -20,14 +21,11 @@
         manager = [[TLWXManager alloc] init];
     });
     return manager;
-
 }
 
 - (void)registerApp {
 
 //    [WXApi registerApp:[AppConfig config].wxKey withDescription:nil];
-
-
 }
 
 
@@ -52,11 +50,8 @@
         if (self.wxShare) {
             
             self.wxShare(resp.errCode == 0,resp.errCode);
-            
         }
-        
     }
-    
 }
 
 + (BOOL)judgeAndHintInstalllWX {
@@ -68,13 +63,11 @@
         } confirm:^(UIAlertAction *action) {
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
-            
         }];
         return NO;
     }
 
     return YES;
-
 }
 
 + (void)wxShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url {
@@ -86,7 +79,6 @@
         } confirm:^(UIAlertAction *action) {
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
-            
         }];
         return;
     }
@@ -94,31 +86,23 @@
     // -- //
     WXWebpageObject *webObj = [WXWebpageObject object];
     webObj.webpageUrl = url;
-    
     //
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = title;
     message.description = desc;
     message.mediaObject = webObj;
     [message setThumbImage:[UIImage imageNamed:@"zh_icon"]];
-    
     //
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
     req.scene = scene;
     [WXApi sendReq:req];
-
-
 }
 
 + (void)wxShareWebPageWith:(NSString *)title desc:(NSString *)desc url:(NSString *)url {
     
-    
     [self wxShareWebPageWithScene:WXSceneTimeline title:title desc:desc url:url];
-    
-
 }
-
 
 @end

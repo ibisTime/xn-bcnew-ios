@@ -145,8 +145,6 @@ typedef NS_ENUM(NSInteger, ShareType) {
         
         [self createButtonAndLabelWithShareType:ShareTypeWechatTimeline];
     }
-    
-    
 }
 
 - (void)createButtonAndLabelWithShareType:(ShareType)shareType {

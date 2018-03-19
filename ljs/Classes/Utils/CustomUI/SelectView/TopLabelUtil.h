@@ -41,6 +41,8 @@ typedef void (^ClickBtnBlock)(NSInteger index);
 @property(nonatomic,strong) UIColor *titleSelectColor;
 //segment 文字字体，默认15
 @property(nonatomic,strong) UIFont  *titleFont;
+//segment 按钮宽度
+@property (nonatomic, assign) CGFloat itemWidth;
 //segment 默认选中按钮/视图 1
 @property(nonatomic,assign) NSInteger defaultSelectIndex;
 //segment 点击按钮触发事件代理

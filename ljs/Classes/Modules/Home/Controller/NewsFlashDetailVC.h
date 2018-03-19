@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+//M
+#import "NewsFlashModel.h"
 
 @interface NewsFlashDetailVC : BaseViewController
+//
+@property (nonatomic, strong) NewsFlashModel *flashModel;
 
 @end

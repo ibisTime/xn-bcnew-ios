@@ -11,6 +11,8 @@
 #import "NewsFlashModel.h"
 
 @interface NewsFlashListCell : BaseTableViewCell
+//分享
+@property (nonatomic, strong) UIButton *shareBtn;
 //
 @property (nonatomic, strong) NewsFlashModel *flashModel;
 

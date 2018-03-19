@@ -5,6 +5,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface BaseModel : NSObject <NSCoding>{
     
