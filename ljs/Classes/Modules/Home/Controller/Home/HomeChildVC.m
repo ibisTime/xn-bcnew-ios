@@ -80,11 +80,16 @@
             model.title = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
             model.time = @"May 1, 2018 3:27:08 AM";
             model.collectNum = 99;
+            model.author = @"CzyGod";
+            model.source = @"知乎";
+            model.desc = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
             
             [arr addObject:model];
         }
         
-        self.infoTableView.infos = arr;
+        self.infos = arr;
+        
+        self.infoTableView.infos = self.infos;
         
         [self.infoTableView reloadData];
         
@@ -235,6 +240,8 @@
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     InfoDetailVC *detailVC = [InfoDetailVC new];
+    
+    detailVC.infoModel = self.infos[indexPath.row];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

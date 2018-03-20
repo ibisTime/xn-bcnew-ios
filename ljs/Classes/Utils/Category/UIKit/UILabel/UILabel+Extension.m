@@ -15,6 +15,10 @@
 //调整行间距
 - (void)labelWithTextString:(NSString *)textString lineSpace:(CGFloat)lineSpace {
     
+    if (!textString) {
+        
+        return;
+    }
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:lineSpace];

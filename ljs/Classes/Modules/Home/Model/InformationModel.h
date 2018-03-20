@@ -19,6 +19,12 @@
 @property (nonatomic, copy) NSString *pic;
 //
 @property (nonatomic, strong) NSArray <NSString *>*pics;
+//作者
+@property (nonatomic, copy) NSString *author;
+//来源
+@property (nonatomic, copy) NSString *source;
+//图文详情
+@property (nonatomic, copy) NSString *desc;
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
 

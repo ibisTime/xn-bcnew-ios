@@ -49,7 +49,6 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 

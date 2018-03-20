@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+//M
+#import "InformationModel.h"
 
 @interface InfoDetailVC : BaseViewController
+//
+@property (nonatomic, strong) InformationModel *infoModel;
 
 @end

@@ -67,6 +67,14 @@
 		2124BE4C205FEEE100CB79E8 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2124BE3E205FEEE100CB79E8 /* sound.caf */; };
 		2124BE4D205FEEE100CB79E8 /* SGQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE40205FEEE100CB79E8 /* SGQRCodeTool.m */; };
 		2124BE51205FF36400CB79E8 /* UIScrollView+SnapShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE50205FF36400CB79E8 /* UIScrollView+SnapShot.m */; };
+		2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE532060A8FA00CB79E8 /* InformationDetailHeaderView.m */; };
+		2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE562060A91500CB79E8 /* InformationDetailTableView.m */; };
+		2124BE602060B3C800CB79E8 /* InfoCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE5F2060B3C800CB79E8 /* InfoCommentCell.m */; };
+		2124BE632060B4DC00CB79E8 /* InfoCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE622060B4DC00CB79E8 /* InfoCommentModel.m */; };
+		2124BE672060FBF900CB79E8 /* LinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE662060FBF900CB79E8 /* LinkLabel.m */; };
+		2124BE6D2061227A00CB79E8 /* InputTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE6C2061227A00CB79E8 /* InputTextView.m */; };
+		2124BE7020613E5900CB79E8 /* InfoCommentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE6F20613E5900CB79E8 /* InfoCommentDetailVC.m */; };
+		2124BE732061451C00CB79E8 /* InfoCommentDetailTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BE722061451C00CB79E8 /* InfoCommentDetailTableView.m */; };
 		21288241205771EB00A57A5A /* QuotesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288240205771EB00A57A5A /* QuotesManager.m */; };
 		21288247205776F000A57A5A /* OptionalTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288246205776F000A57A5A /* OptionalTableView.m */; };
 		2128824A2057774900A57A5A /* OptionalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882492057774900A57A5A /* OptionalCell.m */; };
@@ -300,6 +308,22 @@
 		2124BE41205FEEE100CB79E8 /* SGQRCodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeTool.h; sourceTree = "<group>"; };
 		2124BE4F205FF36400CB79E8 /* UIScrollView+SnapShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SnapShot.h"; sourceTree = "<group>"; };
 		2124BE50205FF36400CB79E8 /* UIScrollView+SnapShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SnapShot.m"; sourceTree = "<group>"; };
+		2124BE522060A8FA00CB79E8 /* InformationDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationDetailHeaderView.h; sourceTree = "<group>"; };
+		2124BE532060A8FA00CB79E8 /* InformationDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationDetailHeaderView.m; sourceTree = "<group>"; };
+		2124BE552060A91500CB79E8 /* InformationDetailTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationDetailTableView.h; sourceTree = "<group>"; };
+		2124BE562060A91500CB79E8 /* InformationDetailTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationDetailTableView.m; sourceTree = "<group>"; };
+		2124BE5E2060B3C800CB79E8 /* InfoCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCommentCell.h; sourceTree = "<group>"; };
+		2124BE5F2060B3C800CB79E8 /* InfoCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCommentCell.m; sourceTree = "<group>"; };
+		2124BE612060B4DC00CB79E8 /* InfoCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCommentModel.h; sourceTree = "<group>"; };
+		2124BE622060B4DC00CB79E8 /* InfoCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCommentModel.m; sourceTree = "<group>"; };
+		2124BE652060FBF900CB79E8 /* LinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkLabel.h; sourceTree = "<group>"; };
+		2124BE662060FBF900CB79E8 /* LinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkLabel.m; sourceTree = "<group>"; };
+		2124BE6B2061227A00CB79E8 /* InputTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputTextView.h; sourceTree = "<group>"; };
+		2124BE6C2061227A00CB79E8 /* InputTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputTextView.m; sourceTree = "<group>"; };
+		2124BE6E20613E5900CB79E8 /* InfoCommentDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCommentDetailVC.h; sourceTree = "<group>"; };
+		2124BE6F20613E5900CB79E8 /* InfoCommentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCommentDetailVC.m; sourceTree = "<group>"; };
+		2124BE712061451C00CB79E8 /* InfoCommentDetailTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCommentDetailTableView.h; sourceTree = "<group>"; };
+		2124BE722061451C00CB79E8 /* InfoCommentDetailTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCommentDetailTableView.m; sourceTree = "<group>"; };
 		2128823F205771EB00A57A5A /* QuotesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuotesManager.h; sourceTree = "<group>"; };
 		21288240205771EB00A57A5A /* QuotesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuotesManager.m; sourceTree = "<group>"; };
 		21288245205776F000A57A5A /* OptionalTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionalTableView.h; sourceTree = "<group>"; };
@@ -1006,6 +1030,55 @@
 			path = "../../../../../../../C端_基础工程/Base_iOS/Base_iOS/Classes/Utils/Category/UIKit/UIScrollView";
 			sourceTree = "<group>";
 		};
+		2124BE582060B2B200CB79E8 /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				21CFFB27205673C000D245ED /* InfoDetailVC.h */,
+				21CFFB28205673C000D245ED /* InfoDetailVC.m */,
+				2124BE6E20613E5900CB79E8 /* InfoCommentDetailVC.h */,
+				2124BE6F20613E5900CB79E8 /* InfoCommentDetailVC.m */,
+			);
+			path = Information;
+			sourceTree = "<group>";
+		};
+		2124BE592060B2C200CB79E8 /* NewsFlash */ = {
+			isa = PBXGroup;
+			children = (
+				21CFFB2A205673D100D245ED /* NewsFlashDetailVC.h */,
+				21CFFB2B205673D100D245ED /* NewsFlashDetailVC.m */,
+			);
+			path = NewsFlash;
+			sourceTree = "<group>";
+		};
+		2124BE5A2060B2D600CB79E8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				21CFFAFE20565D8100D245ED /* HomeVC.h */,
+				21CFFAFF20565D8100D245ED /* HomeVC.m */,
+				21CFFB0A205663A600D245ED /* HomeChildVC.h */,
+				21CFFB0B205663A600D245ED /* HomeChildVC.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2124BE642060FBF900CB79E8 /* LinkLabel */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE652060FBF900CB79E8 /* LinkLabel.h */,
+				2124BE662060FBF900CB79E8 /* LinkLabel.m */,
+			);
+			path = LinkLabel;
+			sourceTree = "<group>";
+		};
+		2124BE6A2061225100CB79E8 /* InputTextView */ = {
+			isa = PBXGroup;
+			children = (
+				2124BE6B2061227A00CB79E8 /* InputTextView.h */,
+				2124BE6C2061227A00CB79E8 /* InputTextView.m */,
+			);
+			path = InputTextView;
+			sourceTree = "<group>";
+		};
 		21288242205776C300A57A5A /* Optional */ = {
 			isa = PBXGroup;
 			children = (
@@ -1403,6 +1476,8 @@
 				21CFFB1F20566C1C00D245ED /* NewsFlashModel.m */,
 				21CFFB2120566C2E00D245ED /* InformationModel.h */,
 				21CFFB2220566C2E00D245ED /* InformationModel.m */,
+				2124BE612060B4DC00CB79E8 /* InfoCommentModel.h */,
+				2124BE622060B4DC00CB79E8 /* InfoCommentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1419,14 +1494,9 @@
 		21CFFAFD20565D6F00D245ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				21CFFAFE20565D8100D245ED /* HomeVC.h */,
-				21CFFAFF20565D8100D245ED /* HomeVC.m */,
-				21CFFB0A205663A600D245ED /* HomeChildVC.h */,
-				21CFFB0B205663A600D245ED /* HomeChildVC.m */,
-				21CFFB2A205673D100D245ED /* NewsFlashDetailVC.h */,
-				21CFFB2B205673D100D245ED /* NewsFlashDetailVC.m */,
-				21CFFB27205673C000D245ED /* InfoDetailVC.h */,
-				21CFFB28205673C000D245ED /* InfoDetailVC.m */,
+				2124BE5A2060B2D600CB79E8 /* Home */,
+				2124BE592060B2C200CB79E8 /* NewsFlash */,
+				2124BE582060B2B200CB79E8 /* Information */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1440,6 +1510,14 @@
 				21CFFB1620566B7800D245ED /* InformationListCell.m */,
 				2124BE08205FB57E00CB79E8 /* InformationListCell2.h */,
 				2124BE09205FB57E00CB79E8 /* InformationListCell2.m */,
+				2124BE522060A8FA00CB79E8 /* InformationDetailHeaderView.h */,
+				2124BE532060A8FA00CB79E8 /* InformationDetailHeaderView.m */,
+				2124BE552060A91500CB79E8 /* InformationDetailTableView.h */,
+				2124BE562060A91500CB79E8 /* InformationDetailTableView.m */,
+				2124BE5E2060B3C800CB79E8 /* InfoCommentCell.h */,
+				2124BE5F2060B3C800CB79E8 /* InfoCommentCell.m */,
+				2124BE712061451C00CB79E8 /* InfoCommentDetailTableView.h */,
+				2124BE722061451C00CB79E8 /* InfoCommentDetailTableView.m */,
 			);
 			path = Information;
 			sourceTree = "<group>";
@@ -1652,6 +1730,8 @@
 		21FB2F7D1F26E9EE0028ADEE /* Section */ = {
 			isa = PBXGroup;
 			children = (
+				2124BE6A2061225100CB79E8 /* InputTextView */,
+				2124BE642060FBF900CB79E8 /* LinkLabel */,
 				2124BE2A205FEEE100CB79E8 /* SGQRCode */,
 				212882702057A37700A57A5A /* ImageClip */,
 				21111AD21F8B5ED00021B3FE /* AddressPicker */,
@@ -1902,6 +1982,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21CFFB2320566C2E00D245ED /* InformationModel.m in Sources */,
+				2124BE632060B4DC00CB79E8 /* InfoCommentModel.m in Sources */,
 				2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
 				21CFFB1A20566BA700D245ED /* NewsFlashListTableView.m in Sources */,
@@ -1918,10 +1999,12 @@
 				2124BE15205FD40700CB79E8 /* CustomShareView.m in Sources */,
 				21AC58AD1FDE75AA00F19DE8 /* HttpRequestService.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
+				2124BE6D2061227A00CB79E8 /* InputTextView.m in Sources */,
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
 				21CFFB0F205666A200D245ED /* InfoManager.m in Sources */,
 				21AC589C1FDE751700F19DE8 /* TLBaseModel.m in Sources */,
 				21111BAF1F8B5F2C0021B3FE /* BannerCell.m in Sources */,
+				2124BE672060FBF900CB79E8 /* LinkLabel.m in Sources */,
 				21AC59491FDE7A1B00F19DE8 /* TLCaptchaView.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
@@ -1938,6 +2021,7 @@
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
+				2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */,
 				2128827C2057A3A200A57A5A /* SettingModel.m in Sources */,
 				2124BE51205FF36400CB79E8 /* UIScrollView+SnapShot.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
@@ -1960,6 +2044,7 @@
 				21AC594D1FDE7A1B00F19DE8 /* TLNetworking.m in Sources */,
 				21111BCD1F8B5F2C0021B3FE /* CustomTextView.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
+				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
 				21CFFB2620566D9A00D245ED /* InformationListTableView.m in Sources */,
 				21288247205776F000A57A5A /* OptionalTableView.m in Sources */,
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
@@ -1979,6 +2064,7 @@
 				21EB9C6B20562C9700394C3C /* DataDictionaryModel.m in Sources */,
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				2128826E2057A13D00A57A5A /* CurrencyModel.m in Sources */,
+				2124BE602060B3C800CB79E8 /* InfoCommentCell.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
@@ -1989,6 +2075,7 @@
 				2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */,
 				21EB9C7020562D3E00394C3C /* BaseTableViewCell.m in Sources */,
 				2124BE44205FEEE100CB79E8 /* ScanSuccessJumpVC.m in Sources */,
+				2124BE732061451C00CB79E8 /* InfoCommentDetailTableView.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21288241205771EB00A57A5A /* QuotesManager.m in Sources */,
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
@@ -2045,6 +2132,7 @@
 				21158E491F1C502400A07266 /* BarButton.m in Sources */,
 				21F82CA31F17719D0019B176 /* TLAuthHelper.m in Sources */,
 				21AC597E1FDE823C00F19DE8 /* NSString+Date.m in Sources */,
+				2124BE7020613E5900CB79E8 /* InfoCommentDetailVC.m in Sources */,
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,

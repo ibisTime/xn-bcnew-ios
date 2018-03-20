@@ -26,7 +26,7 @@
 
 #define kTabbarMainColor   [UIColor appTabbarMainColor]
 #define kTabbarBgColor     [UIColor appTabbarBgColor]
-
+#define kHexColor(color) [UIColor colorWithHexString:color]
 
 // 界面背景颜色
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
@@ -35,7 +35,7 @@
 
 #define kBackgroundColor        [UIColor colorWithHexString:@"#F7F7F7"]   //背景色
 #define kLineColor              [UIColor colorWithHexString:@"#EEEEEE"]   //分割线
-#define kTextColor              [UIColor colorWithHexString:@"#484848"]   //一级文字
+#define kTextColor              [UIColor colorWithHexString:@"#3A3A3A"]   //一级文字
 #define kTextColor2             [UIColor colorWithHexString:@"#818181"]   //二级文字
 #define kTextColor3             [UIColor colorWithHexString:@"#666666"]   //三级文字
 #define kTextColor4             [UIColor colorWithHexString:@"#b3b3b3"]   //四级文字

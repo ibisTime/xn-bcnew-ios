@@ -38,13 +38,15 @@
     [self addSubViewController];
     //
     [self addItem];
+    
 }
 
 #pragma mark - Init
+
 - (void)addItem {
     
     //搜索
-    [UIBarButtonItem addRightItemWithImageName:@"" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
+    [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
 }
 
 - (void)initSelectScrollView {
@@ -80,7 +82,7 @@
 #pragma mark - Events
 - (void)search {
     
-    
+
 }
 
 - (void)didReceiveMemoryWarning {

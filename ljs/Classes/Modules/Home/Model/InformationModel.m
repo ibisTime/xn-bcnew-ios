@@ -31,4 +31,13 @@
     return _pics;
 }
 
++ (NSString *)mj_replacedKeyFromPropertyName121:(NSString *)propertyName {
+    
+    if ([propertyName isEqualToString:@"desc"]) {
+        return @"description";
+    }
+    
+    return propertyName;
+}
+
 @end

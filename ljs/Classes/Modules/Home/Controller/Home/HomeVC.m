@@ -72,8 +72,6 @@
     //2.订单列表
     NSArray *kindArr = @[kNewsFlash, kInformation];
     
-    
-    
     for (int i = 0; i < titleArr.count; i++) {
         
         self.kind = kindArr[i];

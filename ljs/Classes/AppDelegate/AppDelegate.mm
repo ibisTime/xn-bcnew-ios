@@ -18,7 +18,7 @@
 
 #import "NavigationController.h"
 #import "TabbarViewController.h"
-//#import "HomeVC.h"
+#import "InfoDetailVC.h"
 #import "TLUserLoginVC.h"
 
 @interface AppDelegate ()
@@ -91,7 +91,7 @@
     
     //
 //    [IQKeyboardManager sharedManager].enable = YES;
-//    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[ComposeVC class]];
+    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[InfoDetailVC class]];
 //    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[SendCommentVC class]];
     
 }
