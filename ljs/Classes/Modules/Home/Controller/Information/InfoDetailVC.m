@@ -239,7 +239,7 @@
         
         InformationModel *model = [InformationModel new];
         
-        model.title = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
+        model.title = @"但也.仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
         model.time = @"May 1, 2018 3:27:08 AM";
         model.collectNum = 99;
         model.author = @"CzyGod";

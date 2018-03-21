@@ -197,6 +197,11 @@
         make.left.equalTo(@15);
         make.centerY.equalTo(wechatBtn.mas_centerY);
     }];
+    
+    //判断用户是否安装微信
+    BOOL installedWechat = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]];
+
+    self.shareView.hidden = !installedWechat;
 }
 
 /**

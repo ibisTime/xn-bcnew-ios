@@ -7,7 +7,11 @@
 //
 
 #import "BaseTableViewCell.h"
+//M
+#import "OptionalModel.h"
 
 @interface OptionalCell : BaseTableViewCell
+//
+@property (nonatomic, strong) OptionalModel *optional;
 
 @end

@@ -41,7 +41,7 @@
 #define kTextColor4             [UIColor colorWithHexString:@"#b3b3b3"]   //四级文字
 #define kThemeColor             [UIColor colorWithHexString:@"#f15353"]  //红色文字
 #define kPaleBlueColor          [UIColor colorWithHexString:@"#48b0fb"]    //蓝色文字
-#define kRiseColor              [UIColor colorWithHexString:@"#2ac64c"]  //涨
+#define kRiseColor              [UIColor colorWithHexString:@"#1FC07D"]  //涨
 
 #define kAuxiliaryTipColor      [UIColor colorWithHexString:@"#FF254C"]   //辅助提示颜色
 #define kBottomItemGrayColor    [UIColor colorWithHexString:@"#FAFAFA"]   //底栏灰色

@@ -7,7 +7,11 @@
 //
 
 #import "TLTableView.h"
+//M
+#import "OptionalModel.h"
 
 @interface OptionalTableView : TLTableView
+//
+@property (nonatomic, strong) NSMutableArray <OptionalModel *>*optionals;
 
 @end
