@@ -10,20 +10,25 @@
 //Macro
 //Framework
 //Category
+#import "UIBarButtonItem+convience.h"
 //Extension
 //M
 //V
 #import "SelectScrollView.h"
+#import "TLTextField.h"
 //C
 #import "SearchCurrcneyChildVC.h"
+#import "SearchHistoryChildVC.h"
 
-@interface SearchCurrencyVC ()
+@interface SearchCurrencyVC ()<UITextFieldDelegate>
 //
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
 @property (nonatomic, strong) NSArray *titles;
 //statusList
 @property (nonatomic, strong) NSArray *statusList;
+//搜索
+@property (nonatomic, strong) TLTextField *searchTF;
 
 @end
 
@@ -31,6 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //取消
+    [self addCancelItem];
     //搜索
     [self initSearchBar];
     //
@@ -39,55 +47,43 @@
     [self addSubViewController];
 }
 
+#pragma mark - Init
+- (void)addCancelItem {
+    
+    [UIBarButtonItem addRightItemWithTitle:@"取消" titleColor:kWhiteColor frame:CGRectMake(0, 0, 35, 44) vc:self action:@selector(back)];
+}
+
 - (void)initSearchBar {
     
     [UINavigationBar appearance].barTintColor = kAppCustomMainColor;
+    CGFloat height = 35;
     //搜索
     UIView *searchBgView = [[UIView alloc] init];
     //    UIView *searchBgView = [[UIView alloc] init];
     
-    searchBgView.backgroundColor = kClearColor;
+    searchBgView.backgroundColor = kWhiteColor;
     searchBgView.userInteractionEnabled = YES;
-    
+    searchBgView.layer.cornerRadius = height/2.0;
+    searchBgView.clipsToBounds = YES;
+
     self.navigationItem.titleView = searchBgView;
     
     [searchBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(height);
     }];
-    //搜索按钮
-    UIButton *btn = [UIButton buttonWithTitle:@"请输入平台/币种"
-                                   titleColor:kWhiteColor
-                              backgroundColor:[UIColor colorWithUIColor:kWhiteColor alpha:0.4]
-                                    titleFont:15.0
-                                 cornerRadius:15.0];
-    //
-    [btn addTarget:self action:@selector(clickSearch) forControlEvents:UIControlEventTouchUpInside];
-    [searchBgView addSubview:btn];
+    //搜索输入框
+    self.searchTF = [[TLTextField alloc] initWithFrame:CGRectZero
+                                             leftTitle:@""
+                                            titleWidth:0
+                                           placeholder:@"请输入平台/币种"];
+    self.searchTF.delegate = self;
     
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [searchBgView addSubview:self.searchTF];
+    [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.edges.mas_equalTo(UIEdgeInsetsMake(8, 0, 8, 0));
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 13, 0, 0));
         
-        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15);
-        
-    }];
-    //
-    [btn setImage:[UIImage imageNamed:@"搜索"] forState:UIControlStateNormal];
-    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -btn.titleLabel.width + 50)];
-    //搜索文字
-    UILabel *searchLbl = [UILabel labelWithFrame:CGRectMake(btn.xx + 2, 0, 80, btn.height)
-                                    textAligment:NSTextAlignmentLeft
-                                 backgroundColor:[UIColor clearColor]
-                                            font:Font(14)
-                                       textColor:kTextColor2];
-    [searchBgView addSubview:searchLbl];
-    
-    
-    searchLbl.centerY = btn.centerY;
-    [searchLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(btn.mas_centerX).offset(0);
-        make.top.equalTo(btn.mas_top);
-        make.height.equalTo(btn.mas_height);
+        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15 - 13);
     }];
     
 }
@@ -96,7 +92,11 @@
     
     self.titles = @[@"热门搜索", @"历史搜索"];
     
-    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    CGFloat svWidth = 200;
+    
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) itemTitles:self.titles];
+    
+//    selectSV.headView.frame = CGRectMake(kScreenWidth - svWidth, selectSV.y, svWidth, selectSV.height);
     
     [self.view addSubview:selectSV];
     
@@ -106,14 +106,28 @@
 - (void)addSubViewController {
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
-        //
-        SearchCurrcneyChildVC *childVC = [[SearchCurrcneyChildVC alloc] init];
         
-        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
-        
-        [self addChildViewController:childVC];
-        
-        [self.selectSV.scrollView addSubview:childVC.view];
+        if (i == 0) {
+            
+            //
+            SearchCurrcneyChildVC *childVC = [[SearchCurrcneyChildVC alloc] init];
+            
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
+        } else {
+            
+            //
+            SearchHistoryChildVC *childVC = [[SearchHistoryChildVC alloc] init];
+            
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
+        }
     }
 }
 
@@ -121,6 +135,21 @@
 - (void)clickSearch {
     
     
+}
+
+- (void)back {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserClickSearch" object:textField.text];
+    
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

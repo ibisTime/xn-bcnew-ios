@@ -113,20 +113,7 @@
     NSInteger idx = tabBarController.selectedIndex;
     
     //判断点击的Controller是不是需要登录，如果是，那就登录
-    if((idx == 3) && ![TLUser user].isLogin){
-        
-        TLUserLoginVC *loginVC = [TLUserLoginVC new];
-        
-        loginVC.loginSuccess = ^{
-            
-            weakSelf.selectedIndex = idx;
-        };
-        
-        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:nav animated:YES completion:nil];
-        
-        self.selectedIndex = _currentIndex;
-    }
+    
     
 }
 

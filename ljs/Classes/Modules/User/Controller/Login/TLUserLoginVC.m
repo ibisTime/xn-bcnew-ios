@@ -15,21 +15,21 @@
 #import "NSString+Check.h"
 #import "UIBarButtonItem+convience.h"
 #import "UILabel+Extension.h"
+#import "UIButton+EnLargeEdge.h"
 //M
-//#import "CurrencyModel.h"
+#import "ThirdLoginModel.h"
 //V
 #import "TLTextField.h"
 #import "TLPickerTextField.h"
-//C
-#import "TLUserRegisterVC.h"
-#import "TLUserForgetPwdVC.h"
+#import "CaptchaView.h"
+#import "BaseView.h"
 
 @interface TLUserLoginVC ()
 
 @property (nonatomic, strong) TLTextField *phoneTf;
-@property (nonatomic, strong) TLTextField *pwdTf;
-//验证码
-@property (nonatomic, copy) NSString *verifyCode;
+@property (nonatomic,strong) CaptchaView *captchaView;
+//第三方登录
+@property (nonatomic, strong) BaseView *thirdLoginView;
 //手机号
 @property (nonatomic, copy) NSString *mobile;
 
@@ -37,17 +37,21 @@
 
 @implementation TLUserLoginVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"登录";
     //取消和注册
     [self setBarButtonItem];
     //
     [self setUpUI];
     //登录成功回调
     [self setUpNotification];
-    
 }
 
 #pragma mark - Init
@@ -55,18 +59,22 @@
 - (void)setBarButtonItem {
 
     //取消按钮
-    [UIBarButtonItem addLeftItemWithImageName:kCancelIcon frame:CGRectMake(-30, 0, 80, 44) vc:self action:@selector(back)];
-    //注册
-    [UIBarButtonItem addRightItemWithTitle:@"注册" titleColor:kTextColor frame:CGRectMake(0, 0, 60, 44) vc:self action:@selector(goReg)];
+    UIButton *backBtn = [UIButton buttonWithImageName:kCancelIcon];
+    
+    backBtn.frame = CGRectMake(0, kStatusBarHeight, 80, 44);
+    
+    [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backBtn];
 }
 
 - (void)setUpUI {
     
-    self.view.backgroundColor = kBackgroundColor;
+    self.view.backgroundColor = kWhiteColor;
     
-    CGFloat w = kScreenWidth;
+    CGFloat margin = 32;
+    CGFloat w = kScreenWidth - 2*margin;
     CGFloat h = ACCOUNT_HEIGHT;
-    
+
     UIView *bgView = [[UIView alloc] init];
     
     bgView.backgroundColor = kWhiteColor;
@@ -74,29 +82,30 @@
     [self.view addSubview:bgView];
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(10));
-        make.left.equalTo(@0);
+        make.top.equalTo(@(kWidth(155)));
+        make.left.equalTo(@(margin));
         make.height.equalTo(@(2*h+1));
         make.width.equalTo(@(w));
-        
     }];
     
     //账号
     TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, w, h)
-                                                     leftIcon:@"手机"
-                                                  placeholder:@"请输入手机号码"];
+                                                     leftTitle:@"+86  |"
+                                                   titleWidth:70
+                                                  placeholder:@"手机号码"];
+    
+    phoneTf.keyboardType = UIKeyboardTypeNumberPad;
+
     [bgView addSubview:phoneTf];
     self.phoneTf = phoneTf;
-    phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     
+    //验证码
+    CaptchaView *captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(0, phoneTf.yy + 1, w, h)];
+    [captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
     
-    //密码
-    TLTextField *pwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, phoneTf.yy + 1, w, h)
-                                                   leftIcon:@"密码"
-                                                placeholder:@"请输入密码"];
-    pwdTf.secureTextEntry = YES;
-    [bgView addSubview:pwdTf];
-    self.pwdTf = pwdTf;
+    [bgView addSubview:captchaView];
+    
+    self.captchaView = captchaView;
     
     for (int i = 0; i < 2; i++) {
         
@@ -111,36 +120,122 @@
             make.right.equalTo(@0);
             make.height.equalTo(@0.5);
             make.top.equalTo(@((i+1)*h));
-            
         }];
     }
     //登录
-    UIButton *loginBtn = [UIButton buttonWithTitle:@"登录" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
+    UIButton *loginBtn = [UIButton buttonWithTitle:@"快速登录" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
     [loginBtn addTarget:self action:@selector(goLogin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(15));
+        make.centerX.equalTo(@0);
         make.height.equalTo(@(h - 5));
-        make.right.equalTo(@(-15));
+        make.width.equalTo(@(kWidth(245)));
         make.top.equalTo(bgView.mas_bottom).offset(28);
-        
     }];
+    //第三方登录
+    [self initThirdLoginView];
     
-    //找回密码
-    UIButton *forgetPwdBtn = [UIButton buttonWithTitle:@"找回密码?" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:14.0];
-    
-    forgetPwdBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [forgetPwdBtn addTarget:self action:@selector(findPwd) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:forgetPwdBtn];
-    
-    [forgetPwdBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(loginBtn.mas_right);
-        make.top.equalTo(loginBtn.mas_bottom).offset(18);
+}
 
-    }];
+/**
+ 第三方登录
+ */
+- (void)initThirdLoginView {
     
+    self.thirdLoginView = [[BaseView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 160, kScreenWidth, 160)];
+    
+    [self.view addSubview:self.thirdLoginView];
+    
+    UIView *line = [[UIView alloc] init];
+    
+    line.backgroundColor = kHexColor(@"#E2E2E2");
+    
+    [self.thirdLoginView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
+        make.height.equalTo(@0.5);
+        make.top.equalTo(@(15));
+    }];
+    //text
+    UILabel *textLbl = [UILabel labelWithBackgroundColor:kWhiteColor
+                                               textColor:kHexColor(@"#737373")
+                                                    font:15.0];
+    textLbl.textAlignment = NSTextAlignmentCenter;
+    textLbl.text = @"第三方登录";
+    [self.thirdLoginView addSubview:textLbl];
+    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(@0);
+        make.centerY.equalTo(line.mas_centerY);
+        make.width.equalTo(@110);
+    }];
+    //根据用户的安装情况添加登录源
+    BOOL installedWeChat = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]];
+    BOOL installedQQ = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]];
+    BOOL installedWeibo = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibo://"]];
+    BOOL installedWeibohd = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibohd://"]];
+    
+    NSMutableArray <ThirdLoginModel *>*arr = [NSMutableArray array];
+    //判断是否安装QQ
+    if (!installedQQ) {
+        
+        ThirdLoginModel *model = [self getThirdModelWithName:@"QQ登录" image:@"qq"];
+        [arr addObject:model];
+    }
+    
+    //判断是否安装微信
+    if (!installedWeChat) {
+        
+        ThirdLoginModel *model = [self getThirdModelWithName:@"微信登录" image:@"wechat"];
+        [arr addObject:model];
+    }
+    //判断是否安装微博
+    if (!installedWeibo || installedWeibohd) {
+        
+        ThirdLoginModel *model = [self getThirdModelWithName:@"微博登录" image:@"weibo"];
+        [arr addObject:model];
+    }
+    
+    __block CGFloat margin = kScreenWidth/(1.0*(arr.count+1));
+
+    [arr enumerateObjectsUsingBlock:^(ThirdLoginModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat width = 100;
+        
+        UIButton *shareBtn = [UIButton buttonWithTitle:obj.name
+                                            titleColor:kTextColor2
+                                       backgroundColor:kClearColor
+                                             titleFont:15.0];
+        
+        [shareBtn setImage:kImage(obj.photo) forState:UIControlStateNormal];
+        
+        shareBtn.contentMode = UIViewContentModeScaleAspectFit;
+        shareBtn.tag = 1500 + idx;
+        [shareBtn addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.thirdLoginView addSubview:shareBtn];
+        [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(@30);
+            make.width.height.equalTo(@(width));
+            make.left.equalTo(@((idx+1)*margin - width/2.0));
+        }];
+        
+        [shareBtn setTitleBottom];
+    }];
+}
+
+- (ThirdLoginModel *)getThirdModelWithName:(NSString *)name image:(NSString *)image {
+    
+    ThirdLoginModel *model = [ThirdLoginModel new];
+    
+    model.name = name;
+    model.photo = image;
+    
+    return model;
 }
 
 - (void)setUpNotification {
@@ -161,34 +256,58 @@
 //登录成功
 - (void)login {
 
-    //获取腾讯云IM签名、账号并登录
-//    [[ChatManager sharedManager] loginIM];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
-
     [self dismissViewControllerAnimated:YES completion:nil];
 
     if (self.loginSuccess) {
 
         self.loginSuccess();
     }
-
 }
 
-- (void)findPwd {
+/**
+ 分享
+ */
+- (void)clickShare:(UIButton *)sender {
     
-    TLUserForgetPwdVC *vc = [[TLUserForgetPwdVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSInteger index = sender.tag - 1500;
     
-}
-
-- (void)goReg {
-    
-    TLUserRegisterVC *registerVC = [[TLUserRegisterVC alloc] init];
-    
-    [self.navigationController pushViewController:registerVC animated:YES];
     
 }
 
+/**
+ 发送验证码
+ */
+- (void)sendCaptcha {
+    
+    if (![self.phoneTf.text isPhoneNum]) {
+        
+        [TLAlert alertWithInfo:@"请输入正确的手机号"];
+        
+        return;
+    }
+    
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+    http.code = CAPTCHA_CODE;
+    http.parameters[@"bizType"] = USER_LOGIN_CODE;
+    http.parameters[@"mobile"] = self.phoneTf.text;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        [TLAlert alertWithSucces:@"验证码已发送,请注意查收"];
+        
+        [self.captchaView.captchaBtn begin];
+        
+    } failure:^(NSError *error) {
+        
+        [TLAlert alertWithError:@"发送失败,请检查手机号"];
+        
+    }];
+}
+
+/**
+ 登录
+ */
 - (void)goLogin {
     
     if (![self.phoneTf.text isPhoneNum]) {
@@ -198,9 +317,9 @@
         return;
     }
     
-    if (!(self.pwdTf.text &&self.pwdTf.text.length > 5)) {
+    if (!(self.captchaView.captchaTf.text && self.captchaView.captchaTf.text.length > 3)) {
+        [TLAlert alertWithInfo:@"请输入正确的验证码"];
         
-        [TLAlert alertWithInfo:@"请输入6位以上密码"];
         return;
     }
     
@@ -210,8 +329,8 @@
     http.showView = self.view;
     http.code = USER_LOGIN_CODE;
     
-    http.parameters[@"loginName"] = self.phoneTf.text;
-    http.parameters[@"loginPwd"] = self.pwdTf.text;
+    http.parameters[@"mobile"] = self.phoneTf.text;
+    http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;
     http.parameters[@"kind"] = APP_KIND;
 
     [http postWithSuccess:^(id responseObject) {
@@ -220,18 +339,13 @@
         
     } failure:^(NSError *error) {
         
-        
     }];
-    
 }
 
 - (void)requesUserInfoWithResponseObject:(id)responseObject {
     
     NSString *token = responseObject[@"data"][@"token"];
     NSString *userId = responseObject[@"data"][@"userId"];
-    
-    //保存用户账号和密码
-    [[TLUser user] saveUserName:self.phoneTf.text pwd:self.pwdTf.text];
     
     //1.获取用户信息
     TLNetworking *http = [TLNetworking new];
@@ -250,50 +364,15 @@
         [[TLUser user] saveUserInfo:userInfo];
         //初始化用户信息
         [[TLUser user] setUserInfoWithDict:userInfo];
-        //获取人民币和积分账户
-//        [self requestAccountNumber];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
         
     } failure:^(NSError *error) {
         
-        
     }];
     
 }
-
-#pragma mark - 账户
-//- (void)requestAccountNumber {
-//
-//    //获取人民币和积分账户
-//    TLNetworking *http = [TLNetworking new];
-//    http.code = @"802503";
-//    http.parameters[@"userId"] = [TLUser user].userId;
-//    http.parameters[@"token"] = [TLUser user].token;
-//
-//    [http postWithSuccess:^(id responseObject) {
-//
-//        NSArray <CurrencyModel *> *arr = [CurrencyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//
-//        [arr enumerateObjectsUsingBlock:^(CurrencyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//
-//            if ([obj.currency isEqualToString:@"JF"]) {
-//
-//                [TLUser user].jfAccountNumber = obj.accountNumber;
-//
-//            } else if ([obj.currency isEqualToString:@"CNY"]) {
-//
-//                [TLUser user].rmbAccountNumber = obj.accountNumber;
-//            }
-//
-//        }];
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
-//}
-
+#pragma mark - 推送
 - (void)tagsAliasCallback:(int)iResCode
                      tags:(NSSet *)tags
                     alias:(NSString *)alias {

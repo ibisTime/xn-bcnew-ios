@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, MineHeaderSeletedType) {
     MineHeaderSeletedTypeDefault = 0,   //设置
-    MineHeaderSeletedTypeSelectPhoto,   //拍照
+    MineHeaderSeletedTypeLogin,         //登录
 };
 
 @protocol MineHeaderSeletedDelegate <NSObject>
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, MineHeaderSeletedType) {
 //头像
 @property (nonatomic, strong) UIImageView *userPhoto;
 //昵称
-@property (nonatomic, strong) UILabel *nameLbl;
+@property (nonatomic, strong) UIButton *nameBtn;
 //性别
 @property (nonatomic, strong) UIImageView *genderIV;
 //角色

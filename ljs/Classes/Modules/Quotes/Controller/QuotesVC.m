@@ -24,6 +24,8 @@
 #import "QuotesPlatformVC.h"
 #import "QuotesCurrencyVC.h"
 #import "QuotesOptionalVC.h"
+#import "SearchCurrencyVC.h"
+#import "NavigationController.h"
 
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
@@ -228,7 +230,11 @@
  */
 - (void)search {
     
+    SearchCurrencyVC *searchVC = [SearchCurrencyVC new];
     
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - Data

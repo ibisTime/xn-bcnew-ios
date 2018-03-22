@@ -27,7 +27,7 @@
     
     CGFloat btnWidth = 95;
     
-    self.captchaTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - btnWidth, frame.size.height) leftTitle:@"手机验证码" titleWidth:100 placeholder:@"请输入验证码"];
+    self.captchaTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - btnWidth, frame.size.height) leftTitle:@"" titleWidth:15 placeholder:@"输入验证码"];
     self.captchaTf.rightViewMode = UITextFieldViewModeAlways;
     self.captchaTf.keyboardType = UIKeyboardTypeNumberPad;
     [self addSubview:self.captchaTf];
@@ -39,15 +39,13 @@
     
     [self addSubview:rightView];
 
-    TLTimeButton *captchaBtn = [[TLTimeButton alloc] initWithFrame:CGRectMake(0, 0, 85, frame.size.height - 15) totalTime:60.0];
-    [captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-    captchaBtn.titleLabel.font = Font(12);
+    TLTimeButton *captchaBtn = [[TLTimeButton alloc] initWithFrame:CGRectMake(0, 0, 95, frame.size.height - 15) totalTime:60.0];
+    captchaBtn.titleLabel.font = Font(15);
     captchaBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     captchaBtn.layer.borderWidth = 1.0;
     captchaBtn.layer.cornerRadius = 5;
     captchaBtn.clipsToBounds = YES;
-    captchaBtn.backgroundColor = kAppCustomMainColor;
+    captchaBtn.backgroundColor = kClearColor;
     captchaBtn.centerY = rightView.height/2.0;
     [rightView addSubview:captchaBtn];
     

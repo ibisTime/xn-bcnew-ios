@@ -95,6 +95,15 @@
 		2124BEBD2062907000CB79E8 /* SearchCurrencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEBC2062907000CB79E8 /* SearchCurrencyVC.m */; };
 		2124BEC1206296F800CB79E8 /* SearchCurrencyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEC0206296F800CB79E8 /* SearchCurrencyTableView.m */; };
 		2124BEC42062983700CB79E8 /* SearchCurrcneyChildVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEC32062983700CB79E8 /* SearchCurrcneyChildVC.m */; };
+		2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEC62063493600CB79E8 /* SearchCurrencyCell.m */; };
+		2124BED1206355E600CB79E8 /* SearchHistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BED0206355E600CB79E8 /* SearchHistoryTableView.m */; };
+		2124BED42063560200CB79E8 /* SearchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BED32063560200CB79E8 /* SearchHistoryCell.m */; };
+		2124BED720635B9300CB79E8 /* SearchHistoryChildVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BED620635B9300CB79E8 /* SearchHistoryChildVC.m */; };
+		2124BEDE2063940400CB79E8 /* EditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEDC2063940100CB79E8 /* EditVC.m */; };
+		2124BEDF2063940400CB79E8 /* UserDetailEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEDD2063940200CB79E8 /* UserDetailEditVC.m */; };
+		2124BEE5206394B900CB79E8 /* UserEditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEE3206394B900CB79E8 /* UserEditModel.m */; };
+		2124BEEB2063960900CB79E8 /* UserEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEE92063960900CB79E8 /* UserEditCell.m */; };
+		2124BEEE2063B61B00CB79E8 /* ThirdLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2124BEED2063B61B00CB79E8 /* ThirdLoginModel.m */; };
 		21288241205771EB00A57A5A /* QuotesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288240205771EB00A57A5A /* QuotesManager.m */; };
 		21288247205776F000A57A5A /* OptionalTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21288246205776F000A57A5A /* OptionalTableView.m */; };
 		2128824A2057774900A57A5A /* OptionalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882492057774900A57A5A /* OptionalCell.m */; };
@@ -120,8 +129,6 @@
 		216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7F31F189F39006C26A1 /* libz.tbd */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
-		21AC587A1FDE737200F19DE8 /* TLUserRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58751FDE736D00F19DE8 /* TLUserRegisterVC.m */; };
-		21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */; };
 		21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */; };
 		21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587D1FDE73A900F19DE8 /* TLChangeMobileVC.m */; };
 		21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587F1FDE73AC00F19DE8 /* TLAccountSetBaseVC.m */; };
@@ -383,6 +390,24 @@
 		2124BEC0206296F800CB79E8 /* SearchCurrencyTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCurrencyTableView.m; sourceTree = "<group>"; };
 		2124BEC22062983700CB79E8 /* SearchCurrcneyChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCurrcneyChildVC.h; sourceTree = "<group>"; };
 		2124BEC32062983700CB79E8 /* SearchCurrcneyChildVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCurrcneyChildVC.m; sourceTree = "<group>"; };
+		2124BEC52063493600CB79E8 /* SearchCurrencyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCurrencyCell.h; sourceTree = "<group>"; };
+		2124BEC62063493600CB79E8 /* SearchCurrencyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCurrencyCell.m; sourceTree = "<group>"; };
+		2124BECF206355E600CB79E8 /* SearchHistoryTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHistoryTableView.h; sourceTree = "<group>"; };
+		2124BED0206355E600CB79E8 /* SearchHistoryTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryTableView.m; sourceTree = "<group>"; };
+		2124BED22063560200CB79E8 /* SearchHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHistoryCell.h; sourceTree = "<group>"; };
+		2124BED32063560200CB79E8 /* SearchHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryCell.m; sourceTree = "<group>"; };
+		2124BED520635B9300CB79E8 /* SearchHistoryChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHistoryChildVC.h; sourceTree = "<group>"; };
+		2124BED620635B9300CB79E8 /* SearchHistoryChildVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryChildVC.m; sourceTree = "<group>"; };
+		2124BEDA206393FF00CB79E8 /* UserDetailEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailEditVC.h; sourceTree = "<group>"; };
+		2124BEDB2063940000CB79E8 /* EditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditVC.h; sourceTree = "<group>"; };
+		2124BEDC2063940100CB79E8 /* EditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditVC.m; sourceTree = "<group>"; };
+		2124BEDD2063940200CB79E8 /* UserDetailEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailEditVC.m; sourceTree = "<group>"; };
+		2124BEE3206394B900CB79E8 /* UserEditModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEditModel.m; sourceTree = "<group>"; };
+		2124BEE4206394B900CB79E8 /* UserEditModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEditModel.h; sourceTree = "<group>"; };
+		2124BEE92063960900CB79E8 /* UserEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEditCell.m; sourceTree = "<group>"; };
+		2124BEEA2063960900CB79E8 /* UserEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEditCell.h; sourceTree = "<group>"; };
+		2124BEEC2063B61B00CB79E8 /* ThirdLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdLoginModel.h; sourceTree = "<group>"; };
+		2124BEED2063B61B00CB79E8 /* ThirdLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginModel.m; sourceTree = "<group>"; };
 		2128823F205771EB00A57A5A /* QuotesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuotesManager.h; sourceTree = "<group>"; };
 		21288240205771EB00A57A5A /* QuotesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuotesManager.m; sourceTree = "<group>"; };
 		21288245205776F000A57A5A /* OptionalTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionalTableView.h; sourceTree = "<group>"; };
@@ -431,10 +456,6 @@
 		21AC58711FDE734F00F19DE8 /* TLAccountBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLAccountBaseVC.h; sourceTree = "<group>"; };
 		21AC58731FDE736A00F19DE8 /* TLUserLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserLoginVC.h; sourceTree = "<group>"; };
 		21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUserLoginVC.m; sourceTree = "<group>"; };
-		21AC58751FDE736D00F19DE8 /* TLUserRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUserRegisterVC.m; sourceTree = "<group>"; };
-		21AC58761FDE736F00F19DE8 /* TLUserForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserForgetPwdVC.h; sourceTree = "<group>"; };
-		21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUserForgetPwdVC.m; sourceTree = "<group>"; };
-		21AC58781FDE737200F19DE8 /* TLUserRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserRegisterVC.h; sourceTree = "<group>"; };
 		21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindMobileVC.m; sourceTree = "<group>"; };
 		21AC587D1FDE73A900F19DE8 /* TLChangeMobileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChangeMobileVC.m; sourceTree = "<group>"; };
 		21AC587E1FDE73AA00F19DE8 /* TLPwdRelatedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPwdRelatedVC.h; sourceTree = "<group>"; };
@@ -914,6 +935,7 @@
 		21216F481F380DD3007C9855 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2124BED8206393DD00CB79E8 /* Edit */,
 				2121700D1F384216007C9855 /* Address */,
 				212170141F384216007C9855 /* Base */,
 				212170171F384216007C9855 /* Login */,
@@ -925,12 +947,8 @@
 		21216F661F380DD3007C9855 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				21AC58891FDE73F800F19DE8 /* TLUser.h */,
-				21AC588D1FDE73FE00F19DE8 /* TLUser.m */,
-				21AC588A1FDE73FA00F19DE8 /* TLUserExt.h */,
-				21AC588C1FDE73FD00F19DE8 /* TLUserExt.m */,
-				21AC58881FDE73F700F19DE8 /* UserDefaultsUtil.h */,
-				21AC588B1FDE73FB00F19DE8 /* UserDefaultsUtil.m */,
+				2124BEE6206394BE00CB79E8 /* User */,
+				2124BEE2206394B900CB79E8 /* Edit */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -940,10 +958,8 @@
 			children = (
 				21AC58941FDE741A00F19DE8 /* CaptchaView.h */,
 				21AC58911FDE741600F19DE8 /* CaptchaView.m */,
-				21216F761F380DD3007C9855 /* ZHAddressCell.h */,
-				21216F771F380DD3007C9855 /* ZHAddressCell.m */,
-				2121703B1F3842BC007C9855 /* ZHAddressChooseView.h */,
-				2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */,
+				2124BEE82063960900CB79E8 /* Edit */,
+				2124BEE7206395EF00CB79E8 /* Address */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -973,12 +989,8 @@
 		212170171F384216007C9855 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				21AC58761FDE736F00F19DE8 /* TLUserForgetPwdVC.h */,
-				21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */,
 				21AC58731FDE736A00F19DE8 /* TLUserLoginVC.h */,
 				21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */,
-				21AC58781FDE737200F19DE8 /* TLUserRegisterVC.h */,
-				21AC58751FDE736D00F19DE8 /* TLUserRegisterVC.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1199,6 +1211,8 @@
 				2124BEBC2062907000CB79E8 /* SearchCurrencyVC.m */,
 				2124BEC22062983700CB79E8 /* SearchCurrcneyChildVC.h */,
 				2124BEC32062983700CB79E8 /* SearchCurrcneyChildVC.m */,
+				2124BED520635B9300CB79E8 /* SearchHistoryChildVC.h */,
+				2124BED620635B9300CB79E8 /* SearchHistoryChildVC.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1208,8 +1222,69 @@
 			children = (
 				2124BEBF206296F800CB79E8 /* SearchCurrencyTableView.h */,
 				2124BEC0206296F800CB79E8 /* SearchCurrencyTableView.m */,
+				2124BEC52063493600CB79E8 /* SearchCurrencyCell.h */,
+				2124BEC62063493600CB79E8 /* SearchCurrencyCell.m */,
+				2124BECF206355E600CB79E8 /* SearchHistoryTableView.h */,
+				2124BED0206355E600CB79E8 /* SearchHistoryTableView.m */,
+				2124BED22063560200CB79E8 /* SearchHistoryCell.h */,
+				2124BED32063560200CB79E8 /* SearchHistoryCell.m */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		2124BED8206393DD00CB79E8 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				2124BEDB2063940000CB79E8 /* EditVC.h */,
+				2124BEDC2063940100CB79E8 /* EditVC.m */,
+				2124BEDA206393FF00CB79E8 /* UserDetailEditVC.h */,
+				2124BEDD2063940200CB79E8 /* UserDetailEditVC.m */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		2124BEE2206394B900CB79E8 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				2124BEE4206394B900CB79E8 /* UserEditModel.h */,
+				2124BEE3206394B900CB79E8 /* UserEditModel.m */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		2124BEE6206394BE00CB79E8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				21AC58891FDE73F800F19DE8 /* TLUser.h */,
+				21AC588D1FDE73FE00F19DE8 /* TLUser.m */,
+				21AC588A1FDE73FA00F19DE8 /* TLUserExt.h */,
+				21AC588C1FDE73FD00F19DE8 /* TLUserExt.m */,
+				21AC58881FDE73F700F19DE8 /* UserDefaultsUtil.h */,
+				21AC588B1FDE73FB00F19DE8 /* UserDefaultsUtil.m */,
+				2124BEEC2063B61B00CB79E8 /* ThirdLoginModel.h */,
+				2124BEED2063B61B00CB79E8 /* ThirdLoginModel.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		2124BEE7206395EF00CB79E8 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				21216F761F380DD3007C9855 /* ZHAddressCell.h */,
+				21216F771F380DD3007C9855 /* ZHAddressCell.m */,
+				2121703B1F3842BC007C9855 /* ZHAddressChooseView.h */,
+				2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+		2124BEE82063960900CB79E8 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				2124BEEA2063960900CB79E8 /* UserEditCell.h */,
+				2124BEE92063960900CB79E8 /* UserEditCell.m */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		21288242205776C300A57A5A /* Optional */ = {
@@ -1527,11 +1602,11 @@
 		21CFFAF120565D3100D245ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2128823F205771EB00A57A5A /* QuotesManager.h */,
+				21288240205771EB00A57A5A /* QuotesManager.m */,
 				2124BE7D2061FF9A00CB79E8 /* Currency */,
 				2124BE792061FF6D00CB79E8 /* Platform */,
 				2124BE752061FF4000CB79E8 /* Optional */,
-				2128823F205771EB00A57A5A /* QuotesManager.h */,
-				21288240205771EB00A57A5A /* QuotesManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2140,6 +2215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2124BEDE2063940400CB79E8 /* EditVC.m in Sources */,
 				21CFFB2320566C2E00D245ED /* InformationModel.m in Sources */,
 				2124BE632060B4DC00CB79E8 /* InfoCommentModel.m in Sources */,
 				2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */,
@@ -2166,6 +2242,7 @@
 				21111BAF1F8B5F2C0021B3FE /* BannerCell.m in Sources */,
 				2124BEC42062983700CB79E8 /* SearchCurrcneyChildVC.m in Sources */,
 				2124BE672060FBF900CB79E8 /* LinkLabel.m in Sources */,
+				2124BED1206355E600CB79E8 /* SearchHistoryTableView.m in Sources */,
 				21AC59491FDE7A1B00F19DE8 /* TLCaptchaView.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
@@ -2182,6 +2259,7 @@
 				2128825820579D6900A57A5A /* ForumListCell.m in Sources */,
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
+				2124BED42063560200CB79E8 /* SearchHistoryCell.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
 				2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */,
 				2124BEB920628A3300CB79E8 /* AddOptionalCell.m in Sources */,
@@ -2190,6 +2268,7 @@
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
 				2128828D2057A3C600A57A5A /* SettingTableView.m in Sources */,
 				2128828E2057A3C600A57A5A /* SettingCell.m in Sources */,
+				2124BED720635B9300CB79E8 /* SearchHistoryChildVC.m in Sources */,
 				2124BE29205FE40F00CB79E8 /* NewsFlashDetailView.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
 				212882632057A11100A57A5A /* MineCell.m in Sources */,
@@ -2215,6 +2294,7 @@
 				21288247205776F000A57A5A /* OptionalTableView.m in Sources */,
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
+				2124BEEE2063B61B00CB79E8 /* ThirdLoginModel.m in Sources */,
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
 				21111BD81F8B5F2C0021B3FE /* UIApplication+Custom.m in Sources */,
 				21AC58AB1FDE75AA00F19DE8 /* HttpRequestObject.m in Sources */,
@@ -2230,6 +2310,7 @@
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
 				21EB9C6B20562C9700394C3C /* DataDictionaryModel.m in Sources */,
+				2124BEDF2063940400CB79E8 /* UserDetailEditVC.m in Sources */,
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				2124BEA320625FE300CB79E8 /* CurrencyPriceCell.m in Sources */,
 				2124BE602060B3C800CB79E8 /* InfoCommentCell.m in Sources */,
@@ -2253,6 +2334,7 @@
 				21CFFB0320565DB900D245ED /* QuotesVC.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
 				2124BEB62062885A00CB79E8 /* AddOptionalTableView.m in Sources */,
+				2124BEEB2063960900CB79E8 /* UserEditCell.m in Sources */,
 				21158E461F1C4F9E00A07266 /* TabBarModel.m in Sources */,
 				2124BEA020625FB400CB79E8 /* CurrencyTableVIew.m in Sources */,
 				21AC59671FDE80FB00F19DE8 /* UIColor+theme.m in Sources */,
@@ -2266,13 +2348,13 @@
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
 				21CFFB0020565D8100D245ED /* HomeVC.m in Sources */,
 				21CFFB0920565DDD00D245ED /* MineVC.m in Sources */,
-				21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */,
 				2128824A2057774900A57A5A /* OptionalCell.m in Sources */,
 				2124BE832061FFF500CB79E8 /* CurrencyModel.m in Sources */,
 				21AC59551FDE7F1500F19DE8 /* WebVC.m in Sources */,
 				21AC58901FDE73FE00F19DE8 /* TLUser.m in Sources */,
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21CFFB1D20566BC500D245ED /* NewsFlashListCell.m in Sources */,
+				2124BEE5206394B900CB79E8 /* UserEditModel.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
 				2124BE4D205FEEE100CB79E8 /* SGQRCodeTool.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
@@ -2287,6 +2369,7 @@
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				21AC596C1FDE814C00F19DE8 /* UIView+Extension.m in Sources */,
 				2124BEA620625FF700CB79E8 /* NewCurrencyCell.m in Sources */,
+				2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */,
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
 				2124BE47205FEEE100CB79E8 /* SGScanningQRCodeView.m in Sources */,
@@ -2294,7 +2377,6 @@
 				21F82C9E1F17719D0019B176 /* NavigationController.m in Sources */,
 				21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */,
 				21EB9C6A20562C9700394C3C /* KeyValueModel.m in Sources */,
-				21AC587A1FDE737200F19DE8 /* TLUserRegisterVC.m in Sources */,
 				21CFFB29205673C000D245ED /* InfoDetailVC.m in Sources */,
 				21F82C9F1F17719D0019B176 /* TabbarViewController.m in Sources */,
 				212170291F384216007C9855 /* ZHAddAddressVC.m in Sources */,

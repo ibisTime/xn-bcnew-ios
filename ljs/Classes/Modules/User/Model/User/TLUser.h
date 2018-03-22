@@ -44,6 +44,10 @@
 @property (nonatomic, copy) NSString *loginName;
 //头像
 @property (nonatomic, copy) NSString *photo;
+//性别
+@property (nonatomic, copy) NSString *gender;
+//生日
+@property (nonatomic, copy) NSString *birthday;
 //注册时间
 @property (nonatomic, copy) NSString *createDatetime;
 //邮箱
@@ -71,6 +75,8 @@
 @property (nonatomic, copy) NSString *tempRealName;
 @property (nonatomic, copy) NSString *tempIdNo;
 
+//检查是否登录
+- (BOOL)checkLogin;
 //是否为需要登录，如果已登录，取出用户信息
 - (BOOL)isLogin;
 //用户已登录状态，则重新登录
@@ -85,6 +91,8 @@
 - (void)setUserInfoWithDict:(NSDictionary *)dict;
 //异步更新用户信息
 - (void)updateUserInfo;
+//获取七牛云域名
+- (void)requestQiniuDomain;
 
 @end
 

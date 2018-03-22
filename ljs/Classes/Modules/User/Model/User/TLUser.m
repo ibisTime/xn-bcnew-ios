@@ -58,8 +58,35 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (BOOL)isLogin {
+// 登录状态才调用
+- (void)loadUserInfoFromDB {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDefault objectForKey:USER_ID_KEY];
+    NSString *token = [userDefault objectForKey:TOKEN_ID_KEY];
+    //
+    self.userId = userId;
+    self.token = token;
+    //
+    NSDictionary *dict = [userDefault objectForKey:USER_INFO_DICT_KEY];
+    [self setUserInfoWithDict:dict];
+    
+}
 
+- (BOOL)checkLogin {
+
+    if ([self isLogin]) {
+        
+        [self loadUserInfoFromDB];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)isLogin {
+    
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefault objectForKey:USER_ID_KEY];
     NSString *token = [userDefault objectForKey:TOKEN_ID_KEY];
@@ -70,47 +97,16 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
         [self setUserInfoWithDict:[userDefault objectForKey:USER_INFO_DICT_KEY]];
         
         return YES;
-    } else {
-        
-        
-        return NO;
     }
-
-}
-
-- (void)reLogin {
     
-    self.userName = [UserDefaultsUtil getUserDefaultName];
-    
-    self.userPassward = [UserDefaultsUtil getUserDefaultPassword];
-    
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = USER_LOGIN_CODE;
-    
-    http.parameters[@"loginName"] = self.userName;
-    http.parameters[@"loginPwd"] = self.userPassward;
-    http.parameters[@"kind"] = APP_KIND;
-    
-    [http postWithSuccess:^(id responseObject) {
-        
-        self.token = responseObject[@"data"][@"token"];
-        self.userId = responseObject[@"data"][@"userId"];
-        
-        [self updateUserInfo];
-        [self requestQiniuDomain];
-        
-    } failure:^(NSError *error) {
-        
-        
-    }];
+    return NO;
 }
 
 - (void)requestQiniuDomain {
     
     TLNetworking *http = [TLNetworking new];
     http.code = USER_CKEY_CVALUE;
-    http.parameters[@"key"] = @"qiniu_domain";
+    http.parameters[SYS_KEY] = @"qiniu_domain";
     [http postWithSuccess:^(id responseObject) {
         
         [AppConfig config].qiniuDomain = [NSString stringWithFormat:@"http://%@", responseObject[@"data"][@"cvalue"]];
@@ -120,40 +116,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     }];
 }
 
-#pragma mark - 账户
-//- (void)requestAccountNumber {
-//
-//    CoinWeakSelf;
-//
-//    //获取人民币和积分账户
-//    TLNetworking *http = [TLNetworking new];
-//    http.code = @"802503";
-//    http.parameters[@"userId"] = [TLUser user].userId;
-//    http.parameters[@"token"] = [TLUser user].token;
-//
-//    [http postWithSuccess:^(id responseObject) {
-//
-//        NSArray <CurrencyModel *> *arr = [CurrencyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//
-//        [arr enumerateObjectsUsingBlock:^(CurrencyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//
-//            if ([obj.currency isEqualToString:@"JF"]) {
-//
-//                weakSelf.jfAccountNumber = obj.accountNumber;
-//
-//            } else if ([obj.currency isEqualToString:@"CNY"]) {
-//
-//                weakSelf.rmbAccountNumber = obj.accountNumber;
-//            }
-//
-//        }];
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
-//}
-
 - (void)loginOut {
 
     self.userId = nil;
@@ -161,13 +123,9 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     self.photo = nil;
     self.mobile = nil;
     self.nickname = nil;
-    self.email = nil;
-    self.tradepwdFlag = nil;
-    self.level = nil;
-    self.rmbAccountNumber = nil;
-    self.jfAccountNumber = nil;
     self.realName = nil;
-    self.idNo = nil;
+    self.gender = nil;
+    self.birthday = nil;
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:TOKEN_ID_KEY];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_ID_KEY];
@@ -186,7 +144,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:USER_INFO_DICT_KEY];
     //
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
 }
 
 - (void)updateUserInfo {
@@ -203,13 +160,11 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
         [self setUserInfoWithDict:responseObject[@"data"]];
         [self saveUserInfo:responseObject[@"data"]];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
 
     } failure:^(NSError *error) {
         
-        
     }];
-
 }
 
 - (void)setUserInfoWithDict:(NSDictionary *)dict {
@@ -217,12 +172,9 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     self.mobile = dict[@"mobile"];
     self.nickname = dict[@"nickname"];
     self.realName = dict[@"realName"];
-    self.idNo = dict[@"idNo"];
-    self.tradepwdFlag = [NSString stringWithFormat:@"%@", dict[@"tradepwdFlag"]];
-    self.level = dict[@"level"];
     self.photo = dict[@"photo"];
-    self.email = dict[@"email"];
-    
+    self.gender = dict[@"gender"];
+    self.birthday = dict[@"birthday"];
 }
 
 - (void)saveUserName:(NSString *)userName pwd:(NSString *)pwd {
@@ -232,7 +184,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     
     [UserDefaultsUtil setUserDefaultName:userName];
     [UserDefaultsUtil setUserDefaultPassword:pwd];
-    
 }
 
 @end

@@ -7,7 +7,11 @@
 //
 
 #import "TLTableView.h"
+//M
+#import "CurrencyModel.h"
 
 @interface SearchCurrencyTableView : TLTableView
+//
+@property (nonatomic, strong) NSMutableArray <CurrencyModel *>*currencys;
 
 @end

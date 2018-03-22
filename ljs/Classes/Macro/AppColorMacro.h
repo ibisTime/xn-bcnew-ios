@@ -91,7 +91,7 @@
 
 #pragma mark - Image
 
-#define USER_PLACEHOLDER_SMALL [UIImage imageNamed:@"头像"]
+#define USER_PLACEHOLDER_SMALL [UIImage imageNamed:@"默认头像"]
 #define PLACEHOLDER_SMALL @"icon"
 #define kCancelIcon @"cancel"
 #define GOOD_PLACEHOLDER_SMALL [UIImage imageNamed:@"icon"]

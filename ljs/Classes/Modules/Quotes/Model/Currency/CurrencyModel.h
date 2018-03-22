@@ -45,5 +45,7 @@
 @property (nonatomic, copy) NSString *flow_percent_change_24h;
 //涨跌颜色
 @property (nonatomic, strong) UIColor *flowBgColor;
+//是否选择
+@property (nonatomic, assign) BOOL isSelect;
 
 @end

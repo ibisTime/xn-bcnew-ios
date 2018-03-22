@@ -7,12 +7,10 @@
 //
 
 #import "SelectScrollView.h"
-
+//Category
 #import "UIView+Responder.h"
 #import <UIScrollView+TLAdd.h>
-
-#import "SortBar.h"
-
+//Macro
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
 
@@ -21,8 +19,6 @@
 @interface SelectScrollView ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSArray *itemTitles;
-
-@property (nonatomic, strong) SortBar *headView;
 
 @property (nonatomic, strong) NSMutableArray *btnArray;
 

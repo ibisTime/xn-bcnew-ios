@@ -14,6 +14,7 @@
 #import "AppMacro.h"
 //Category
 #import "NSString+Extension.h"
+#import "UIBarButtonItem+convience.h"
 //Extension
 #import <UIImageView+WebCache.h>
 #import "TLProgressHUD.h"
@@ -24,13 +25,19 @@
 #import "MineTableView.h"
 #import "MineHeaderView.h"
 #import "TLImagePicker.h"
+#import "BaseView.h"
 //C
 #import "SettingVC.h"
 #import "HTMLStrVC.h"
+#import "NavigationController.h"
+#import "TLUserLoginVC.h"
+#import "UserDetailEditVC.h"
 
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
 @property (nonatomic, strong) MineGroup *group;
+//退出登录
+@property (nonatomic, strong) BaseView *logoutView;
 //
 @property (nonatomic, strong) MineTableView *tableView;
 //头部
@@ -46,25 +53,58 @@
     
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
-    [self initGroup];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"我的";
+    //item
+    [self addEditItem];
     //通知
     [self addNotification];
     //
     [self initTableView];
+    //模型
+    [self initGroup];
     //
     [self changeInfo];
     
 }
 
 #pragma mark - Init
+- (void)addEditItem {
+    
+    [UIBarButtonItem addRightItemWithTitle:@"编辑"
+                                titleColor:kWhiteColor
+                                     frame:CGRectMake(0, 0, 60, 40)
+                                        vc:self
+                                    action:@selector(editInfo)];
+}
+
+- (BaseView *)logoutView {
+    
+    if (!_logoutView) {
+        
+        _logoutView = [[BaseView alloc] initWithFrame:CGRectMake(0, 35, kScreenWidth, 100)];
+        
+        UIButton *logoutBtn = [UIButton buttonWithTitle:@"退出登录"
+                                             titleColor:kThemeColor
+                                        backgroundColor:kWhiteColor
+                                              titleFont:18.0];
+        
+        [logoutBtn addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+
+        [_logoutView addSubview:logoutBtn];
+        [logoutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.right.equalTo(@0);
+            make.top.equalTo(@35);
+            make.height.equalTo(@60);
+        }];
+    }
+    return _logoutView;
+}
 
 - (void)initGroup {
     
@@ -77,16 +117,32 @@
     collection.imgName = @"收藏";
     collection.action = ^{
         
-    
+        [weakSelf checkLogin:^{
+            
+        }];
     };
     
-    //评论
-    MineModel *comment = [MineModel new];
+    //圈子评论
+    MineModel *forumComment = [MineModel new];
     
-    comment.text = @"评论";
-    comment.imgName = @"评论";
-    comment.action = ^{
+    forumComment.text = @"圈子评论";
+    forumComment.imgName = @"圈子评论";
+    forumComment.action = ^{
         
+        [weakSelf checkLogin:^{
+            
+        }];
+    };
+    //资讯评论
+    MineModel *infoComment = [MineModel new];
+    
+    infoComment.text = @"资讯评论";
+    infoComment.imgName = @"资讯评论";
+    infoComment.action = ^{
+        
+        [weakSelf checkLogin:^{
+            
+        }];
     };
     
     //关于
@@ -102,10 +158,17 @@
         
         [weakSelf.navigationController pushViewController:htmlVC animated:YES];
     };
+    //清除缓存
+    MineModel *cache = [MineModel new];
+    
+    cache.text = @"清除缓存";
+    cache.action = ^{
+        
+    };
     
     self.group = [MineGroup new];
     
-    self.group.sections = @[@[collection, comment, aboutUs]];
+    self.group.sections = @[@[collection, forumComment, infoComment, aboutUs, cache]];
     
     self.tableView.mineGroup = self.group;
     
@@ -114,26 +177,29 @@
 
 - (void)initTableView {
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110 + kNavigationBarHeight)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
     
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.image = kImage(@"我的-背景");
     
     imageView.tag = 1500;
+    imageView.backgroundColor = kAppCustomMainColor;
     
     [self.view addSubview:imageView];
     
     self.tableView = [[MineTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kTabBarHeight) style:UITableViewStyleGrouped];
     
+    self.tableView.tableFooterView = self.logoutView;
+
     [self.view addSubview:self.tableView];
     
     //tableview的header
-    self.headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110 + kNavigationBarHeight)];
+    self.headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
     
     self.headerView.delegate = self;
     
     self.tableView.tableHeaderView = self.headerView;
-    
+
 }
 
 - (TLImagePicker *)imagePicker {
@@ -189,14 +255,78 @@
     //
     [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].photo convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
     
-    self.headerView.nameLbl.text = [TLUser user].realName;
+    if (![TLUser user].isLogin) {
+        
+        [self.headerView.nameBtn setTitle:@"快速登录" forState:UIControlStateNormal];
+        self.tableView.tableFooterView.hidden = YES;
+        
+    } else {
+        
+        [self.headerView.nameBtn setTitle:[TLUser user].nickname forState:UIControlStateNormal];
+
+        self.tableView.tableFooterView.hidden = NO;
+    }
 }
 
 - (void)loginOut {
     
-    self.headerView.nameLbl.text = @"";
-    
+    [self.headerView.nameBtn setTitle:@"快速登录" forState:UIControlStateNormal];
+
     self.headerView.userPhoto.image = USER_PLACEHOLDER_SMALL;
+}
+
+/**
+ 编辑资料
+ */
+- (void)editInfo {
+    
+    BaseWeakSelf;
+    
+    [self checkLogin:^{
+        
+        UserDetailEditVC *editVC = [UserDetailEditVC new];
+        
+        [weakSelf.navigationController pushViewController:editVC animated:YES];
+    }];
+}
+
+/**
+ 判断用户是否登录
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (loginSuccess) {
+        
+        loginSuccess();
+    }
+}
+
+- (void)logout {
+    
+    [TLAlert alertWithTitle:@"" msg:@"是否确认退出" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
+        
+    } confirm:^(UIAlertAction *action) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            self.tabBarController.selectedIndex = 0;
+        });
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
+    }];
 }
 
 #pragma mark - Data
@@ -225,23 +355,13 @@
 }
 
 #pragma mark - MineHeaderSeletedDelegate
-
 - (void)didSelectedWithType:(MineHeaderSeletedType)type idx:(NSInteger)idx {
     
     switch (type) {
-        case MineHeaderSeletedTypeDefault:
+        case MineHeaderSeletedTypeLogin:
         {
-            SettingVC *settingVC = [SettingVC new];
-            
-            [self.navigationController pushViewController:settingVC animated:YES];
-            
+            [self checkLogin:nil];
         }break;
-            
-            //        case MineHeaderSeletedTypeSelectPhoto:
-            //        {
-            //            [self.imagePicker picker];
-            //
-            //        }break;
             
         default:
             break;

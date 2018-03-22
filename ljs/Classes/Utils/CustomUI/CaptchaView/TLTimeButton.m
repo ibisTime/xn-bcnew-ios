@@ -24,11 +24,11 @@
         
         _time = total;
         _totalTime = total;
-        [self setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [self setTitle:@"验证码" forState:UIControlStateNormal];
         
         [self setTitleColor:kAppCustomMainColor forState:UIControlStateNormal];
 
-        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+        [self setTitleColor:kTextColor2 forState:UIControlStateDisabled];
         self.titleLabel.font = Font(15.0);
         self.enabled = YES;
 
@@ -57,8 +57,6 @@
     
     [self setTitle:[NSString stringWithFormat:@"重新发送(%ld)",_totalTime] forState:UIControlStateDisabled];
     
-    self.backgroundColor = kTextColor2;
-    
     _timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timeAction) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     
@@ -77,7 +75,6 @@
         [_timer invalidate];
         _timer = nil;
         _time = _totalTime;
-        self.backgroundColor = kAppCustomMainColor;
         self.enabled = YES;
     }
     

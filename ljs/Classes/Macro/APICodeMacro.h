@@ -15,7 +15,7 @@
 //用户
 #define USER_REG_CODE @"805041"//注册
 #define USER_INVITE_REG_CODE @"805154"//邀请注册
-#define USER_LOGIN_CODE @"805050"//登录
+#define USER_LOGIN_CODE @"805173"//登录
 #define USER_FIND_PWD_CODE @"805063"//忘记密码
 
 #define USER_CAHNGE_MOBILE @"805061"//修改手机号
@@ -27,6 +27,7 @@
 
 //根据ckey查询系统参数
 #define USER_CKEY_CVALUE    @"625917"
+#define SYS_KEY @"ckey"
 
 //七牛图片上传
 #define IMG_UPLOAD_CODE @"805951"

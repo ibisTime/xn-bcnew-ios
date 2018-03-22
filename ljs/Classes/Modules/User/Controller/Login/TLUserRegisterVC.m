@@ -9,7 +9,6 @@
 #import "TLUserRegisterVC.h"
 //#import "SGScanningQRCodeVC.h"
 #import <Photos/Photos.h>
-//#import "TLNavigationController.h"
 #import "HTMLStrVC.h"
 
 #import <CoreLocation/CoreLocation.h>

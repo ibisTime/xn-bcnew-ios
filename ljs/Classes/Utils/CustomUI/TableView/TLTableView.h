@@ -10,6 +10,7 @@
 
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
+#import "TLPlaceholderView.h"
 
 @class TLTableView;
 @protocol RefreshDelegate <NSObject>
@@ -29,6 +30,10 @@
 @interface  TLTableView: UITableView
 
 @property (nonatomic, weak)   id<RefreshDelegate> refreshDelegate;  //代理
+@property (nonatomic, assign) BOOL hiddenFooter;
+@property (nonatomic, assign) BOOL hiddenHeader;
+
+@property (nonatomic,strong) TLPlaceholderView *placeHolderView;
 
 + (instancetype)tableViewWithFrame:(CGRect)frame
 
@@ -63,12 +68,6 @@
 
 /* 重置更多数据的状态*/
 - (void)resetNoMoreData_tl;
-
-@property (nonatomic, assign) BOOL hiddenFooter;
-@property (nonatomic, assign) BOOL hiddenHeader;
-
-@property (nonatomic,strong) UIView *placeHolderView;
-
 
 //****************************数据刷新   站位图相关**********************//
 /*可以检测是否有数据，没有的话显示站位图，但是有个缺点，比如说第一个Cell显示固定的东西,像搜索框*/

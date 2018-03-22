@@ -32,7 +32,11 @@
     
     if (!_baseVC) {
         
-        _baseVC = (BaseViewController *)[[UIViewController alloc] getCurrentVC];
+        UIViewController *vc = [[UIViewController alloc] getCurrentVC];
+        if ([vc isKindOfClass:[BaseViewController class]]) {
+            
+            _baseVC = (BaseViewController *)vc;
+        }
     }
     return _baseVC;
 }

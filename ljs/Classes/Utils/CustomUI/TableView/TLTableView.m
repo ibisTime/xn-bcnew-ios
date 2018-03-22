@@ -40,14 +40,11 @@ _Pragma("clang diagnostic pop") \
 
 
 @implementation TLTableView
-{
-    UIView *_placeholderV;
-}
 
 + (instancetype)groupTableViewWithFrame:(CGRect)frame
 
                                delegate:(id)delegate dataSource:(id)dataSource {
-
+    
     
     TLTableView *tableView = [[TLTableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     tableView.delegate = delegate;
@@ -66,17 +63,12 @@ _Pragma("clang diagnostic pop") \
     }
     
     return tableView;
-
 }
-
-
-
 
 + (instancetype)tableViewWithFrame:(CGRect)frame
 
-                              delegate:(id)delegate dataSource:(id)dataSource
-{
-
+                          delegate:(id)delegate dataSource:(id)dataSource {
+    
     TLTableView *tableView = [[TLTableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     tableView.delegate = delegate;
     tableView.dataSource = dataSource;
@@ -87,14 +79,14 @@ _Pragma("clang diagnostic pop") \
     tableView.estimatedSectionFooterHeight = 0;
     
     [tableView adjustsContentInsets];
-
+    
     if (@available(iOS 11.0, *)) {
         
         tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
     return tableView;
-
+    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
@@ -119,17 +111,15 @@ _Pragma("clang diagnostic pop") \
 }
 
 //刷新
-- (void)addRefreshAction:(void (^)())refresh
-{
+- (void)addRefreshAction:(void (^)())refresh {
+    
     self.refresh = refresh;
     
-   
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:self.refresh];
     self.mj_header = header;
 }
 
-- (void)addLoadMoreAction:(void (^)())loadMore
-{
+- (void)addLoadMoreAction:(void (^)())loadMore {
     
     self.loadMore = loadMore;
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:loadMore];
@@ -142,30 +132,28 @@ _Pragma("clang diagnostic pop") \
     
 }
 
-
-- (void)beginRefreshing
-{
+- (void)beginRefreshing {
+    
     if (self.mj_header == nil) {
         return;
     }
     [self.mj_header beginRefreshing];
-
+    
 }
 
-- (void)endRefreshHeader
-{
-
+- (void)endRefreshHeader {
+    
     if (self.mj_header == nil) {
-
-    }else{
+        
+    }else {
         
         [self.mj_header endRefreshing];
     }
-   
+    
 }
 
-- (void)endRefreshFooter
-{
+- (void)endRefreshFooter {
+    
     if (!self.mj_footer) {
         NSLog(@"刷新尾部组件不存在");
         return;
@@ -173,33 +161,35 @@ _Pragma("clang diagnostic pop") \
     [self.mj_footer endRefreshing];
 }
 
-- (void)endRefreshingWithNoMoreData_tl
-{
+- (void)endRefreshingWithNoMoreData_tl {
+    
     if (self.mj_footer) {
+        
         [self.mj_footer endRefreshingWithNoMoreData];
     }
 }
 
-- (void)resetNoMoreData_tl
-{
+- (void)resetNoMoreData_tl {
+    
     if (self.mj_footer) {
+        
         [self.mj_footer resetNoMoreData];
     }
-
 }
 
-- (void)setHiddenFooter:(BOOL)hiddenFooter
-{
+- (void)setHiddenFooter:(BOOL)hiddenFooter {
+    
     _hiddenFooter = hiddenFooter;
     if (self.mj_footer) {
-                self.mj_footer.hidden = hiddenFooter;
-            }else{
-                NSLog(@"footer不存在");
-            }
+        
+        self.mj_footer.hidden = hiddenFooter;
+    }else{
+        NSLog(@"footer不存在");
+    }
 }
 
-- (void)setHiddenHeader:(BOOL)hiddenHeader
-{
+- (void)setHiddenHeader:(BOOL)hiddenHeader {
+    
     _hiddenHeader = hiddenHeader;
     if (self.mj_header) {
         
@@ -210,10 +200,8 @@ _Pragma("clang diagnostic pop") \
     }
 }
 
-
-
--(void)reloadData_tl
-{
+- (void)reloadData_tl {
+    
     [super reloadData];
     
     long sections = 1;//默认为1组
@@ -233,27 +221,19 @@ _Pragma("clang diagnostic pop") \
             
             numOfRow = [self.dataSource tableView:self numberOfRowsInSection:i];
         }
-
+        
         if (numOfRow > 0) { //只要有一组有数据就不为空
             isEmpty = NO;
         }
-        
     }
     
     //没有实现方法抛出异常
-//    if (!self.placeholderView) {
-//        
-//        @throw [NSException exceptionWithName:@"this unException the ACTableView object" reason:@"please achieve createPlaceholderView: scrollEnabled: scrollWasEnabled:" userInfo:nil];
-//    }
+    //    if (!self.placeholderView) {
+    //
+    //        @throw [NSException exceptionWithName:@"this unException the ACTableView object" reason:@"please achieve createPlaceholderView: scrollEnabled: scrollWasEnabled:" userInfo:nil];
+    //    }
     
     if (isEmpty == YES) {
-        
-//        [_placeholderV removeFromSuperview];
-//        _placeholderV = nil;
-//        [[_placeholderV subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-//
-//        _placeholderV = _placeholderView();
-//        [self addSubview:_placeholderV];
         
         if ( ABS((CGRectGetMinY(self.placeHolderView.frame) - CGRectGetHeight(self.tableHeaderView.frame))) > 1 ) {
             
@@ -261,19 +241,12 @@ _Pragma("clang diagnostic pop") \
             frame.origin.y = self.tableHeaderView.frame.size.height;
             self.placeHolderView.frame = frame;
         }
-        [self addSubview:self.placeHolderView];
-
+        self.tableFooterView = self.placeHolderView;
         
     }else{
         
         [self.placeHolderView removeFromSuperview];
-//        [_placeholderV removeFromSuperview];
-//        _placeholderV = nil;
-//        [[_placeholderV subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        
     }
-    
-    
 }
 
 #pragma mark - UITableViewDelegate

@@ -43,8 +43,8 @@
     [self.contentView addSubview:self.iconImageView];
     self.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@20);
-        make.height.equalTo(@20);
+        make.width.equalTo(@16);
+        make.height.equalTo(@16);
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).offset(15);
         

@@ -8,18 +8,26 @@
 
 #import "AppDelegate.h"
 
-#import "IQKeyboardManager.h"
-//#import "WXApi.h"
-
-//#import "AppDelegate+Launch.h"
-//#import "AppDelegate+BaiduMap.h"
-
+//Manager
 #import "AppConfig.h"
-
+#import "TLUser.h"
+//Macro
+//Framework
+//Category
+//Extension
+#import "IQKeyboardManager.h"
+//M
+//V
+//C
 #import "NavigationController.h"
 #import "TabbarViewController.h"
 #import "InfoDetailVC.h"
 #import "TLUserLoginVC.h"
+
+//#import "WXApi.h"
+
+//#import "AppDelegate+Launch.h"
+//#import "AppDelegate+BaiduMap.h"
 
 @interface AppDelegate ()
 
@@ -34,6 +42,8 @@
     
     //服务器环境
     [self configServiceAddress];
+    //获取七牛云域名
+//    [[TLUser user] requestQiniuDomain];
     //键盘
     [self configIQKeyboard];
     //配置地图
@@ -112,10 +122,12 @@
     self.window.rootViewController = tabbarCtrl;
     
     //重新登录
-    if([TLUser user].isLogin) {
+    if([TLUser user].checkLogin) {
         
-        [[TLUser user] reLogin];
-        //            [[ChatManager sharedManager] loginIM];
+        [[TLUser user] updateUserInfo];
+        // 登录时间变更到，didBecomeActive中
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification
+                                                            object:nil];
         
     };
     
