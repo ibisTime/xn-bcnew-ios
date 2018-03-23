@@ -7,6 +7,8 @@
 //
 
 #import "NewsFlashDetailVC.h"
+//Manager
+#import "TLWXManager.h"
 //Macro
 //Framework
 //Category
@@ -80,12 +82,13 @@
     switch (type) {
         case NewsFlashShareTypeWeChat:
         {
-            
+            [TLWXManager wxShareImageWithScene:WXSceneSession title:nil desc:nil image:shareImage];
         }break;
             
         case NewsFlashShareTypeTimeLine:
         {
-            
+            [TLWXManager wxShareImageWithScene:WXSceneTimeline title:nil desc:nil image:shareImage];
+
         }break;
             
         case NewsFlashShareTypeQQ:
@@ -102,6 +105,8 @@
             break;
     }
 }
+
+#pragma mark - 微信分享
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

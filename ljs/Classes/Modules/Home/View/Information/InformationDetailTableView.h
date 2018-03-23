@@ -9,14 +9,12 @@
 #import "TLTableView.h"
 //M
 #import "InfoCommentModel.h"
-#import "InformationModel.h"
+#import "InfoDetailModel.h"
 
 @interface InformationDetailTableView : TLTableView
 //最新评论
 @property (nonatomic, strong) NSArray <InfoCommentModel*> *newestComments;
-//热门评论
-@property (nonatomic, strong) NSArray <InfoCommentModel*> *hotComments;
 //
-@property (nonatomic, strong) NSArray <InformationModel*> *infos;
+@property (nonatomic, strong) InfoDetailModel *detailModel;
 
 @end

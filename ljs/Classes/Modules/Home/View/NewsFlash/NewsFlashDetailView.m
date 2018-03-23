@@ -149,10 +149,10 @@
     
     _flashModel = flashModel;
     
-    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"【%@】%@", flashModel.title, flashModel.content] lineSpace:5];
+    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"【%@】%@", flashModel.source, flashModel.content] lineSpace:5];
     //星期
-    NSString *weekday = [NSString weekdayStringFromDate:flashModel.time];
-    NSString *time = [flashModel.time convertDateWithFormat:@"yyyy-M-d HH:mm:ss"];
+    NSString *weekday = [NSString weekdayStringFromDate:flashModel.showDatetime];
+    NSString *time = [flashModel.showDatetime convertDateWithFormat:@"yyyy-M-d HH:mm:ss"];
     self.timeLbl.text = [NSString stringWithFormat:@"%@ %@", weekday, time];
     //
     [self layoutIfNeeded];

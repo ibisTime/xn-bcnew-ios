@@ -45,11 +45,11 @@ static NSString *informationListCellID = @"InformationListCell";
     
     if (section == 0) {
         
-        return self.infos.count;
+        return self.detailModel.refNewList.count;
         
     } else if (section == 1) {
         
-        return self.hotComments.count;
+        return self.detailModel.hotCommentList.count;
     }
     
     return self.newestComments.count;
@@ -61,18 +61,32 @@ static NSString *informationListCellID = @"InformationListCell";
         
         InformationListCell *cell = [tableView dequeueReusableCellWithIdentifier:informationListCellID forIndexPath:indexPath];
         
-        cell.infoModel = self.infos[indexPath.row];
+        cell.infoModel = self.detailModel.refNewList[indexPath.row];
         
         return cell;
     }
     //分区1热门评论 分区2最新评论
-    InfoCommentModel *commentModel = indexPath.section == 1 ? self.hotComments[indexPath.row]: self.newestComments[indexPath.row];
+    InfoCommentModel *commentModel = indexPath.section == 1 ? self.detailModel.hotCommentList[indexPath.row]: self.newestComments[indexPath.row];
     
     InfoCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
+    
+    cell.zanBtn.tag = 1300 + indexPath.row + 1000*indexPath.section;
+    
+    [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
     
     cell.commentModel = commentModel;
     
     return cell;
+}
+
+- (void)clickZan:(UIButton *)sender {
+    
+    NSInteger index = sender.tag - 1300;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -95,7 +109,7 @@ static NSString *informationListCellID = @"InformationListCell";
         
     } else if (indexPath.section == 1) {
         
-        return self.hotComments[indexPath.row].cellHeight;
+        return self.detailModel.hotCommentList[indexPath.row].cellHeight;
     }
     
     return self.newestComments[indexPath.row].cellHeight;
@@ -103,7 +117,28 @@ static NSString *informationListCellID = @"InformationListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 45;
+    //判断是否有数据，没有就隐藏
+    if (section == 0) {
+        
+        if (self.detailModel.refNewList.count == 0) {
+            
+            return 0.1;
+        }
+    } else if (section == 1) {
+        
+        if (self.detailModel.hotCommentList.count == 0) {
+            
+            return 0.1;
+        }
+    } else if (section == 2) {
+        
+        if (self.newestComments.count == 0) {
+            
+            return 0.1;
+        }
+    }
+    
+    return 55;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -111,13 +146,13 @@ static NSString *informationListCellID = @"InformationListCell";
     //判断是否有数据，没有就隐藏
     if (section == 0) {
         
-        if (self.infos.count == 0) {
+        if (self.detailModel.refNewList.count == 0) {
             
             return [UIView new];
         }
     } else if (section == 1) {
         
-        if (self.hotComments.count == 0) {
+        if (self.detailModel.hotCommentList.count == 0) {
             
             return [UIView new];
         }
@@ -131,10 +166,22 @@ static NSString *informationListCellID = @"InformationListCell";
     
     NSArray *titleArr = @[@"相关文章", @"热门评论", @"最新评论"];
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 55)];
 
     headerView.backgroundColor = kWhiteColor;
 
+    //topLine
+    UIView *topLine = [[UIView alloc] init];
+    
+    topLine.backgroundColor = kLineColor;
+    
+    [headerView addSubview:topLine];
+    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.top.equalTo(@0);
+        make.height.equalTo(@10);
+    }];
+    
     //text
     UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor

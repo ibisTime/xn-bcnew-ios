@@ -127,10 +127,9 @@
         
         [TLAlert alertWithInfo:@"请输入评论内容"];
         return ;
-    }else{
-        
-        [self.delegate clickedSureBtnWithText:self.commentTV.text];
     }
+    
+    [self.delegate clickedSureBtnWithText:self.commentTV.text];
     
     [self dismiss];
 }

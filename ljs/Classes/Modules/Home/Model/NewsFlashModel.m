@@ -8,6 +8,10 @@
 
 #import "NewsFlashModel.h"
 
+NSString *const kAllNewsFlash = @"";        //全部快讯
+NSString *const kHotNewsFlash = @"1";       //热门快讯
+
 @implementation NewsFlashModel
+
 
 @end

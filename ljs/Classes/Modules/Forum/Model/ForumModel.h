@@ -18,8 +18,15 @@
 @property (nonatomic, copy) NSString *postNum;
 //更贴数
 @property (nonatomic, copy) NSString *updateNum;
+//排名
+@property (nonatomic, copy) NSString *rank;
+@property (nonatomic, copy) NSString *rankImage;
 //是否关注
 @property (nonatomic, assign) BOOL isFollow;
+//是否排名前三
+@property (nonatomic, assign) BOOL isTopThree;
+//是否是全部
+@property (nonatomic, assign) BOOL isAllPost;
 
 @end
 

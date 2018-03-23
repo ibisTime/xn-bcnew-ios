@@ -13,4 +13,35 @@ NSString *const kFoucsPost = @"3";  //关注
 
 @implementation ForumModel
 
+- (NSString *)rankImage {
+    
+    NSInteger rankNum = [self.rank integerValue];
+    
+    switch (rankNum) {
+        case 1:
+        {
+            _rankImage = @"金";
+        }break;
+        case 2:
+        {
+            _rankImage = @"银";
+        }break;
+        case 3:
+        {
+            _rankImage = @"铜";
+        }break;
+            
+        default:
+            break;
+    }
+    return _rankImage;
+}
+
+- (BOOL)isTopThree {
+    
+    NSInteger rankNum = [self.rank integerValue];
+
+    return _isTopThree = rankNum <=3 ? YES: NO;
+}
+
 @end

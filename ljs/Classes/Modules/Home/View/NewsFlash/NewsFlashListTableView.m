@@ -67,14 +67,13 @@ static NSString *identifierCell = @"NewsFlashListCell";
     if (indexPath.section == 0) {
         
         return NO;
-        
     }
     //后面的时间跟前面比对
     NewsFlashModel *new1 = self.news[indexPath.section - 1];
     NewsFlashModel *new2 = self.news[indexPath.section];
     
-    NSString *day1 = [new1.time convertDateWithFormat:@"d"];
-    NSString *day2 = [new2.time convertDateWithFormat:@"d"];
+    NSString *day1 = [new1.showDatetime convertDateWithFormat:@"d"];
+    NSString *day2 = [new2.showDatetime convertDateWithFormat:@"d"];
     
     if ([day1 integerValue] == [day2 integerValue]) {
         
@@ -90,12 +89,10 @@ static NSString *identifierCell = @"NewsFlashListCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    NewsFlashModel *model = self.news[indexPath.section];
-    
-    model.isSelect = !model.isSelect;
-    model.isRead = YES;
-    
-    [self reloadData];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

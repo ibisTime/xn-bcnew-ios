@@ -11,6 +11,7 @@
 #import <UIImageView+WebCache.h>
 #import "NSString+Extension.h"
 #import "NSString+Date.h"
+#import "UIButton+EnLargeEdge.h"
 //V
 #import "LinkLabel.h"
 
@@ -27,8 +28,6 @@
 @property (nonatomic, strong) LinkLabel *contentLbl;
 //点赞数
 @property (nonatomic, strong) UILabel *zanNumLbl;
-//点赞按钮
-@property (nonatomic, strong) UIButton *zanBtn;
 
 @end
 
@@ -39,7 +38,6 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         [self initSubviews];
-        
     }
     
     return self;
@@ -73,9 +71,10 @@
     [self addSubview:self.timeLbl];
     //点赞按钮
     self.zanBtn = [UIButton buttonWithImageName:@"未点赞"
-                              selectedImageName:@"点赞"];
+                              ];
     
     self.zanBtn.contentMode = UIViewContentModeScaleAspectFit;
+    [self.zanBtn setEnlargeEdge:10];
     
     [self addSubview:self.zanBtn];
     //点赞数
@@ -158,8 +157,10 @@
     self.nameLbl.text = commentModel.nickname;
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
     self.contentLbl.text = commentModel.content;
-    self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", commentModel.zanNum];
-    self.zanBtn.selected = commentModel.isZan;
+    self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", commentModel.pointCount];
+    
+    NSString *zanImg = [commentModel.isZan isEqualToString:@"1"] ? @"点赞": @"未点赞";
+    [self.zanBtn setImage:kImage(zanImg) forState:UIControlStateNormal];
     //
     [self setSubviewLayout];
     //

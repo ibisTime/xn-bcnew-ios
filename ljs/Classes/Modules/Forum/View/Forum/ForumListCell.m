@@ -25,6 +25,10 @@
 @property (nonatomic, strong) UILabel *updatePostNumLbl;
 //关注
 @property (nonatomic, strong) UIButton *followBtn;
+//排名
+@property (nonatomic, strong) UIImageView *rankIV;
+//
+@property (nonatomic, assign) BOOL isFirst;
 
 @end
 
@@ -44,6 +48,7 @@
 #pragma mark - Init
 - (void)initSubviews {
     
+    _isFirst = YES;
     //吧名
     self.postBarNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                   textColor:kTextColor
@@ -74,22 +79,46 @@
     self.followBtn.layer.borderColor = kAppCustomMainColor.CGColor;
     
     [self addSubview:self.followBtn];
-    //布局
-    [self setSubviewsLayout];
 }
 
 - (void)setSubviewsLayout {
     
-    //吧名
-    [self.postBarNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (!_isFirst) {
         
-        make.left.equalTo(@15);
-        make.top.equalTo(@13);
-    }];
+        return ;
+    }
+    if (!_forumModel.isAllPost && _forumModel.isTopThree) {
+        
+        //排名
+        self.rankIV = [[UIImageView alloc] initWithImage:kImage(_forumModel.rankImage)];
+        
+        [self addSubview:self.rankIV];
+        [self.rankIV mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(@10);
+            make.top.equalTo(@15);
+            make.width.height.equalTo(@26);
+        }];
+        //吧名
+        [self.postBarNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.rankIV.mas_right).offset(10);
+            make.centerY.equalTo(self.rankIV.mas_centerY);
+        }];
+    } else {
+        
+        //吧名
+        [self.postBarNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(@15);
+            make.top.equalTo(@13);
+        }];
+    }
+    
     //关注量
     [self.followNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.postBarNameLbl.mas_left);
+        make.left.equalTo(@15);
         make.top.equalTo(self.postBarNameLbl.mas_bottom).offset(13);
     }];
     //发帖量
@@ -109,9 +138,11 @@
 
         make.centerY.equalTo(self.postBarNameLbl.mas_centerY);
         make.right.equalTo(@(-15));
-        make.width.equalTo(@60);
+        make.width.equalTo(@80);
         make.height.equalTo(@35);
     }];
+    
+    _isFirst = NO;
 }
 
 #pragma mark - Setting
@@ -127,11 +158,16 @@
         
         [self.followBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];
+        [self.followBtn setTitle:@"已关注" forState:UIControlStateNormal];
     } else {
         
         [self.followBtn setTitleColor:kAppCustomMainColor forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:kWhiteColor forState:UIControlStateNormal];
+        [self.followBtn setTitle:@"关注" forState:UIControlStateNormal];
     }
+    
+    //布局
+    [self setSubviewsLayout];
 }
 
 @end

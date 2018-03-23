@@ -37,68 +37,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //添加通知
+    [self addNotification];
+    
     if ([self.kind isEqualToString:kNewsFlash]) {
         //快讯
         [self initFlashTableView];
         //获取快讯列表
         [self requestFlashList];
-        
-        NSMutableArray <NewsFlashModel *>*arr = [NSMutableArray array];
-        
-        for (int i = 0; i < 10; i++) {
-            
-            NewsFlashModel *model = [NewsFlashModel new];
-            
-            model.title = @"天赋很重要";
-            model.content = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-            model.time = @"May 1, 2018 3:27:08 AM";
-            
-            [arr addObject:model];
-        }
-        
-        self.news = arr;
-        
-        self.flashTableView.news = self.news;
-        
-        [self.flashTableView reloadData];
-        
-        //
-//        [self.flashTableView beginRefreshing];
+        //刷新
+        [self.flashTableView beginRefreshing];
         
     } else {
         //资讯
         [self initInfoTableView];
         //获取资讯列表
         [self requestInfoList];
-        
-        NSMutableArray <InformationModel *>*arr = [NSMutableArray array];
-        
-        for (int i = 0; i < 10; i++) {
-            
-            InformationModel *model = [InformationModel new];
-            
-            model.title = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-            model.time = @"May 1, 2018 3:27:08 AM";
-            model.collectNum = 99;
-            model.author = @"CzyGod";
-            model.source = @"知乎";
-            model.desc = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-            
-            [arr addObject:model];
-        }
-        
-        self.infos = arr;
-        
-        self.infoTableView.infos = self.infos;
-        
-        [self.infoTableView reloadData];
-        
-        //
-//        [self.flashTableView beginRefreshing];
+        //刷新
+        [self.infoTableView beginRefreshing];
     }
 }
 
 #pragma mark - Init
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewsFlash) name:kUserLoginOutNotification object:nil];
+}
+
+- (void)refreshNewsFlash {
+    
+    //
+    [self.flashTableView beginRefreshing];
+}
+
 - (void)initFlashTableView {
     
     self.flashTableView = [[NewsFlashListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -134,9 +105,9 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"";
+    helper.code = @"628097";
 
-    helper.parameters[@""] = [TLUser user].userId;
+    helper.parameters[@"type"] = self.status;
     
     helper.tableView = self.flashTableView;
     
@@ -188,9 +159,9 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"";
+    helper.code = @"628205";
     
-    helper.parameters[@""] = [TLUser user].userId;
+    helper.parameters[@"type"] = self.code;
     
     helper.tableView = self.infoTableView;
     
@@ -236,12 +207,53 @@
     [self.infoTableView endRefreshingWithNoMoreData_tl];
 }
 
+/**
+ 用户点击阅读快讯
+ */
+- (void)userClickNewsFlash:(NewsFlashModel *)flashModel {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628094";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"code"] = flashModel.code;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        flashModel.isRead = @"1";
+        
+        [self.flashTableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if ([self.kind isEqualToString:kNewsFlash]) {
+        
+        NewsFlashModel *flashModel = self.news[indexPath.section];
+        
+        if ([[TLUser user] isLogin] && [flashModel.isRead isEqualToString:@"0"]) {
+            
+            //用户点击阅读快讯
+            [self userClickNewsFlash:flashModel];
+            
+        }
+//        else {
+//
+//            flashModel.isRead = @"1";
+//            [self.flashTableView reloadData];
+//        }
+        
+        return ;
+    }
     InfoDetailVC *detailVC = [InfoDetailVC new];
     
-    detailVC.infoModel = self.infos[indexPath.row];
+    detailVC.code = self.infos[indexPath.row].code;
+    detailVC.title = self.titleStr;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

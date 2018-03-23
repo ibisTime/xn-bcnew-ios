@@ -127,9 +127,9 @@
     _infoModel = infoModel;
     
     [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
-    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.pic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
-    self.timeLbl.text = [infoModel.time convertToDetailDate];
-    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld个收藏", infoModel.collectNum];
+    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];
+    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
 }
 
 @end

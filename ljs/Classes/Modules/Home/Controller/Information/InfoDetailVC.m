@@ -10,9 +10,12 @@
 //Macro
 //Framework
 //Category
+#import "TLProgressHUD.h"
 //Extension
 #import <IQKeyboardManager.h>
 //M
+#import "InfoDetailModel.h"
+#import "InfoCommentModel.h"
 //V
 #import "BaseView.h"
 #import "InformationDetailTableView.h"
@@ -20,6 +23,8 @@
 #import "InputTextView.h"
 //C
 #import "InfoCommentDetailVC.h"
+#import "NavigationController.h"
+#import "TLUserLoginVC.h"
 
 #define kBottomHeight 50
 
@@ -31,11 +36,13 @@
 //底部
 @property (nonatomic, strong) BaseView *bottomView;
 //infoList
-@property (nonatomic, strong) NSArray <InformationModel *>*infos;
+@property (nonatomic, strong) InfoDetailModel *detailModel;
 //commentList
 @property (nonatomic, strong) NSArray <InfoCommentModel *>*comments;
 //输入框
 @property (nonatomic, strong) InputTextView *inputTV;
+//收藏
+@property (nonatomic, strong) UIButton *collectionBtn;
 
 @end
 
@@ -59,21 +66,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"资讯详情";
-    //底部
-    [self initBottomView];
     //评论
     [self initCommentTableView];
-    //获取评论列表
+    //详情查资讯
+    [self requestInfoDetail];
+    //获取最新评论列表
     [self requestCommentList];
-    //获取文章列表
-    [self requestInfoList];
-}
-
-- (void)viewDidLayoutSubviews {
-    
-    self.tableView.tableHeaderView = self.headerView;
+    //
+    [self addNotification];
 }
 
 #pragma mark - Init
@@ -119,9 +119,6 @@
     self.headerView = [[InformationDetailHeaderView alloc] init];
     
     self.headerView.backgroundColor = kWhiteColor;
-    self.headerView.infoModel = self.infoModel;
-    
-    self.tableView.tableHeaderView = self.headerView;
 }
 
 - (void)initBottomView {
@@ -146,7 +143,7 @@
     //分享
     UIButton *shareBtn = [UIButton buttonWithImageName:@"分享"];
     
-    [shareBtn addTarget:self action:@selector(shareInformation) forControlEvents:UIControlEventTouchUpInside];
+    [shareBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
     
     shareBtn.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -158,9 +155,13 @@
         make.width.height.equalTo(@20);
     }];
     //收藏
-    UIButton *collectionBtn = [UIButton buttonWithImageName:@"未收藏" selectedImageName:@"收藏"];
+    UIButton *collectionBtn = [UIButton buttonWithImageName:@"未收藏"];
     
-    [collectionBtn addTarget:self action:@selector(collectionInformation) forControlEvents:UIControlEventTouchUpInside];
+    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+    
+    [collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
+    
+    [collectionBtn addTarget:self action:@selector(collectionInfo:) forControlEvents:UIControlEventTouchUpInside];
     collectionBtn.contentMode = UIViewContentModeScaleAspectFit;
 
     [self.bottomView addSubview:collectionBtn];
@@ -170,8 +171,11 @@
         make.centerY.equalTo(@0);
         make.width.height.equalTo(@20);
     }];
+    
+    self.collectionBtn = collectionBtn;
+    
     //评论数
-    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"未留言" selectedImageName:@"留言"];
+    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"未留言"];
     
     commentNumBtn.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -203,12 +207,32 @@
     [commentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, kWidth(-100), 0, 0)];
 }
 
+#pragma mark - 通知
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadHeaderView) name:@"HeaderViewDidLayout" object:nil];
+}
+
+/**
+ 刷新headerView
+ */
+- (void)reloadHeaderView {
+    
+    self.tableView.tableHeaderView = self.headerView;
+    //刷新
+    [self.tableView reloadData];
+    //底部按钮
+    [self initBottomView];
+    
+    [TLProgressHUD dismiss];
+}
+
 #pragma mark - Events
 
 /**
  分享资讯
  */
-- (void)shareInformation {
+- (void)shareInfo {
     
     
 }
@@ -216,9 +240,31 @@
 /**
  收藏资讯
  */
-- (void)collectionInformation {
+- (void)collectionInfo:(UIButton *)sender {
     
+    BaseWeakSelf;
     
+    [self checkLogin:^{
+        
+        TLNetworking *http = [TLNetworking new];
+        
+        http.code = @"628202";
+        http.parameters[@"objectCode"] = weakSelf.code;
+        http.parameters[@"userId"] = [TLUser user].userId;
+        
+        [http postWithSuccess:^(id responseObject) {
+            
+            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"未收藏": @"收藏";
+            NSString *promptStr = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"取消收藏成功": @"收藏成功";
+            [TLAlert alertWithSucces:promptStr];
+            [sender setImage:kImage(image) forState:UIControlStateNormal];
+            
+            weakSelf.detailModel.isCollect = [self.detailModel.isCollect isEqualToString:@"1"] ? @"0": @"1";
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
 }
 
 /**
@@ -226,66 +272,139 @@
  */
 - (void)clickComment {
     
-    self.tableView.scrollEnabled = NO;
-    [self.inputTV show];
+    BaseWeakSelf;
+    
+    [self checkLogin:^{
+        
+        weakSelf.tableView.scrollEnabled = NO;
+        
+        [weakSelf.inputTV show];
+    }];
+}
+
+/**
+ 判断用户是否登录
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (loginSuccess) {
+        
+        loginSuccess();
+    }
 }
 
 #pragma mark - Data
-- (void)requestInfoList {
+- (void)requestInfoDetail {
     
-    NSMutableArray <InformationModel *>*arr = [NSMutableArray array];
+    TLNetworking *http = [TLNetworking new];
     
-    for (int i = 0; i < 10; i++) {
+    http.code = @"628206";
+    
+    http.parameters[@"code"] = self.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
         
-        InformationModel *model = [InformationModel new];
+        self.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
         
-        model.title = @"但也.仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-        model.time = @"May 1, 2018 3:27:08 AM";
-        model.collectNum = 99;
-        model.author = @"CzyGod";
-        model.source = @"知乎";
-        model.desc = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
+        [self.tableView beginRefreshing];
         
-        [arr addObject:model];
-    }
+    } failure:^(NSError *error) {
+        
+    }];
     
-    self.infos = arr;
-    
-    self.tableView.infos = self.infos;
-    
-    [self.tableView reloadData];
-
 }
 
 - (void)requestCommentList {
     
-    NSMutableArray <InfoCommentModel *>*arr = [NSMutableArray array];
+    BaseWeakSelf;
     
-    for (int i = 0; i < 10; i++) {
-        
-        InfoCommentModel *model = [InfoCommentModel new];
-        
-        model.photo = @"";
-        model.commentDatetime = @"May 1, 2018 3:27:08 AM";
-        model.nickname = @"CzyGod";
-        model.zanNum = 99;
-        model.content = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-        model.isZan = YES;
-        
-        [arr addObject:model];
-    }
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    self.comments = arr;
+    helper.code = @"628285";
+    helper.parameters[@"objectCode"] = self.code;
     
-    self.tableView.hotComments = self.comments;
-    self.tableView.newestComments = self.comments;
-
-    [self.tableView reloadData];
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[InfoCommentModel class]];
+    
+    [self.tableView addRefreshAction:^{
+        
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.comments = objs;
+            
+            weakSelf.tableView.detailModel = weakSelf.detailModel;
+            weakSelf.tableView.newestComments = objs;
+            weakSelf.headerView.detailModel = weakSelf.detailModel;
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.comments = objs;
+            
+            weakSelf.tableView.newestComments = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
 }
 
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
+    //type(1 资讯 2 评论)
+    TLNetworking *http = [TLNetworking new];
     
+    http.code = @"628200";
+    http.parameters[@"type"] = @"1";
+    http.parameters[@"objectCode"] = self.code;
+    http.parameters[@"content"] = text;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *code = responseObject[@"data"][@"code"];
+        
+        if ([code containsString:@"filter"]) {
+            
+            [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            return ;
+        }
+        
+        [TLAlert alertWithSucces:[NSString stringWithFormat:@"%@成功", @"发布"]];
+        
+        self.tableView.scrollEnabled = YES;
+
+        [self.tableView beginRefreshing];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)clickedCancelBtn {
@@ -298,8 +417,53 @@
     
     InfoCommentDetailVC *detailVC = [InfoCommentDetailVC new];
     
-    
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    NSInteger section = index/1000;
+    NSInteger row = index - section*1000;
+    
+    InfoCommentModel *commentModel;
+    
+    if (section == 1) {
+        
+        commentModel = self.detailModel.hotCommentList[row];
+        
+    } else {
+        
+        commentModel = self.comments[row];
+    }
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628201";
+    http.parameters[@"type"] = @"1";
+    http.parameters[@"objectCode"] = commentModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [commentModel.isZan isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([commentModel.isZan isEqualToString:@"1"]) {
+            
+            commentModel.isZan = @"0";
+            commentModel.pointCount -= 1;
+
+        } else {
+            
+            commentModel.isZan = @"1";
+            commentModel.pointCount += 1;
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

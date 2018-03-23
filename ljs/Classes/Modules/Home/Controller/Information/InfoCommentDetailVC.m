@@ -140,28 +140,7 @@
 }
 
 - (void)requestCommentList {
-    
-    NSMutableArray <InfoCommentModel *>*arr = [NSMutableArray array];
-    
-    for (int i = 0; i < 10; i++) {
-        
-        InfoCommentModel *model = [InfoCommentModel new];
-        
-        model.photo = @"";
-        model.commentDatetime = @"May 1, 2018 3:27:08 AM";
-        model.nickname = @"CzyGod";
-        model.zanNum = 99;
-        model.content = @"但也仅仅事关你艺术造诣上的突破，艺考这点事，犯不上每个人都得动用自己的天赋。艺考这东西已经体制化，僵硬化了用自己的天赋。艺考这东用自己的天赋。";
-        model.isZan = YES;
-        
-        [arr addObject:model];
-    }
-    
-    self.comments = arr;
-    
-    self.tableView.comments = self.comments;
-    
-    [self.tableView reloadData];
+
 }
 
 #pragma mark - InputTextViewDelegate

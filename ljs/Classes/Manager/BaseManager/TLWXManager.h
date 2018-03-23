@@ -16,8 +16,10 @@
 + (BOOL)judgeAndHintInstalllWX;
 
 - (void)registerApp;
-
+//分享网页
 + (void)wxShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url;
+//分享图片
++ (void)wxShareImageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc image:(UIImage *)image;
 
 + (void)wxShareWebPageWith:(NSString *)title desc:(NSString *)desc url:(NSString *)url;
 @property (nonatomic, copy) void(^wxPay)(BOOL isSuccess,int errorCode);

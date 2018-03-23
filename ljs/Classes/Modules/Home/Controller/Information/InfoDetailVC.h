@@ -7,11 +7,9 @@
 //
 
 #import "BaseViewController.h"
-//M
-#import "InformationModel.h"
 
 @interface InfoDetailVC : BaseViewController
-//
-@property (nonatomic, strong) InformationModel *infoModel;
+//编号
+@property (nonatomic, copy) NSString *code;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "BaseView.h"
 //M
-#import "InformationModel.h"
+#import "InfoDetailModel.h"
 
 typedef NS_ENUM(NSInteger, InfoShareType) {
     
@@ -19,7 +19,7 @@ typedef void(^InfoShareBlock)(InfoShareType type);
 
 @interface InformationDetailHeaderView : UIScrollView
 //
-@property (nonatomic, strong) InformationModel *infoModel;
+@property (nonatomic, strong) InfoDetailModel *detailModel;
 //
 @property (nonatomic, copy) InfoShareBlock shareBlock;
 

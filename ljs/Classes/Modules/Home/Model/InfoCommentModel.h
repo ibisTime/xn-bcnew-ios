@@ -22,9 +22,9 @@
 @property (nonatomic, copy) NSString *entityCode;
 @property (nonatomic, copy) NSString *nickname;
 //点赞数
-@property (nonatomic, assign) NSInteger zanNum;
+@property (nonatomic, assign) NSInteger pointCount;
 //是否点赞
-@property (nonatomic, assign) BOOL isZan;
+@property (nonatomic, copy) NSString *isZan;
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
 

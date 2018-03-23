@@ -11,8 +11,10 @@
 #import "ForumModel.h"
 //V
 #import "ForumListTableView.h"
+//C
+#import "ForumDetailVC.h"
 
-@interface ForumChildVC ()
+@interface ForumChildVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) ForumListTableView *tableView;
 //
@@ -35,6 +37,8 @@
 - (void)initTableView {
     
     self.tableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,8 +63,9 @@
         model.followNum = @"66666";
         model.postNum = @"66666";
         model.updateNum = @"66666";
+        model.rank = [NSString stringWithFormat:@"%d", i+1];
         model.isFollow = i%2 == 0 ? YES: NO;
-        
+        model.isAllPost = [self.status isEqualToString:kAllPost] ? YES: NO;
         [arr addObject:model];
     }
     
@@ -69,6 +74,14 @@
     self.tableView.forums = self.forums;
     
     [self.tableView reloadData];
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ForumDetailVC *detailVC = [ForumDetailVC new];
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

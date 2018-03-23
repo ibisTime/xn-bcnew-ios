@@ -158,8 +158,8 @@
         [iv sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(PLACEHOLDER_SMALL)];
     }];
     
-    self.timeLbl.text = [infoModel.time convertToDetailDate];
-    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld个收藏", infoModel.collectNum];
+    self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];
+    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
     //布局
     [self setSubviewLayout];
     //

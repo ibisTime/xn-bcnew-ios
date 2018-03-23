@@ -42,6 +42,8 @@ static NSString *identifierCell = @"ForumListCell";
     
     ForumListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
+    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+
     cell.forumModel = self.forums[indexPath.row];
     
     return cell;
@@ -53,6 +55,10 @@ static NSString *identifierCell = @"ForumListCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

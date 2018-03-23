@@ -9,6 +9,9 @@
 #import "HomeVC.h"
 //Manager
 #import "InfoManager.h"
+//M
+#import "NewsFlashModel.h"
+#import "InfoTypeModel.h"
 //V
 #import "SelectScrollView.h"
 #import "TopLabelUtil.h"
@@ -23,12 +26,13 @@
 //小滚动
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, strong) NSMutableArray *titles;
 //statusList
 @property (nonatomic, strong) NSArray *statusList;
 //类型
 @property (nonatomic, copy) NSString *kind;
-
+//资讯类型
+@property (nonatomic, strong) NSArray <InfoTypeModel *>*infoTypeList;
 @end
 
 @implementation HomeVC
@@ -46,6 +50,10 @@
     NSArray *titleArr = @[
                           @"快讯",
                           @"资讯"];
+    
+    self.statusList = @[kAllNewsFlash, kHotNewsFlash];
+
+    self.titles = [NSMutableArray array];
     
     CGFloat h = 34;
     
@@ -78,48 +86,75 @@
         
         if ([self.kind isEqualToString:kNewsFlash]) {
             
-            self.titles = @[@"全部", @"热点"];
+            self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
+            
+            [self initSelectScrollView:i];
             
         } else {
-            
-            self.titles = @[@"实时新闻", @"热点头条", @"行情分析", @"币圈杂谈", @"名家论事"];
+            //查询资讯类型
+            [self requestInfoTypeList];
         }
-        
-        SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
-        
-        [self.switchSV addSubview:selectSV];
-        
-        self.selectSV = selectSV;
-        
-        [self addSubViewController];
     }
+}
+
+- (void)initSelectScrollView:(NSInteger)index {
     
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(index*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    
+    [self.switchSV addSubview:selectSV];
+    
+    self.selectSV = selectSV;
+    
+    [self addSubViewController];
 }
 
 - (void)addSubViewController {
-    
-    if ([self.kind isEqualToString:kNewsFlash]) {
-        
-//        self.statusList = @[@"", kAppointmentOrderStatusWillCheck, kAppointmentOrderStatusWillVisit, kAppointmentOrderStatusWillOverClass, kAppointmentOrderStatusDidOverClass, kAppointmentOrderStatusDidComplete];
-        
-    } else {
-        
-//        self.statusList = @[@"", kAppointmentOrderStatusWillCheck, kAppointmentOrderStatusWillVisit, kAppointmentOrderStatusWillOverClass, kAppointmentOrderStatusDidComplete];
-    }
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
         
-//        childVC.status = self.statusList[i];
+        if ([self.kind isEqualToString:kNewsFlash]) {
+        
+            childVC.status = self.statusList[i];
+            
+        } else {
+            
+            childVC.code = self.infoTypeList[i].code;
+            childVC.titleStr = self.titles[i];
+        }
         childVC.kind = self.kind;
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         
         [self addChildViewController:childVC];
         
         [self.selectSV.scrollView addSubview:childVC.view];
-        
     }
+}
+
+#pragma mark - Data
+- (void)requestInfoTypeList {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628007";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.infoTypeList = [InfoTypeModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        self.titles = [NSMutableArray array];
+        
+        [self.infoTypeList enumerateObjectsUsingBlock:^(InfoTypeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [self.titles addObject:obj.name];
+        }];
+        
+        [self initSelectScrollView:1];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - SegmentDelegate

@@ -13,5 +13,7 @@
 @interface InfoCommentCell : BaseTableViewCell
 //
 @property (nonatomic, strong) InfoCommentModel *commentModel;
+//点赞按钮
+@property (nonatomic, strong) UIButton *zanBtn;
 
 @end

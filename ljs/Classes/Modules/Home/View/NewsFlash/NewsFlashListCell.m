@@ -166,18 +166,19 @@
     
     _flashModel = flashModel;
     
-    NSString *month = [flashModel.time convertDateWithFormat:@"M月"];
-    NSString *day = [flashModel.time convertDateWithFormat:@"dd"];
+    NSString *month = [flashModel.showDatetime convertDateWithFormat:@"M月"];
+    NSString *day = [flashModel.showDatetime convertDateWithFormat:@"dd"];
     
     [self.dateBtn setTitle:[NSString stringWithFormat:@"%@\n%@", month, day] forState:UIControlStateNormal];
     self.dateBtn.hidden = flashModel.isShowDate;
     
     [self.dateBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
-    self.timeLbl.text = [flashModel.time convertDateWithFormat:@"HH:mm:ss"];
+    self.timeLbl.text = [flashModel.showDatetime convertDateWithFormat:@"HH:mm:ss"];
     
     self.contentLbl.numberOfLines = flashModel.isSelect ? 0: 3;
-    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"【%@】%@", flashModel.title, flashModel.content] lineSpace:5];
-    self.contentLbl.textColor = flashModel.isRead ? kTextColor2: kAppCustomMainColor;
+    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"【%@】%@", flashModel.source, flashModel.content] lineSpace:5];
+    
+    self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
     //
     [self layoutSubviews];
     

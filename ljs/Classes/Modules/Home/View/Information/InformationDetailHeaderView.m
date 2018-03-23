@@ -9,6 +9,9 @@
 #import "InformationDetailHeaderView.h"
 
 //Macro
+#import "TLNetworking.h"
+#import "TLUser.h"
+#import "TLAlert.h"
 //Framework
 //Category
 #import "UILabel+Extension.h"
@@ -62,7 +65,7 @@
         
         BaseWeakSelf;
         
-        _detailView = [[DetailWebView alloc] initWithFrame:CGRectMake(0, self.sourceView.yy + 20, kScreenWidth, 200)];
+        _detailView = [[DetailWebView alloc] initWithFrame:CGRectMake(0, self.sourceView.yy + 20, kScreenWidth, 50)];
         
         _detailView.webViewBlock = ^(CGFloat height) {
             
@@ -85,8 +88,9 @@
     [self initSourceView];
     [self addSubview:self.detailView];
     //点赞
-    self.zanBtn = [UIButton buttonWithImageName:@"圆点赞"];
+    self.zanBtn = [UIButton buttonWithImageName:@"圆未点赞"];
     
+    [self.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.zanBtn];
     //点赞数
     self.zanNumLbl = [UILabel labelWithBackgroundColor:kClearColor
@@ -160,7 +164,7 @@
         
         make.width.equalTo(@100);
         make.height.equalTo(@40);
-        make.centerY.equalTo(@0);
+        make.top.equalTo(@0);
         make.right.equalTo(@(-15));
     }];
     
@@ -180,7 +184,7 @@
         
         make.width.equalTo(@100);
         make.height.equalTo(@40);
-        make.centerY.equalTo(@0);
+        make.top.equalTo(@0);
         make.right.equalTo(timelineBtn.mas_left).offset(-10);
     }];
     
@@ -202,6 +206,19 @@
     BOOL installedWechat = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]];
 
     self.shareView.hidden = !installedWechat;
+    
+    //bottomLine
+    UIView *bottomLine = [[UIView alloc] init];
+    
+    bottomLine.backgroundColor = kHexColor(@"#FAFCFF");
+    
+    [self addSubview:bottomLine];
+    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.equalTo(@0);
+        make.height.equalTo(@10);
+        make.top.equalTo(self.shareView.mas_bottom);
+    }];
 }
 
 /**
@@ -259,6 +276,9 @@
     
     self.height = self.shareView.yy + 10;
     self.contentSize = CGSizeMake(kScreenWidth, self.height);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HeaderViewDidLayout" object:nil];
+
 }
 
 #pragma mark - Events
@@ -278,17 +298,54 @@
     }
 }
 
+/**
+ 对资讯点赞
+ */
+- (void)clickZan:(UIButton *)sender {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628201";
+    http.parameters[@"type"] = @"1";
+    http.parameters[@"objectCode"] = self.detailModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [self.detailModel.isZan isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([self.detailModel.isZan isEqualToString:@"1"]) {
+            
+            self.detailModel.isZan = @"0";
+            self.detailModel.pointCount -= 1;
+            
+        } else {
+            
+            self.detailModel.isZan = @"1";
+            self.detailModel.pointCount += 1;
+        }
+        
+        NSString *image = [self.detailModel.isZan isEqualToString:@"1"] ? @"圆未点赞": @"圆点赞";
+        [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - Setting
-- (void)setInfoModel:(InformationModel *)infoModel {
+- (void)setDetailModel:(InfoDetailModel *)detailModel {
     
-    _infoModel = infoModel;
+    _detailModel = detailModel;
     
-    [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
-    self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", infoModel.author];
-    self.sourceLbl.text = [NSString stringWithFormat:@"来自: %@", infoModel.source];
-    self.timeLbl.text = [infoModel.time convertToDetailDate];
-    
-    [self.detailView loadWebWithString:infoModel.desc];
+    [self.titleLbl labelWithTextString:detailModel.title lineSpace:5];
+    self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", detailModel.auther];
+    self.sourceLbl.text = [NSString stringWithFormat:@"来自: %@", detailModel.source];
+    self.timeLbl.text = [detailModel.showDatetime convertToDetailDate];
+    NSString *image = [detailModel.isZan isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
+    [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
+    [self.detailView loadWebWithString:detailModel.content];
 }
 
 @end

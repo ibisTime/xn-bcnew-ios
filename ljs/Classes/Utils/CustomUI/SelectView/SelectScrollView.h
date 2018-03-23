@@ -17,8 +17,10 @@ typedef void(^SelectBlock)(void);
 @property (nonatomic, strong) UIScrollView *scrollView;
 //头部
 @property (nonatomic, strong) SortBar *headView;
-//当前索引
+//设置当前索引
 @property (nonatomic, assign) NSInteger currentIndex;
+//当前索引
+@property (nonatomic, assign) NSInteger selectIndex;
 
 @property (nonatomic, copy) SelectBlock selectBlock;
 
