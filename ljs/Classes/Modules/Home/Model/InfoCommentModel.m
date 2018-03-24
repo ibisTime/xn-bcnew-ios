@@ -9,5 +9,9 @@
 #import "InfoCommentModel.h"
 
 @implementation InfoCommentModel
++ (NSDictionary *)objectClassInArray {
+    
+    return @{@"commentList" : [InfoCommentModel class]};
+}
 
 @end

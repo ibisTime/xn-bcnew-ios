@@ -73,6 +73,8 @@
 - (void)setTitle:(NSString *)title {
     
     self.navigationItem.titleView = [UILabel labelWithTitle:title frame:CGRectMake(0, 0, 200, 44)];
+    
+    self.titleStr = title;
 }
 
 #pragma mark - Private

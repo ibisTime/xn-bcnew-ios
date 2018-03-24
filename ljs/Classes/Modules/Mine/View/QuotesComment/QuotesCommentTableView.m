@@ -1,22 +1,22 @@
 //
-//  InfoCommentDetailTableView.m
+//  QuotesCommentTableView.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/20.
+//  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "InfoCommentDetailTableView.h"
+#import "QuotesCommentTableView.h"
 //V
-#import "InfoCommentCell.h"
+#import "QuotesCommentCell.h"
 
-@interface InfoCommentDetailTableView()<UITableViewDataSource, UITableViewDelegate>
+@interface QuotesCommentTableView ()<UITableViewDelegate, UITableViewDataSource>
 
 @end
 
-@implementation InfoCommentDetailTableView
+@implementation QuotesCommentTableView
 
-static NSString *infoCommentCellID = @"InfoCommentCell";
+static NSString *identifierCell = @"QuotesCommentCell";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,18 +25,13 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[InfoCommentCell class] forCellReuseIdentifier:infoCommentCellID];
+        [self registerClass:[QuotesCommentCell class] forCellReuseIdentifier:identifierCell];
     }
     
     return self;
 }
 
 #pragma mark - UITableViewDataSource;
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -45,13 +40,26 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    InfoCommentModel *commentModel = self.comments[indexPath.row];
+    QuotesCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
-    InfoCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
+    cell.commentModel = self.comments[indexPath.row];
     
-    cell.commentModel = commentModel;
+    cell.articleView.tag = 2000 + indexPath.row;
+    
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookArticle:)];
+    [cell.articleView addGestureRecognizer:tapGR];
     
     return cell;
+}
+
+- (void)lookArticle:(UITapGestureRecognizer *)tapGR {
+    
+    NSInteger index = tapGR.view.tag - 2000;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:nil selectRowAtIndex:index];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -73,36 +81,12 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 45;
+    return 0.1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    //判断是否有数据，没有就隐藏
-    if (self.comments.count == 0) {
-        
-        return [UIView new];
-    }
-    
-    NSArray *titleArr = @[@"热门评论", @"最新评论"];
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
-    
-    headerView.backgroundColor = kWhiteColor;
-    
-    //text
-    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                               textColor:kTextColor
-                                                    font:17.0];
-    textLbl.text = titleArr[section];
-    [headerView addSubview:textLbl];
-    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(@15);
-        make.centerY.equalTo(@0);
-    }];
-    
-    return headerView;
+    return [UIView new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -114,5 +98,4 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
     
     return [UIView new];
 }
-
 @end

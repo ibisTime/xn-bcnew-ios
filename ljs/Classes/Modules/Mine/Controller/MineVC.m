@@ -32,6 +32,8 @@
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
 #import "UserDetailEditVC.h"
+#import "QuotestCommentVC.h"
+#import "MyCollectionListVC.h"
 
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
@@ -119,6 +121,9 @@
         
         [weakSelf checkLogin:^{
             
+            MyCollectionListVC *collectionVC = [MyCollectionListVC new];
+            
+            [weakSelf.navigationController pushViewController:collectionVC animated:YES];
         }];
     };
     
@@ -131,6 +136,11 @@
         
         [weakSelf checkLogin:^{
             
+            QuotestCommentVC *commentVC = [QuotestCommentVC new];
+            
+            commentVC.type = MyCommentTypeCircle;
+            
+            [weakSelf.navigationController pushViewController:commentVC animated:YES];
         }];
     };
     //资讯评论
@@ -142,6 +152,11 @@
         
         [weakSelf checkLogin:^{
             
+            QuotestCommentVC *commentVC = [QuotestCommentVC new];
+            
+            commentVC.type = MyCommentTypeInfo;
+
+            [weakSelf.navigationController pushViewController:commentVC animated:YES];
         }];
     };
     

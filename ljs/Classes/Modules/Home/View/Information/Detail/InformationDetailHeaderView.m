@@ -312,23 +312,24 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        NSString *promptStr = [self.detailModel.isZan isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        NSString *promptStr = [self.detailModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
         [TLAlert alertWithSucces:promptStr];
         
-        if ([self.detailModel.isZan isEqualToString:@"1"]) {
+        if ([self.detailModel.isPoint isEqualToString:@"1"]) {
             
-            self.detailModel.isZan = @"0";
+            self.detailModel.isPoint = @"0";
             self.detailModel.pointCount -= 1;
             
         } else {
             
-            self.detailModel.isZan = @"1";
+            self.detailModel.isPoint = @"1";
             self.detailModel.pointCount += 1;
         }
         
-        NSString *image = [self.detailModel.isZan isEqualToString:@"1"] ? @"圆未点赞": @"圆点赞";
+        NSString *image = [self.detailModel.isPoint isEqualToString:@"1"] ? @"圆点赞": @"圆未点赞";
         [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
-        
+        self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.pointCount];
+
     } failure:^(NSError *error) {
         
     }];
@@ -343,9 +344,10 @@
     self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", detailModel.auther];
     self.sourceLbl.text = [NSString stringWithFormat:@"来自: %@", detailModel.source];
     self.timeLbl.text = [detailModel.showDatetime convertToDetailDate];
-    NSString *image = [detailModel.isZan isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
+    NSString *image = [detailModel.isPoint isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
     [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
     [self.detailView loadWebWithString:detailModel.content];
+    self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", detailModel.pointCount];
 }
 
 @end

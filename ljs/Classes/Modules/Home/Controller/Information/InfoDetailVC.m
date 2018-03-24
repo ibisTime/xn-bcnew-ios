@@ -414,8 +414,24 @@
 
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //相关文章
+    if (indexPath.section == 0) {
+        
+        InformationModel *infoModel = self.detailModel.refNewList[indexPath.row];
+
+        InfoDetailVC *detailVC = [InfoDetailVC new];
+        
+        detailVC.code = infoModel.code;
+        detailVC.title = self.titleStr;
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+        return ;
+    }
+    InfoCommentModel *commentModel = indexPath.section == 1 ? self.detailModel.hotCommentList[indexPath.row]: self.comments[indexPath.row];
     
     InfoCommentDetailVC *detailVC = [InfoCommentDetailVC new];
+    
+    detailVC.code = commentModel.code;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
@@ -445,17 +461,17 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        NSString *promptStr = [commentModel.isZan isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
         [TLAlert alertWithSucces:promptStr];
         
-        if ([commentModel.isZan isEqualToString:@"1"]) {
+        if ([commentModel.isPoint isEqualToString:@"1"]) {
             
-            commentModel.isZan = @"0";
+            commentModel.isPoint = @"0";
             commentModel.pointCount -= 1;
 
         } else {
             
-            commentModel.isZan = @"1";
+            commentModel.isPoint = @"1";
             commentModel.pointCount += 1;
         }
         

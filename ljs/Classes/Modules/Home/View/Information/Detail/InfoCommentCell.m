@@ -14,6 +14,7 @@
 #import "UIButton+EnLargeEdge.h"
 //V
 #import "LinkLabel.h"
+#import "ReplyCommentView.h"
 
 #define kHeadIconW 40
 
@@ -28,6 +29,12 @@
 @property (nonatomic, strong) LinkLabel *contentLbl;
 //点赞数
 @property (nonatomic, strong) UILabel *zanNumLbl;
+//回复
+@property (nonatomic, strong) NSMutableArray <ReplyCommentView *>*replyArr;
+//
+@property (nonatomic, strong) ReplyCommentView *lastView;
+//
+@property (nonatomic, assign) BOOL isFirst;
 
 @end
 
@@ -36,6 +43,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.replyArr = [NSMutableArray array];
         
         [self initSubviews];
     }
@@ -46,8 +55,8 @@
 #pragma mark - Init
 - (void)initSubviews {
     
+    self.isFirst = YES;
     //头像
-    
     self.photoIV = [[UIImageView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
@@ -144,6 +153,62 @@
         make.width.equalTo(@(kScreenWidth - 3*15 - kHeadIconW));
         make.top.equalTo(self.timeLbl.mas_bottom).offset(10);
     }];
+    
+    //移除所有回复
+    [self.replyArr enumerateObjectsUsingBlock:^(ReplyCommentView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [obj removeFromSuperview];
+    }];
+    
+    [self layoutSubviews];
+
+    _commentModel.cellHeight = self.contentLbl.yy + 10;
+    
+    if (_commentModel.commentList.count == 0) {
+        
+        return ;
+    }
+    
+    //刷新布局
+    [self layoutIfNeeded];
+    
+    __block ReplyCommentView *lastView;
+    
+    [_commentModel.commentList enumerateObjectsUsingBlock:^(InfoCommentModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat y = idx == 0 ? self.contentLbl.yy + 10: lastView.yy;
+        
+        ReplyCommentView *replyView = [[ReplyCommentView alloc] initWithFrame:CGRectMake(15, y, kScreenWidth - 30, 100)];
+        
+        replyView.commentModel = obj;
+        
+        replyView.userInteractionEnabled = YES;
+        replyView.tag = 1900 + idx;
+        
+        [self addSubview:replyView];
+        
+        [self.replyArr addObject:replyView];
+        
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickReply:)];
+        
+        [replyView addGestureRecognizer:tapGR];
+        
+        lastView = replyView;
+    }];
+    
+    self.lastView = lastView;
+    
+    self.isFirst = NO;
+    
+    _commentModel.cellHeight = self.lastView.yy + 10;
+}
+
+#pragma mark - Events
+- (void)clickReply:(UITapGestureRecognizer *)tapGR {
+    
+    NSInteger index = tapGR.view.tag - 1900;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReplyComment" object:@(index)];
 }
 
 #pragma mark - Setting
@@ -159,14 +224,12 @@
     self.contentLbl.text = commentModel.content;
     self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", commentModel.pointCount];
     
-    NSString *zanImg = [commentModel.isZan isEqualToString:@"1"] ? @"点赞": @"未点赞";
+    NSString *zanImg = [commentModel.isPoint isEqualToString:@"1"] ? @"点赞": @"未点赞";
     [self.zanBtn setImage:kImage(zanImg) forState:UIControlStateNormal];
+    
     //
     [self setSubviewLayout];
-    //
-    [self layoutSubviews];
     
-    commentModel.cellHeight = self.contentLbl.yy + 10;
 }
 
 @end

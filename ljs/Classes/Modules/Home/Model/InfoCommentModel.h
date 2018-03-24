@@ -20,11 +20,19 @@
 
 @property (nonatomic, copy) NSString *photo;
 @property (nonatomic, copy) NSString *entityCode;
+//评论人
 @property (nonatomic, copy) NSString *nickname;
+//被评论人
+@property (nonatomic, copy) NSString *parentNickName;
 //点赞数
 @property (nonatomic, assign) NSInteger pointCount;
 //是否点赞
-@property (nonatomic, copy) NSString *isZan;
+@property (nonatomic, copy) NSString *isPoint;
+//1 顶级，0非顶级
+@property (nonatomic, copy) NSString *isTop;
+//回复列表
+@property (nonatomic, strong) NSArray <InfoCommentModel *>*commentList;
+//
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
 

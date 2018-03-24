@@ -12,5 +12,6 @@
 
 @interface InfoCommentDetailTableView : TLTableView
 //
-@property (nonatomic, strong) NSArray <InfoCommentModel*> *comments;
+@property (nonatomic, strong) InfoCommentModel *commentModel;
+
 @end

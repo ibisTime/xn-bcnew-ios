@@ -138,7 +138,8 @@
 }
 
 #pragma mark - Setting
--(void)setTitleArray:(NSArray *)titleArray{
+- (void)setTitleArray:(NSArray *)titleArray {
+    
     if (!titleArray) {
         return;
     }

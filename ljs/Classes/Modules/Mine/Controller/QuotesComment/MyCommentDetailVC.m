@@ -1,30 +1,32 @@
 //
-//  InfoCommentDetailVC.m
+//  MyCommentDetailVC.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/20.
+//  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
+
+#import "MyCommentDetailVC.h"
 //Macro
 //Framework
 //Category
+#import "UIBarButtonItem+convience.h"
 //Extension
 #import <IQKeyboardManager.h>
 //M
 //V
 #import "BaseView.h"
 #import "InputTextView.h"
-#import "InfoCommentDetailTableView.h"
+#import "MyCommentDetailTableView.h"
 #import "TLPlaceholderView.h"
 //C
+#import "InfoDetailVC.h"
 
 #define kBottomHeight 50
 
-#import "InfoCommentDetailVC.h"
-
-@interface InfoCommentDetailVC ()<InputTextViewDelegate, RefreshDelegate>
+@interface MyCommentDetailVC ()<InputTextViewDelegate, RefreshDelegate>
 //评论
-@property (nonatomic, strong) InfoCommentDetailTableView *tableView;
+@property (nonatomic, strong) MyCommentDetailTableView *tableView;
 //底部
 @property (nonatomic, strong) BaseView *bottomView;
 //输入框
@@ -38,7 +40,7 @@
 
 @end
 
-@implementation InfoCommentDetailVC
+@implementation MyCommentDetailVC
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -68,11 +70,22 @@
     [self initBottomView];
     //点击回复
     [self addNotification];
+    //原文
+    [self addArticleItem];
 }
 
 - (void)viewDidLayoutSubviews {
     
     self.tableView.tableFooterView = self.footerView;
+}
+
+- (void)addArticleItem {
+    
+    [UIBarButtonItem addRightItemWithTitle:@"原文"
+                                titleColor:kWhiteColor
+                                     frame:CGRectMake(0, 0, 40, 40)
+                                        vc:self
+                                    action:@selector(lookArticle)];
 }
 
 #pragma mark - Notification
@@ -112,7 +125,7 @@
  */
 - (void)initCommentTableView {
     
-    self.tableView = [[InfoCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[MyCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -179,6 +192,19 @@
     [self.inputTV show];
 }
 
+/**
+ 查看原文
+ */
+- (void)lookArticle {
+    
+    InfoDetailVC *detailVC = [InfoDetailVC new];
+    
+    detailVC.code = self.articleCode;
+    detailVC.title = self.typeName;
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
 - (void)requestCommentList {
     
     TLNetworking *http = [TLNetworking new];
@@ -194,7 +220,7 @@
         self.tableView.commentModel = self.commentModel;
         
         [self.tableView reloadData];
-
+        
     } failure:^(NSError *error) {
         
     }];
@@ -248,9 +274,5 @@
     self.tableView.scrollEnabled = YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

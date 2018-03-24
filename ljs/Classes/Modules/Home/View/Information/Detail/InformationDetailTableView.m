@@ -103,16 +103,24 @@ static NSString *informationListCellID = @"InformationListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    CGFloat height;
+    
     if (indexPath.section == 0) {
         
         return 130;
         
     } else if (indexPath.section == 1) {
         
-        return self.detailModel.hotCommentList[indexPath.row].cellHeight;
+        height = self.detailModel.hotCommentList[indexPath.row].cellHeight;
+        
+        NSLog(@"height = %lf", height);
+        return height;
     }
     
-    return self.newestComments[indexPath.row].cellHeight;
+    height = self.newestComments[indexPath.row].cellHeight;
+    NSLog(@"height = %lf", height);
+
+    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

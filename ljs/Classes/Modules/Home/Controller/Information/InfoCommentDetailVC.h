@@ -9,5 +9,7 @@
 #import "BaseViewController.h"
 
 @interface InfoCommentDetailVC : BaseViewController
+//评论编号
+@property (nonatomic, copy) NSString *code;
 
 @end
