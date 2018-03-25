@@ -55,11 +55,10 @@ static NSString *searchCurrencyCell = @"SearchCurrencyCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    CurrencyModel *currency = self.currencys[indexPath.row];
-    
-    currency.isSelect = !currency.isSelect;
-    
-    [self reloadData];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

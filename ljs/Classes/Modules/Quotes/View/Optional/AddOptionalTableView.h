@@ -13,5 +13,7 @@
 @interface AddOptionalTableView : TLTableView
 //
 @property (nonatomic, strong) NSMutableArray <OptionalModel *>*optionals;
+//类型
+@property (nonatomic, copy) NSString *type;
 
 @end

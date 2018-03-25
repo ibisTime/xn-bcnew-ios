@@ -1,5 +1,5 @@
 //
-//  QuotesCommentChildVC.h
+//  InfoCommentChildVC.h
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, MyCommentType) {
     MyCommentTypeInfo,          //资讯评论
 };
 
-@interface QuotesCommentChildVC : BaseViewController
+@interface InfoCommentChildVC : BaseViewController
 //
 @property (nonatomic, copy) NSString *type;
 //评论类型

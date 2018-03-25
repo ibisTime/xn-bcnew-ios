@@ -121,34 +121,34 @@
     _currency = currency;
     
     //币种名称
-    self.currencyNameLbl.text = [NSString stringWithFormat:@"%@/%@", currency.symbol, currency.unit];
+    self.currencyNameLbl.text = [NSString stringWithFormat:@"%@/%@", currency.coinSymbol, currency.toCoinSymbol];
     //平台名称
-    self.platformNameLbl.text = currency.platformName;
+    self.platformNameLbl.text = currency.exchangeEname;
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.price_usd];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastCnyPrice];
     //涨跌情况
-    NSString *priceFluctStr = currency.percent_change_24h;
+    NSString *priceFluctStr = currency.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];
-    
+
     if (fluct > 0) {
-        
+
         priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
-        
+
     } else  {
-        
+
         priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
     }
-    
+
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
     [self.priceFluctBtn setBackgroundColor:currency.bgColor forState:UIControlStateNormal];
-    
+
     CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
     [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        
+
         make.width.equalTo(@(btnW > 75 ? btnW: 75));
     }];
     //添加按钮
-    self.addBtn.selected = currency.isSelect;
+    self.addBtn.selected = [currency.isChoice boolValue];
 }
 
 @end

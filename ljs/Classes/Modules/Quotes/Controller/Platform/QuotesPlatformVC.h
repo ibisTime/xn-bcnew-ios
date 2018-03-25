@@ -9,6 +9,8 @@
 #import "BaseViewController.h"
 //V
 #import "PlatformTableView.h"
+//M
+#import "PlatformTitleModel.h"
 /**
  平台
  */
@@ -19,5 +21,7 @@
 @property (nonatomic, copy) NSString *kind;
 //平台编号
 @property (nonatomic, copy) NSString *code;
+//title
+@property (nonatomic, strong) PlatformTitleModel *titleModel;
 
 @end

@@ -44,14 +44,19 @@ static NSString *currencyCell = @"CurrencyCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (self.type == CurrencyTypePrice) {
+        
+        return self.currencyPrices.count;
+    }
+    
     return self.currencys.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CurrencyModel *currency = self.currencys[indexPath.row];
-    
     if (self.type == CurrencyTypePrice) {
+        
+        CurrencyPriceModel *currency = self.currencyPrices[indexPath.row];
         
         CurrencyPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyPriceCell forIndexPath:indexPath];
         
@@ -62,6 +67,8 @@ static NSString *currencyCell = @"CurrencyCell";
         
     } else if (self.type == CurrencyTypeNewCurrency) {
         
+        CurrencyModel *currency = self.currencys[indexPath.row];
+
         NewCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:newCurrencyCell forIndexPath:indexPath];
         
         cell.currency = currency;
@@ -70,6 +77,8 @@ static NSString *currencyCell = @"CurrencyCell";
         return cell;
     }
     
+    CurrencyModel *currency = self.currencys[indexPath.row];
+
     CurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
     
     cell.currency = currency;
@@ -88,10 +97,10 @@ static NSString *currencyCell = @"CurrencyCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.type == CurrencyTypePrice) {
-        
-        return 76;
-    }
+//    if (self.type == CurrencyTypePrice) {
+//
+//        return 76;
+//    }
     return 68;
 }
 

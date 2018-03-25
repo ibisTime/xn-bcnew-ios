@@ -10,7 +10,7 @@
 
 #import "NavigationController.h"
 #import "TabbarViewController.h"
-
+#import "TLUserLoginVC.h"
 #import "UIColor+Extension.h"
 
 #define kAnimationType 1
@@ -67,6 +67,29 @@
     
     return _bgSV;
     
+}
+
+#pragma mark - 用户登录
+/**
+ 判断用户是否登录
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (loginSuccess) {
+        
+        loginSuccess();
+    }
 }
 
 #pragma mark - Setting

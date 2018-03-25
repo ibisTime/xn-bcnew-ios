@@ -16,7 +16,7 @@
 //V
 #import "AddOptionalTableView.h"
 
-@interface QuotesOptionalChildVC ()
+@interface QuotesOptionalChildVC ()<RefreshDelegate>
 //自选
 @property (nonatomic, strong) AddOptionalTableView *tableView;
 //
@@ -32,6 +32,8 @@
     [self initTableView];
     //获取自选列表
     [self requestOptionalList];
+    //刷新自选列表
+    [self.tableView beginRefreshing];
 }
 
 #pragma mark - Init
@@ -39,6 +41,8 @@
     
     self.tableView = [[AddOptionalTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.type = self.titleModel.type;
+    self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -52,30 +56,130 @@
  */
 - (void)requestOptionalList {
     
-    NSMutableArray <OptionalModel *>*arr = [NSMutableArray array];
+    BaseWeakSelf;
     
-    for (int i = 0; i < 10; i++) {
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628340";
+
+    if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
         
-        OptionalModel *model = [OptionalModel new];
+        helper.parameters[@"coinSymbol"] = self.titleModel.ename;
+    }else {
         
-        model.symbol = @"BTC";
-        model.platformName = @"币安";
-        model.price_cny = @"90000";
-        model.price_usd = @"15555";
-        model.one_day_volume_cny = @"10000000";
-        model.one_day_volume_usd = @"1600000";
-        model.unit = @"USDT";
-        model.percent_change_24h = @"50";
-        model.isSelect = NO;
-        
-        [arr addObject:model];
+        helper.parameters[@"exchangeEname"] = self.titleModel.ename;
     }
     
-    self.optionals = arr;
+    helper.parameters[@"userId"] = [TLUser user].userId;
     
-    self.tableView.optionals = self.optionals;
+    helper.tableView = self.tableView;
     
-    [self.tableView reloadData];
+    [helper modelClass:[OptionalModel class]];
+    
+    [self.tableView addRefreshAction:^{
+        
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.optionals = objs;
+        
+            weakSelf.tableView.optionals = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.optionals = objs;
+            
+            weakSelf.tableView.optionals = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+/**
+ 添加自选
+ */
+- (void)addOptional:(NSInteger)index {
+    
+    OptionalModel *optional = self.optionals[index];
+
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628330";
+    http.showView = self.view;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"exchangeEname"] = optional.exchangeEname;
+    http.parameters[@"coin"] = optional.coinSymbol;
+    http.parameters[@"toCoin"] = optional.toCoinSymbol;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        [TLAlert alertWithSucces:@"添加成功"];
+        
+        optional.isChoice = @"1";
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+/**
+ 删除自选
+ */
+- (void)deleteOptional:(NSInteger)index {
+    
+    OptionalModel *optional = self.optionals[index];
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628332";
+    http.showView = self.view;
+    http.parameters[@"id"] = optional.ID;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        [TLAlert alertWithSucces:@"删除成功"];
+        
+        optional.isChoice = @"0";
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    OptionalModel *optional = self.optionals[indexPath.row];
+
+    if ([optional.isChoice isEqualToString:@"0"]) {
+        
+        //添加币种
+        [self addOptional:indexPath.row];
+        return ;
+    }
+//    //删除币种
+//    [self deleteOptional:indexPath.row];
+//    return ;
+    
 }
 
 - (void)didReceiveMemoryWarning {

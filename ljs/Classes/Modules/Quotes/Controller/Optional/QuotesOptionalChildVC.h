@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+//M
+#import "OptionalTitleModel.h"
 
 @interface QuotesOptionalChildVC : BaseViewController
+//
+@property (nonatomic, strong) OptionalTitleModel *titleModel;
 
 @end

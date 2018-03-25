@@ -1,29 +1,28 @@
 //
-//  SearchCurrencyVC.m
+//  SearchForumVC.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/21.
+//  Created by 蔡卓越 on 2018/3/25.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "SearchCurrencyVC.h"
-
+#import "SearchForumVC.h"
 //Category
 #import "UIBarButtonItem+convience.h"
 //Extension
 //M
-#import "CurrencyModel.h"
+#import "ForumModel.h"
 //V
 #import "SelectScrollView.h"
 #import "TLTextField.h"
 #import "SearchHistoryTableView.h"
-#import "SearchCurrencyTableView.h"
+#import "ForumListTableView.h"
 #import "TLPlaceholderView.h"
 //C
-#import "SearchCurrcneyChildVC.h"
-#import "SearchHistoryChildVC.h"
+#import "ForumDetailVC.h"
 
-@interface SearchCurrencyVC ()<UITextFieldDelegate, RefreshDelegate>
+@interface SearchForumVC ()<UITextFieldDelegate, RefreshDelegate>
+
 //
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
@@ -34,10 +33,10 @@
 @property (nonatomic, strong) TLTextField *searchTF;
 //
 @property (nonatomic, strong) SearchHistoryTableView *historyTableView;
-//行情列表
-@property (nonatomic, strong) SearchCurrencyTableView *currencyTableView;
+//币吧列表
+@property (nonatomic, strong) ForumListTableView *forumTableView;
 //
-@property (nonatomic, strong) NSMutableArray <CurrencyModel *>*currencys;
+@property (nonatomic, strong) NSMutableArray <ForumModel *>*forums;
 //搜索内容
 @property (nonatomic, copy) NSString *searchStr;
 //
@@ -45,10 +44,11 @@
 
 @end
 
-@implementation SearchCurrencyVC
+@implementation SearchForumVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     //取消
     [self addCancelItem];
@@ -62,10 +62,6 @@
     [self requestSearchList];
     //获取历史搜索记录
     [self getHistoryRecords];
-//
-//    [self initSelectScrollView];
-//    //
-//    [self addSubViewController];
 }
 
 #pragma mark - Init
@@ -86,7 +82,7 @@
     searchBgView.userInteractionEnabled = YES;
     searchBgView.layer.cornerRadius = height/2.0;
     searchBgView.clipsToBounds = YES;
-
+    
     self.navigationItem.titleView = searchBgView;
     
     [searchBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -96,7 +92,7 @@
     self.searchTF = [[TLTextField alloc] initWithFrame:CGRectZero
                                              leftTitle:@""
                                             titleWidth:0
-                                           placeholder:@"请输入平台/币种"];
+                                           placeholder:@"请输入吧名"];
     self.searchTF.delegate = self;
     
     [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -127,58 +123,18 @@
 
 - (void)initResultTableView {
     
-    self.currencyTableView = [[SearchCurrencyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.forumTableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.currencyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币种或平台"];
-    self.currencyTableView.refreshDelegate = self;
+    self.forumTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币吧"];
+    self.forumTableView.refreshDelegate = self;
     
-    [self.view addSubview:self.currencyTableView];
-    [self.currencyTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.forumTableView];
+    [self.forumTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.edges.mas_equalTo(0);
     }];
     
-    self.currencyTableView.hidden = YES;
-}
-
-#pragma mark -
-- (void)initSelectScrollView {
-    
-    self.titles = @[@"热门搜索", @"历史搜索"];
-    
-    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) itemTitles:self.titles];
-    
-    [self.view addSubview:selectSV];
-    
-    self.selectSV = selectSV;
-}
-
-- (void)addSubViewController {
-    
-    for (NSInteger i = 0; i < self.titles.count; i++) {
-        
-        if (i == 0) {
-            
-            //
-            SearchCurrcneyChildVC *childVC = [[SearchCurrcneyChildVC alloc] init];
-            
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
-            
-            [self addChildViewController:childVC];
-            
-            [self.selectSV.scrollView addSubview:childVC.view];
-        } else {
-            
-            //
-            SearchHistoryChildVC *childVC = [[SearchHistoryChildVC alloc] init];
-            
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
-            
-            [self addChildViewController:childVC];
-            
-            [self.selectSV.scrollView addSubview:childVC.view];
-        }
-    }
+    self.forumTableView.hidden = YES;
 }
 
 #pragma mark - Events
@@ -216,8 +172,8 @@
 
 - (void)textDidChange:(UITextField *)sender {
     
-    self.currencyTableView.hidden = sender.text.length == 0 ? YES: NO;
-//    self.historyTableView.hidden = sender.text.length == 0 ?NO: YES;
+    self.forumTableView.hidden = sender.text.length == 0 ? YES: NO;
+    //    self.historyTableView.hidden = sender.text.length == 0 ?NO: YES;
 }
 
 - (void)back {
@@ -259,7 +215,7 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628340";
+    helper.code = @"628237";
     helper.parameters[@"keywords"] = self.searchStr;
     
     if ([TLUser user].userId) {
@@ -267,73 +223,77 @@
         helper.parameters[@"userId"] = [TLUser user].userId;
     }
     
-    helper.tableView = self.currencyTableView;
+    helper.tableView = self.forumTableView;
     
-    [helper modelClass:[CurrencyModel class]];
+    [helper modelClass:[ForumModel class]];
     
     self.helper = helper;
     
-    [self.currencyTableView addRefreshAction:^{
+    [self.forumTableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.currencys = objs;
+            weakSelf.forums = objs;
             
-            weakSelf.currencyTableView.currencys = objs;
+            weakSelf.forumTableView.forums = objs;
             
-            [weakSelf.currencyTableView reloadData_tl];
+            [weakSelf.forumTableView reloadData_tl];
             
-            weakSelf.currencyTableView.hidden = NO;
-
+            weakSelf.forumTableView.hidden = NO;
+            
         } failure:^(NSError *error) {
             
         }];
     }];
     
-    [self.currencyTableView addLoadMoreAction:^{
+    [self.forumTableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.currencys = objs;
+            weakSelf.forums = objs;
             
-            weakSelf.currencyTableView.currencys = objs;
+            weakSelf.forumTableView.forums = objs;
             
-            [weakSelf.currencyTableView reloadData_tl];
+            [weakSelf.forumTableView reloadData_tl];
             
         } failure:^(NSError *error) {
             
         }];
     }];
     
-    [self.currencyTableView endRefreshingWithNoMoreData_tl];
+    [self.forumTableView endRefreshingWithNoMoreData_tl];
 }
 
 /**
- 添加自选
+ 关注
  */
-- (void)addCurrency:(NSInteger)index {
+- (void)followForum:(NSInteger)index {
     
-    CurrencyModel *currency = self.currencys[index];
+    ForumModel *forumModel = self.forums[index];
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628330";
-    http.showView = self.view;
+    http.code = @"628240";
+    http.parameters[@"code"] = forumModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
-    http.parameters[@"exchangeEname"] = currency.exchangeEname;
-    http.parameters[@"coin"] = currency.coinSymbol;
-    http.parameters[@"toCoin"] = currency.toCoinSymbol;
     
     [http postWithSuccess:^(id responseObject) {
         
-        [TLAlert alertWithSucces:@"添加成功"];
+        NSString *promptStr = [forumModel.isKeep isEqualToString:@"1"] ? @"取消关注成功": @"关注成功";
+        [TLAlert alertWithSucces:promptStr];
         
-        currency.isChoice = @"1";
-        
-        if (self.currencyBlock) {
+        if ([forumModel.isKeep isEqualToString:@"1"]) {
             
-            self.currencyBlock();
+            forumModel.isKeep = @"0";
+            forumModel.keepCount -= 1;
+            
+        } else {
+            
+            forumModel.isKeep = @"1";
+            forumModel.keepCount += 1;
         }
+        
+        [self.forumTableView reloadData];
         
     } failure:^(NSError *error) {
         
@@ -351,7 +311,7 @@
     [self saveSearchRecord];
     //获取搜索结果
     self.helper.parameters[@"keywords"] = self.searchStr;
-    [self.currencyTableView beginRefreshing];
+    [self.forumTableView beginRefreshing];
     
     return YES;
 }
@@ -359,28 +319,25 @@
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([refreshTableview isKindOfClass:[SearchCurrencyTableView class]]) {
+    if ([refreshTableview isKindOfClass:[ForumListTableView class]]) {
         
-        if (![TLUser user].isLogin) {
-            
-            [TLAlert alertWithInfo:@"添加自选功能需要登录后才能使用"];
-            return ;
-        };
+        ForumDetailVC *detailVC = [ForumDetailVC new];
         
-        CurrencyModel *currency = self.currencys[indexPath.row];
-        
-        if ([currency.isChoice isEqualToString:@"0"]) {
-            
-            //添加币种
-            [self addCurrency:indexPath.row];
-            return ;
-        }
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
     //获取搜索结果
     self.helper.parameters[@"keywords"] = self.historyTableView.historyRecords[indexPath.row];
-    [self.currencyTableView beginRefreshing];
+    [self.forumTableView beginRefreshing];
 }
 
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        [weakSelf followForum:index];
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

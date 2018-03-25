@@ -44,6 +44,7 @@ static NSString *addOptionalCell = @"AddOptionalCell";
     
     cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
     
+    cell.type = self.type;
     cell.optional = self.optionals[indexPath.row];
     
     return cell;
@@ -55,11 +56,10 @@ static NSString *addOptionalCell = @"AddOptionalCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    OptionalModel *optional = self.optionals[indexPath.row];
-    
-    optional.isSelect = !optional.isSelect;
-    
-    [self reloadData];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

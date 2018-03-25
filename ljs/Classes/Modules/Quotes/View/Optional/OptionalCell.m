@@ -66,14 +66,14 @@
     self.priceFluctBtn = [UIButton buttonWithTitle:@""
                                         titleColor:kWhiteColor
                                    backgroundColor:kClearColor
-                                         titleFont:15.0 cornerRadius:5];
+                                         titleFont:17.0 cornerRadius:5];
     
     [self addSubview:self.priceFluctBtn];
     
     //当前对应币种价格
     self.opppsitePriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kHexColor(@"#595A6E")
-                                                    font:19.0];
+                                                    font:12.0];
     
     [self addSubview:self.opppsitePriceLbl];
     
@@ -131,30 +131,31 @@
 }
 
 #pragma mark - Setting
-- (void)setOptional:(OptionalModel *)optional {
+- (void)setOptional:(OptionalListModel *)optional {
     
     _optional = optional;
     
+    
     //币种名称
-    self.currencyNameLbl.text = optional.symbol;
+    self.currencyNameLbl.text = optional.marketFxh.coinSymbol;
     //平台名称
-    self.platformNameLbl.text = optional.platformName;
+    self.platformNameLbl.text = optional.marketFxh.exchangeEname;
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     
-    NSString *volumeStr = optional.one_day_volume_usd;
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", optional.unit,volumeStr];
+    NSString *volumeStr = optional.marketFxh.volume;
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", optional.marketFxh.toCoinSymbol,volumeStr];
 
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", optional.price_usd];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", optional.marketFxh.lastPrice];
     
 //    self.usdPriceLbl.textColor = optional.bgColor;
     //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", optional.price_cny];
-    self.rmbPriceLbl.textColor = optional.bgColor;
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", optional.marketFxh.lastCnyPrice];
+    self.rmbPriceLbl.textColor = optional.marketFxh.bgColor;
     
     //涨跌情况
-    NSString *priceFluctStr = optional.percent_change_24h;
+    NSString *priceFluctStr = optional.marketFxh.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {
@@ -167,7 +168,7 @@
     }
     
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
-    [self.priceFluctBtn setBackgroundColor:optional.bgColor forState:UIControlStateNormal];
+    [self.priceFluctBtn setBackgroundColor:optional.marketFxh.bgColor forState:UIControlStateNormal];
     
     CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
     [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {

@@ -52,31 +52,7 @@
  */
 - (void)requestCurrencyList {
     
-    NSMutableArray <CurrencyModel *>*arr = [NSMutableArray array];
     
-    for (int i = 0; i < 10; i++) {
-        
-        CurrencyModel *model = [CurrencyModel new];
-        
-        model.symbol = @"BTC";
-        model.unit = @"USDT";
-        model.platformName = @"币安";
-        model.price_cny = @"90000";
-        model.price_usd = @"15555";
-        model.one_day_volume_cny = @"10000000";
-        model.one_day_volume_usd = @"1600000";
-        model.unit = @"USDT";
-        model.percent_change_24h = @"50";
-        model.isSelect = NO;
-        
-        [arr addObject:model];
-    }
-    
-    self.currencys = arr;
-    
-    self.tableView.currencys = self.currencys;
-    
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

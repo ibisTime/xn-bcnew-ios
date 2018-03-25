@@ -10,31 +10,31 @@
 
 @interface CurrencyModel : BaseModel
 //编号
-@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *ID;
 //币种名称
-@property (nonatomic, copy) NSString *symbol;
-//平台
-@property (nonatomic, copy) NSString *platformName;
+@property (nonatomic, copy) NSString *coinSymbol;
+//参考币种
+@property (nonatomic, copy) NSString *toCoinSymbol;
+//交易所英文
+@property (nonatomic, copy) NSString *exchangeEname;
+//交易所中文
+@property (nonatomic, copy) NSString *exchangeCname;
 //rmb价格
-@property (nonatomic, copy) NSString *price_cny;
-//24小时币种交易额
-@property (nonatomic, copy) NSString *one_day_volume_cny;
-//24小时币种流通量
-@property (nonatomic, copy) NSString *one_day_volume;
-//总的币种交易额
-@property (nonatomic, copy) NSString *all_volume_cny;
-//总的币种流通量
-@property (nonatomic, copy) NSString *all_volume;
+@property (nonatomic, copy) NSString *lastCnyPrice;
+///24小时RMB数
+@property (nonatomic, copy) NSString *volume;
 //相对于某币种的价格
-@property (nonatomic, copy) NSString *price_usd;
+@property (nonatomic, copy) NSString *lastPrice;
 //24小时某币种数
 @property (nonatomic, copy) NSString *one_day_volume_usd;
-//单位
-@property (nonatomic, copy) NSString *unit;
 //涨幅
-@property (nonatomic, copy) NSString *percent_change_24h;
+@property (nonatomic, copy) NSString *changeRate;
 //涨跌颜色
 @property (nonatomic, strong) UIColor *bgColor;
+//是否选择(1是 0否)
+@property (nonatomic, copy) NSString *isChoice;
+
+
 //流入
 @property (nonatomic, copy) NSString *in_flow_volume_cny;
 //流出
@@ -45,7 +45,5 @@
 @property (nonatomic, copy) NSString *flow_percent_change_24h;
 //涨跌颜色
 @property (nonatomic, strong) UIColor *flowBgColor;
-//是否选择
-@property (nonatomic, assign) BOOL isSelect;
 
 @end

@@ -13,18 +13,20 @@
 //Extension
 //M
 #import "CurrencyModel.h"
+#import "CurrencyPriceModel.h"
 //V
 #import "BaseView.h"
 
 @interface QuotesCurrencyVC ()
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
+@property (nonatomic, strong) NSArray <CurrencyPriceModel *>*currencyPrices;
 //币种
 @property (nonatomic, strong) CurrencyTableVIew *tableView;
 //
 @property (nonatomic, strong) BaseView *headerView;
 //币种名称
-@property (nonatomic, strong) UILabel *platformNameLbl;
+@property (nonatomic, strong) UILabel *currencyNameLbl;
 //帖子数
 @property (nonatomic, strong) UILabel *postNumLbl;
 
@@ -38,8 +40,19 @@
     [self initHeaderView];
     //
     [self initTableView];
+    
+    if (self.type == CurrencyTypePrice) {
+        //获取币价
+        [self requestCurrencyPriceList];
+        //
+        [self.tableView beginRefreshing];
+        
+        return ;
+    }
     //获取币种列表
     [self requestCurrencyList];
+    //
+    [self.tableView beginRefreshing];
 }
 
 #pragma mark - Init
@@ -50,12 +63,12 @@
     self.headerView.backgroundColor = kWhiteColor;
     
     //币种名称
-    self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
+    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor
                                                         font:17.0];
-    self.platformNameLbl.text = @"币安";
-    [self.headerView addSubview:self.platformNameLbl];
-    [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.currencyNameLbl.text = self.titleModel.symbol;
+    [self.headerView addSubview:self.currencyNameLbl];
+    [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@10);
         make.top.equalTo(@10);
@@ -103,8 +116,8 @@
     [self.headerView addSubview:self.postNumLbl];
     [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.platformNameLbl.mas_left);
-        make.top.equalTo(self.platformNameLbl.mas_bottom).offset(10);
+        make.left.equalTo(self.currencyNameLbl.mas_left);
+        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
         make.right.equalTo(forumBtn.mas_left).offset(-15);
     }];
     
@@ -129,42 +142,101 @@
 }
 
 #pragma mark - Data
+- (void)requestCurrencyPriceList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628341";
+    
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[CurrencyPriceModel class]];
+    
+    [self.tableView addRefreshAction:^{
+        
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.currencyPrices = objs;
+            
+            weakSelf.tableView.currencyPrices = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.currencyPrices = objs;
+            
+            weakSelf.tableView.currencyPrices = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
+}
 
 /**
  获取币种列表
  */
 - (void)requestCurrencyList {
     
-    NSMutableArray <CurrencyModel *>*arr = [NSMutableArray array];
+    BaseWeakSelf;
     
-    for (int i = 0; i < 10; i++) {
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628340";
+    
+    helper.parameters[@"coinSymbol"] = self.titleModel.symbol;
+    
+//    helper.parameters[@"userId"] = [TLUser user].userId;
+    
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[CurrencyModel class]];
+    
+    [self.tableView addRefreshAction:^{
         
-        CurrencyModel *model = [CurrencyModel new];
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.currencys = objs;
+            
+            weakSelf.tableView.currencys = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
         
-        model.symbol = @"BTC";
-        model.platformName = @"币安";
-        model.price_cny = @"90000";
-        model.price_usd = @"15555";
-        model.one_day_volume_cny = @"160亿";
-        model.one_day_volume = @"16万";
-        model.all_volume_cny = @"500亿";
-        model.all_volume = @"50万";
-
-        model.unit = @"USDT";
-        model.percent_change_24h = @"50";
-        model.flow_percent_change_24h = @"50";
-        model.in_flow_volume_cny = @"100亿";
-        model.out_flow_volume_cny = @"50亿";
-        model.flow_volume_cny = @"50亿";
-        
-        [arr addObject:model];
-    }
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.currencys = objs;
+            
+            weakSelf.tableView.currencys = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
     
-    self.currencys = arr;
-    
-    self.tableView.currencys = self.currencys;
-    
-    [self.tableView reloadData];
+    [self.tableView endRefreshingWithNoMoreData_tl];
 }
 
 @end

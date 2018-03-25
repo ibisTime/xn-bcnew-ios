@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+typedef void(^AddCurrencyBlock)();
+
 @interface SearchCurrencyVC : BaseViewController
+
+@property (nonatomic, copy) AddCurrencyBlock currencyBlock;
 
 @end

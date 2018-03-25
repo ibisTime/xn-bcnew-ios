@@ -13,16 +13,34 @@
 
 - (UIColor *)bgColor {
     
-    CGFloat fluct = [self.percent_change_24h doubleValue];
+    CGFloat fluct = [self.changeRate doubleValue];
     
-    return fluct >= 0 ? kRiseColor: kThemeColor;
+    if (fluct > 0) {
+        
+        return kRiseColor;
+        
+    } else if (fluct == 0) {
+        
+        return kHexColor(@"#979797");
+    }
+    
+    return kThemeColor;
 }
 
 - (UIColor *)flowBgColor {
     
     CGFloat fluct = [self.flow_percent_change_24h doubleValue];
     
-    return fluct >= 0 ? kRiseColor: kThemeColor;
+    if (fluct > 0) {
+        
+        return kRiseColor;
+        
+    } else if (fluct == 0) {
+        
+        return kHexColor(@"#979797");
+    }
+    
+    return kThemeColor;
 }
 
 @end

@@ -11,6 +11,8 @@
 #import "ForumModel.h"
 //V
 #import "ForumListTableView.h"
+#import "TLPlaceholderView.h"
+
 //C
 #import "ForumDetailVC.h"
 
@@ -24,6 +26,16 @@
 
 @implementation ForumChildVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    if (![TLUser user].isLogin) {
+        
+        self.tableView.tableFooterView = self.tableView.placeHolderView;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -31,15 +43,30 @@
     [self initTableView];
     //获取币吧列表
     [self requestForumList];
+    //刷新币吧列表
+    [self.tableView beginRefreshing];
+    //添加通知
+    [self addNotification];
 }
 
 #pragma mark - Init
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginNotification object:nil];
+}
+
+- (void)refreshForumList {
+    
+    //刷新币吧列表
+    [self.tableView beginRefreshing];
+}
+
 - (void)initTableView {
     
     self.tableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
-    
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无贴吧"];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -53,27 +80,101 @@
  */
 - (void)requestForumList {
     
-    NSMutableArray <ForumModel *>*arr = [NSMutableArray array];
+    if ([self.type isEqualToString:kFoucsPost]) {
+        
+        if (![TLUser user].isLogin) {
+            
+            return ;
+        }
+    }
+    NSString *code = [self.type isEqualToString:kFoucsPost] ? @"628245": @"628237";
+    BaseWeakSelf;
     
-    for (int i = 0; i < 10; i++) {
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = code;
+    
+    if ([TLUser user].isLogin) {
         
-        ForumModel *model = [ForumModel new];
-        
-        model.name = @"BTC";
-        model.followNum = @"66666";
-        model.postNum = @"66666";
-        model.updateNum = @"66666";
-        model.rank = [NSString stringWithFormat:@"%d", i+1];
-        model.isFollow = i%2 == 0 ? YES: NO;
-        model.isAllPost = [self.status isEqualToString:kAllPost] ? YES: NO;
-        [arr addObject:model];
+        helper.parameters[@"userId"] = [TLUser user].userId;
     }
     
-    self.forums = arr;
+    if ([self.type isEqualToString:kHotPost]) {
+        
+        helper.parameters[@"location"] = @"1";
+    }
+    helper.tableView = self.tableView;
     
-    self.tableView.forums = self.forums;
+    [helper modelClass:[ForumModel class]];
     
-    [self.tableView reloadData];
+    [self.tableView addRefreshAction:^{
+        
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.forums = objs;
+            
+            weakSelf.tableView.forums = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.forums = objs;
+            
+            weakSelf.tableView.forums = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+/**
+ 关注
+ */
+- (void)followForum:(NSInteger)index {
+    
+    ForumModel *forumModel = self.forums[index];
+
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628240";
+    http.parameters[@"code"] = forumModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [forumModel.isKeep isEqualToString:@"1"] ? @"取消关注成功": @"关注成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([forumModel.isKeep isEqualToString:@"1"]) {
+            
+            forumModel.isKeep = @"0";
+            forumModel.keepCount -= 1;
+            
+        } else {
+            
+            forumModel.isKeep = @"1";
+            forumModel.keepCount += 1;
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - RefreshDelegate
@@ -82,6 +183,15 @@
     ForumDetailVC *detailVC = [ForumDetailVC new];
     
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        [weakSelf followForum:index];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

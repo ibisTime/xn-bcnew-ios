@@ -1,19 +1,19 @@
 //
-//  OptionalModel.m
+//  CurrencyPriceModel.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/21.
+//  Created by 蔡卓越 on 2018/3/25.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "OptionalModel.h"
+#import "CurrencyPriceModel.h"
 #import "AppColorMacro.h"
 
-@implementation OptionalModel
+@implementation CurrencyPriceModel
 
 - (UIColor *)bgColor {
     
-    CGFloat fluct = [self.changeRate doubleValue];
+    CGFloat fluct = [self.percentChange24h doubleValue];
     
     if (fluct > 0) {
         
@@ -35,4 +35,5 @@
     
     return propertyName;
 }
+
 @end

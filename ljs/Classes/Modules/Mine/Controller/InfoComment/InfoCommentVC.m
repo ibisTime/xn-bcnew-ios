@@ -1,12 +1,12 @@
 //
-//  QuotestCommentVC.m
+//  InfoCommentVC.m
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "QuotestCommentVC.h"
+#import "InfoCommentVC.h"
 //Macro
 //Framework
 //Category
@@ -16,7 +16,7 @@
 #import "TopLabelUtil.h"
 
 
-@interface QuotestCommentVC ()<SegmentDelegate>
+@interface InfoCommentVC ()<SegmentDelegate>
 //
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
 @property (nonatomic, strong) UIScrollView *switchSV;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation QuotestCommentVC
+@implementation InfoCommentVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,7 +76,7 @@
                         ];
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
-        QuotesCommentChildVC *childVC = [[QuotesCommentChildVC alloc] init];
+        InfoCommentChildVC *childVC = [[InfoCommentChildVC alloc] init];
         
         childVC.type = typeList[i];
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);

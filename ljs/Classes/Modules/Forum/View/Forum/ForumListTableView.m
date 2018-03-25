@@ -45,8 +45,21 @@ static NSString *identifierCell = @"ForumListCell";
     cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
 
     cell.forumModel = self.forums[indexPath.row];
+    cell.followBtn.tag = 2300 + indexPath.row;
+    
+    [cell.followBtn addTarget:self action:@selector(clickForum:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
+}
+
+- (void)clickForum:(UIButton *)sender {
+    
+    NSInteger index = sender.tag - 2300;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
+    }
 }
 
 #pragma mark - UITableViewDelegate

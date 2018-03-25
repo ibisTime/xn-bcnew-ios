@@ -9,6 +9,8 @@
 #import "TLTableView.h"
 //M
 #import "CurrencyModel.h"
+#import "CurrencyPriceModel.h"
+
 typedef NS_ENUM(NSInteger, CurrencyType) {
     
     CurrencyTypePrice = 0,          //币价
@@ -19,6 +21,9 @@ typedef NS_ENUM(NSInteger, CurrencyType) {
 @interface CurrencyTableVIew : TLTableView
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
+//
+@property (nonatomic, strong) NSArray <CurrencyPriceModel *>*currencyPrices;
+
 //类型
 @property (nonatomic, assign) CurrencyType type;
 

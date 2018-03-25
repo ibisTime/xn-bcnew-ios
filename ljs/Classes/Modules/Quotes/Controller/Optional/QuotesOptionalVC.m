@@ -14,6 +14,7 @@
 #import "UIBarButtonItem+convience.h"
 //Extension
 //M
+#import "OptionalTitleModel.h"
 //V
 #import "SelectScrollView.h"
 //C
@@ -23,7 +24,8 @@
 //
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, strong) NSArray <OptionalTitleModel *>*titleList;
+@property (nonatomic, strong) NSMutableArray *titles;
 //statusList
 @property (nonatomic, strong) NSArray *statusList;
 
@@ -37,10 +39,8 @@
     self.title = @"添加自选";
     //完成
     [self addItem];
-    //
-    [self initSelectScrollView];
-    //
-    [self addSubViewController];
+    //获取自选title
+    [self requestTitleList];
 }
 
 #pragma mark - Init
@@ -51,9 +51,14 @@
 
 - (void)initSelectScrollView {
     
-    self.titles = @[@"BTC", @"BCH", @"ETH", @"OKEx", @"BigONE", @"币安", @"ZB", @"Gate", @"Bitfinex"];
-
-    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    self.titles = [NSMutableArray array];
+    
+    [self.titleList enumerateObjectsUsingBlock:^(OptionalTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [self.titles addObject:obj.sname];
+    }];
+    
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles.copy];
     
     [self.view addSubview:selectSV];
     
@@ -65,6 +70,8 @@
     for (NSInteger i = 0; i < self.titles.count; i++) {
         //可选
         QuotesOptionalChildVC *childVC = [[QuotesOptionalChildVC alloc] init];
+        
+        childVC.titleModel = self.titleList[i];
         
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         
@@ -81,6 +88,31 @@
 - (void)confirm {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Data
+- (void)requestTitleList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628335";
+    helper.isList = YES;
+    
+    [helper modelClass:[OptionalTitleModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.titleList = objs;
+        //
+        [weakSelf initSelectScrollView];
+        //
+        [weakSelf addSubViewController];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

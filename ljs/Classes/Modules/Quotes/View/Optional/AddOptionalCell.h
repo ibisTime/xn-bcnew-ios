@@ -13,5 +13,7 @@
 @interface AddOptionalCell : BaseTableViewCell
 //
 @property (nonatomic, strong) OptionalModel *optional;
+//类型
+@property (nonatomic, copy) NSString *type;
 
 @end

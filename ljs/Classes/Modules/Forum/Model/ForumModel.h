@@ -9,24 +9,29 @@
 #import "BaseModel.h"
 
 @interface ForumModel : BaseModel
-
+//编号
+@property (nonatomic, copy) NSString *code;
 //吧名
 @property (nonatomic, copy) NSString *name;
 //关注量
-@property (nonatomic, copy) NSString *followNum;
+@property (nonatomic, assign) NSInteger keepCount;
 //发帖量
-@property (nonatomic, copy) NSString *postNum;
+@property (nonatomic, assign) NSInteger postCount;
 //更贴数
-@property (nonatomic, copy) NSString *updateNum;
+@property (nonatomic, assign) NSInteger dayCommentCount;
 //排名
 @property (nonatomic, copy) NSString *rank;
 @property (nonatomic, copy) NSString *rankImage;
+//介绍
+@property (nonatomic, copy) NSString *introduce;
 //是否关注
-@property (nonatomic, assign) BOOL isFollow;
+@property (nonatomic, copy) NSString *isKeep;
 //是否排名前三
 @property (nonatomic, assign) BOOL isTopThree;
 //是否是全部
 @property (nonatomic, assign) BOOL isAllPost;
+//位置
+@property (nonatomic, copy) NSString *location;
 
 @end
 

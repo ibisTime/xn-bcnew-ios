@@ -7,6 +7,8 @@
 //
 
 #import "BaseViewController.h"
+//M
+#import "CurrencyTitleModel.h"
 //V
 #import "CurrencyTableVIew.h"
 /**
@@ -19,5 +21,7 @@
 @property (nonatomic, copy) NSString *kind;
 //币种编号
 @property (nonatomic, copy) NSString *code;
+//title
+@property (nonatomic, strong) CurrencyTitleModel *titleModel;
 
 @end

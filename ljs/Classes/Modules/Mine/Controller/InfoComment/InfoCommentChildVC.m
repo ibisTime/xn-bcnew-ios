@@ -1,12 +1,12 @@
 //
-//  QuotesCommentChildVC.m
+//  InfoCommentChildVC.m
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "QuotesCommentChildVC.h"
+#import "InfoCommentChildVC.h"
 //Macro
 //Framework
 //Category
@@ -14,20 +14,20 @@
 //M
 #import "MyCommentModel.h"
 //V
-#import "QuotesCommentTableView.h"
+#import "InfoCommentTableView.h"
 //C
 #import "MyCommentDetailVC.h"
 #import "InfoDetailVC.h"
 
-@interface QuotesCommentChildVC ()<RefreshDelegate>
+@interface InfoCommentChildVC ()<RefreshDelegate>
 //
-@property (nonatomic, strong) QuotesCommentTableView *tableView;
+@property (nonatomic, strong) InfoCommentTableView *tableView;
 //评论列表
 @property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
 
 @end
 
-@implementation QuotesCommentChildVC
+@implementation InfoCommentChildVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +42,7 @@
 #pragma mark - Init
 - (void)initTableView {
 
-    self.tableView = [[QuotesCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[InfoCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];

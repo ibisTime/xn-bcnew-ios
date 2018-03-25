@@ -1,12 +1,12 @@
 //
-//  QuotesCommentCell.m
+//  MyCommentCell.m
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "QuotesCommentCell.h"
+#import "MyCommentCell.h"
 //
 #import "TLUser.h"
 //Category
@@ -20,7 +20,7 @@
 
 #define kHeadIconW 40
 
-@interface QuotesCommentCell ()
+@interface MyCommentCell ()
 //头像
 @property (nonatomic, strong) UIImageView *photoIV;
 //昵称
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation QuotesCommentCell
+@implementation MyCommentCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     

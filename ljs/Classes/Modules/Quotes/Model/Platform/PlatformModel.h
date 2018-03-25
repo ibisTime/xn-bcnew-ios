@@ -9,26 +9,33 @@
 #import "BaseModel.h"
 
 @interface PlatformModel : BaseModel
+
 //编号
-@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *ID;
 //币种名称
-@property (nonatomic, copy) NSString *symbol;
-//平台
-@property (nonatomic, copy) NSString *platformName;
+@property (nonatomic, copy) NSString *coinSymbol;
+//参考币种
+@property (nonatomic, copy) NSString *toCoinSymbol;
+//交易所英文
+@property (nonatomic, copy) NSString *exchangeEname;
+//交易所中文
+@property (nonatomic, copy) NSString *exchangeCname;
 //rmb价格
-@property (nonatomic, copy) NSString *price_cny;
+@property (nonatomic, copy) NSString *lastCnyPrice;
 ///24小时RMB数
-@property (nonatomic, copy) NSString *one_day_volume_cny;
+@property (nonatomic, copy) NSString *volume;
 //相对于某币种的价格
-@property (nonatomic, copy) NSString *price_usd;
-//24小时某币种数
-@property (nonatomic, copy) NSString *one_day_volume_usd;
-//单位
-@property (nonatomic, copy) NSString *unit;
+@property (nonatomic, copy) NSString *lastPrice;
 //涨幅
-@property (nonatomic, copy) NSString *percent_change_24h;
+@property (nonatomic, copy) NSString *changeRate;
 //涨跌颜色
 @property (nonatomic, strong) UIColor *bgColor;
+//是否选择(1是 0否)
+@property (nonatomic, copy) NSString *isChoice;
+//类型
+@property (nonatomic, copy) NSString *type;
+
+
 //流入
 @property (nonatomic, copy) NSString *in_flow_volume_cny;
 //流出

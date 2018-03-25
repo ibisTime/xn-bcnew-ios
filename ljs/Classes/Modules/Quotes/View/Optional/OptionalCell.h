@@ -8,10 +8,10 @@
 
 #import "BaseTableViewCell.h"
 //M
-#import "OptionalModel.h"
+#import "OptionalListModel.h"
 
 @interface OptionalCell : BaseTableViewCell
 //
-@property (nonatomic, strong) OptionalModel *optional;
+@property (nonatomic, strong) OptionalListModel *optional;
 
 @end

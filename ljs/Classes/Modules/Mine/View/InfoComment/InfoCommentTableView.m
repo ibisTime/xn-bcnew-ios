@@ -1,22 +1,22 @@
 //
-//  QuotesCommentTableView.m
+//  InfoCommentTableView.m
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "QuotesCommentTableView.h"
+#import "InfoCommentTableView.h"
 //V
-#import "QuotesCommentCell.h"
+#import "MyCommentCell.h"
 
-@interface QuotesCommentTableView ()<UITableViewDelegate, UITableViewDataSource>
+@interface InfoCommentTableView ()<UITableViewDelegate, UITableViewDataSource>
 
 @end
 
-@implementation QuotesCommentTableView
+@implementation InfoCommentTableView
 
-static NSString *identifierCell = @"QuotesCommentCell";
+static NSString *identifierCell = @"MyCommentCell";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,7 +25,7 @@ static NSString *identifierCell = @"QuotesCommentCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[QuotesCommentCell class] forCellReuseIdentifier:identifierCell];
+        [self registerClass:[MyCommentCell class] forCellReuseIdentifier:identifierCell];
     }
     
     return self;
@@ -40,7 +40,7 @@ static NSString *identifierCell = @"QuotesCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    QuotesCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    MyCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
     cell.commentModel = self.comments[indexPath.row];
     

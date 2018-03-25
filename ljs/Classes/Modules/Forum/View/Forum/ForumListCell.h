@@ -13,5 +13,7 @@
 @interface ForumListCell : BaseTableViewCell
 //
 @property (nonatomic, strong) ForumModel *forumModel;
+//关注
+@property (nonatomic, strong) UIButton *followBtn;
 
 @end

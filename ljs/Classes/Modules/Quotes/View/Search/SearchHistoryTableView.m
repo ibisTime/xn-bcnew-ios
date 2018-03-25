@@ -53,6 +53,10 @@ static NSString *identifierCell = @"SearchHistoryCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

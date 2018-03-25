@@ -32,7 +32,7 @@
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
 #import "UserDetailEditVC.h"
-#import "QuotestCommentVC.h"
+#import "InfoCommentVC.h"
 #import "MyCollectionListVC.h"
 
 @interface MineVC ()<MineHeaderSeletedDelegate>
@@ -136,7 +136,7 @@
         
         [weakSelf checkLogin:^{
             
-            QuotestCommentVC *commentVC = [QuotestCommentVC new];
+            InfoCommentVC *commentVC = [InfoCommentVC new];
             
             commentVC.type = MyCommentTypeCircle;
             
@@ -152,7 +152,7 @@
         
         [weakSelf checkLogin:^{
             
-            QuotestCommentVC *commentVC = [QuotestCommentVC new];
+            InfoCommentVC *commentVC = [InfoCommentVC new];
             
             commentVC.type = MyCommentTypeInfo;
 

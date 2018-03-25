@@ -1,5 +1,5 @@
 //
-//  QuotesCommentTableView.h
+//  InfoCommentTableView.h
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
@@ -10,7 +10,7 @@
 //M
 #import "MyCommentModel.h"
 
-@interface QuotesCommentTableView : TLTableView
+@interface InfoCommentTableView : TLTableView
 //
 @property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
 

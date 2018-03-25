@@ -25,4 +25,6 @@
 - (void)removePlaceholderView; //移除
 - (void)addPlaceholderView; // 添加
 
+- (void)checkLogin:(void(^)(void))loginSuccess;
+
 @end

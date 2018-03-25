@@ -10,6 +10,6 @@
 
 @interface ForumChildVC : BaseViewController
 //状态
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *type;
 
 @end

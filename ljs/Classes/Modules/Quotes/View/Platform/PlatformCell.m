@@ -56,14 +56,14 @@
     self.priceFluctBtn = [UIButton buttonWithTitle:@""
                                         titleColor:kWhiteColor
                                    backgroundColor:kClearColor
-                                         titleFont:15.0 cornerRadius:5];
+                                         titleFont:17.0 cornerRadius:5];
     
     [self addSubview:self.priceFluctBtn];
     
     //当前对应币种价格
     self.opppsitePriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                     textColor:kHexColor(@"#595A6E")
-                                                         font:19.0];
+                                                         font:12.0];
     
     [self addSubview:self.opppsitePriceLbl];
     
@@ -120,20 +120,20 @@
     _platform = platform;
     
     //币种名称
-    self.currencyNameLbl.text = platform.symbol;
+    self.currencyNameLbl.text = platform.coinSymbol;
     //一日交易量
-    NSString *volumeStr = platform.one_day_volume_usd;
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", platform.unit,volumeStr];
+    NSString *volumeStr = platform.volume;
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", platform.toCoinSymbol,volumeStr];
     
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", platform.price_usd];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", platform.lastPrice];
     
     //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", platform.price_cny];
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", platform.lastCnyPrice];
     self.rmbPriceLbl.textColor = platform.bgColor;
     
     //涨跌情况
-    NSString *priceFluctStr = platform.percent_change_24h;
+    NSString *priceFluctStr = platform.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {

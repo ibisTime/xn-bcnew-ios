@@ -14,6 +14,7 @@
 //Extension
 //M
 #import "PlatformModel.h"
+#import "OptionalModel.h"
 //V
 #import "BaseView.h"
 
@@ -41,6 +42,8 @@
     [self initTableView];
     //获取平台列表
     [self requestPlatformList];
+    //刷新平台列表
+    [self.tableView beginRefreshing];
 }
 
 #pragma mark - Init
@@ -54,7 +57,7 @@
     self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor
                                                         font:17.0];
-    self.platformNameLbl.text = @"币安";
+    self.platformNameLbl.text = self.titleModel.cname;
     [self.headerView addSubview:self.platformNameLbl];
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -135,33 +138,51 @@
  */
 - (void)requestPlatformList {
     
-    NSMutableArray <PlatformModel *>*arr = [NSMutableArray array];
+    BaseWeakSelf;
     
-    for (int i = 0; i < 10; i++) {
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628340";
+    
+    helper.parameters[@"exchangeEname"] = self.titleModel.ename;
+
+    helper.parameters[@"userId"] = [TLUser user].userId;
+    
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[OptionalModel class]];
+    
+    [self.tableView addRefreshAction:^{
         
-        PlatformModel *model = [PlatformModel new];
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.platforms = objs;
+            
+            weakSelf.tableView.platforms = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
         
-        model.symbol = @"BTC";
-        model.platformName = @"币安";
-        model.price_cny = @"90000";
-        model.price_usd = @"15555";
-        model.one_day_volume_cny = @"10000000";
-        model.one_day_volume_usd = @"1600000";
-        model.unit = @"USDT";
-        model.percent_change_24h = @"50";
-        model.flow_percent_change_24h = @"50";
-        model.in_flow_volume_cny = @"100亿";
-        model.out_flow_volume_cny = @"50亿";
-        model.flow_volume_cny = @"50亿";
-        
-        [arr addObject:model];
-    }
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.platforms = objs;
+            
+            weakSelf.tableView.platforms = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
     
-    self.platforms = arr;
-    
-    self.tableView.platforms = self.platforms;
-    
-    [self.tableView reloadData];
+    [self.tableView endRefreshingWithNoMoreData_tl];
 }
 
 - (void)didReceiveMemoryWarning {

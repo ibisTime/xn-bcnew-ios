@@ -7,6 +7,8 @@
 //
 
 #import "AddOptionalCell.h"
+//M
+#import "OptionalTitleModel.h"
 //Category
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
@@ -87,11 +89,11 @@
     _optional = optional;
     
     //名称
-    self.nameLbl.text = optional.symbol;
+    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.coinSymbol: optional.exchangeEname;
     //单位
-    self.unitLbl.text = optional.unit;
+    self.unitLbl.text = optional.toCoinSymbol;
     //添加按钮
-    self.addBtn.selected = optional.isSelect;
+    self.addBtn.selected = [optional.isChoice boolValue];
     
 }
 

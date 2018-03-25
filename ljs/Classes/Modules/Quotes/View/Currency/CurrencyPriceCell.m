@@ -10,7 +10,7 @@
 //Category
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
-#import "NSString+Extension.h"
+#import "NSNumber+Extension.h"
 
 @interface CurrencyPriceCell()
 //币种名称
@@ -56,7 +56,7 @@
     //24h流通量
     self.oneDayVolumeLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                   textColor:kTextColor2
-                                                       font:15.0];
+                                                       font:11.0];
     
     [self addSubview:self.oneDayVolumeLbl];
     //涨跌情况
@@ -69,7 +69,7 @@
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:14.0];
+                                                    font:17.0];
     
     [self addSubview:self.rmbPriceLbl];
     //布局
@@ -82,16 +82,17 @@
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.equalTo(@0);
+//        make.centerY.equalTo(@0);
         make.left.equalTo(@15);
+        make.top.equalTo(@10);
     }];
     
     //总流通量
-    [self.allVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.bottom.equalTo(self.currencyNameLbl.mas_top).offset(-5);
-        make.left.equalTo(self.currencyNameLbl.mas_left);
-    }];
+//    [self.allVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.bottom.equalTo(self.currencyNameLbl.mas_top).offset(-5);
+//        make.left.equalTo(self.currencyNameLbl.mas_left);
+//    }];
     //一日流通量
     [self.oneDayVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -115,22 +116,26 @@
 }
 
 #pragma mark - Setting
-- (void)setCurrency:(CurrencyModel *)currency {
+- (void)setCurrency:(CurrencyPriceModel *)currency {
     
     _currency = currency;
     
     //币种名称
     self.currencyNameLbl.text = currency.symbol;
     //总交易量
-    self.allVolumeLbl.text = [NSString stringWithFormat:@"流通量/额 %@/%@", currency.all_volume,currency.all_volume_cny];
+//    self.allVolumeLbl.text = [NSString stringWithFormat:@"流通量/额 %@/%@", currency.all_volume,currency.all_volume_cny];
     //一日交易量
-    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量/额 %@/%@", currency.one_day_volume,currency.one_day_volume_cny];
-        //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.price_cny];
+//    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量/额 %@/%@", currency.one_day_volume,currency.one_day_volume_cny];
+    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量 %@", currency.h24VolumeCny];
+    //人民币价格
+    
+    NSString *priceCny = [@([currency.priceCny doubleValue]) convertToRealMoneyWithNum:4];
+    
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", priceCny];
     self.rmbPriceLbl.textColor = currency.bgColor;
     
     //涨跌情况
-    NSString *priceFluctStr = currency.percent_change_24h;
+    NSString *priceFluctStr = currency.percentChange24h;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {

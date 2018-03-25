@@ -14,7 +14,9 @@
 //Extension
 //M
 #import "QuotesManager.h"
-#import "OptionalModel.h"
+#import "OptionalListModel.h"
+#import "PlatformTitleModel.h"
+#import "CurrencyTitleModel.h"
 //V
 #import "BaseView.h"
 #import "SelectScrollView.h"
@@ -37,19 +39,34 @@
 //类型
 @property (nonatomic, copy) NSString *kind;
 //
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, strong) NSMutableArray *titles;
 //类型
 @property (nonatomic, strong) NSMutableArray *kinds;
 //自选
 @property (nonatomic, strong) OptionalTableView *tableView;
 //添加
 @property (nonatomic, strong) BaseView *footerView;
-//
-@property (nonatomic, strong) NSMutableArray <OptionalModel *>*optionals;
+//自选列表
+@property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
+//平台
+@property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
+//币种
+@property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
 
 @end
 
 @implementation QuotesVC
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    if ([TLUser user].isLogin) {
+        
+        //刷新自选列表
+        [self.tableView beginRefreshing];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,7 +79,10 @@
     [self addItem];
     //获取自选列表
     [self requestOptionalList];
-    
+    //获取平台title列表
+    [self requestPlatformTitleList];
+    //获取平台title列表
+    [self requestCurrencyTitleList];
 }
 
 #pragma mark - Init
@@ -120,36 +140,8 @@
     [self.view addSubview:self.switchSV];
     [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
-    //2.行情列表
-    NSArray *kindArr = @[kOptional,
-                         kPlatform,
-                         kCurrency];
-    for (int i = 0; i < titleArr.count; i++) {
-        
-        self.kind = kindArr[i];
-        
-        if ([self.kind isEqualToString:kPlatform]) {
-            
-            self.titles = @[@"全部", @"资金", @"OKEx", @"BigONE", @"币安", @"ZB", @"Gate", @"Bitfinex"];
-            
-        } else if ([self.kind isEqualToString:kCurrency]) {
-            
-            self.titles = @[@"币价", @"新币", @"BTC", @"BCH", @"ETH", @"LTC", @"ETC", @"XRP", @"TRX", @"RLC", @"VIEB"];
-        }
-        
-        if ([self.kind isEqualToString:kPlatform] || [self.kind isEqualToString:kCurrency]) {
-            
-            //添加滚动
-            [self initSelectScrollViewWithIdx:i];
-            //
-            [self addSubViewController];
-
-        } else {
-            //添加自选
-            [self initOptionalTableView];
-        }
-    }
-    
+    //2.添加自选
+    [self initOptionalTableView];
 }
 
 - (void)initOptionalTableView {
@@ -158,7 +150,6 @@
     
     [self.switchSV addSubview:self.tableView];
     
-    self.tableView.tableFooterView = self.footerView;
 }
 
 - (void)initSelectScrollViewWithIdx:(NSInteger)idx {
@@ -172,27 +163,16 @@
 
 - (void)addSubViewController {
     
-    self.kinds = [NSMutableArray array];
-
-    [self.titles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([self.kind isEqualToString:kPlatform]) {
-        
-            
-        } else {
-            
-            
-        }
-    }];
-    
     for (NSInteger i = 0; i < self.titles.count; i++) {
         //平台
         if ([self.kind isEqualToString:kPlatform]) {
             
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
             
-            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
+//            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             
+            childVC.type = PlatformTypePlatform;
+            childVC.titleModel = self.platformTitleList[i];
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
             
             [self addChildViewController:childVC];
@@ -204,7 +184,12 @@
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
             
-            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
+//            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
+            childVC.type = i == 0 ? CurrencyTypePrice:  CurrencyTypeCurrency;
+            if (i != 0) {
+                
+                childVC.titleModel = self.currencyTitleList[i - 1];
+            }
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
             
             [self addChildViewController:childVC];
@@ -221,16 +206,27 @@
  */
 - (void)addCurrency {
     
-    QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
-    
-    [self.navigationController pushViewController:optionalVC animated:YES];
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
+        
+        [weakSelf.navigationController pushViewController:optionalVC animated:YES];
+    }];
 }
 /**
  搜索
  */
 - (void)search {
     
+    BaseWeakSelf;
+    
     SearchCurrencyVC *searchVC = [SearchCurrencyVC new];
+    
+    searchVC.currencyBlock = ^{
+        
+        [weakSelf.tableView beginRefreshing];
+    };
     
     NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
     
@@ -243,29 +239,146 @@
  */
 - (void)requestOptionalList {
     
-    NSMutableArray <OptionalModel *>*arr = [NSMutableArray array];
-    
-    for (int i = 0; i < 10; i++) {
+    if (![TLUser user].isLogin) {
         
-        OptionalModel *model = [OptionalModel new];
-        
-        model.symbol = @"BTC";
-        model.platformName = @"币安";
-        model.price_cny = @"90000";
-        model.price_usd = @"15555";
-        model.one_day_volume_cny = @"10000000";
-        model.one_day_volume_usd = @"1600000";
-        model.unit = @"USDT";
-        model.percent_change_24h = @"50";
-        
-        [arr addObject:model];
+        self.tableView.tableFooterView = self.footerView;
+        return ;
     }
     
-    self.optionals = arr;
+    BaseWeakSelf;
     
-    self.tableView.optionals = self.optionals;
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    [self.tableView reloadData];
+    helper.code = @"628336";
+    
+    if ([TLUser user].isLogin) {
+        
+        helper.parameters[@"userId"] = [TLUser user].userId;
+    }
+    
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[OptionalListModel class]];
+    
+    [self.tableView addRefreshAction:^{
+        
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            if (objs.count == 0) {
+                
+                weakSelf.tableView.tableFooterView = weakSelf.footerView;
+                return ;
+            }
+            
+            weakSelf.tableView.tableFooterView = nil;
+            
+            weakSelf.optionals = objs;
+            
+            weakSelf.tableView.optionals = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.optionals = objs;
+            
+            weakSelf.tableView.optionals = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+/**
+ 获取平台title列表
+ */
+- (void)requestPlatformTitleList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628317";
+    helper.isList = YES;
+    
+    [helper modelClass:[PlatformTitleModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.platformTitleList = objs;
+        //遍历标题
+        weakSelf.titles = [NSMutableArray array];
+        
+        [weakSelf.platformTitleList enumerateObjectsUsingBlock:^(PlatformTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.cname) {
+                
+                [weakSelf.titles addObject:obj.cname];
+            }
+        }];
+        
+        weakSelf.kind = kPlatform;
+
+        //添加滚动
+        [weakSelf initSelectScrollViewWithIdx:1];
+        //
+        [weakSelf addSubViewController];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+/**
+ 获取币种title列表
+ */
+- (void)requestCurrencyTitleList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628307";
+    helper.isList = YES;
+    
+    [helper modelClass:[CurrencyTitleModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.currencyTitleList = objs;
+        //遍历标题
+        weakSelf.titles = [NSMutableArray arrayWithObject:@"币价"];
+        
+        [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.symbol) {
+
+                [weakSelf.titles addObject:obj.symbol];
+            }
+        }];
+        
+        weakSelf.kind = kCurrency;
+        
+        //添加滚动
+        [weakSelf initSelectScrollViewWithIdx:2];
+        //
+        [weakSelf addSubViewController];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - SegmentDelegate

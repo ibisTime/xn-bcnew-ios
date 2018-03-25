@@ -1,5 +1,5 @@
 //
-//  QuotestCommentVC.h
+//  InfoCommentVC.h
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
@@ -9,9 +9,9 @@
 #import "BaseViewController.h"
 
 //C
-#import "QuotesCommentChildVC.h"
+#import "InfoCommentChildVC.h"
 
-@interface QuotestCommentVC : BaseViewController
+@interface InfoCommentVC : BaseViewController
 //
 @property (nonatomic, assign) MyCommentType type;
 

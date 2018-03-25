@@ -64,7 +64,7 @@
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:14.0];
+                                                    font:17.0];
     
     [self addSubview:self.rmbPriceLbl];
     //布局
@@ -109,34 +109,34 @@
     _currency = currency;
     
     //币种名称
-    self.currencyNameLbl.text = currency.symbol;
-    //一日交易量
-    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量/额 %@/%@", currency.one_day_volume,currency.one_day_volume_cny];
-    //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.price_cny];
-    self.rmbPriceLbl.textColor = currency.bgColor;
-    
-    //涨跌情况
-    NSString *priceFluctStr = currency.percent_change_24h;
-    CGFloat fluct = [priceFluctStr doubleValue];
-    
-    if (fluct > 0) {
-        
-        priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
-        
-    } else  {
-        
-        priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
-    }
-    
-    [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
-    [self.priceFluctBtn setBackgroundColor:currency.bgColor forState:UIControlStateNormal];
-    
-    CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
-    [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-        make.width.equalTo(@(btnW > 75 ? btnW: 75));
-    }];
+//    self.currencyNameLbl.text = currency.symbol;
+//    //一日交易量
+//    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量/额 %@/%@", currency.one_day_volume,currency.one_day_volume_cny];
+//    //人民币价格
+//    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.price_cny];
+//    self.rmbPriceLbl.textColor = currency.bgColor;
+//
+//    //涨跌情况
+//    NSString *priceFluctStr = currency.percent_change_24h;
+//    CGFloat fluct = [priceFluctStr doubleValue];
+//
+//    if (fluct > 0) {
+//
+//        priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
+//
+//    } else  {
+//
+//        priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
+//    }
+//
+//    [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
+//    [self.priceFluctBtn setBackgroundColor:currency.bgColor forState:UIControlStateNormal];
+//
+//    CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
+//    [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+//
+//        make.width.equalTo(@(btnW > 75 ? btnW: 75));
+//    }];
     
 }
 

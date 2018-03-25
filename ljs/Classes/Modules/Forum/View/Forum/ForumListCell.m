@@ -9,11 +9,6 @@
 #import "ForumListCell.h"
 
 @interface ForumListCell()
-//吧名
-//关注量
-//发帖量
-//更贴数
-//关注
 
 //吧名
 @property (nonatomic, strong) UILabel *postBarNameLbl;
@@ -23,8 +18,6 @@
 @property (nonatomic, strong) UILabel *postNumLbl;
 //更贴数
 @property (nonatomic, strong) UILabel *updatePostNumLbl;
-//关注
-@property (nonatomic, strong) UIButton *followBtn;
 //排名
 @property (nonatomic, strong) UIImageView *rankIV;
 //
@@ -150,11 +143,11 @@
     
     _forumModel = forumModel;
     
-    self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@吧#", forumModel.name];
-    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%@", forumModel.followNum];
-    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%@", forumModel.postNum];
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日更贴:%@", forumModel.updateNum];
-    if (forumModel.isFollow) {
+    self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@#", forumModel.name];
+    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", forumModel.keepCount];
+    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", forumModel.postCount];
+    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日更贴:%ld", forumModel.dayCommentCount];
+    if ([forumModel.isKeep isEqualToString:@"1"]) {
         
         [self.followBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];

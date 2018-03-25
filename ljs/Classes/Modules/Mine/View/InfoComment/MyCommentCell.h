@@ -1,5 +1,5 @@
 //
-//  QuotesCommentCell.h
+//  MyCommentCell.h
 //  ljs
 //
 //  Created by 蔡卓越 on 2018/3/24.
@@ -10,7 +10,7 @@
 //M
 #import "MyCommentModel.h"
 
-@interface QuotesCommentCell : BaseTableViewCell
+@interface MyCommentCell : BaseTableViewCell
 //
 @property (nonatomic, strong) MyCommentModel *commentModel;
 //

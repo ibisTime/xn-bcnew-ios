@@ -104,7 +104,7 @@
     _platform = platform;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.platformName];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.exchangeEname];
     self.tradeFlowLbl.text = [NSString stringWithFormat:@"流入/流出%@/%@", platform.in_flow_volume_cny, platform.out_flow_volume_cny];
     //一日净流入
     NSString *volumeStr = platform.flow_volume_cny;

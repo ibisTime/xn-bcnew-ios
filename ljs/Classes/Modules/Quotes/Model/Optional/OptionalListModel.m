@@ -1,15 +1,28 @@
 //
-//  OptionalModel.m
+//  OptionalListModel.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/21.
+//  Created by 蔡卓越 on 2018/3/25.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "OptionalModel.h"
+#import "OptionalListModel.h"
 #import "AppColorMacro.h"
 
-@implementation OptionalModel
+@implementation OptionalListModel
+
++ (NSString *)mj_replacedKeyFromPropertyName121:(NSString *)propertyName {
+    
+    if ([propertyName isEqualToString:@"ID"]) {
+        return @"id";
+    }
+    
+    return propertyName;
+}
+
+@end
+
+@implementation Marketfxh
 
 - (UIColor *)bgColor {
     
@@ -27,12 +40,4 @@
     return kThemeColor;
 }
 
-+ (NSString *)mj_replacedKeyFromPropertyName121:(NSString *)propertyName {
-    
-    if ([propertyName isEqualToString:@"ID"]) {
-        return @"id";
-    }
-    
-    return propertyName;
-}
 @end

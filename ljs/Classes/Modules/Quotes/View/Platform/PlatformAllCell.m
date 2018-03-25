@@ -92,13 +92,13 @@
     _platform = platform;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.platformName];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.exchangeEname];
     //一日交易量
-    NSString *volumeStr = platform.one_day_volume_usd;
+    NSString *volumeStr = platform.volume;
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"￥%@",volumeStr];
     
     //涨跌情况
-    NSString *tradeVolumeFluctStr = platform.percent_change_24h;
+    NSString *tradeVolumeFluctStr = platform.changeRate;
     CGFloat fluct = [tradeVolumeFluctStr doubleValue];
     
     if (fluct > 0) {

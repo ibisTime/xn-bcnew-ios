@@ -15,6 +15,8 @@
 #import "SelectScrollView.h"
 //C
 #import "ForumChildVC.h"
+#import "SearchForumVC.h"
+#import "NavigationController.h"
 
 @interface ForumVC ()
 //滚动
@@ -22,7 +24,7 @@
 //
 @property (nonatomic, strong) NSArray *titles;
 //
-@property (nonatomic, strong) NSArray *statusList;
+@property (nonatomic, strong) NSArray *typeList;
 
 @end
 
@@ -53,7 +55,7 @@
     
     self.titles = @[@"全部", @"热门", @"关注"];
     
-    self.statusList = @[kAllPost, kHotPost, kFoucsPost];
+    self.typeList = @[kAllPost, kHotPost, kFoucsPost];
 
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
@@ -69,7 +71,7 @@
         
         ForumChildVC *childVC = [[ForumChildVC alloc] init];
         
-        childVC.status = self.statusList[i];
+        childVC.type = self.typeList[i];
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         
         [self addChildViewController:childVC];
@@ -82,7 +84,12 @@
 #pragma mark - Events
 - (void)search {
     
-
+    SearchForumVC *searchVC = [SearchForumVC new];
+    
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
+    
+    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

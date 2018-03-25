@@ -116,26 +116,13 @@ static NSString *identifierCell = @"OptionalCell";
  */
 - (void)deleteCurrencyWithIndex:(NSInteger)index {
     
-    OptionalModel *optional = self.optionals[index];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    
-    //删除数据源中的数据
-    [self.optionals removeObjectAtIndex:index];
-    
-    [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [self reloadData];
-    
-    [TLAlert alertWithSucces:@"删除成功"];
-
-    return ;
+    OptionalListModel *optional = self.optionals[index];
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"625249";
-    
-    http.parameters[@"code"] = optional.code;
+    http.code = @"628332";
+    http.showView = self;
+    http.parameters[@"id"] = optional.ID;
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -148,13 +135,10 @@ static NSString *identifierCell = @"OptionalCell";
         
         [TLAlert alertWithSucces:@"删除成功"];
         
-        if (self.optionals.count == 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [self reloadData_tl];
-            });
-        }
+            [self reloadData];
+        });
         
     } failure:^(NSError *error) {
         
@@ -166,32 +150,13 @@ static NSString *identifierCell = @"OptionalCell";
  */
 - (void)topCurrencyWithIndex:(NSInteger)index {
     
-    OptionalModel *optional = self.optionals[index];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    NSIndexPath *resultIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    //置顶数据源中的数据
-    [self.optionals removeObjectAtIndex:index];
-    [self.optionals insertObject:optional atIndex:0];
-    
-    [self moveRowAtIndexPath:indexPath toIndexPath:resultIndexPath];
-    
-    [TLAlert alertWithSucces:@"置顶成功"];
-    
-    [self reloadRowsAtIndexPaths:@[resultIndexPath] withRowAnimation:UITableViewRowAnimationTop];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self reloadData];
-    });
-    
-    return;
+    OptionalListModel *optional = self.optionals[index];
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"625249";
-    http.parameters[@"code"] = optional.code;
+    http.code = @"628331";
+    http.showView = self;
+    http.parameters[@"id"] = optional.ID;
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -206,15 +171,12 @@ static NSString *identifierCell = @"OptionalCell";
         
         [TLAlert alertWithSucces:@"置顶成功"];
         
-        if (self.optionals.count == 0) {
+        [self reloadRowsAtIndexPaths:@[resultIndexPath] withRowAnimation:UITableViewRowAnimationTop];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [self reloadRowsAtIndexPaths:@[resultIndexPath] withRowAnimation:UITableViewRowAnimationTop];
-
-                [self reloadData_tl];
-            });
-        }
+            [self reloadData];
+        });
         
     } failure:^(NSError *error) {
         
