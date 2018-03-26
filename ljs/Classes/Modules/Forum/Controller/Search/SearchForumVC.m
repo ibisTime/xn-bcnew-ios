@@ -323,6 +323,8 @@
         
         ForumDetailVC *detailVC = [ForumDetailVC new];
         
+        detailVC.type = ForumEntrancetypeForum;
+        
         [self.navigationController pushViewController:detailVC animated:YES];
     }
     //获取搜索结果

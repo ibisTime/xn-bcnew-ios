@@ -11,5 +11,9 @@
 @interface ForumInfoChildVC : BaseViewController
 //是否滚动
 @property (nonatomic, assign) BOOL vcCanScroll;
+//编号
+@property (nonatomic, copy) NSString *toCoin;
+//刷新数据
+@property (nonatomic, copy)  void(^refreshSuccess)();
 
 @end

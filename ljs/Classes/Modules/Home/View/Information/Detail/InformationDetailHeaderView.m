@@ -210,7 +210,7 @@
     //bottomLine
     UIView *bottomLine = [[UIView alloc] init];
     
-    bottomLine.backgroundColor = kHexColor(@"#FAFCFF");
+    bottomLine.backgroundColor = kBackgroundColor;
     
     [self addSubview:bottomLine];
     [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {

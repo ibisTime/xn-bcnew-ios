@@ -32,7 +32,7 @@
 
 - (void)registerApp {
     
-    //    [WXApi registerApp:[AppConfig config].wxKey withDescription:nil];
+    [WXApi registerApp:[AppConfig config].wxKey];
 }
 
 

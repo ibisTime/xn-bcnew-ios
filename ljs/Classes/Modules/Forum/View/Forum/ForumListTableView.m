@@ -40,11 +40,15 @@ static NSString *identifierCell = @"ForumListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ForumListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    ForumModel *forumModel = self.forums[indexPath.row];
     
-    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    forumModel.rank = [NSString stringWithFormat:@"%ld", indexPath.row+1];
+    ForumListCell *cell = [tableView  dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
-    cell.forumModel = self.forums[indexPath.row];
+    cell.isAllPost = self.isAllPost;
+    cell.forumModel = forumModel;
     cell.followBtn.tag = 2300 + indexPath.row;
     
     [cell.followBtn addTarget:self action:@selector(clickForum:) forControlEvents:UIControlEventTouchUpInside];

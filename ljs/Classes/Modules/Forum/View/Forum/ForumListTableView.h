@@ -13,5 +13,7 @@
 @interface ForumListTableView : TLTableView
 //
 @property (nonatomic, strong) NSArray <ForumModel *>*forums;
+//是否全部
+@property (nonatomic, assign) BOOL isAllPost;
 
 @end

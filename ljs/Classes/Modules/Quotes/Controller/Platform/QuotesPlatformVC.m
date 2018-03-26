@@ -17,6 +17,8 @@
 #import "OptionalModel.h"
 //V
 #import "BaseView.h"
+//C
+#import "ForumDetailVC.h"
 
 @interface QuotesPlatformVC ()
 //
@@ -44,6 +46,8 @@
     [self requestPlatformList];
     //刷新平台列表
     [self.tableView beginRefreshing];
+    //获取贴吧信息
+    [self requestForumInfo];
 }
 
 #pragma mark - Init
@@ -89,6 +93,7 @@
                                          titleFont:15.0
                                       cornerRadius:4];
     
+    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:forumBtn];
     [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -102,7 +107,6 @@
                                               textColor:kTextColor
                                                    font:14.0];
     self.postNumLbl.numberOfLines = 0;
-    self.postNumLbl.text = @"现在有12.3万个贴在讨论,你也一起来吧!";
     
     [self.headerView addSubview:self.postNumLbl];
     [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,10 +130,18 @@
         make.edges.mas_equalTo(0);
     }];
     //判断是否是具体平台
-    if (self.type == PlatformTypePlatform) {
-        
-        self.tableView.tableHeaderView = self.headerView;
-    }
+    
+}
+
+#pragma mark - Events
+- (void)clickForum {
+    
+    ForumDetailVC *detailVC = [ForumDetailVC new];
+    
+    detailVC.toCoin = self.titleModel.ename;
+    detailVC.type = ForumEntrancetypeQuotes;
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 #pragma mark - Data
@@ -183,6 +195,31 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+- (void)requestForumInfo {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628850";
+    http.parameters[@"toCoin"] = self.titleModel.ename;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.postNumLbl.text = [NSString stringWithFormat:@"现在有%@个贴在讨论,你也一起来吧!", responseObject[@"data"][@"totalCount"]];
+        //判断贴吧是否存在并且是具体平台
+        NSString *isExist = responseObject[@"data"][@"isExistPlate"];
+        
+        if ([isExist isEqualToString:@"1"] && (self.type == PlatformTypePlatform)) {
+            
+            self.tableView.tableHeaderView = self.headerView;
+            return ;
+        }
+        self.tableView.tableHeaderView = nil;
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

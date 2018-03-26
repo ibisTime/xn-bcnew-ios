@@ -7,7 +7,13 @@
 //
 
 #import "TLTableView.h"
+//M
+#import "InformationModel.h"
 
 @interface ForumInfoTableView : TLTableView
+//
+@property (nonatomic, strong) NSArray <InformationModel *>*infos;
+//vc是否可滚动
+@property (nonatomic, assign) BOOL vcCanScroll;
 
 @end

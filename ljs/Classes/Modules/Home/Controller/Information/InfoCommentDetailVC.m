@@ -181,9 +181,11 @@
 
 - (void)requestCommentList {
     
+    NSString *code = @"628286";
+
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628286";
+    http.code = code;
     http.showView = self.view;
     http.parameters[@"code"] = self.code;
     
@@ -210,11 +212,14 @@
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
     
+    NSString *code = @"628200";
+
+    NSString *type = @"2";
     //type(1 资讯 2 评论)
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628200";
-    http.parameters[@"type"] = @"2";
+    http.code = code;
+    http.parameters[@"type"] = type;
     http.parameters[@"objectCode"] = self.replyCode;
     http.parameters[@"content"] = text;
     http.parameters[@"userId"] = [TLUser user].userId;

@@ -81,7 +81,6 @@
         
         make.left.right.bottom.equalTo(@0);
         make.height.equalTo(@0.5);
-        
     }];
     //布局
     [self setSubviewLayout];

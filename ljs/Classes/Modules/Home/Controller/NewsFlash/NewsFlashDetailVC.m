@@ -10,6 +10,7 @@
 //Manager
 #import "TLWXManager.h"
 //Macro
+#import "APICodeMacro.h"
 //Framework
 //Category
 #import "UIScrollView+SnapShot.h"
@@ -45,6 +46,8 @@
     [self initDetailView];
     //底部按钮
     [self initShareView];
+    //获取AppUrl
+    [self requestAppUrl];
 }
 
 #pragma mark - Init
@@ -106,7 +109,22 @@
     }
 }
 
-#pragma mark - 微信分享
+#pragma mark - Data
+- (void)requestAppUrl {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    http.parameters[@"ckey"] = @"h5DownUrl";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.detailView.url = responseObject[@"data"][@"cvalue"];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

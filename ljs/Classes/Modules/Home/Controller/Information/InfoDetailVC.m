@@ -7,7 +7,10 @@
 //
 
 #import "InfoDetailVC.h"
+//Manager
+#import "TLWXManager.h"
 //Macro
+#import "APICodeMacro.h"
 //Framework
 //Category
 #import "TLProgressHUD.h"
@@ -21,6 +24,8 @@
 #import "InformationDetailTableView.h"
 #import "InformationDetailHeaderView.h"
 #import "InputTextView.h"
+#import "ShareView.h"
+
 //C
 #import "InfoCommentDetailVC.h"
 #import "NavigationController.h"
@@ -43,6 +48,8 @@
 @property (nonatomic, strong) InputTextView *inputTV;
 //收藏
 @property (nonatomic, strong) UIButton *collectionBtn;
+//分享链接
+@property (nonatomic, copy) NSString *shareUrl;
 
 @end
 
@@ -92,7 +99,14 @@
     
     if (!_headerView) {
         
+        BaseWeakSelf;
+        
         _headerView = [[InformationDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+        
+        _headerView.shareBlock = ^(InfoShareType type) {
+            
+            [weakSelf shareWithType:type];
+        };
         
         _tableView.tableHeaderView = _headerView;
     }
@@ -234,7 +248,56 @@
  */
 - (void)shareInfo {
     
+    //判断是否安装微信
+    if (![TLWXManager judgeAndHintInstalllWX]) {
+        
+        return ;
+    }
+    ShareView *shareView = [[ShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) shareBlock:^(BOOL isSuccess, int errorCode) {
+        
+        if (isSuccess) {
+            
+            [TLAlert alertWithSucces:@"分享成功"];
+            
+        } else {
+            
+            [TLAlert alertWithError:@"分享失败"];
+        }
+        
+    }];
     
+    shareView.shareTitle = self.detailModel.title;
+    shareView.shareDesc = @"快邀请好友来玩吧";
+    shareView.shareURL = self.shareUrl;
+    
+    [self.view addSubview:shareView];
+}
+
+/**
+ 分享
+ */
+- (void)shareWithType:(InfoShareType)type {
+    
+    switch (type) {
+        case InfoShareTypeWechat:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+                                           title:self.detailModel.title
+                                            desc:@""
+                                             url:_shareUrl];
+        }break;
+            
+        case InfoShareTypeTimeline:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+                                           title:self.detailModel.title
+                                            desc:@""
+                                             url:_shareUrl];
+        }break;
+            
+        default:
+            break;
+    }
 }
 
 /**
@@ -285,6 +348,8 @@
 #pragma mark - Data
 - (void)requestInfoDetail {
     
+    [TLProgressHUD show];
+    
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628206";
@@ -296,10 +361,13 @@
         
         self.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
         
+        self.title = self.detailModel.typeName;
+        
         [self.tableView beginRefreshing];
         
     } failure:^(NSError *error) {
         
+        [TLProgressHUD dismiss];
     }];
     
 }
@@ -348,6 +416,22 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+- (void)getShareUrl {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    http.parameters[@"ckey"] = @"h5ShareUrl";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.shareUrl = [NSString stringWithFormat:@"%@?%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - InputTextViewDelegate

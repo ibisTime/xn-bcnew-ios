@@ -78,19 +78,19 @@ static NSString *kShareTypeWeiBo    = @"WeiBo";
                           };
     
     //判断是否安装微信
-    if (!installedWeChat) {
+    if (installedWeChat) {
         
         [self createBtnWithShareType:NewsFlashShareTypeWeChat image:dic[kShareTypeWeChat]];
         
         [self createBtnWithShareType:NewsFlashShareTypeTimeLine image:dic[kShareTypeTimeLine]];
     }
     
-    if (!installedQQ) {
+    if (installedQQ) {
         
         [self createBtnWithShareType:NewsFlashShareTypeQQ image:dic[kShareTypeQQ]];
     }
     
-    if (!installedWeibo || installedWeibohd) {
+    if (installedWeibo || installedWeibohd) {
         
         [self createBtnWithShareType:NewsFlashShareTypeWeiBo image:dic[kShareTypeWeiBo]];
     }

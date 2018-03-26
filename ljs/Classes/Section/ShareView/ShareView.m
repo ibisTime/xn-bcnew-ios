@@ -42,9 +42,9 @@
 
 - (void)addShareView
 {
-    NSArray *shareAry = @[@{@"image":@"share_weixin",
+    NSArray *shareAry = @[@{@"image":@"wechat",
                             @"title":@"微信"},
-                          @{@"image":@"share_timeline",
+                          @{@"image":@"timeline",
                             @"title":@"朋友圈"}];
     
     _shareView = [[CustomShareView alloc] init];

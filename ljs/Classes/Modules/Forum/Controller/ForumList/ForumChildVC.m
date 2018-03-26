@@ -67,6 +67,8 @@
     
     self.tableView.refreshDelegate = self;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无贴吧"];
+    self.tableView.isAllPost = [self.type isEqualToString:kAllPost] ? YES: NO;
+    
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -182,6 +184,9 @@
     
     ForumDetailVC *detailVC = [ForumDetailVC new];
     
+    detailVC.code = self.forums[indexPath.row].code;
+    detailVC.type = ForumEntrancetypeForum;
+
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

@@ -80,4 +80,27 @@
     self.height = self.contentLbl.yy + 10;
 }
 
+- (void)setForumCommentModel:(ForumCommentModel *)forumCommentModel {
+    
+    _forumCommentModel = forumCommentModel;
+    
+    if ([forumCommentModel.isTop isEqualToString:@"0"]) {
+        
+        NSString *text = [NSString stringWithFormat:@"%@ 回复 %@:", forumCommentModel.nickname, forumCommentModel.parentNickName];
+        
+        [self.commenterLbl labelWithString:text title:@"回复" font:Font(16.0) color:kTextColor2];
+        
+    } else {
+        
+        self.commenterLbl.text = [NSString stringWithFormat:@"%@:", forumCommentModel.nickname];
+    }
+    self.contentLbl.text = forumCommentModel.content;
+    
+    [self layoutIfNeeded];
+    
+    //    [self layoutSubviews];
+    
+    self.height = self.contentLbl.yy + 10;
+}
+
 @end

@@ -9,9 +9,12 @@
 #import "BaseView.h"
 //M
 #import "InfoCommentModel.h"
+#import "ForumCommentModel.h"
 
 @interface ReplyCommentView : BaseView
-//
+//资讯评论
 @property (nonatomic, strong) InfoCommentModel *commentModel;
+//圈子评论
+@property (nonatomic, strong) ForumCommentModel *forumCommentModel;
 
 @end

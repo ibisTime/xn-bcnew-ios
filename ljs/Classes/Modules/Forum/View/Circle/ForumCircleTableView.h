@@ -7,7 +7,16 @@
 //
 
 #import "TLTableView.h"
+//M
+#import "ForumCommentModel.h"
+#import "ForumDetailModel.h"
 
 @interface ForumCircleTableView : TLTableView
+//最新评论
+@property (nonatomic, strong) NSArray <ForumCommentModel*> *newestComments;
+//
+@property (nonatomic, strong) ForumDetailModel *detailModel;
+//vc是否可滚动
+@property (nonatomic, assign) BOOL vcCanScroll;
 
 @end

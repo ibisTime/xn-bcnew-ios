@@ -50,7 +50,7 @@ static NSString *infoCommentCellID = @"MyCommentDetailCell";
     
     cell.isReply = indexPath.row == 0 ? NO: YES;
     
-    cell.backgroundColor = indexPath.row != 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    cell.backgroundColor = indexPath.row != 0 ? kBackgroundColor: kWhiteColor;
     cell.commentModel = commentModel;
 
     return cell;

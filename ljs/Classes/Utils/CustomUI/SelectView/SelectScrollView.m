@@ -39,7 +39,6 @@
         [self initTopView];
         
         [self initScrollView];
-        
     }
     
     return self;
@@ -57,6 +56,10 @@
         weakSelf.selectIndex = index;
         
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(kScreenWidth*index, 0, kScreenWidth, weakSelf.scrollView.height) animated:YES];
+        if (weakSelf.selectBlock) {
+            
+            weakSelf.selectBlock(index);
+        }
     }];
     
     [self addSubview:_headView];

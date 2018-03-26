@@ -55,7 +55,7 @@ static NSString *platformCell = @"PlatformCell";
         PlatformAllCell *cell = [tableView dequeueReusableCellWithIdentifier:platformAllCell forIndexPath:indexPath];
         
         cell.platform = platform;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
         return cell;
         
@@ -64,7 +64,7 @@ static NSString *platformCell = @"PlatformCell";
         PlatformPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:platformPriceCell forIndexPath:indexPath];
         
         cell.platform = platform;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
         return cell;
     }
@@ -72,7 +72,7 @@ static NSString *platformCell = @"PlatformCell";
     PlatformCell *cell = [tableView dequeueReusableCellWithIdentifier:platformCell forIndexPath:indexPath];
     
     cell.platform = platform;
-    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
     return cell;
 }

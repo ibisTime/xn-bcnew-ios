@@ -132,13 +132,7 @@
     [self.flashTableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
-        } failure:^(NSError *error) {
-            
-        }];
-        
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+           
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
@@ -148,6 +142,7 @@
         } failure:^(NSError *error) {
             
         }];
+        
     }];
     
     [self.flashTableView endRefreshingWithNoMoreData_tl];
@@ -187,17 +182,12 @@
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             
-        } failure:^(NSError *error) {
-            
-        }];
-        
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
             weakSelf.infos = objs;
             
             weakSelf.infoTableView.infos = objs;
             
             [weakSelf.infoTableView reloadData_tl];
+
             
         } failure:^(NSError *error) {
             

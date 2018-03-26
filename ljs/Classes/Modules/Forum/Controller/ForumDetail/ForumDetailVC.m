@@ -14,22 +14,28 @@
 #import <UIScrollView+TLAdd.h>
 //Extension
 //M
+#import "ForumDetailModel.h"
 //V
 #import "SelectScrollView.h"
 #import "ForumCircleTableView.h"
 #import "TLTableView.h"
+#import "ForumDetailTableView.h"
+#import "ForumDetailHeaderView.h"
+#import "InputTextView.h"
+
+#import "ForumQuotesTableView.h"
 //C
 #import "ForumCircleChildVC.h"
 #import "ForumInfoChildVC.h"
 #import "ForumQuotesChildVC.h"
 
-@interface ForumDetailVC ()<UIScrollViewDelegate>
-//币吧数据
-//币吧说明
-//币吧具体数据
+#define kBottomHeight 50
 
-//滚动视图
-@property (nonatomic, strong) UIScrollView *scrollView;
+@interface ForumDetailVC ()<UIScrollViewDelegate, InputTextViewDelegate>
+//
+@property (nonatomic, strong) ForumDetailHeaderView *headerView;
+//
+@property (nonatomic, strong) ForumDetailTableView *tableView;
 //
 @property (nonatomic, strong) SelectScrollView *selectScrollView;
 //标题
@@ -38,6 +44,12 @@
 @property (nonatomic, assign) BOOL canScroll;
 //vcCanScroll
 @property (nonatomic, assign) BOOL vcCanScroll;
+//
+@property (nonatomic, strong) ForumDetailModel *detailModel;
+//底部
+@property (nonatomic, strong) BaseView *bottomView;
+//输入框
+@property (nonatomic, strong) InputTextView *inputTV;
 
 @end
 
@@ -46,44 +58,107 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"币吧";
-    
-    //
-    [self initScrollView];
+    //币种信息
+    [self initTableView];
+    //底部输入框
+    [self initBottomView];
     //圈子、资讯和行情
     [self initSelectScrollView];
-    //添加子控制器
-    [self addSubViewController];
+    //详情
+    [self requestForumDetail];
+    //添加下拉刷新
+    [self addDownRefresh];
+    //添加通知
+    [self addNotification];
+    
+}
+
+#pragma mark - 通知
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyComment:) name:@"ReplyComment" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subVCLeaveTop) name:@"SubVCLeaveTop" object:nil];
+}
+
+- (void)replyComment:(NSNotification *)notification {
+    
+    
+}
+
+- (void)subVCLeaveTop {
+    
+    self.canScroll = YES;
+    self.vcCanScroll = NO;
+}
+
+#pragma mark - 下拉刷新
+- (void)addDownRefresh {
+    
+    BaseWeakSelf;
+    
+    [self.tableView addRefreshAction:^{
+        
+        //详情
+        [weakSelf requestForumDetail];
+        //
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshForumDetail" object:nil];
+    }];
+    
+}
+
+#pragma mark - 评论弹窗
+- (InputTextView *)inputTV {
+    
+    if (!_inputTV) {
+        
+        _inputTV = [[InputTextView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _inputTV.delegate = self;
+        
+    }
+    return _inputTV;
 }
 
 #pragma mark - Init
-- (void)initScrollView {
+
+- (void)initTableView {
+
+    self.tableView = [[ForumDetailTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomHeight - kBottomInsetHeight) style:UITableViewStylePlain];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight)];
+    [self.view addSubview:self.tableView];
     
-    self.scrollView.delegate = self;
-    self.scrollView.backgroundColor = kBackgroundColor;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    
-    [self.scrollView adjustsContentInsets];
-    
-    [self.view addSubview:self.scrollView];
+    //Header
+    self.headerView = [[ForumDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    self.headerView.backgroundColor = kWhiteColor;
 }
 
 - (void)initSelectScrollView {
     
+    BaseWeakSelf;
+    
     self.titles = @[@"圈子", @"资讯", @"行情"];
     
-    self.selectScrollView = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0 + 10, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight) itemTitles:self.titles];
+    self.selectScrollView = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight) itemTitles:self.titles];
     
-    self.selectScrollView.selectBlock = ^{
+    self.selectScrollView.selectBlock = ^(NSInteger index) {
         
+        weakSelf.bottomView.hidden = index == 0 ? NO: YES;
+        
+        if (index == 0) {
+            
+            weakSelf.tableView.frame = CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomHeight - kBottomInsetHeight);
+        } else {
+            
+            weakSelf.tableView.frame = CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight);
+        }
     };
     
-    [self.scrollView addSubview:self.selectScrollView];
+    self.tableView.tableFooterView = self.selectScrollView;
+    
 }
 
 - (void)addSubViewController {
+    
+    BaseWeakSelf;
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
@@ -91,44 +166,197 @@
             
             ForumCircleChildVC *childVC = [[ForumCircleChildVC alloc] init];
             
+            childVC.detailModel = self.detailModel;
+            childVC.refreshSuccess = ^{
+                
+                [weakSelf.tableView endRefreshHeader];
+            };
+            
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
             
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
+            
         } else if (i == 1) {
             
             ForumInfoChildVC *childVC = [[ForumInfoChildVC alloc] init];
             
+            childVC.toCoin = self.detailModel.toCoin;
+            childVC.refreshSuccess = ^{
+                
+                [weakSelf.tableView endRefreshHeader];
+            };
+            
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
             
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
+            
         } else {
             
             ForumQuotesChildVC *childVC = [[ForumQuotesChildVC alloc] init];
             
+            childVC.type = self.detailModel ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
+            childVC.toCoin = self.detailModel.toCoin;
+            childVC.refreshSuccess = ^{
+                
+                [weakSelf.tableView endRefreshHeader];
+            };
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
+            childVC.type = ForumQuotesTypeCurrency;
             
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
+            
         }
-        
-        
     }
     
     //转移手势
     ForumCircleTableView *tableView = (ForumCircleTableView *)[self.view viewWithTag:1800];
-    
+
     UIPanGestureRecognizer *panGR = tableView.panGestureRecognizer;
-    
-    [self.scrollView addGestureRecognizer:panGR];
-    
-    self.scrollView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+ 1000);
+
+    [self.tableView addGestureRecognizer:panGR];
+
+    self.tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+1000);
 }
 
+
+- (void)initBottomView {
+    
+    self.bottomView = [[BaseView alloc] initWithFrame:CGRectMake(0, kSuperViewHeight - kBottomHeight - kBottomInsetHeight, kScreenWidth, kBottomHeight)];
+    
+    self.bottomView.backgroundColor = kWhiteColor;
+    
+    [self.view addSubview:self.bottomView];
+    //topLine
+    UIView *topLine = [[UIView alloc] init];
+    
+    topLine.backgroundColor = kLineColor;
+    
+    [self.bottomView addSubview:topLine];
+    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.top.equalTo(@0);
+        make.height.equalTo(@0.5);
+        
+    }];
+    //点击评论
+    UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
+                                          titleColor:kHexColor(@"#9E9E9E")
+                                     backgroundColor:kHexColor(@"E5E5E5")
+                                           titleFont:12.0
+                                        cornerRadius:17.5];
+    
+    [commentBtn addTarget:self action:@selector(clickComment) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:commentBtn];
+    [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@15);
+        make.height.equalTo(@35);
+        make.centerY.equalTo(@0);
+        make.right.equalTo(@(-15));
+    }];
+    
+}
+
+#pragma mark - Events
+/**
+ 去占沙发
+ */
+- (void)clickComment {
+    
+    BaseWeakSelf;
+    
+    [self checkLogin:^{
+        
+        weakSelf.tableView.scrollEnabled = NO;
+        
+        [weakSelf.inputTV show];
+    }];
+}
+
+#pragma mark - Data
+/**
+ 详情
+ */
+- (void)requestForumDetail {
+    
+    NSString *code = self.type == ForumEntrancetypeQuotes ? @"628239": @"628238";
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = code;
+    if (self.type == ForumEntrancetypeQuotes) {
+        
+        http.parameters[@"toCoin"] = self.toCoin;
+
+    } else {
+        
+        http.parameters[@"code"] = self.code;
+    }
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.detailModel = [ForumDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        self.tableView.detailModel = self.detailModel;
+        self.headerView.detailModel = self.detailModel;
+        self.tableView.tableHeaderView = self.headerView;
+        
+        [self.tableView reloadData];
+        //添加子控制器
+        [self addSubViewController];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - InputTextViewDelegate
+- (void)clickedSureBtnWithText:(NSString *)text {
+    //type(1 资讯 2 评论)
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628650";
+    http.parameters[@"plateCode"] = self.detailModel.code;
+    http.parameters[@"content"] = text;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *code = responseObject[@"data"][@"code"];
+        
+        if ([code containsString:@"filter"]) {
+            
+            [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            return ;
+        }
+        
+        [TLAlert alertWithSucces:[NSString stringWithFormat:@"%@成功", @"发布"]];
+        
+        self.tableView.scrollEnabled = YES;
+        
+        [self.tableView beginRefreshing];
+        
+    } failure:^(NSError *error) {
+        
+        self.tableView.scrollEnabled = YES;
+
+    }];
+}
+
+- (void)clickedCancelBtn {
+    
+    self.tableView.scrollEnabled = YES;
+}
 #pragma mark - UIScrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -148,7 +376,6 @@
             self.canScroll = NO;
             self.vcCanScroll = YES;
         }
-        
         //转移手势
         TLTableView *tableView = (TLTableView *)[self.view viewWithTag:1800+self.selectScrollView.selectIndex];
         
@@ -165,7 +392,7 @@
         }
     }
     
-    self.scrollView.showsVerticalScrollIndicator = _canScroll ? YES: NO;
+    self.tableView.showsVerticalScrollIndicator = _canScroll ? YES: NO;
 }
 
 - (void)setVcCanScroll:(BOOL)vcCanScroll {

@@ -42,7 +42,7 @@ static NSString *searchCurrencyCell = @"SearchCurrencyCell";
     
     SearchCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:searchCurrencyCell forIndexPath:indexPath];
     
-    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     
     cell.currency = self.currencys[indexPath.row];
     

@@ -61,7 +61,7 @@ static NSString *currencyCell = @"CurrencyCell";
         CurrencyPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyPriceCell forIndexPath:indexPath];
         
         cell.currency = currency;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
         
         return cell;
         
@@ -72,7 +72,7 @@ static NSString *currencyCell = @"CurrencyCell";
         NewCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:newCurrencyCell forIndexPath:indexPath];
         
         cell.currency = currency;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
         
         return cell;
     }
@@ -82,7 +82,7 @@ static NSString *currencyCell = @"CurrencyCell";
     CurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
     
     cell.currency = currency;
-    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     
     return cell;
 }

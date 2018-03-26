@@ -44,7 +44,7 @@ static NSString *identifierCell = @"OptionalCell";
     
     OptionalCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
-    cell.backgroundColor = indexPath.row%2 == 0 ? kHexColor(@"#FAFCFF"): kWhiteColor;
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     
     cell.optional = self.optionals[indexPath.row];
     

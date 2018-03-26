@@ -32,7 +32,6 @@
 @property (nonatomic, copy) NSString *isTop;
 //回复列表
 @property (nonatomic, strong) NSArray <InfoCommentModel *>*commentList;
-//
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
 

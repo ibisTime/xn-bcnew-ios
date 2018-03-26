@@ -26,7 +26,7 @@
 #define USER_CHANGE_USER_INFO @"805074" //修改用户资料
 
 //根据ckey查询系统参数
-#define USER_CKEY_CVALUE    @"625917"
+#define USER_CKEY_CVALUE    @"628917"
 #define SYS_KEY @"ckey"
 
 //七牛图片上传

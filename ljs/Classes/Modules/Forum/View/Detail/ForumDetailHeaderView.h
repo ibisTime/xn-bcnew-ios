@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+//M
+#import "ForumDetailModel.h"
 
 @interface ForumDetailHeaderView : UIScrollView
+//
+@property (nonatomic, strong) ForumDetailModel *detailModel;
 
 @end

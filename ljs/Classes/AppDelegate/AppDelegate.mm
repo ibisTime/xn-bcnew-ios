@@ -15,6 +15,8 @@
 //Framework
 //Category
 //Extension
+#import "TLWXManager.h"
+#import "WXApi.h"
 #import "IQKeyboardManager.h"
 //M
 //V
@@ -24,10 +26,7 @@
 #import "InfoDetailVC.h"
 #import "TLUserLoginVC.h"
 
-//#import "WXApi.h"
-
 //#import "AppDelegate+Launch.h"
-//#import "AppDelegate+BaiduMap.h"
 
 @interface AppDelegate ()
 
@@ -40,6 +39,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //配置微信
+    [self configWeChat];
     //服务器环境
     [self configServiceAddress];
     //获取七牛云域名
@@ -59,16 +60,16 @@
 // iOS9 NS_AVAILABLE_IOS
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
-//    if ([url.host isEqualToString:@"safepay"]) {
-//
+    if ([url.host isEqualToString:@"safepay"]) {
+
 //        [TLAlipayManager hadleCallBackWithUrl:url];
-//        return YES;
-//
-//    } else {
-//
-//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
-//
-//    }
+        return YES;
+
+    } else {
+
+        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+
+    }
     
     return YES;
 }
@@ -76,25 +77,29 @@
 // iOS9 NS_DEPRECATED_IOS
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-//    if ([url.host isEqualToString:@"safepay"]) {
-//
+    if ([url.host isEqualToString:@"safepay"]) {
+
 //        [TLAlipayManager hadleCallBackWithUrl:url];
-//        return YES;
-//
-//    } else {
-//
-//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
-//
-//    }
+        return YES;
+
+    } else {
+
+        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+
+    }
     return YES;
 }
 
 #pragma mark - Config
+- (void)configWeChat {
+    
+    [[TLWXManager manager] registerApp];
+}
+
 - (void)configServiceAddress {
     
     //配置环境
     [AppConfig config].runEnv = RunEnvDev;
-    
 }
 
 - (void)configIQKeyboard {
@@ -143,6 +148,13 @@
     //user 退出
     [[TLUser user] loginOut];
     
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    TLUserLoginVC *loginVC = [TLUserLoginVC new];
+    
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+    
+    [vc presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - 用户登录
@@ -150,14 +162,5 @@
     
 }
 
-#pragma mark 微信支付结果
-//- (void)onResp:(BaseResp *)resp {
-//
-//    if ([resp isKindOfClass:[PayResp class]]) {
-//        //支付返回结果
-//        NSNotification *notification = [NSNotification notificationWithName:ORDER_PAY_NOTIFICATION object:[NSNumber numberWithInt:resp.errCode]];
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    }
-//}
 
 @end

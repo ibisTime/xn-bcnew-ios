@@ -295,6 +295,7 @@ static char imgUrlArrayKey;
     [self sizeToFit];
     self.scrollView.bounces = NO;
     self.scrollView.scrollEnabled = NO;
+    _webView.scrollView.scrollEnabled = NO;
     
     if (_webViewBlock) {
         

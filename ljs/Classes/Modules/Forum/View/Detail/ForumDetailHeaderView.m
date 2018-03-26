@@ -11,16 +11,11 @@
 //Macro
 #import "AppColorMacro.h"
 #import "TLUIHeader.h"
+//Category
+#import "UIButton+EnLargeEdge.h"
+#import "UILabel+Extension.h"
 
 @interface ForumDetailHeaderView()
-//吧名
-//关注量
-//发帖量
-//今日更贴数
-//24h最高价格
-//24h最低价格
-//24h成交量
-
 //币吧信息
 @property (nonatomic, strong) UIView *infoView;
 //吧名
@@ -31,15 +26,16 @@
 @property (nonatomic, strong) UILabel *postNumLbl;
 //今日更贴数
 @property (nonatomic, strong) UILabel *updatePostNumLbl;
-//24h最高价格
-@property (nonatomic, strong) UILabel *oneDayHighPriceLbl;
+//24h涨跌幅度
+@property (nonatomic, strong) UILabel *oneDayChangeRateLbl;
 //24h最低价格
 @property (nonatomic, strong) UILabel *oneDayLowPriceLbl;
 //24h成交量
 @property (nonatomic, strong) UILabel *oneDayVolumeLbl;
-
 //描述
-
+@property (nonatomic, strong) UILabel *descLbl;
+//展开/收起
+@property (nonatomic, strong) UIButton *showBtn;
 
 @end
 
@@ -83,10 +79,10 @@
                                                          font:15.0];
     [self.infoView addSubview:self.updatePostNumLbl];
     //最高(24h)
-    self.oneDayHighPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
+    self.oneDayChangeRateLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                       textColor:kTextColor2
                                                            font:15.0];
-    [self.infoView addSubview:self.oneDayHighPriceLbl];
+    [self.infoView addSubview:self.oneDayChangeRateLbl];
     //最低(24h)
     self.oneDayLowPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                       textColor:kTextColor2
@@ -97,6 +93,23 @@
                                                       textColor:kTextColor2
                                                            font:15.0];
     [self.infoView addSubview:self.oneDayVolumeLbl];
+    //描述
+    self.descLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                           textColor:kTextColor
+                                                font:17.0];
+    
+    self.descLbl.numberOfLines = 5;
+    [self addSubview:self.descLbl];
+    //展开按钮
+    self.showBtn = [UIButton buttonWithTitle:@"展开" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:13.0];
+    
+    [self.showBtn setTitle:@"收起" forState:UIControlStateSelected];
+    
+    [self.showBtn addTarget:self action:@selector(showTitleContent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.showBtn setEnlargeEdge:20];
+    
+    [self addSubview:self.showBtn];
 }
 
 - (void)setSubviewLayout {
@@ -122,7 +135,7 @@
     //发帖量
     [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.postNumLbl.mas_bottom).offset(10);
+        make.top.equalTo(self.followNumLbl.mas_bottom).offset(10);
         make.left.equalTo(self.postBarNameLbl.mas_left);
     }];
     //更贴数
@@ -131,24 +144,98 @@
         make.top.equalTo(self.postNumLbl.mas_bottom).offset(10);
         make.left.equalTo(self.postBarNameLbl.mas_left);
     }];
-    //最高(24h)
-    [self.oneDayHighPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    //24h涨跌幅度
+    [self.oneDayChangeRateLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(kScreenWidth/2.0+15));
         make.top.equalTo(self.followNumLbl.mas_top);
     }];
-    //最低(24h)
-    [self.oneDayLowPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.oneDayHighPriceLbl.mas_left);
-        make.top.equalTo(self.postNumLbl.mas_top);
-    }];
+//    //最低(24h)
+//    [self.oneDayLowPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.oneDayChangeRateLbl.mas_left);
+//        make.top.equalTo(self.postBarNameLbl.mas_top);
+//    }];
     //成交量
     [self.oneDayVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.oneDayHighPriceLbl.mas_left);
+        make.left.equalTo(self.oneDayChangeRateLbl.mas_left);
         make.top.equalTo(self.postNumLbl.mas_top);
     }];
+    
+    //bottomLine
+    UIView *bottomLine = [[UIView alloc] init];
+    
+    bottomLine.backgroundColor = kHexColor(@"#E2E2E2");
+    
+    [self.infoView addSubview:bottomLine];
+    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@15);
+        make.right.equalTo(@(-15));
+        make.height.equalTo(@0.5);
+        make.bottom.equalTo(@0);
+    }];
+    //内容
+    [self.descLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@15);
+        make.right.equalTo(@(-15));
+        make.height.lessThanOrEqualTo(@50);
+        make.top.equalTo(self.infoView.mas_bottom).offset(15);
+    }];
+    //展开按钮
+    [self.showBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.descLbl.mas_bottom).offset(0);
+        make.centerX.equalTo(@0);
+        make.width.equalTo(@100);
+        make.height.equalTo(@50);
+    }];
+}
+
+#pragma mark - Events
+- (void)showTitleContent:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
+    
+    if (sender.selected) {
+        
+        _descLbl.numberOfLines = 0;
+        
+        [_descLbl labelWithTextString:_detailModel.introduce lineSpace:5];
+    } else {
+        
+        _descLbl.numberOfLines = 5;
+        
+        [_descLbl labelWithTextString:_detailModel.introduce lineSpace:5];
+    }
+}
+
+#pragma mark - Setting
+- (void)setDetailModel:(ForumDetailModel *)detailModel {
+    
+    _detailModel = detailModel;
+    //吧名
+    self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@#", detailModel.name];
+    //关注量
+    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", detailModel.keepCount];
+    //发帖量
+    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", detailModel.postCount];
+    //今日更贴数
+    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日更贴:%ld", detailModel.dayCommentCount];
+    //24h涨跌幅度
+    self.oneDayChangeRateLbl.text = [NSString stringWithFormat:@"涨跌幅:%@", detailModel.coin.todayChange];
+    //24h成交量
+    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"成交(24h):%@", detailModel.coin.todayVol];
+    //描述
+    self.descLbl.text = detailModel.introduce;
+    //布局
+    [self setSubviewLayout];
+    //
+    [self layoutIfNeeded];
+    
+    self.height = self.descLbl.yy + 20;
 }
 
 @end

@@ -14,6 +14,8 @@
 @interface InfoDetailModel : BaseModel
 //编号
 @property (nonatomic, copy) NSString *code;
+//类型名字
+@property (nonatomic, copy) NSString *typeName;
 //标题
 @property (nonatomic, copy) NSString *title;
 //时间

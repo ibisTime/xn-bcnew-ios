@@ -80,7 +80,7 @@
         
         return ;
     }
-    if (!_forumModel.isAllPost && _forumModel.isTopThree) {
+    if (!_isAllPost && _forumModel.isTopThree) {
         
         //排名
         self.rankIV = [[UIImageView alloc] initWithImage:kImage(_forumModel.rankImage)];

@@ -10,7 +10,7 @@
 //V
 #import "SortBar.h"
 
-typedef void(^SelectBlock)(void);
+typedef void(^SelectBlock)(NSInteger index);
 
 @interface SelectScrollView : UIView
 

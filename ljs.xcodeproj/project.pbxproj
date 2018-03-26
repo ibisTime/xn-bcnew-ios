@@ -123,11 +123,23 @@
 		2128828D2057A3C600A57A5A /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882872057A3C600A57A5A /* SettingTableView.m */; };
 		2128828E2057A3C600A57A5A /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882882057A3C600A57A5A /* SettingCell.m */; };
 		212882922057A3EB00A57A5A /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212882912057A3EA00A57A5A /* SettingVC.m */; };
+		212FEEA520688CBF0002F293 /* ForumDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 212FEEA420688CBF0002F293 /* ForumDetailModel.m */; };
+		212FEEA820688FD30002F293 /* ForumDetailTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212FEEA720688FD30002F293 /* ForumDetailTableView.m */; };
+		212FEEAB20688FF90002F293 /* ForumDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212FEEAA20688FF90002F293 /* ForumDetailCell.m */; };
 		216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */; };
 		216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7ED1F189F11006C26A1 /* libresolv.tbd */; };
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
 		216AB7F21F189F30006C26A1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7F11F189F30006C26A1 /* libc++.tbd */; };
 		216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7F31F189F39006C26A1 /* libz.tbd */; };
+		217BDAE62068C64000E17DEE /* ForumCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAE52068C64000E17DEE /* ForumCommentModel.m */; };
+		217BDAE92068C89A00E17DEE /* ForumCircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAE82068C89A00E17DEE /* ForumCircleCell.m */; };
+		217BDAEC20691FC300E17DEE /* ForumCircleCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAEB20691FC300E17DEE /* ForumCircleCommentVC.m */; };
+		217BDAEF2069461000E17DEE /* CircleCommentChildVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAEE2069461000E17DEE /* CircleCommentChildVC.m */; };
+		217BDAF22069462F00E17DEE /* CircleCommentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAF12069462F00E17DEE /* CircleCommentDetailVC.m */; };
+		217BDAF62069483A00E17DEE /* CircleCommentTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAF52069483A00E17DEE /* CircleCommentTableView.m */; };
+		217BDAF92069484D00E17DEE /* CircleCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAF82069484D00E17DEE /* CircleCommentCell.m */; };
+		217BDAFC2069486600E17DEE /* CircleCommentDetailTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAFB2069486600E17DEE /* CircleCommentDetailTableView.m */; };
+		217BDAFF2069487A00E17DEE /* CircleCommentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 217BDAFE2069487A00E17DEE /* CircleCommentDetailCell.m */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */; };
@@ -476,11 +488,35 @@
 		212882892057A3C600A57A5A /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		212882902057A3EA00A57A5A /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
 		212882912057A3EA00A57A5A /* SettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
+		212FEEA320688CBF0002F293 /* ForumDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailModel.h; sourceTree = "<group>"; };
+		212FEEA420688CBF0002F293 /* ForumDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumDetailModel.m; sourceTree = "<group>"; };
+		212FEEA620688FD30002F293 /* ForumDetailTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailTableView.h; sourceTree = "<group>"; };
+		212FEEA720688FD30002F293 /* ForumDetailTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumDetailTableView.m; sourceTree = "<group>"; };
+		212FEEA920688FF90002F293 /* ForumDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailCell.h; sourceTree = "<group>"; };
+		212FEEAA20688FF90002F293 /* ForumDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumDetailCell.m; sourceTree = "<group>"; };
 		216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		216AB7ED1F189F11006C26A1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		216AB7F11F189F30006C26A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		216AB7F31F189F39006C26A1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		217BDAE42068C64000E17DEE /* ForumCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumCommentModel.h; sourceTree = "<group>"; };
+		217BDAE52068C64000E17DEE /* ForumCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumCommentModel.m; sourceTree = "<group>"; };
+		217BDAE72068C89A00E17DEE /* ForumCircleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumCircleCell.h; sourceTree = "<group>"; };
+		217BDAE82068C89A00E17DEE /* ForumCircleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumCircleCell.m; sourceTree = "<group>"; };
+		217BDAEA20691FC300E17DEE /* ForumCircleCommentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumCircleCommentVC.h; sourceTree = "<group>"; };
+		217BDAEB20691FC300E17DEE /* ForumCircleCommentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumCircleCommentVC.m; sourceTree = "<group>"; };
+		217BDAED2069461000E17DEE /* CircleCommentChildVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentChildVC.h; sourceTree = "<group>"; };
+		217BDAEE2069461000E17DEE /* CircleCommentChildVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentChildVC.m; sourceTree = "<group>"; };
+		217BDAF02069462F00E17DEE /* CircleCommentDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentDetailVC.h; sourceTree = "<group>"; };
+		217BDAF12069462F00E17DEE /* CircleCommentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentDetailVC.m; sourceTree = "<group>"; };
+		217BDAF42069483A00E17DEE /* CircleCommentTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentTableView.h; sourceTree = "<group>"; };
+		217BDAF52069483A00E17DEE /* CircleCommentTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentTableView.m; sourceTree = "<group>"; };
+		217BDAF72069484D00E17DEE /* CircleCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentCell.h; sourceTree = "<group>"; };
+		217BDAF82069484D00E17DEE /* CircleCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentCell.m; sourceTree = "<group>"; };
+		217BDAFA2069486600E17DEE /* CircleCommentDetailTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentDetailTableView.h; sourceTree = "<group>"; };
+		217BDAFB2069486600E17DEE /* CircleCommentDetailTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentDetailTableView.m; sourceTree = "<group>"; };
+		217BDAFD2069487A00E17DEE /* CircleCommentDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleCommentDetailCell.h; sourceTree = "<group>"; };
+		217BDAFE2069487A00E17DEE /* CircleCommentDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleCommentDetailCell.m; sourceTree = "<group>"; };
 		21AC586D1FDE72B800F19DE8 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		21AC586E1FDE72B900F19DE8 /* APICodeMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICodeMacro.h; sourceTree = "<group>"; };
 		21AC586F1FDE72BA00F19DE8 /* AppColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColorMacro.h; sourceTree = "<group>"; };
@@ -1505,6 +1541,21 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		217BDAF32069480C00E17DEE /* CircleComment */ = {
+			isa = PBXGroup;
+			children = (
+				217BDAF42069483A00E17DEE /* CircleCommentTableView.h */,
+				217BDAF52069483A00E17DEE /* CircleCommentTableView.m */,
+				217BDAF72069484D00E17DEE /* CircleCommentCell.h */,
+				217BDAF82069484D00E17DEE /* CircleCommentCell.m */,
+				217BDAFA2069486600E17DEE /* CircleCommentDetailTableView.h */,
+				217BDAFB2069486600E17DEE /* CircleCommentDetailTableView.m */,
+				217BDAFD2069487A00E17DEE /* CircleCommentDetailCell.h */,
+				217BDAFE2069487A00E17DEE /* CircleCommentDetailCell.m */,
+			);
+			path = CircleComment;
+			sourceTree = "<group>";
+		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -1756,6 +1807,10 @@
 			children = (
 				2128825020577D3900A57A5A /* ForumModel.h */,
 				2128825120577D3900A57A5A /* ForumModel.m */,
+				212FEEA320688CBF0002F293 /* ForumDetailModel.h */,
+				212FEEA420688CBF0002F293 /* ForumDetailModel.m */,
+				217BDAE42068C64000E17DEE /* ForumCommentModel.h */,
+				217BDAE52068C64000E17DEE /* ForumCommentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1763,7 +1818,7 @@
 		21CFFAF620565D3F00D245ED /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21EF0B552064DA7D008EA865 /* Header */,
+				21EF0B552064DA7D008EA865 /* Detail */,
 				21EF0B4C2064D25F008EA865 /* Quotes */,
 				21EF0B4B2064D258008EA865 /* Info */,
 				21EF0B472064D22B008EA865 /* Circle */,
@@ -1809,6 +1864,7 @@
 		21CFFAFA20565D4700D245ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				217BDAF32069480C00E17DEE /* CircleComment */,
 				21EF0B8B20668F4E008EA865 /* Collection */,
 				21EF0B7020664D37008EA865 /* InfoComment */,
 				2128827E2057A3C600A57A5A /* Setting */,
@@ -1913,6 +1969,8 @@
 			children = (
 				21EF0B482064D24E008EA865 /* ForumCircleTableView.h */,
 				21EF0B492064D24E008EA865 /* ForumCircleTableView.m */,
+				217BDAE72068C89A00E17DEE /* ForumCircleCell.h */,
+				217BDAE82068C89A00E17DEE /* ForumCircleCell.m */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
@@ -1953,6 +2011,8 @@
 				21EF0B3B2064AC5A008EA865 /* ForumDetailVC.m */,
 				21EF0B3D2064CEB2008EA865 /* ForumCircleChildVC.h */,
 				21EF0B3E2064CEB2008EA865 /* ForumCircleChildVC.m */,
+				217BDAEA20691FC300E17DEE /* ForumCircleCommentVC.h */,
+				217BDAEB20691FC300E17DEE /* ForumCircleCommentVC.m */,
 				21EF0B432064CEE2008EA865 /* ForumInfoChildVC.h */,
 				21EF0B442064CEE2008EA865 /* ForumInfoChildVC.m */,
 				21EF0B402064CECA008EA865 /* ForumQuotesChildVC.h */,
@@ -1961,13 +2021,17 @@
 			path = ForumDetail;
 			sourceTree = "<group>";
 		};
-		21EF0B552064DA7D008EA865 /* Header */ = {
+		21EF0B552064DA7D008EA865 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
 				21EF0B592064DAD4008EA865 /* ForumDetailHeaderView.h */,
 				21EF0B5A2064DAD4008EA865 /* ForumDetailHeaderView.m */,
+				212FEEA620688FD30002F293 /* ForumDetailTableView.h */,
+				212FEEA720688FD30002F293 /* ForumDetailTableView.m */,
+				212FEEA920688FF90002F293 /* ForumDetailCell.h */,
+				212FEEAA20688FF90002F293 /* ForumDetailCell.m */,
 			);
-			path = Header;
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		21EF0B602065F7F4008EA865 /* List */ = {
@@ -2018,6 +2082,10 @@
 			children = (
 				21EF0B6A206643D3008EA865 /* CircleCommentVC.h */,
 				21EF0B6B206643D3008EA865 /* CircleCommentVC.m */,
+				217BDAED2069461000E17DEE /* CircleCommentChildVC.h */,
+				217BDAEE2069461000E17DEE /* CircleCommentChildVC.m */,
+				217BDAF02069462F00E17DEE /* CircleCommentDetailVC.h */,
+				217BDAF12069462F00E17DEE /* CircleCommentDetailVC.m */,
 			);
 			path = CircleComment;
 			sourceTree = "<group>";
@@ -2517,12 +2585,16 @@
 				21EF0B83206681E5008EA865 /* MyCommentDetailTableView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
 				21EF0B4A2064D24E008EA865 /* ForumCircleTableView.m in Sources */,
+				217BDAF22069462F00E17DEE /* CircleCommentDetailVC.m in Sources */,
 				21111BA11F8B5F2C0021B3FE /* AddressPickerView.m in Sources */,
 				21EF0B69206643B4008EA865 /* InfoCommentVC.m in Sources */,
 				21111BA21F8B5F2C0021B3FE /* CircleGuideView.m in Sources */,
+				217BDAEF2069461000E17DEE /* CircleCommentChildVC.m in Sources */,
+				212FEEA820688FD30002F293 /* ForumDetailTableView.m in Sources */,
 				21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */,
 				21AC589F1FDE754400F19DE8 /* AppConfig.m in Sources */,
 				2124BE15205FD40700CB79E8 /* CustomShareView.m in Sources */,
+				217BDAE92068C89A00E17DEE /* ForumCircleCell.m in Sources */,
 				21AC58AD1FDE75AA00F19DE8 /* HttpRequestService.m in Sources */,
 				21EF0B8E20668F82008EA865 /* MyCollectionTableView.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
@@ -2542,6 +2614,7 @@
 				21AC59881FDE891B00F19DE8 /* SegmentUnil.m in Sources */,
 				21111BB71F8B5F2C0021B3FE /* WTReTextField.m in Sources */,
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
+				217BDAE62068C64000E17DEE /* ForumCommentModel.m in Sources */,
 				21EF0B3F2064CEB2008EA865 /* ForumCircleChildVC.m in Sources */,
 				2124BEC1206296F800CB79E8 /* SearchCurrencyTableView.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
@@ -2598,6 +2671,7 @@
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
+				217BDAFC2069486600E17DEE /* CircleCommentDetailTableView.m in Sources */,
 				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
 				21EF0B642065F839008EA865 /* ReplyCommentView.m in Sources */,
 				2124BE802061FFDF00CB79E8 /* PlatformModel.m in Sources */,
@@ -2607,6 +2681,7 @@
 				21AC59481FDE7A1B00F19DE8 /* TLTimeButton.m in Sources */,
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
+				212FEEA520688CBF0002F293 /* ForumDetailModel.m in Sources */,
 				21EB9C6B20562C9700394C3C /* DataDictionaryModel.m in Sources */,
 				21EF0B3C2064AC5A008EA865 /* ForumDetailVC.m in Sources */,
 				2124BEDF2063940400CB79E8 /* UserDetailEditVC.m in Sources */,
@@ -2632,6 +2707,7 @@
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21288241205771EB00A57A5A /* QuotesManager.m in Sources */,
 				2124BE782061FF6700CB79E8 /* OptionalModel.m in Sources */,
+				217BDAEC20691FC300E17DEE /* ForumCircleCommentVC.m in Sources */,
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
 				2124BEB020627FC400CB79E8 /* QuotesOptionalVC.m in Sources */,
 				21AC59471FDE7A1B00F19DE8 /* TLAlert.m in Sources */,
@@ -2647,7 +2723,9 @@
 				21AC59671FDE80FB00F19DE8 /* UIColor+theme.m in Sources */,
 				21EB9C6520561AF700394C3C /* UIViewController+Extension.m in Sources */,
 				2124BEB3206285CE00CB79E8 /* QuotesOptionalChildVC.m in Sources */,
+				212FEEAB20688FF90002F293 /* ForumDetailCell.m in Sources */,
 				21216F8C1F380DD3007C9855 /* ZHAddressCell.m in Sources */,
+				217BDAF62069483A00E17DEE /* CircleCommentTableView.m in Sources */,
 				21CFFB1720566B7800D245ED /* InformationListCell.m in Sources */,
 				21EF0B86206682D6008EA865 /* MyCommentDetailCell.m in Sources */,
 				2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */,
@@ -2656,6 +2734,7 @@
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
 				21EF0B4F2064D2A5008EA865 /* ForumInfoTableView.m in Sources */,
 				21CFFB0020565D8100D245ED /* HomeVC.m in Sources */,
+				217BDAFF2069487A00E17DEE /* CircleCommentDetailCell.m in Sources */,
 				21CFFB0920565DDD00D245ED /* MineVC.m in Sources */,
 				2128824A2057774900A57A5A /* OptionalCell.m in Sources */,
 				2124BE832061FFF500CB79E8 /* CurrencyModel.m in Sources */,
@@ -2678,6 +2757,7 @@
 				21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */,
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				21AC596C1FDE814C00F19DE8 /* UIView+Extension.m in Sources */,
+				217BDAF92069484D00E17DEE /* CircleCommentCell.m in Sources */,
 				2124BEA620625FF700CB79E8 /* NewCurrencyCell.m in Sources */,
 				2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */,
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,

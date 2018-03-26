@@ -7,6 +7,8 @@
 //
 
 #import "BaseViewController.h"
+//C
+#import "InfoCommentChildVC.h"
 
 @interface CircleCommentVC : BaseViewController
 

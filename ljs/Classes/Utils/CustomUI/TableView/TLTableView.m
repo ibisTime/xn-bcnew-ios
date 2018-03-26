@@ -98,6 +98,8 @@ _Pragma("clang diagnostic pop") \
         self.estimatedRowHeight = 0;
         self.estimatedSectionHeaderHeight = 0;
         self.estimatedSectionFooterHeight = 0;
+        self.showsVerticalScrollIndicator = NO;
+        self.showsHorizontalScrollIndicator = NO;
         
         [self adjustsContentInsets];
         
