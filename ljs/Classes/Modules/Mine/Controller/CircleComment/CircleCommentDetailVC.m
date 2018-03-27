@@ -7,26 +7,22 @@
 //
 
 #import "CircleCommentDetailVC.h"
-//Macro
-//Framework
+
 //Category
 #import "UIBarButtonItem+convience.h"
 //Extension
 #import <IQKeyboardManager.h>
-//M
 //V
 #import "BaseView.h"
 #import "InputTextView.h"
-#import "MyCommentDetailTableView.h"
+#import "CircleCommentDetailTableView.h"
 #import "TLPlaceholderView.h"
-//C
-#import "InfoDetailVC.h"
 
 #define kBottomHeight 50
 
 @interface CircleCommentDetailVC ()<InputTextViewDelegate, RefreshDelegate>
 //评论
-@property (nonatomic, strong) MyCommentDetailTableView *tableView;
+@property (nonatomic, strong) CircleCommentDetailTableView *tableView;
 //底部
 @property (nonatomic, strong) BaseView *bottomView;
 //输入框
@@ -70,22 +66,11 @@
     [self initBottomView];
     //点击回复
     [self addNotification];
-    //原文
-    [self addArticleItem];
 }
 
 - (void)viewDidLayoutSubviews {
     
     self.tableView.tableFooterView = self.footerView;
-}
-
-- (void)addArticleItem {
-    
-    [UIBarButtonItem addRightItemWithTitle:@"原文"
-                                titleColor:kWhiteColor
-                                     frame:CGRectMake(0, 0, 40, 40)
-                                        vc:self
-                                    action:@selector(lookArticle)];
 }
 
 #pragma mark - Notification
@@ -125,7 +110,7 @@
  */
 - (void)initCommentTableView {
     
-    self.tableView = [[MyCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[CircleCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -192,19 +177,6 @@
     [self.inputTV show];
 }
 
-/**
- 查看原文
- */
-- (void)lookArticle {
-    
-    InfoDetailVC *detailVC = [InfoDetailVC new];
-    
-    detailVC.code = self.articleCode;
-    detailVC.title = self.typeName;
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
-}
-
 - (void)requestCommentList {
     
     TLNetworking *http = [TLNetworking new];
@@ -249,7 +221,7 @@
         
         NSString *code = responseObject[@"data"][@"code"];
         
-        if ([code containsString:@"filter"]) {
+        if ([code containsString:@"approve"]) {
             
             [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
             
@@ -272,6 +244,7 @@
 - (void)clickedCancelBtn {
     
     self.tableView.scrollEnabled = YES;
+    
 }
 
 @end

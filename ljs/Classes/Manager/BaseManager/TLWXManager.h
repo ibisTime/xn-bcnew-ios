@@ -12,6 +12,9 @@
 
 @interface TLWXManager : NSObject<WXApiDelegate>
 
+@property (nonatomic, copy) void(^wxPay)(BOOL isSuccess,int errorCode);
+@property (nonatomic, copy) void(^wxShare)(BOOL isSuccess,int errorCode);
+
 + (instancetype)manager;
 + (BOOL)judgeAndHintInstalllWX;
 
@@ -22,7 +25,5 @@
 + (void)wxShareImageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc image:(UIImage *)image;
 
 + (void)wxShareWebPageWith:(NSString *)title desc:(NSString *)desc url:(NSString *)url;
-@property (nonatomic, copy) void(^wxPay)(BOOL isSuccess,int errorCode);
-@property (nonatomic, copy) void(^wxShare)(BOOL isSuccess,int errorCode);
 
 @end

@@ -12,7 +12,5 @@
 #import "InfoCommentChildVC.h"
 
 @interface InfoCommentVC : BaseViewController
-//
-@property (nonatomic, assign) MyCommentType type;
 
 @end

@@ -54,13 +54,12 @@
 - (NSString *)subNumber:(NSString *)number;
 //除法
 - (NSString *)divNumber:(NSString *)number leaveNum:(NSInteger)num;
-
+//太大的数字进行转化
+- (NSString *)convertLargeNumber;
 //能去掉小数点的尽量去掉小数点
 - (NSString *)convertToSimpleRealMoney;
-
 //位数
 - (NSString *)convertToRealMoneyWithNum:(NSInteger)num;
-
 //获取WiFiMac物理地址
 + (NSString *)getWifiMacAddress;
 

@@ -228,7 +228,7 @@
         
         NSString *code = responseObject[@"data"][@"code"];
         
-        if ([code containsString:@"filter"]) {
+        if ([code containsString:@"approve"]) {
             
             [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
             
@@ -240,6 +240,8 @@
         [TLAlert alertWithSucces:[NSString stringWithFormat:@"%@成功", @"发布"]];
         
         self.tableView.scrollEnabled = YES;
+        //清空评论
+        self.inputTV.commentTV.text = @"";
         //刷新数据
         [self requestCommentList];
         

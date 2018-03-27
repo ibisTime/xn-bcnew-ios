@@ -68,6 +68,8 @@
     
     self.tableView = [[ForumCircleTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight) style:UITableViewStylePlain];
     
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无帖子"];
+
     self.tableView.tag = 1800 + self.index;
     self.tableView.detailModel = _detailModel;
     self.tableView.refreshDelegate = self;

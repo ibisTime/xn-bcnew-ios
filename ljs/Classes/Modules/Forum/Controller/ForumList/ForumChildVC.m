@@ -51,8 +51,14 @@
 
 #pragma mark - Init
 - (void)addNotification {
-    
+    //登录后刷新列表
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginNotification object:nil];
+    
+    if ([self.type isEqualToString:kFoucsPost]) {
+        
+        //关注或取消关注刷新界面
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
+    }
 }
 
 - (void)refreshForumList {
@@ -66,8 +72,8 @@
     self.tableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无贴吧"];
-    self.tableView.isAllPost = [self.type isEqualToString:kAllPost] ? YES: NO;
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币吧"];
+    self.tableView.postType = self.type;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,6 +179,8 @@
         }
         
         [self.tableView reloadData];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FollowOrCancelFollow" object:nil];
         
     } failure:^(NSError *error) {
         

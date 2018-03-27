@@ -19,6 +19,7 @@
 #import <UIImageView+WebCache.h>
 #import "TLProgressHUD.h"
 #import "NSString+Check.h"
+#import <MBProgressHUD.h>
 //M
 #import "MineGroup.h"
 //V
@@ -27,7 +28,6 @@
 #import "TLImagePicker.h"
 #import "BaseView.h"
 //C
-#import "SettingVC.h"
 #import "HTMLStrVC.h"
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
@@ -52,18 +52,10 @@
 
 @implementation MineVC
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"我的";
-    //item
-    [self addEditItem];
     //通知
     [self addNotification];
     //
@@ -153,8 +145,6 @@
             
             InfoCommentVC *commentVC = [InfoCommentVC new];
             
-            commentVC.type = MyCommentTypeInfo;
-
             [weakSelf.navigationController pushViewController:commentVC animated:YES];
         }];
     };
@@ -178,6 +168,7 @@
     cache.text = @"清除缓存";
     cache.action = ^{
         
+        [weakSelf clearCache];
     };
     
     self.group = [MineGroup new];
@@ -273,12 +264,15 @@
         
         [self.headerView.nameBtn setTitle:@"快速登录" forState:UIControlStateNormal];
         self.tableView.tableFooterView.hidden = YES;
+        self.navigationItem.rightBarButtonItem = nil;
         
     } else {
         
         [self.headerView.nameBtn setTitle:[TLUser user].nickname forState:UIControlStateNormal];
 
         self.tableView.tableFooterView.hidden = NO;
+        //编辑
+        [self addEditItem];
     }
 }
 
@@ -287,6 +281,8 @@
     [self.headerView.nameBtn setTitle:@"快速登录" forState:UIControlStateNormal];
 
     self.headerView.userPhoto.image = USER_PLACEHOLDER_SMALL;
+    self.navigationItem.rightBarButtonItem = nil;
+
 }
 
 /**
@@ -336,6 +332,58 @@
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
     }];
+    
+}
+
+/**
+ 清除缓存
+ */
+- (void)clearCache {
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    hud.size = CGSizeMake(100, 100);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearDisk];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            hud.mode = MBProgressHUDModeAnnularDeterminate;
+            hud.labelText = @"清除中...";
+            
+        });
+        
+        float progress = 0.0f;
+        
+        while (progress < 1.0f) {
+            
+            progress += 0.02f;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                hud.progress = progress;
+            });
+            usleep(50000);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIImage *image = [UIImage imageNamed:@"clear_complete"];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            
+            imageView.frame = CGRectMake(0, 0, 35, 35);
+            
+            hud.customView = imageView;
+            hud.mode = MBProgressHUDModeCustomView;
+            hud.labelText = @"清除完成";
+            
+            [_tableView reloadData];
+            
+            [hud hide:YES afterDelay:1];
+        });
+        
+    });
     
 }
 

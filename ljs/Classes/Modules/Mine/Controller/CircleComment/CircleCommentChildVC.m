@@ -7,21 +7,17 @@
 //
 
 #import "CircleCommentChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
+
 //M
 #import "MyCommentModel.h"
 //V
-#import "InfoCommentTableView.h"
+#import "CircleCommentTableView.h"
 //C
-#import "MyCommentDetailVC.h"
-#import "InfoDetailVC.h"
+#import "CircleCommentDetailVC.h"
 
 @interface CircleCommentChildVC ()<RefreshDelegate>
 //
-@property (nonatomic, strong) InfoCommentTableView *tableView;
+@property (nonatomic, strong) CircleCommentTableView *tableView;
 //评论列表
 @property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
 
@@ -42,8 +38,10 @@
 #pragma mark - Init
 - (void)initTableView {
     
-    self.tableView = [[InfoCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    NSString *text = [self.type isEqualToString:@"0"] ? @"暂无回复": @"暂无评论";
+    self.tableView = [[CircleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,7 +53,7 @@
 #pragma mark - Data
 - (void)requestCommentList {
     
-    NSString *code = [self.type isEqualToString:@"0"] ? @"628208": @"628209";
+    NSString *code = [self.type isEqualToString:@"0"] ? @"628664": @"628665";
     BaseWeakSelf;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
@@ -106,23 +104,10 @@
     
     MyCommentModel *comment = self.comments[indexPath.row];
     
-    MyCommentDetailVC *detailVC = [MyCommentDetailVC new];
+    CircleCommentDetailVC *detailVC = [CircleCommentDetailVC new];
     
     detailVC.code = comment.code;
-    detailVC.articleCode = comment.news.code;
     detailVC.typeName = comment.news.typeName;
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
-}
-
-- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
-    
-    ArticleInfo *info = self.comments[index].news;
-    
-    InfoDetailVC *detailVC = [InfoDetailVC new];
-    
-    detailVC.code = info.code;
-    detailVC.title = info.typeName;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

@@ -222,6 +222,8 @@
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BaseWeakSelf;
+    
     if ([self.kind isEqualToString:kNewsFlash]) {
         
         NewsFlashModel *flashModel = self.news[indexPath.section];
@@ -244,6 +246,10 @@
     
     detailVC.code = self.infos[indexPath.row].code;
     detailVC.title = self.titleStr;
+    detailVC.collectionBlock = ^{
+      
+        [weakSelf.infoTableView beginRefreshing];
+    };
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

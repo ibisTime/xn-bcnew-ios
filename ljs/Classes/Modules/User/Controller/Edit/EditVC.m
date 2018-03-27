@@ -13,6 +13,13 @@
 //V
 #import "TLTextField.h"
 
+struct TitleInfo {
+    NSInteger length;
+    NSInteger number;
+};
+
+typedef struct TitleInfo TitleInfo;
+
 @interface EditVC ()
 
 @property (nonatomic, strong) TLTextField *contentTf;
@@ -51,18 +58,71 @@
         return;
     }
     
-    if (self.type == UserEditTypeEmail) {
+    self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 45)
+                                              leftTitle:@"昵称"
+                                             titleWidth:80
+                                            placeholder:@"请填写昵称"];
+    
+    self.contentTf.text = [[TLUser user].nickname valid] ? [TLUser user].nickname: @"";
+    
+    [self.contentTf addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingDidEnd];
+    
+    [self.view addSubview:self.contentTf];
+    //提示
+    UILabel *promptLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                 textColor:kThemeColor
+                                                      font:14.0];
+    
+    promptLbl.frame = CGRectMake(15, self.contentTf.yy + 5, kScreenWidth - 30, 30);
+    
+    promptLbl.text = @"昵称不能超过8个汉字或16个英文字母";
+    
+    [self.view addSubview:promptLbl];
+    
+}
+
+#pragma mark - Events
+- (void)textDidChange:(UITextField *)sender {
+    //允许输入的最大字符数
+    NSInteger maxLength = 16;
+    
+    TitleInfo title = [self getInfoWithText:sender.text maxLength:maxLength];
+    
+    if (title.length > maxLength) {
         
-        self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 45) leftTitle:@"邮箱" titleWidth:80 placeholder:@"请输入您的邮箱"];
-        self.contentTf.keyboardType = UIKeyboardTypeEmailAddress;
-        [self.view addSubview:self.contentTf];
+        sender.text = [sender.text substringToIndex:title.number];
         
-    } else {
-        
-        self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 45) leftTitle:@"昵称" titleWidth:80 placeholder:@"请填写昵称"];
-        [self.view addSubview:self.contentTf];
+        [TLAlert alertWithInfo:@"昵称不能超过8个汉字或16个英文字母"];
+    }
+}
+
+//判断中英混合的的字符串长度及字符个数
+- (TitleInfo)getInfoWithText:(NSString *)text maxLength:(NSInteger)maxLength {
+    
+    TitleInfo title;
+    int length = 0;
+    int singleNum = 0;
+    int totalNum = 0;
+    char *p = (char *)[text cStringUsingEncoding:NSUnicodeStringEncoding];
+    for (int i = 0; i < [text lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]; i++) {
+        if (*p) {
+            length++;
+            if (length <= maxLength) {
+                totalNum++;
+            }
+        }
+        else {
+            if (length <= maxLength) {
+                singleNum++;
+            }
+        }
+        p++;
     }
     
+    title.length = length;
+    title.number = (totalNum - singleNum) / 2 + singleNum;
+    
+    return title;
 }
 
 - (void)hasDone {
@@ -71,6 +131,7 @@
         [TLAlert alertWithInfo:@"请输入昵称"];
         return;
     }
+    
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;

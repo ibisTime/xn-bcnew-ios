@@ -47,7 +47,7 @@ static NSString *identifierCell = @"ForumListCell";
     
     cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
-    cell.isAllPost = self.isAllPost;
+    cell.postType = self.postType;
     cell.forumModel = forumModel;
     cell.followBtn.tag = 2300 + indexPath.row;
     

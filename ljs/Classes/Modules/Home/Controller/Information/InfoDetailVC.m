@@ -9,6 +9,7 @@
 #import "InfoDetailVC.h"
 //Manager
 #import "TLWXManager.h"
+#import "QQManager.h"
 //Macro
 #import "APICodeMacro.h"
 //Framework
@@ -24,8 +25,7 @@
 #import "InformationDetailTableView.h"
 #import "InformationDetailHeaderView.h"
 #import "InputTextView.h"
-#import "ShareView.h"
-
+#import "InfoDetailShareView.h"
 //C
 #import "InfoCommentDetailVC.h"
 #import "NavigationController.h"
@@ -50,6 +50,10 @@
 @property (nonatomic, strong) UIButton *collectionBtn;
 //分享链接
 @property (nonatomic, copy) NSString *shareUrl;
+//分享
+@property (nonatomic, strong) InfoDetailShareView *shareView;
+//留言数
+@property (nonatomic, strong) UILabel *commentNumLbl;
 
 @end
 
@@ -84,6 +88,10 @@
 }
 
 #pragma mark - Init
+
+/**
+ 输入框
+ */
 - (InputTextView *)inputTV {
     
     if (!_inputTV) {
@@ -108,17 +116,35 @@
             [weakSelf shareWithType:type];
         };
         
-        _tableView.tableHeaderView = _headerView;
+        _headerView.backgroundColor = kWhiteColor;
+
     }
     return _headerView;
 }
 
+- (InfoDetailShareView *)shareView {
+    
+    if (!_shareView) {
+        
+        BaseWeakSelf;
+
+        _shareView = [[InfoDetailShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        
+        _shareView.shareBlock = ^(ThirdType type) {
+            
+            [weakSelf shareEventsWithType:type];
+        };
+    }
+    return _shareView;
+}
 /**
  评论列表
  */
 - (void)initCommentTableView {
     
     self.tableView = [[InformationDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
     
     self.tableView.refreshDelegate = self;
     
@@ -129,10 +155,6 @@
         make.bottom.equalTo(@(-kBottomHeight-kBottomInsetHeight));
     }];
     
-    //头部
-    self.headerView = [[InformationDetailHeaderView alloc] init];
-    
-    self.headerView.backgroundColor = kWhiteColor;
 }
 
 - (void)initBottomView {
@@ -189,7 +211,7 @@
     self.collectionBtn = collectionBtn;
     
     //评论数
-    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"未留言"];
+    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"留言"];
     
     commentNumBtn.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -200,6 +222,19 @@
         make.right.equalTo(collectionBtn.mas_left).offset(-15);
         make.centerY.equalTo(@0);
         make.width.height.equalTo(@20);
+    }];
+    
+    self.commentNumLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                 textColor:kThemeColor
+                                                      font:9.0];
+    
+    self.commentNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.commentCount];
+
+    [self.bottomView addSubview:self.commentNumLbl];
+    [self.commentNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(commentNumBtn.mas_top).offset(-1);
+        make.centerX.equalTo(commentNumBtn.mas_right).offset(-5);
     }];
     //点击评论
     UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
@@ -248,31 +283,8 @@
  */
 - (void)shareInfo {
     
-    //判断是否安装微信
-    if (![TLWXManager judgeAndHintInstalllWX]) {
-        
-        return ;
-    }
-    ShareView *shareView = [[ShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) shareBlock:^(BOOL isSuccess, int errorCode) {
-        
-        if (isSuccess) {
-            
-            [TLAlert alertWithSucces:@"分享成功"];
-            
-        } else {
-            
-            [TLAlert alertWithError:@"分享失败"];
-        }
-        
-    }];
-    
-    shareView.shareTitle = self.detailModel.title;
-    shareView.shareDesc = @"快邀请好友来玩吧";
-    shareView.shareURL = self.shareUrl;
-    
-    [self.view addSubview:shareView];
+    [self.shareView show];
 }
-
 /**
  分享
  */
@@ -284,7 +296,7 @@
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
                                             desc:@""
-                                             url:_shareUrl];
+                                             url:self.shareUrl];
         }break;
             
         case InfoShareTypeTimeline:
@@ -292,7 +304,7 @@
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
                                             desc:@""
-                                             url:_shareUrl];
+                                             url:self.shareUrl];
         }break;
             
         default:
@@ -324,6 +336,11 @@
             
             weakSelf.detailModel.isCollect = [self.detailModel.isCollect isEqualToString:@"1"] ? @"0": @"1";
             
+            if (self.collectionBlock) {
+                
+                self.collectionBlock();
+            }
+            
         } failure:^(NSError *error) {
             
         }];
@@ -345,6 +362,83 @@
     }];
 }
 
+#pragma mark - 分享
+- (void)shareEventsWithType:(ThirdType)type {
+    
+    NSString *previewImage;
+    
+    if (self.detailModel.pics.count > 0) {
+        
+       previewImage = [self.detailModel.pics[0] convertImageUrl];
+    }
+    
+    switch (type) {
+        case ThirdTypeWeChat:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+                                           title:self.detailModel.title
+                                            desc:@""
+                                             url:self.shareUrl];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
+        }break;
+            
+        case ThirdTypeTimeLine:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+                                           title:self.detailModel.title
+                                            desc:@""
+                                             url:self.shareUrl];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
+        }break;
+            
+        case ThirdTypeQQ:
+        {
+            [QQManager manager].qqShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                }
+            };
+            
+            [QQManager qqShareWebPageWithScene:0
+                                         title:self.detailModel.title
+                                          desc:@""
+                                           url:self.shareUrl
+                                  previewImage:previewImage];
+            
+        }break;
+            
+        case ThirdTypeWeiBo:
+        {
+            
+        }break;
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark - Data
 - (void)requestInfoDetail {
     
@@ -360,10 +454,15 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
-        
-        self.title = self.detailModel.typeName;
+        //titleStr不存在就用typename
+        if (!self.titleStr) {
+            
+            self.title = self.detailModel.typeName;
+        }
         
         [self.tableView beginRefreshing];
+        //获取分享链接
+        [self getShareUrl];
         
     } failure:^(NSError *error) {
         
@@ -427,7 +526,39 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        self.shareUrl = [NSString stringWithFormat:@"%@?%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
+        self.shareUrl = [NSString stringWithFormat:@"%@?code=%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)zanCommentWithComment:(InfoCommentModel *)commentModel {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628201";
+    http.parameters[@"type"] = @"1";
+    http.parameters[@"objectCode"] = commentModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([commentModel.isPoint isEqualToString:@"1"]) {
+            
+            commentModel.isPoint = @"0";
+            commentModel.pointCount -= 1;
+            
+        } else {
+            
+            commentModel.isPoint = @"1";
+            commentModel.pointCount += 1;
+        }
+        
+        [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         
@@ -449,7 +580,7 @@
         
         NSString *code = responseObject[@"data"][@"code"];
         
-        if ([code containsString:@"filter"]) {
+        if ([code containsString:@"approve"]) {
             
             [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
             
@@ -462,10 +593,16 @@
         
         self.tableView.scrollEnabled = YES;
 
+        self.detailModel.commentCount += 1;
+        
+        self.commentNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.commentCount];
+
         [self.tableView beginRefreshing];
         
     } failure:^(NSError *error) {
         
+        self.tableView.scrollEnabled = YES;
+
     }];
 }
 
@@ -500,47 +637,15 @@
 
 - (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
     
-    NSInteger section = index/1000;
-    NSInteger row = index - section*1000;
-    
-    InfoCommentModel *commentModel;
-    
-    if (section == 1) {
+    BaseWeakSelf;
+    [self checkLogin:^{
         
-        commentModel = self.detailModel.hotCommentList[row];
+        NSInteger section = index/1000;
+        NSInteger row = index - section*1000;
         
-    } else {
+        InfoCommentModel *commentModel = section == 1 ? weakSelf.detailModel.hotCommentList[row]: weakSelf.comments[row];
         
-        commentModel = self.comments[row];
-    }
-    
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = @"628201";
-    http.parameters[@"type"] = @"1";
-    http.parameters[@"objectCode"] = commentModel.code;
-    http.parameters[@"userId"] = [TLUser user].userId;
-    
-    [http postWithSuccess:^(id responseObject) {
-        
-        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
-        [TLAlert alertWithSucces:promptStr];
-        
-        if ([commentModel.isPoint isEqualToString:@"1"]) {
-            
-            commentModel.isPoint = @"0";
-            commentModel.pointCount -= 1;
-
-        } else {
-            
-            commentModel.isPoint = @"1";
-            commentModel.pointCount += 1;
-        }
-        
-        [self.tableView reloadData];
-        
-    } failure:^(NSError *error) {
-        
+        [weakSelf zanCommentWithComment:commentModel];
     }];
 }
 

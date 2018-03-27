@@ -89,7 +89,7 @@
     _optional = optional;
     
     //名称
-    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.coinSymbol: optional.exchangeEname;
+    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.coinSymbol: optional.exchangeCname;
     //单位
     self.unitLbl.text = optional.toCoinSymbol;
     //添加按钮

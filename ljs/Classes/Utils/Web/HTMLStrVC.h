@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, HTMLType) {
     HTMLTypeAboutUs = 0,    //关于我们
-    HTMLTypeRegProtocol,    //注册协议
+//    HTMLTypeRegProtocol,    //注册协议
     
 };
 

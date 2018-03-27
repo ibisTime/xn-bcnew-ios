@@ -249,7 +249,7 @@
         
         NSString *code = responseObject[@"data"][@"code"];
         
-        if ([code containsString:@"filter"]) {
+        if ([code containsString:@"approve"]) {
             
             [TLAlert alertWithInfo:[NSString stringWithFormat:@"发布成功, 您的评论包含敏感字符,我们将进行审核"]];
             

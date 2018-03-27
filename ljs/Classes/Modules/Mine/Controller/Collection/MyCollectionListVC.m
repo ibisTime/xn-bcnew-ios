@@ -6,18 +6,13 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-//Macro
-//Framework
-//Category
-//Extension
-//M
 //V
 #import "MyCollectionTableView.h"
 //C
-
 #import "MyCollectionListVC.h"
+#import "InfoDetailVC.h"
 
-@interface MyCollectionListVC ()
+@interface MyCollectionListVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) MyCollectionTableView *tableView;
 //收藏列表
@@ -37,6 +32,7 @@
     [self requestCollectionList];
     //
     [self.tableView beginRefreshing];
+    
 }
 
 #pragma mark - Init
@@ -44,6 +40,10 @@
     
     self.tableView = [[MyCollectionTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.refreshDelegate = self;
+    
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无收藏"];
+
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -101,6 +101,25 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BaseWeakSelf;
+    
+    MyCollectionModel *collectionModel = self.collections[indexPath.row];
+    
+    InfoDetailVC *detailVC = [InfoDetailVC new];
+    
+    detailVC.code = collectionModel.code;
+    detailVC.title = collectionModel.typeName;
+    detailVC.collectionBlock = ^{
+        //
+        [weakSelf.tableView beginRefreshing];
+    };
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

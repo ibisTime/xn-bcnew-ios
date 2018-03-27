@@ -43,7 +43,8 @@ static NSString *identifierCell = @"MyCollectionCell";
     MyCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
     cell.collectionModel = self.collections[indexPath.row];
-    
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+
     return cell;
 }
 
@@ -53,6 +54,10 @@ static NSString *identifierCell = @"MyCollectionCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

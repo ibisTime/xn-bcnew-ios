@@ -92,7 +92,7 @@
     _platform = platform;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.exchangeEname];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.exchangeCname];
     //一日交易量
     NSString *volumeStr = platform.volume;
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"￥%@",volumeStr];

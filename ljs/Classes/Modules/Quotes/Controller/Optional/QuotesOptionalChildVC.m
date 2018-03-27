@@ -41,6 +41,8 @@
     
     self.tableView = [[AddOptionalTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无选项"];
+
     self.tableView.type = self.titleModel.type;
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];

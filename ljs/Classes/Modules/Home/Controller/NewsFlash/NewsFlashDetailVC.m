@@ -9,6 +9,7 @@
 #import "NewsFlashDetailVC.h"
 //Manager
 #import "TLWXManager.h"
+#import "QQManager.h"
 //Macro
 #import "APICodeMacro.h"
 //Framework
@@ -82,20 +83,60 @@
     
     UIImage *shareImage = [self.detailView snapshotViewWithCapInsets:UIEdgeInsetsZero];
     
+    
     switch (type) {
         case NewsFlashShareTypeWeChat:
         {
-            [TLWXManager wxShareImageWithScene:WXSceneSession title:nil desc:nil image:shareImage];
+            [TLWXManager wxShareImageWithScene:WXSceneSession
+                                         title:nil
+                                          desc:nil
+                                         image:shareImage];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
         }break;
             
         case NewsFlashShareTypeTimeLine:
         {
-            [TLWXManager wxShareImageWithScene:WXSceneTimeline title:nil desc:nil image:shareImage];
-
+            [TLWXManager wxShareImageWithScene:WXSceneTimeline
+                                         title:nil
+                                          desc:nil
+                                         image:shareImage];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
         }break;
             
         case NewsFlashShareTypeQQ:
         {
+            [QQManager manager].qqShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                }
+            };
+            
+            [QQManager qqShareImageWithScene:0
+                                       title:nil
+                                        desc:nil
+                                       image:shareImage];
             
         }break;
             

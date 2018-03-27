@@ -34,7 +34,7 @@
 #define kNavBarBackgroundColor  RGB(241, 241, 241)
 
 #define kBackgroundColor        [UIColor colorWithHexString:@"#FAFCFF"]   //背景色
-#define kLineColor              [UIColor colorWithHexString:@"#FAFCFF"]   //分割线
+#define kLineColor              [UIColor colorWithHexString:@"#E2E2E2"]   //分割线
 #define kTextColor              [UIColor colorWithHexString:@"#3A3A3A"]   //一级文字
 #define kTextColor2             [UIColor colorWithHexString:@"#818181"]   //二级文字
 #define kTextColor3             [UIColor colorWithHexString:@"#666666"]   //三级文字
@@ -92,9 +92,10 @@
 #pragma mark - Image
 
 #define USER_PLACEHOLDER_SMALL [UIImage imageNamed:@"默认头像"]
-#define PLACEHOLDER_SMALL @"icon"
+#define PLACEHOLDER_SMALL @"占位图"
 #define kCancelIcon @"cancel"
-#define GOOD_PLACEHOLDER_SMALL [UIImage imageNamed:@"icon"]
+#define GOOD_PLACEHOLDER_SMALL [UIImage imageNamed:@"占位图"]
+#define APP_ICON @"app_icon"
 
 #define kDateFormmatter @"MMM dd, yyyy hh:mm:ss aa"
 

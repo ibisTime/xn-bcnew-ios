@@ -8,7 +8,7 @@
 
 #import "CircleCommentTableView.h"
 //V
-#import "MyCommentCell.h"
+#import "CircleCommentCell.h"
 
 @interface CircleCommentTableView()<UITableViewDelegate, UITableViewDataSource>
 
@@ -16,7 +16,7 @@
 
 @implementation CircleCommentTableView
 
-static NSString *identifierCell = @"MyCommentCell";
+static NSString *identifierCell = @"CircleCommentCell";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,7 +25,7 @@ static NSString *identifierCell = @"MyCommentCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[MyCommentCell class] forCellReuseIdentifier:identifierCell];
+        [self registerClass:[CircleCommentCell class] forCellReuseIdentifier:identifierCell];
     }
     
     return self;
@@ -40,26 +40,13 @@ static NSString *identifierCell = @"MyCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MyCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    CircleCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
     cell.commentModel = self.comments[indexPath.row];
     
     cell.articleView.tag = 2000 + indexPath.row;
     
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookArticle:)];
-    [cell.articleView addGestureRecognizer:tapGR];
-    
     return cell;
-}
-
-- (void)lookArticle:(UITapGestureRecognizer *)tapGR {
-    
-    NSInteger index = tapGR.view.tag - 2000;
-    
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
-        
-        [self.refreshDelegate refreshTableViewButtonClick:self button:nil selectRowAtIndex:index];
-    }
 }
 
 #pragma mark - UITableViewDelegate

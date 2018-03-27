@@ -38,6 +38,9 @@ FOUNDATION_EXPORT void TLLog(NSString *format, ...);
 @property (nonatomic,copy) NSString *pushKey;
 //微信
 @property (nonatomic, copy) NSString *wxKey;
+//QQ
+@property (nonatomic, copy) NSString *qqKey;
+@property (nonatomic, copy) NSString *qqId;
 //支付宝
 @property (nonatomic, copy) NSString *aliMapKey;
 //七牛云

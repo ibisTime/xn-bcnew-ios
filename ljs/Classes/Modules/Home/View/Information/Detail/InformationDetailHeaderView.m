@@ -16,10 +16,13 @@
 //Category
 #import "UILabel+Extension.h"
 #import "NSString+Date.h"
+#import "UIView+Responder.h"
 //Extension
 //M
 //V
 #import "DetailWebView.h"
+//C
+#import "BaseViewController.h"
 
 @interface InformationDetailHeaderView()
 //标题
@@ -98,8 +101,6 @@
                                                                     font:17.0];
     
     [self addSubview:self.zanNumLbl];
-    //分享
-    [self initShareView];
 }
 
 - (void)initSourceView {
@@ -298,10 +299,23 @@
     }
 }
 
+- (void)clickZan:(UIButton *)sender {
+    
+    BaseWeakSelf;
+    
+    BaseViewController *vc = (BaseViewController *)self.viewController;
+    
+    [vc checkLogin:^{
+        
+        [weakSelf pointInfo];
+    }];
+    
+}
+
 /**
  对资讯点赞
  */
-- (void)clickZan:(UIButton *)sender {
+- (void)pointInfo {
     
     TLNetworking *http = [TLNetworking new];
     
@@ -329,7 +343,7 @@
         NSString *image = [self.detailModel.isPoint isEqualToString:@"1"] ? @"圆点赞": @"圆未点赞";
         [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
         self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.pointCount];
-
+        
     } failure:^(NSError *error) {
         
     }];

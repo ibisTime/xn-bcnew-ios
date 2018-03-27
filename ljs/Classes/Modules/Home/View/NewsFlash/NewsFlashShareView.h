@@ -10,10 +10,10 @@
 
 typedef NS_ENUM(NSInteger, NewsFlashShareType) {
     
-    NewsFlashShareTypeWeChat = 0, //微信好友
-    NewsFlashShareTypeTimeLine,
-    NewsFlashShareTypeQQ,
-    NewsFlashShareTypeWeiBo,
+    NewsFlashShareTypeWeChat = 0,   //微信好友
+    NewsFlashShareTypeTimeLine,     //朋友圈
+    NewsFlashShareTypeQQ,           //QQ
+    NewsFlashShareTypeWeiBo,        //微博
 };
 
 typedef void(^shareBlock)(NewsFlashShareType type);

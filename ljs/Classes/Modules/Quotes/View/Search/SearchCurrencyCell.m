@@ -123,7 +123,7 @@
     //币种名称
     self.currencyNameLbl.text = [NSString stringWithFormat:@"%@/%@", currency.coinSymbol, currency.toCoinSymbol];
     //平台名称
-    self.platformNameLbl.text = currency.exchangeEname;
+    self.platformNameLbl.text = currency.exchangeCname;
     //对应币种价格
     self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastCnyPrice];
     //涨跌情况

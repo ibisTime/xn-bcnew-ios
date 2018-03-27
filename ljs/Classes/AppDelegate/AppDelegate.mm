@@ -11,11 +11,14 @@
 //Manager
 #import "AppConfig.h"
 #import "TLUser.h"
+#import "QQManager.h"
+#import "TLWXManager.h"
 //Macro
 //Framework
 //Category
 //Extension
-#import "TLWXManager.h"
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "IQKeyboardManager.h"
 //M
@@ -39,6 +42,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //配置QQ
+    [self configQQ];
     //配置微信
     [self configWeChat];
     //服务器环境
@@ -60,15 +65,15 @@
 // iOS9 NS_AVAILABLE_IOS
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
-    if ([url.host isEqualToString:@"safepay"]) {
-
-//        [TLAlipayManager hadleCallBackWithUrl:url];
-        return YES;
-
+//    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+    
+    if ([url.host containsString:@"qq"]) {
+        
+        return [TencentOAuth HandleOpenURL:url];
+        
     } else {
 
         return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
-
     }
     
     return YES;
@@ -77,10 +82,11 @@
 // iOS9 NS_DEPRECATED_IOS
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    if ([url.host isEqualToString:@"safepay"]) {
+//    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 
-//        [TLAlipayManager hadleCallBackWithUrl:url];
-        return YES;
+    if ([url.host containsString:@"qq"]) {
+
+        return [TencentOAuth HandleOpenURL:url];
 
     } else {
 
@@ -91,6 +97,11 @@
 }
 
 #pragma mark - Config
+- (void)configQQ {
+    
+    [[QQManager manager] registerApp];
+}
+
 - (void)configWeChat {
     
     [[TLWXManager manager] registerApp];

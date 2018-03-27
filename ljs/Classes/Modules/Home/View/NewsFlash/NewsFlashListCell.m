@@ -176,7 +176,7 @@
     self.timeLbl.text = [flashModel.showDatetime convertDateWithFormat:@"HH:mm:ss"];
     
     self.contentLbl.numberOfLines = flashModel.isSelect ? 0: 3;
-    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"【%@】%@", flashModel.source, flashModel.content] lineSpace:5];
+    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"%@", flashModel.content] lineSpace:5];
     
     self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
     //

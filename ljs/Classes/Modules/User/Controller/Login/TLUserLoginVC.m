@@ -180,20 +180,20 @@
     
     NSMutableArray <ThirdLoginModel *>*arr = [NSMutableArray array];
     //判断是否安装QQ
-    if (!installedQQ) {
+    if (installedQQ) {
         
         ThirdLoginModel *model = [self getThirdModelWithName:@"QQ登录" image:@"qq"];
         [arr addObject:model];
     }
     
     //判断是否安装微信
-    if (!installedWeChat) {
+    if (installedWeChat) {
         
         ThirdLoginModel *model = [self getThirdModelWithName:@"微信登录" image:@"wechat"];
         [arr addObject:model];
     }
     //判断是否安装微博
-    if (!installedWeibo || installedWeibohd) {
+    if (installedWeibo || installedWeibohd) {
         
         ThirdLoginModel *model = [self getThirdModelWithName:@"微博登录" image:@"weibo"];
         [arr addObject:model];
@@ -297,6 +297,8 @@
         [TLAlert alertWithSucces:@"验证码已发送,请注意查收"];
         
         [self.captchaView.captchaBtn begin];
+        
+        [self.captchaView.captchaTf becomeFirstResponder];
         
     } failure:^(NSError *error) {
         

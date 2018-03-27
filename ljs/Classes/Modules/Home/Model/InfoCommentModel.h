@@ -15,6 +15,7 @@
 //评论时间
 @property (nonatomic, copy) NSString *commentDatetime;
 @property (nonatomic, copy) NSString *content;
+
 //userId
 @property (nonatomic, copy) NSString *commenter;
 

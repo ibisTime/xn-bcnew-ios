@@ -10,7 +10,7 @@
 //V
 #import "SearchHistoryTableView.h"
 
-@interface SearchHistoryChildVC ()
+@interface SearchHistoryChildVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) SearchHistoryTableView *tableView;
 
@@ -24,8 +24,9 @@
     [self addNotification];
     //
     [self initTableView];
-    //获取历史搜索
+    //获取历史搜索记录
     [self getHistoryRecords];
+    
 }
 
 #pragma mark - Init
@@ -34,6 +35,8 @@
     self.tableView = [[SearchHistoryTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
+    
+    self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,6 +81,7 @@
 }
 
 #pragma mark - Data
+//获取搜索历史
 - (void)getHistoryRecords {
     
     NSArray *myarray = [[NSUserDefaults standardUserDefaults]arrayForKey:@"HistorySearch"];
@@ -100,6 +104,48 @@
         self.tableView.historyRecords = myarray;
         [self.tableView reloadData];
     }
+}
+
+/**
+ 保存搜索历史
+ */
+- (void)saveSearchRecord:(NSString *)searchStr {
+    
+    //保存搜索记录
+    NSArray *myarray = [[NSUserDefaults standardUserDefaults] arrayForKey:@"HistorySearch"];
+    
+    NSMutableArray *historyArr = [myarray mutableCopy];
+    
+    [historyArr addObject:searchStr];
+    
+    if (historyArr==nil) {
+        
+        historyArr = [[NSMutableArray alloc]init];
+        
+    }else if ([historyArr containsObject:searchStr]) {
+        
+        [historyArr removeObject:searchStr];
+    }
+    [historyArr insertObject:searchStr atIndex:0];
+    
+    NSUserDefaults *mydefaults = [NSUserDefaults standardUserDefaults];
+    
+    [mydefaults setObject:historyArr forKey:@"HistorySearch"];
+    
+    [mydefaults synchronize];
+    //刷新数据
+    [self getHistoryRecords];
+    
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.historyBlock) {
+        
+        self.historyBlock(self.tableView.historyRecords[indexPath.row]);
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

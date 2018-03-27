@@ -33,8 +33,6 @@
 @property (nonatomic, strong) UILabel *timeLbl;
 //评论
 @property (nonatomic, strong) LinkLabel *contentLbl;
-//缩略图
-@property (nonatomic, strong) UIImageView *infoIV;
 //标题
 @property (nonatomic, strong) UILabel *titleLbl;
 //
@@ -98,16 +96,7 @@
     self.articleView.userInteractionEnabled = YES;
     
     [self addSubview:self.articleView];
-    
-    
-    //缩略图
-    self.infoIV = [[UIImageView alloc] init];
-    
-    self.infoIV.contentMode = UIViewContentModeScaleAspectFill;
-    self.infoIV.clipsToBounds = YES;
-    self.infoIV.layer.cornerRadius = 4;
-    
-    [self.articleView addSubview:self.infoIV];
+
     //标题
     self.titleLbl = [UILabel labelWithBackgroundColor:kHexColor(@"#F6F6F6")
                                             textColor:kTextColor
@@ -162,20 +151,13 @@
         make.top.equalTo(self.contentLbl.mas_bottom).offset(10);
         make.height.equalTo(@65);
     }];
-    //缩略图
-    [self.infoIV mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.top.equalTo(@0);
-        make.width.equalTo(@95);
-        make.height.equalTo(@65);
-    }];
     //标题
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.infoIV.mas_top);
-        make.left.equalTo(self.infoIV.mas_right);
-        make.right.equalTo(@0);
-        make.height.equalTo(@65);
+        make.top.equalTo(@10);
+        make.left.equalTo(@10);
+        make.right.equalTo(@(-10));
+        make.height.lessThanOrEqualTo(@65);
     }];
 }
 
@@ -201,8 +183,6 @@
     self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", nickname];
     self.contentLbl.text = commentModel.content;
     [self.titleLbl labelWithTextString:info.title lineSpace:5];
-    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[info.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
-    
     //
     [self setSubviewLayout];
     //

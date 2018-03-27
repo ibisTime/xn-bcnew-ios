@@ -104,7 +104,7 @@
     self.commentTV = [[TLTextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(sureBtn.frame) + 0.5, kScreenWidth, 150)];
     
     self.commentTV.placeholderLbl.origin = CGPointMake(15, 15);
-    self.commentTV.placeholderLbl.font = Font(13.0);
+    self.commentTV.placeholderLbl.font = Font(14.0);
     self.commentTV.textContainerInset = UIEdgeInsetsMake(17, 10, 0, 0);
     self.commentTV.placholder = @"说出你的看法";
     
@@ -115,6 +115,8 @@
 
 #pragma mark - Events
 - (void)cancle:(UIButton *)sender {
+    
+    self.commentTV.text = @"";
     
     [self.delegate clickedCancelBtn];
     

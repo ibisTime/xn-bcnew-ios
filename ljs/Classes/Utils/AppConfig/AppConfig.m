@@ -61,9 +61,7 @@ void TLLog(NSString *format, ...) {
             self.addr = @"http://47.96.161.183:2201";
             self.qiniuDomain = @"http://p5k7690z2.bkt.clouddn.com";
         }break;
-            
     }
-    
 }
 
 - (NSString *)getUrl {
@@ -74,6 +72,16 @@ void TLLog(NSString *format, ...) {
 - (NSString *)wxKey {
     
     return @"wx4bafcae961b658d8";
+}
+
+- (NSString *)qqKey {
+    
+    return @"qWDrZ4K4IzhE3OIn";
+}
+
+- (NSString *)qqId {
+    
+    return @"1106729019";
 }
 
 @end

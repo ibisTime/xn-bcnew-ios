@@ -77,7 +77,7 @@
     return YES;
 }
 
-+ (void)wxShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url image:(UIImage *)image {
++ (void)wxShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url {
     
     if (![WXApi isWXAppInstalled]) {
         
@@ -92,8 +92,6 @@
     
     NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"链接社";
     NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用链接社";
-    UIImage *shareImage = [url isEqualToString:@""] || url == nil? [UIImage imageNamed:@"icon"] : [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[url convertImageUrl]]]];
-    
     // -- //
     WXWebpageObject *webObj = [WXWebpageObject object];
     webObj.webpageUrl = url;
@@ -103,9 +101,7 @@
     message.description = shareDesc;
     message.mediaObject = webObj;
     
-    UIImage *img = [UIImage imageWithData:[self imageWithImage:shareImage scaledToSize:CGSizeMake(300, 300)]];
-    
-    [message setThumbImage:img];
+    [message setThumbImage:kImage(APP_ICON)];
     //
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;

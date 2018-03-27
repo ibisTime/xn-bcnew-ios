@@ -42,8 +42,11 @@
 #pragma mark - Init
 - (void)initTableView {
 
+    NSString *text = [self.type isEqualToString:@"0"] ? @"暂无回复": @"暂无评论";
+
     self.tableView = [[InfoCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

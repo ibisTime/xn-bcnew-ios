@@ -10,4 +10,8 @@
 
 @interface SearchHistoryChildVC : BaseViewController
 
+@property (nonatomic, copy) void(^historyBlock)(NSString *searchStr);
+//保存搜索历史
+- (void)saveSearchRecord:(NSString *)searchStr;
+
 @end

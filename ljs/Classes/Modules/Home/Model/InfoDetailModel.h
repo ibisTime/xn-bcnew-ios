@@ -28,6 +28,8 @@
 @property (nonatomic, assign) NSInteger pointCount;
 //是否点赞
 @property (nonatomic, copy) NSString *isPoint;
+//评论数
+@property (nonatomic, assign) NSInteger commentCount;
 //缩略图
 @property (nonatomic, copy) NSString *advPic;
 //

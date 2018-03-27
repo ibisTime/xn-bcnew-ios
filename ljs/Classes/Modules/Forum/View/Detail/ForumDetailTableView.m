@@ -9,6 +9,7 @@
 #import "ForumDetailTableView.h"
 //Category
 #import "NSString+Check.h"
+#import "NSString+Extension.h"
 //M
 #import "ForumDetailCell.h"
 
@@ -45,11 +46,11 @@ static NSString *identifierCell = @"ForumDetailCell";
     
     ForumDetailCoin *coin = _detailModel.coin;
     //流通量
-    NSString *totalSupply = [coin.totalSupply valid] ? coin.totalSupply: @"- -";
+    NSString *totalSupply = [coin.totalSupply valid] ? [coin.totalSupply convertLargeNumber]: @"- -";
     //发行总量
-    NSString *maxSupply = [coin.maxSupply valid] ? coin.maxSupply: @"- -";
+    NSString *maxSupply = [coin.maxSupply valid] ? [coin.maxSupply convertLargeNumber]: @"- -";
     //流通市值
-    NSString *marketCap = [coin.maxSupply valid] ? coin.maxSupply: @"- -";
+    NSString *marketCap = [coin.marketCap valid] ? [coin.maxSupply convertLargeNumber]: @"- -";
     //市值排名
     NSString *rank = [coin.rank valid] ? coin.rank: @"- -";
     

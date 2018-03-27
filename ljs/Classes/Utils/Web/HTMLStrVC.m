@@ -8,6 +8,7 @@
 
 #import "HTMLStrVC.h"
 #import <WebKit/WebKit.h>
+#import "APICodeMacro.h"
 
 @interface HTMLStrVC ()<WKNavigationDelegate>
 
@@ -38,17 +39,9 @@
             
         case HTMLTypeAboutUs: {
             
-            ckey = @"aboutus";
+            ckey = @"about_us";
             
             name = @"关于我们";
-            
-        } break;
-            
-        case HTMLTypeRegProtocol: {
-            
-            ckey = @"reg_protocol";
-            
-            name = @"健康e购用户协议";
             
         } break;
             
@@ -58,13 +51,13 @@
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
-    http.code = @"807717";
+    http.code = USER_CKEY_CVALUE;
     
     http.parameters[@"ckey"] = ckey;
     
     [http postWithSuccess:^(id responseObject) {
         
-        self.htmlStr = responseObject[@"data"][@"note"];
+        self.htmlStr = responseObject[@"data"][@"cvalue"];
         
         [self initWebView];
         

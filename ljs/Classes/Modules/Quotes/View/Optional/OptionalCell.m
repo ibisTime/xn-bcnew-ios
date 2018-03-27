@@ -139,7 +139,7 @@
     //币种名称
     self.currencyNameLbl.text = optional.marketFxh.coinSymbol;
     //平台名称
-    self.platformNameLbl.text = optional.marketFxh.exchangeEname;
+    self.platformNameLbl.text = optional.marketFxh.exchangeCname;
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     

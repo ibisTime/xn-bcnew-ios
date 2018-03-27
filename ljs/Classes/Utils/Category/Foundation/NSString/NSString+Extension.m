@@ -143,7 +143,6 @@
 - (NSAttributedString *)attrStr {
     
     return [[NSAttributedString alloc] initWithString:self];
-    
 }
 
 - (NSString *)convertImageUrl {
@@ -151,7 +150,6 @@
     //auto-orient 根据原信息 旋转
     //strip 取出图片原信息
     return  [self convertImageUrlWithScale:75];
-    
 }
 
 //scale 0-100
@@ -168,7 +166,6 @@
         
         return imageUrl;
     }
-    
 }
 
 - (NSString *)convertOriginalImgUrl {
@@ -181,11 +178,10 @@
         
         return  [[NSString stringWithFormat:@"%@/%@?imageMogr2/auto-orient/strip",[AppConfig config].qiniuDomain,self] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     }
-    
 }
 
-- (NSString *)md5String
-{
+- (NSString *)md5String {
+    
     if(self == nil || [self length] == 0)
         return nil;
     
@@ -269,7 +265,7 @@
 //除法
 - (NSString *)divNumber:(NSString *)number leaveNum:(NSInteger)num {
     
-    //保留8位小数,第九位舍去
+    //保留num位小数,第九位舍去
     NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundBankers scale:num raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
     
     NSDecimalNumber *m = [NSDecimalNumber decimalNumberWithString:self];
@@ -281,6 +277,22 @@
     NSDecimalNumber *p = [o decimalNumberByRoundingAccordingToBehavior:handler];
     
     return [NSString stringWithFormat:@"%@",p];
+}
+
+- (NSString *)convertLargeNumber {
+    
+    NSString *result;
+    
+    if ([self doubleValue] >= 100000000) {
+        
+        result = [NSString stringWithFormat:@"%@亿", [self divNumber:@"100000000" leaveNum:2]];
+
+    } else if ([self doubleValue] >= 10000) {
+        
+        result = [NSString stringWithFormat:@"%@万", [self divNumber:@"10000" leaveNum:2]];
+    }
+    
+    return result;
 }
 
 //能去掉小数点的尽量去掉小数点

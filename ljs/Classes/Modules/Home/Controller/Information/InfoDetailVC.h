@@ -11,5 +11,7 @@
 @interface InfoDetailVC : BaseViewController
 //编号
 @property (nonatomic, copy) NSString *code;
+//取消收藏/收藏
+@property (nonatomic, copy) void(^collectionBlock)();
 
 @end

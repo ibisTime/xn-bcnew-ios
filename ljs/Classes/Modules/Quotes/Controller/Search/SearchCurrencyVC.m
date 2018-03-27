@@ -32,8 +32,6 @@
 @property (nonatomic, strong) NSArray *statusList;
 //搜索
 @property (nonatomic, strong) TLTextField *searchTF;
-//
-@property (nonatomic, strong) SearchHistoryTableView *historyTableView;
 //行情列表
 @property (nonatomic, strong) SearchCurrencyTableView *currencyTableView;
 //
@@ -42,6 +40,10 @@
 @property (nonatomic, copy) NSString *searchStr;
 //
 @property (nonatomic, strong) TLPageDataHelper *helper;
+//热门
+@property (nonatomic, strong) SearchCurrcneyChildVC *currencyVC;
+//搜索历史
+@property (nonatomic, strong) SearchHistoryChildVC *historyVC;
 
 @end
 
@@ -54,18 +56,14 @@
     [self addCancelItem];
     //搜索
     [self initSearchBar];
-    //历史搜索
-    [self initHistoryTableView];
     //搜索结果
     [self initResultTableView];
-    //搜索结果
+    //获取搜索结果
     [self requestSearchList];
-    //获取历史搜索记录
-    [self getHistoryRecords];
-//
-//    [self initSelectScrollView];
-//    //
-//    [self addSubViewController];
+
+    [self initSelectScrollView];
+    //
+    [self addSubViewController];
 }
 
 #pragma mark - Init
@@ -110,21 +108,6 @@
     
 }
 
-- (void)initHistoryTableView {
-    
-    self.historyTableView = [[SearchHistoryTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    
-    self.historyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
-    
-    self.historyTableView.refreshDelegate = self;
-    
-    [self.view addSubview:self.historyTableView];
-    [self.historyTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.edges.mas_equalTo(0);
-    }];
-}
-
 - (void)initResultTableView {
     
     self.currencyTableView = [[SearchCurrencyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -155,6 +138,8 @@
 
 - (void)addSubViewController {
     
+    BaseWeakSelf;
+    
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
         if (i == 0) {
@@ -167,6 +152,8 @@
             [self addChildViewController:childVC];
             
             [self.selectSV.scrollView addSubview:childVC.view];
+            self.currencyVC = childVC;
+            
         } else {
             
             //
@@ -174,50 +161,33 @@
             
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
             
+            childVC.historyBlock = ^(NSString *searchStr) {
+                
+                //获取搜索结果
+                weakSelf.helper.parameters[@"keywords"] = searchStr;
+                
+                [weakSelf.currencyTableView beginRefreshing];
+            };
+            
             [self addChildViewController:childVC];
             
             [self.selectSV.scrollView addSubview:childVC.view];
+            
+            self.historyVC = childVC;
         }
     }
 }
 
 #pragma mark - Events
 
-- (void)saveSearchRecord {
-    
-    self.historyTableView.hidden = YES;
-    //保存搜索记录
-    NSArray *myarray = [[NSUserDefaults standardUserDefaults] arrayForKey:@"HistorySearch"];
-    
-    NSMutableArray *historyArr = [myarray mutableCopy];
-    
-    [historyArr addObject:self.searchStr];
-    
-    if (historyArr==nil) {
-        
-        historyArr = [[NSMutableArray alloc]init];
-        
-    }else if ([historyArr containsObject:self.searchStr]) {
-        
-        [historyArr removeObject:self.searchStr];
-    }
-    [historyArr insertObject:self.searchStr atIndex:0];
-    
-    NSUserDefaults *mydefaults = [NSUserDefaults standardUserDefaults];
-    
-    [mydefaults setObject:historyArr forKey:@"HistorySearch"];
-    
-    [mydefaults synchronize];
-    //刷新数据
-    [self getHistoryRecords];
-    
-    self.historyTableView.hidden = YES;
-}
-
 - (void)textDidChange:(UITextField *)sender {
     
     self.currencyTableView.hidden = sender.text.length == 0 ? YES: NO;
-//    self.historyTableView.hidden = sender.text.length == 0 ?NO: YES;
+    //搜索框没有搜索时，显示
+    if (sender.text.length == 0) {
+        
+        self.selectSV.hidden = NO;
+    }
 }
 
 - (void)back {
@@ -226,30 +196,6 @@
 }
 
 #pragma mark - Data
-- (void)getHistoryRecords {
-    
-    NSArray *myarray = [[NSUserDefaults standardUserDefaults]arrayForKey:@"HistorySearch"];
-    
-    NSUserDefaults *mydefaults = [NSUserDefaults standardUserDefaults];
-    
-    if (myarray == nil) {
-        
-        NSArray *historyArr = @[];
-        
-        [mydefaults setObject:historyArr forKey:@"HistorySearch"];
-    }
-    
-    if (myarray.count == 0) {
-        
-        self.historyTableView.tableFooterView =         self.historyTableView.placeHolderView;
-    } else {
-        
-        [self.historyTableView.placeHolderView removeFromSuperview];
-        self.historyTableView.historyRecords = myarray;
-        [self.historyTableView reloadData];
-    }
-}
-
 /**
  获取搜索结果
  */
@@ -347,8 +293,9 @@
     
     self.searchStr = textField.text;
     
+    self.selectSV.hidden = YES;
     //保存搜索记录
-    [self saveSearchRecord];
+    [self.historyVC saveSearchRecord:textField.text];
     //获取搜索结果
     self.helper.parameters[@"keywords"] = self.searchStr;
     [self.currencyTableView beginRefreshing];
@@ -376,9 +323,7 @@
             return ;
         }
     }
-    //获取搜索结果
-    self.helper.parameters[@"keywords"] = self.historyTableView.historyRecords[indexPath.row];
-    [self.currencyTableView beginRefreshing];
+   
 }
 
 - (void)didReceiveMemoryWarning {

@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *title;
 //作者
 @property (nonatomic, copy) NSString *auther;
+//资讯类型
+@property (nonatomic, copy) NSString *typeName;
 //CellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
 

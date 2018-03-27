@@ -58,7 +58,7 @@
         [self.titles addObject:obj.sname];
     }];
     
-    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles.copy];
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) itemTitles:self.titles.copy];
     
     [self.view addSubview:selectSV];
     

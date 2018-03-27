@@ -80,7 +80,7 @@
         
         return ;
     }
-    if (!_isAllPost && _forumModel.isTopThree) {
+    if (![self.postType isEqualToString:kAllPost] && _forumModel.isTopThree) {
         
         //排名
         self.rankIV = [[UIImageView alloc] initWithImage:kImage(_forumModel.rankImage)];
@@ -143,10 +143,14 @@
     
     _forumModel = forumModel;
     
+    if ([self.postType isEqualToString:kFoucsPost]) {
+        
+        forumModel.isKeep = @"1";
+    }
     self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@#", forumModel.name];
     self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", forumModel.keepCount];
     self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", forumModel.postCount];
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日更贴:%ld", forumModel.dayCommentCount];
+    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%ld", forumModel.dayCommentCount];
     if ([forumModel.isKeep isEqualToString:@"1"]) {
         
         [self.followBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];

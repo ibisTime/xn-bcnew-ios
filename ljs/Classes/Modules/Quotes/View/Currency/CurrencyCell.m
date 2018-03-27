@@ -106,7 +106,7 @@
     _currency = currency;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@ %@", currency.exchangeEname, currency.toCoinSymbol];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@ %@", currency.exchangeCname, currency.toCoinSymbol];
     
     //对应币种价格
     self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastPrice];

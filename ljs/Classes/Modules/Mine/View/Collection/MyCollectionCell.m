@@ -10,6 +10,7 @@
 
 //Framework
 //Category
+#import "NSString+Check.h"
 
 @interface MyCollectionCell()
 //标题
@@ -75,11 +76,14 @@
     _collectionModel = collectionModel;
     
     self.titleLbl.text = collectionModel.title;
-    self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", collectionModel.auther];
+    
+    NSString *author = [collectionModel.auther valid] ? [NSString stringWithFormat:@"作者: %@", collectionModel.auther]: @"";
+    
+    self.authorLbl.text = author;
     //
     [self layoutSubviews];
     
     collectionModel.cellHeight = self.authorLbl.yy + 15;
-    
 }
+
 @end

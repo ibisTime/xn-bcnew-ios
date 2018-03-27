@@ -14,6 +14,8 @@
 //Category
 #import "UIButton+EnLargeEdge.h"
 #import "UILabel+Extension.h"
+#import "NSString+Extension.h"
+#import "NSString+Check.h"
 
 @interface ForumDetailHeaderView()
 //币吧信息
@@ -24,7 +26,7 @@
 @property (nonatomic, strong) UILabel *followNumLbl;
 //发帖量
 @property (nonatomic, strong) UILabel *postNumLbl;
-//今日更贴数
+//今日跟贴数
 @property (nonatomic, strong) UILabel *updatePostNumLbl;
 //24h涨跌幅度
 @property (nonatomic, strong) UILabel *oneDayChangeRateLbl;
@@ -222,12 +224,19 @@
     self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", detailModel.keepCount];
     //发帖量
     self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", detailModel.postCount];
-    //今日更贴数
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日更贴:%ld", detailModel.dayCommentCount];
+    //今日跟贴数
+    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%ld", detailModel.dayCommentCount];
     //24h涨跌幅度
-    self.oneDayChangeRateLbl.text = [NSString stringWithFormat:@"涨跌幅:%@", detailModel.coin.todayChange];
+    if ([detailModel.coin.todayChange valid]) {
+        
+        self.oneDayChangeRateLbl.text = [NSString stringWithFormat:@"涨跌幅:%@", detailModel.coin.todayChange];
+    }
     //24h成交量
-    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"成交(24h):%@", detailModel.coin.todayVol];
+    if ([detailModel.coin.todayVol valid]) {
+        
+        self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"成交(24h):%@", [detailModel.coin.todayVol convertLargeNumber]];
+    }
+    
     //描述
     self.descLbl.text = detailModel.introduce;
     //布局

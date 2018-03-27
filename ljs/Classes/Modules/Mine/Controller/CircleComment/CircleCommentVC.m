@@ -75,7 +75,7 @@
                           ];
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
-        InfoCommentChildVC *childVC = [[InfoCommentChildVC alloc] init];
+        CircleCommentChildVC *childVC = [[CircleCommentChildVC alloc] init];
         
         childVC.type = typeList[i];
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
