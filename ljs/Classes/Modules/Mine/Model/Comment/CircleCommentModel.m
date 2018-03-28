@@ -11,3 +11,7 @@
 @implementation CircleCommentModel
 
 @end
+
+@implementation CirclePost
+
+@end

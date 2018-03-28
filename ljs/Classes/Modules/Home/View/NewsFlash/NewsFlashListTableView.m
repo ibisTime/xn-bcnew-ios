@@ -89,6 +89,10 @@ static NSString *identifierCell = @"NewsFlashListCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    NewsFlashModel *flashModel = self.news[indexPath.section];
+    
+    flashModel.isSelect = !flashModel.isSelect;
+
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
         
         [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];

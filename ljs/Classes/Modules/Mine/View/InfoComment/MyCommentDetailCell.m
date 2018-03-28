@@ -15,12 +15,13 @@
 //V
 #import "LinkLabel.h"
 #import "ReplyCommentView.h"
+#import "UserPhotoView.h"
 
 #define kHeadIconW 40
 
 @interface MyCommentDetailCell()
 //头像
-@property (nonatomic, strong) UIImageView *photoIV;
+@property (nonatomic, strong) UserPhotoView *photoIV;
 //昵称
 @property (nonatomic, strong) UILabel *nameLbl;
 //时间
@@ -50,7 +51,7 @@
 - (void)initSubviews {
     
     //头像
-    self.photoIV = [[UIImageView alloc] init];
+    self.photoIV = [[UserPhotoView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
     self.photoIV.backgroundColor = kClearColor;
@@ -122,7 +123,7 @@
     //昵称
     [self.nameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.photoIV.mas_top).offset(6);
+        make.top.equalTo(self.photoIV.mas_top).offset(2);
         make.left.equalTo(self.photoIV.mas_right).offset(leftMargin);
     }];
     //时间
@@ -148,7 +149,7 @@
     //回复我的
     [self.replyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.timeLbl.mas_bottom).offset(0);
+        make.top.equalTo(self.timeLbl.mas_bottom).offset(5);
         make.left.equalTo(self.nameLbl.mas_left);
         make.height.lessThanOrEqualTo(@30);
     }];
@@ -156,14 +157,13 @@
     [self.contentLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.nameLbl.mas_left);
-        make.height.lessThanOrEqualTo(@(MAXFLOAT));
         make.width.equalTo(@(kScreenWidth - 3*15 - kHeadIconW));
         make.top.equalTo(self.replyNameLbl.mas_bottom).offset(0);
     }];
     
     [self layoutSubviews];
     
-    _commentModel.cellHeight = self.contentLbl.yy + 10;
+    _commentModel.cellHeight = self.contentLbl.yy + 15;
 }
 
 #pragma mark - Events
@@ -179,6 +179,9 @@
     
     _commentModel = commentModel;
     
+    self.photoIV.userId = commentModel.userId;
+    //1:资讯 2:圈子
+    self.photoIV.commentType = @"1";
     [self.photoIV sd_setImageWithURL:[NSURL URLWithString:[commentModel.photo convertImageUrl]]
                     placeholderImage:USER_PLACEHOLDER_SMALL];
     

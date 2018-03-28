@@ -46,11 +46,11 @@ static NSString *identifierCell = @"ForumDetailCell";
     
     ForumDetailCoin *coin = _detailModel.coin;
     //流通量
-    NSString *totalSupply = [coin.totalSupply valid] ? [coin.totalSupply convertLargeNumber]: @"- -";
+    NSString *totalSupply = [coin.totalSupply valid] ? [coin.totalSupply convertLargeNumberWithNum:2]: @"- -";
     //发行总量
-    NSString *maxSupply = [coin.maxSupply valid] ? [coin.maxSupply convertLargeNumber]: @"- -";
+    NSString *maxSupply = [coin.maxSupply valid] ? [coin.maxSupply convertLargeNumberWithNum:2]: @"- -";
     //流通市值
-    NSString *marketCap = [coin.marketCap valid] ? [coin.maxSupply convertLargeNumber]: @"- -";
+    NSString *marketCap = [coin.marketCap valid] ? [coin.marketCap convertLargeNumberWithNum:2]: @"- -";
     //市值排名
     NSString *rank = [coin.rank valid] ? coin.rank: @"- -";
     

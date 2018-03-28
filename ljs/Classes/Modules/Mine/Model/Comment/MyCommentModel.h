@@ -39,6 +39,8 @@
 @property (nonatomic, copy) NSString *photo;
 //被评论人头像
 @property (nonatomic, copy) NSString *parentPhoto;
+//是我的评论
+@property (nonatomic, copy) NSString *isMyComment;
 
 @property (nonatomic, copy) NSString *status;
 //CellHeight
@@ -57,6 +59,8 @@
 @property (nonatomic, copy) NSString *showDatetime;
 
 @property (nonatomic, copy) NSString *advPic;
+//
+@property (nonatomic, strong) NSArray <NSString *>*pics;
 
 @property (nonatomic, copy) NSString *type;
 //title

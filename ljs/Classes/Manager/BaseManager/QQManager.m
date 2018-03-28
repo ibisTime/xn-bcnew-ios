@@ -74,14 +74,6 @@
     switch (sendResult)
     {
             
-        case EQQAPISENDSUCESS:
-        {
-            if (self.qqShare) {
-                
-                self.qqShare(YES, EQQAPISENDSUCESS);
-            }
-        }break;
-            
         case EQQAPIAPPNOTREGISTED:
         {
             [TLAlert alertWithTitle:@"温馨提示" message:@"App未注册" confirmMsg:@"确定" confirmAction:^{

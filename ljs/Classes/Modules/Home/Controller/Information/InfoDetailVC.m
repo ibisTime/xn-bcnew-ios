@@ -17,6 +17,7 @@
 #import "TLProgressHUD.h"
 //Extension
 #import <IQKeyboardManager.h>
+#import <TFHpple.h>
 //M
 #import "InfoDetailModel.h"
 #import "InfoCommentModel.h"
@@ -44,6 +45,7 @@
 @property (nonatomic, strong) InfoDetailModel *detailModel;
 //commentList
 @property (nonatomic, strong) NSArray <InfoCommentModel *>*comments;
+@property (nonatomic, strong) TLPageDataHelper *helper;
 //输入框
 @property (nonatomic, strong) InputTextView *inputTV;
 //收藏
@@ -81,10 +83,11 @@
     [self initCommentTableView];
     //详情查资讯
     [self requestInfoDetail];
-    //获取最新评论列表
-    [self requestCommentList];
     //
     [self addNotification];
+    //添加下拉刷新
+    [self addDownRefresh];
+    
 }
 
 #pragma mark - Init
@@ -136,6 +139,19 @@
         };
     }
     return _shareView;
+}
+
+- (void)addDownRefresh {
+    
+    BaseWeakSelf;
+    
+    [self.tableView addRefreshAction:^{
+        
+        //详情查资讯
+        [weakSelf requestInfoDetail];
+        //刷新评论
+        [weakSelf refreshCommentList];
+    }];
 }
 /**
  评论列表
@@ -260,6 +276,7 @@
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadHeaderView) name:@"HeaderViewDidLayout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCommentList) name:@"RefreshCommentList" object:nil];
 }
 
 /**
@@ -290,12 +307,14 @@
  */
 - (void)shareWithType:(InfoShareType)type {
     
+    NSString *desc = [self substringFromArticleContent:self.detailModel.content];
+
     switch (type) {
         case InfoShareTypeWechat:
         {
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
-                                            desc:@""
+                                            desc:desc
                                              url:self.shareUrl];
         }break;
             
@@ -303,7 +322,7 @@
         {
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
-                                            desc:@""
+                                            desc:desc
                                              url:self.shareUrl];
         }break;
             
@@ -324,6 +343,7 @@
         TLNetworking *http = [TLNetworking new];
         
         http.code = @"628202";
+        http.showView = self.view;
         http.parameters[@"objectCode"] = weakSelf.code;
         http.parameters[@"userId"] = [TLUser user].userId;
         
@@ -372,12 +392,14 @@
        previewImage = [self.detailModel.pics[0] convertImageUrl];
     }
     
+    NSString *desc = [self substringFromArticleContent:self.detailModel.content];
+    
     switch (type) {
         case ThirdTypeWeChat:
         {
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
-                                            desc:@""
+                                            desc:desc
                                              url:self.shareUrl];
             [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
                 
@@ -396,7 +418,7 @@
         {
             [TLWXManager wxShareWebPageWithScene:WXSceneSession
                                            title:self.detailModel.title
-                                            desc:@""
+                                            desc:desc
                                              url:self.shareUrl];
             [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
                 
@@ -418,12 +440,15 @@
                 if (isSuccess) {
                     
                     [TLAlert alertWithSucces:@"分享成功"];
+                }else {
+                    
+                    [TLAlert alertWithSucces:@"分享失败"];
                 }
             };
             
             [QQManager qqShareWebPageWithScene:0
                                          title:self.detailModel.title
-                                          desc:@""
+                                          desc:desc
                                            url:self.shareUrl
                                   previewImage:previewImage];
             
@@ -437,6 +462,35 @@
         default:
             break;
     }
+}
+
+/**
+ 截取文章内容
+ @param content 文章内容
+ @return 截取后的内容
+ */
+- (NSString *)substringFromArticleContent:(NSString *)content {
+    
+    //截取富文本的内容
+    NSData *htmlData = [self.detailModel.content dataUsingEncoding:NSUTF8StringEncoding];
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:htmlData];
+    
+    NSArray *classArr = [hpple searchWithXPathQuery:@"//div"];
+    
+    NSMutableString *string = [NSMutableString string];
+    
+    for (TFHppleElement *element in classArr) {
+        
+        if (element.content) {
+            
+            [string add:element.content];
+        }
+    }
+    //文章描述
+//    NSString *desc = [string substringToIndex:50];
+    
+    return @"";
 }
 
 #pragma mark - Data
@@ -460,7 +514,10 @@
             self.title = self.detailModel.typeName;
         }
         
-        [self.tableView beginRefreshing];
+        self.headerView.detailModel = self.detailModel;
+
+        //获取最新评论列表
+        [self requestCommentList];
         //获取分享链接
         [self getShareUrl];
         
@@ -479,25 +536,16 @@
     
     helper.code = @"628285";
     helper.parameters[@"objectCode"] = self.code;
-    
+    if ([TLUser user].userId) {
+        
+        helper.parameters[@"userId"] = [TLUser user].userId;
+    }
     helper.tableView = self.tableView;
+    self.helper = helper;
     
     [helper modelClass:[InfoCommentModel class]];
     
-    [self.tableView addRefreshAction:^{
-        
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.comments = objs;
-            
-            weakSelf.tableView.detailModel = weakSelf.detailModel;
-            weakSelf.tableView.newestComments = objs;
-            weakSelf.headerView.detailModel = weakSelf.detailModel;
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
+    [self refreshCommentList];
     
     [self.tableView addLoadMoreAction:^{
         
@@ -515,6 +563,25 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+- (void)refreshCommentList {
+    
+    BaseWeakSelf;
+    
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.comments = objs;
+        
+        weakSelf.tableView.detailModel = weakSelf.detailModel;
+        weakSelf.tableView.newestComments = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
 }
 
 - (void)getShareUrl {
@@ -538,7 +605,8 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628201";
-    http.parameters[@"type"] = @"1";
+    http.showView = self.view;
+    http.parameters[@"type"] = @"2";
     http.parameters[@"objectCode"] = commentModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
     
@@ -596,8 +664,8 @@
         self.detailModel.commentCount += 1;
         
         self.commentNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.commentCount];
-
-        [self.tableView beginRefreshing];
+        //刷新评论
+        [self refreshCommentList];
         
     } failure:^(NSError *error) {
         

@@ -127,6 +127,8 @@
     
     self.tableView = [[MyCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.refreshDelegate = self;
+    
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -212,6 +214,10 @@
     http.code = @"628286";
     http.showView = self.view;
     http.parameters[@"code"] = self.code;
+    if ([TLUser user].userId) {
+        
+        http.parameters[@"userId"] = [TLUser user].userId;
+    }
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -274,5 +280,52 @@
     self.tableView.scrollEnabled = YES;
 }
 
+- (void)zanCommentWithComment:(InfoCommentModel *)commentModel {
+    //顶级类型传1，非顶级传2
+    NSString *type = [commentModel.isTop isEqualToString:@"1"] ? @"1": @"2";
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628201";
+    http.showView = self.view;
+    http.parameters[@"type"] = type;
+    http.parameters[@"objectCode"] = commentModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([commentModel.isPoint isEqualToString:@"1"]) {
+            
+            commentModel.isPoint = @"0";
+            commentModel.pointCount -= 1;
+            
+        } else {
+            
+            commentModel.isPoint = @"1";
+            commentModel.pointCount += 1;
+        }
+        
+        [self.tableView reloadData];
+        //刷新资讯详情的评论列表
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        InfoCommentModel *commentModel = index == 0 ? weakSelf.commentModel: weakSelf.commentModel.commentList[index - 1];
+
+        [weakSelf zanCommentWithComment:commentModel];
+    }];
+}
 
 @end

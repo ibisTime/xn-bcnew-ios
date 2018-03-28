@@ -7,6 +7,9 @@
 //
 
 #import "ForumListCell.h"
+//Category
+#import "NSString+Extension.h"
+#import "UILabel+Extension.h"
 
 @interface ForumListCell()
 
@@ -148,9 +151,23 @@
         forumModel.isKeep = @"1";
     }
     self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@#", forumModel.name];
-    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", forumModel.keepCount];
-    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", forumModel.postCount];
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%ld", forumModel.dayCommentCount];
+    //关注量
+    NSString *keepCount = [NSString stringWithFormat:@"%ld", forumModel.keepCount];
+    
+    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%@", [keepCount convertLargeNumberWithNum:2]];
+    //发帖量
+    NSString *postCount = [NSString stringWithFormat:@"%ld", forumModel.postCount];
+    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%@", [postCount convertLargeNumberWithNum:2]];
+    //今日跟贴数
+    NSString *dayCommentCount = [NSString stringWithFormat:@"%ld", forumModel.dayCommentCount];
+    
+    NSString *updatePostNum = [NSString stringWithFormat:@"今日跟贴:%@", [dayCommentCount convertLargeNumberWithNum:2]];
+    
+    [self.updatePostNumLbl labelWithString:updatePostNum
+                                     title:[dayCommentCount convertLargeNumberWithNum:2]
+                                      font:Font(15.0)
+                                     color:kThemeColor];
+    
     if ([forumModel.isKeep isEqualToString:@"1"]) {
         
         [self.followBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];

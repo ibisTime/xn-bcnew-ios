@@ -146,7 +146,14 @@
 
 - (void)initOptionalTableView {
     
+    BaseWeakSelf;
+    
     self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) style:UITableViewStylePlain];
+    
+    self.tableView.refreshBlock = ^{
+        
+        [weakSelf.tableView beginRefreshing];
+    };
     
     [self.switchSV addSubview:self.tableView];
     

@@ -15,13 +15,14 @@
 //V
 #import "LinkLabel.h"
 #import "ReplyCommentView.h"
+#import "UserPhotoView.h"
 
 #define kHeadIconW 40
 
 @interface CircleCommentDetailCell()
 
 //头像
-@property (nonatomic, strong) UIImageView *photoIV;
+@property (nonatomic, strong) UserPhotoView *photoIV;
 //昵称
 @property (nonatomic, strong) UILabel *nameLbl;
 //时间
@@ -51,7 +52,7 @@
 - (void)initSubviews {
     
     //头像
-    self.photoIV = [[UIImageView alloc] init];
+    self.photoIV = [[UserPhotoView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
     self.photoIV.backgroundColor = kClearColor;
@@ -149,7 +150,7 @@
     //回复我的
     [self.replyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.timeLbl.mas_bottom).offset(0);
+        make.top.equalTo(self.timeLbl.mas_bottom).offset(5);
         make.left.equalTo(self.nameLbl.mas_left);
         make.height.lessThanOrEqualTo(@30);
     }];
@@ -159,7 +160,7 @@
         make.left.equalTo(self.nameLbl.mas_left);
         make.height.lessThanOrEqualTo(@(MAXFLOAT));
         make.width.equalTo(@(kScreenWidth - 3*15 - kHeadIconW));
-        make.top.equalTo(self.replyNameLbl.mas_bottom).offset(0);
+        make.top.equalTo(self.replyNameLbl.mas_bottom).offset(5);
     }];
     
     [self layoutSubviews];
@@ -180,23 +181,23 @@
     
     _commentModel = commentModel;
     
+    self.photoIV.userId = commentModel.userId;
+    self.photoIV.commentType = @"2";
     [self.photoIV sd_setImageWithURL:[NSURL URLWithString:[commentModel.photo convertImageUrl]]
                     placeholderImage:USER_PLACEHOLDER_SMALL];
     
     self.nameLbl.text = commentModel.nickname;
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
-    self.contentLbl.text = commentModel.content;
     self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", commentModel.pointCount];
     
     NSString *zanImg = [commentModel.isPoint isEqualToString:@"1"] ? @"点赞": @"未点赞";
     [self.zanBtn setImage:kImage(zanImg) forState:UIControlStateNormal];
     if (self.isReply) {
         
-        //        NSString *nickname = self.isReply ? @"我":commentModel.parentNickName;
-        
-        self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", @"我"];
+        self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", commentModel.parentNickName];
     }
-    
+    self.contentLbl.text = commentModel.content;
+
     //
     [self setSubviewLayout];
     

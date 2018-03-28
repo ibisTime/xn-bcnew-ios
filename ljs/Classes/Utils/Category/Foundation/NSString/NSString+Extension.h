@@ -54,8 +54,12 @@
 - (NSString *)subNumber:(NSString *)number;
 //除法
 - (NSString *)divNumber:(NSString *)number leaveNum:(NSInteger)num;
-//太大的数字进行转化
-- (NSString *)convertLargeNumber;
+
+/**
+ 太大的数字进行转化
+ @param num 保留多少位小数
+ */
+- (NSString *)convertLargeNumberWithNum:(NSInteger)num;
 //能去掉小数点的尽量去掉小数点
 - (NSString *)convertToSimpleRealMoney;
 //位数
@@ -65,5 +69,7 @@
 
 //获取IP
 + (NSString *)getIPAddress:(BOOL)preferIPv4;
+//过滤html特殊字符
++ (NSString *)filterHTML:(NSString *)html;
 
 @end

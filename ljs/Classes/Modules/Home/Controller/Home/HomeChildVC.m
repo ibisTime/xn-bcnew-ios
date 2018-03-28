@@ -75,7 +75,7 @@
     self.flashTableView = [[NewsFlashListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     
     self.flashTableView.refreshDelegate = self;
-    self.flashTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"暂无订单" text:@"暂无快讯"];
+    self.flashTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无快讯"];
 
     [self.view addSubview:self.flashTableView];
     [self.flashTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,7 +89,7 @@
     self.infoTableView = [[InformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"暂无订单" text:@"暂无资讯"];
+    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
     
     [self.view addSubview:self.infoTableView];
     [self.infoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -233,12 +233,10 @@
             //用户点击阅读快讯
             [self userClickNewsFlash:flashModel];
             
+        }else {
+
+            [self.flashTableView reloadData];
         }
-//        else {
-//
-//            flashModel.isRead = @"1";
-//            [self.flashTableView reloadData];
-//        }
         
         return ;
     }

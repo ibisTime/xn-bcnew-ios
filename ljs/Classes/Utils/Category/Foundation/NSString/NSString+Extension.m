@@ -279,17 +279,17 @@
     return [NSString stringWithFormat:@"%@",p];
 }
 
-- (NSString *)convertLargeNumber {
+- (NSString *)convertLargeNumberWithNum:(NSInteger)num {
     
-    NSString *result;
+    NSString *result = self;
     
     if ([self doubleValue] >= 100000000) {
         
-        result = [NSString stringWithFormat:@"%@亿", [self divNumber:@"100000000" leaveNum:2]];
+        return result = [NSString stringWithFormat:@"%@亿", [self divNumber:@"100000000" leaveNum:num]];
 
     } else if ([self doubleValue] >= 10000) {
         
-        result = [NSString stringWithFormat:@"%@万", [self divNumber:@"10000" leaveNum:2]];
+        return result = [NSString stringWithFormat:@"%@万", [self divNumber:@"10000" leaveNum:num]];
     }
     
     return result;
@@ -462,5 +462,16 @@
     return [addresses count] ? addresses : nil;
 }
 
-
++ (NSString *)filterHTML:(NSString *)html
+{
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    NSString * text = nil;
+    while([scanner isAtEnd]==NO)
+    {
+        [scanner scanUpToString:@"<" intoString:nil];
+        [scanner scanUpToString:@">" intoString:&text];
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+    }
+    return html;
+}
 @end

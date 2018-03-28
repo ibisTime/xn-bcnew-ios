@@ -16,13 +16,14 @@
 //V
 #import "LinkLabel.h"
 #import "ReplyCommentView.h"
+#import "UserPhotoView.h"
 
 #define kHeadIconW 40
 
 @interface ForumCircleCell()
 
 //头像
-@property (nonatomic, strong) UIImageView *photoIV;
+@property (nonatomic, strong) UserPhotoView *photoIV;
 //昵称
 @property (nonatomic, strong) UILabel *nameLbl;
 //时间
@@ -59,7 +60,7 @@
     
     self.isFirst = YES;
     //头像
-    self.photoIV = [[UIImageView alloc] init];
+    self.photoIV = [[UserPhotoView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
     self.photoIV.backgroundColor = kClearColor;
@@ -217,6 +218,10 @@
 - (void)setCommentModel:(ForumCommentModel *)commentModel {
     
     _commentModel = commentModel;
+    
+    self.photoIV.userId = commentModel.userId;
+    //1:资讯 2:圈子
+    self.photoIV.commentType = @"2";
     
     [self.photoIV sd_setImageWithURL:[NSURL URLWithString:[commentModel.photo convertImageUrl]]
                     placeholderImage:USER_PLACEHOLDER_SMALL];

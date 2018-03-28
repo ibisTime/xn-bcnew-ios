@@ -41,6 +41,7 @@
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"RefreshForumDetail" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"RefreshCommentList" object:nil];
 
 }
 
@@ -66,7 +67,7 @@
  */
 - (void)initTableView {
     
-    self.tableView = [[ForumCircleTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight) style:UITableViewStylePlain];
+    self.tableView = [[ForumCircleTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无帖子"];
 
@@ -75,6 +76,10 @@
     self.tableView.refreshDelegate = self;
 
     [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.mas_equalTo(0);
+    }];
     
 }
 
@@ -102,7 +107,7 @@
     helper.code = @"628662";
     helper.parameters[@"plateCode"] = self.detailModel.code;
     
-    if (![TLUser user].isLogin) {
+    if ([TLUser user].isLogin) {
         
         helper.parameters[@"userId"] = [TLUser user].userId;
     }
@@ -117,7 +122,10 @@
         weakSelf.tableView.newestComments = objs;
         [weakSelf.tableView reloadData_tl];
         
-        weakSelf.refreshSuccess();
+        if (weakSelf.refreshSuccess) {
+            
+            weakSelf.refreshSuccess();
+        }
         
     } failure:^(NSError *error) {
         
@@ -145,7 +153,8 @@
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628201";
+    http.code = @"628653";
+    http.showView = self.view;
     http.parameters[@"type"] = @"1";
     http.parameters[@"objectCode"] = commentModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;

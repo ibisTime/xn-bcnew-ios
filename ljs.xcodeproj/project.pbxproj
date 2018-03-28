@@ -120,6 +120,18 @@
 		214593DD206A3CE50006E238 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 214593DC206A3CE50006E238 /* libstdc++.tbd */; };
 		214593DF206A3D060006E238 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 214593DE206A3D060006E238 /* Security.framework */; };
 		214593E2206A50200006E238 /* InfoDetailShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593E1206A50200006E238 /* InfoDetailShareView.m */; };
+		214593EB206B23980006E238 /* HomePageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593EA206B23980006E238 /* HomePageHeaderView.m */; };
+		214593EE206B24610006E238 /* HomePageInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593ED206B24610006E238 /* HomePageInfoTableView.m */; };
+		214593F5206B2B270006E238 /* HomePageInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593F4206B2B270006E238 /* HomePageInfoCell.m */; };
+		214593F8206B2B3D0006E238 /* HomePageCircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593F7206B2B3D0006E238 /* HomePageCircleCell.m */; };
+		214593FB206B2F370006E238 /* UserPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593FA206B2F370006E238 /* UserPhotoView.m */; };
+		214593FE206B34A10006E238 /* HomePageInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 214593FD206B34A10006E238 /* HomePageInfoVC.m */; };
+		21459401206B34B30006E238 /* HomePageCircleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21459400206B34B30006E238 /* HomePageCircleVC.m */; };
+		21459405206B351A0006E238 /* HomePageInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21459404206B351A0006E238 /* HomePageInfoModel.m */; };
+		21459408206B35290006E238 /* HomePageCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21459407206B35290006E238 /* HomePageCircleModel.m */; };
+		2145940D206B36650006E238 /* HomePageCircleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2145940C206B36650006E238 /* HomePageCircleTableView.m */; };
+		21459413206BF5060006E238 /* TLUpdateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21459410206BF5060006E238 /* TLUpdateVC.m */; };
+		21459414206BF5060006E238 /* GengXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21459411206BF5060006E238 /* GengXinModel.m */; };
 		216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */; };
 		216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7ED1F189F11006C26A1 /* libresolv.tbd */; };
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
@@ -476,6 +488,30 @@
 		214593DE206A3D060006E238 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		214593E0206A50200006E238 /* InfoDetailShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoDetailShareView.h; sourceTree = "<group>"; };
 		214593E1206A50200006E238 /* InfoDetailShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoDetailShareView.m; sourceTree = "<group>"; };
+		214593E9206B23980006E238 /* HomePageHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageHeaderView.h; sourceTree = "<group>"; };
+		214593EA206B23980006E238 /* HomePageHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageHeaderView.m; sourceTree = "<group>"; };
+		214593EC206B24610006E238 /* HomePageInfoTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageInfoTableView.h; sourceTree = "<group>"; };
+		214593ED206B24610006E238 /* HomePageInfoTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageInfoTableView.m; sourceTree = "<group>"; };
+		214593F3206B2B270006E238 /* HomePageInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageInfoCell.h; sourceTree = "<group>"; };
+		214593F4206B2B270006E238 /* HomePageInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageInfoCell.m; sourceTree = "<group>"; };
+		214593F6206B2B3D0006E238 /* HomePageCircleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageCircleCell.h; sourceTree = "<group>"; };
+		214593F7206B2B3D0006E238 /* HomePageCircleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageCircleCell.m; sourceTree = "<group>"; };
+		214593F9206B2F370006E238 /* UserPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserPhotoView.h; sourceTree = "<group>"; };
+		214593FA206B2F370006E238 /* UserPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPhotoView.m; sourceTree = "<group>"; };
+		214593FC206B34A10006E238 /* HomePageInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageInfoVC.h; sourceTree = "<group>"; };
+		214593FD206B34A10006E238 /* HomePageInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageInfoVC.m; sourceTree = "<group>"; };
+		214593FF206B34B30006E238 /* HomePageCircleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageCircleVC.h; sourceTree = "<group>"; };
+		21459400206B34B30006E238 /* HomePageCircleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageCircleVC.m; sourceTree = "<group>"; };
+		21459403206B351A0006E238 /* HomePageInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageInfoModel.h; sourceTree = "<group>"; };
+		21459404206B351A0006E238 /* HomePageInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageInfoModel.m; sourceTree = "<group>"; };
+		21459406206B35290006E238 /* HomePageCircleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageCircleModel.h; sourceTree = "<group>"; };
+		21459407206B35290006E238 /* HomePageCircleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageCircleModel.m; sourceTree = "<group>"; };
+		2145940B206B36650006E238 /* HomePageCircleTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageCircleTableView.h; sourceTree = "<group>"; };
+		2145940C206B36650006E238 /* HomePageCircleTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageCircleTableView.m; sourceTree = "<group>"; };
+		2145940F206BF5060006E238 /* GengXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GengXinModel.h; sourceTree = "<group>"; };
+		21459410206BF5060006E238 /* TLUpdateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUpdateVC.m; sourceTree = "<group>"; };
+		21459411206BF5060006E238 /* GengXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GengXinModel.m; sourceTree = "<group>"; };
+		21459412206BF5060006E238 /* TLUpdateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUpdateVC.h; sourceTree = "<group>"; };
 		216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		216AB7ED1F189F11006C26A1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -1475,6 +1511,74 @@
 			path = ImageClip;
 			sourceTree = "<group>";
 		};
+		214593E4206B22EF0006E238 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				214593FC206B34A10006E238 /* HomePageInfoVC.h */,
+				214593FD206B34A10006E238 /* HomePageInfoVC.m */,
+				214593FF206B34B30006E238 /* HomePageCircleVC.h */,
+				21459400206B34B30006E238 /* HomePageCircleVC.m */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		214593E8206B237D0006E238 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				214593E9206B23980006E238 /* HomePageHeaderView.h */,
+				214593EA206B23980006E238 /* HomePageHeaderView.m */,
+				214593F9206B2F370006E238 /* UserPhotoView.h */,
+				214593FA206B2F370006E238 /* UserPhotoView.m */,
+				2145940A206B35440006E238 /* Info */,
+				21459409206B353D0006E238 /* Circle */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		214593EF206B274C0006E238 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				21459403206B351A0006E238 /* HomePageInfoModel.h */,
+				21459404206B351A0006E238 /* HomePageInfoModel.m */,
+				21459406206B35290006E238 /* HomePageCircleModel.h */,
+				21459407206B35290006E238 /* HomePageCircleModel.m */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		21459409206B353D0006E238 /* Circle */ = {
+			isa = PBXGroup;
+			children = (
+				214593F6206B2B3D0006E238 /* HomePageCircleCell.h */,
+				214593F7206B2B3D0006E238 /* HomePageCircleCell.m */,
+				2145940B206B36650006E238 /* HomePageCircleTableView.h */,
+				2145940C206B36650006E238 /* HomePageCircleTableView.m */,
+			);
+			path = Circle;
+			sourceTree = "<group>";
+		};
+		2145940A206B35440006E238 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				214593EC206B24610006E238 /* HomePageInfoTableView.h */,
+				214593ED206B24610006E238 /* HomePageInfoTableView.m */,
+				214593F3206B2B270006E238 /* HomePageInfoCell.h */,
+				214593F4206B2B270006E238 /* HomePageInfoCell.m */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		2145940E206BF5060006E238 /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				21459412206BF5060006E238 /* TLUpdateVC.h */,
+				21459410206BF5060006E238 /* TLUpdateVC.m */,
+				2145940F206BF5060006E238 /* GengXinModel.h */,
+				21459411206BF5060006E238 /* GengXinModel.m */,
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
 		217BDAF32069480C00E17DEE /* CircleComment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1784,6 +1888,7 @@
 			children = (
 				21CFFB0720565DDD00D245ED /* MineVC.h */,
 				21CFFB0820565DDD00D245ED /* MineVC.m */,
+				214593E4206B22EF0006E238 /* HomePage */,
 				21EF0B8720668ED4008EA865 /* Collection */,
 				21EF0B66206642AC008EA865 /* CircleComment */,
 				21EF0B652066429E008EA865 /* InfoComment */,
@@ -1794,6 +1899,7 @@
 		21CFFAF920565D4700D245ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				214593EF206B274C0006E238 /* HomePage */,
 				21EF0B922066901E008EA865 /* Collection */,
 				21EF0B7720666BDE008EA865 /* Comment */,
 				212882662057A13C00A57A5A /* Mine */,
@@ -1804,6 +1910,7 @@
 		21CFFAFA20565D4700D245ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				214593E8206B237D0006E238 /* HomePage */,
 				21EF0B8B20668F4E008EA865 /* Collection */,
 				217BDAF32069480C00E17DEE /* CircleComment */,
 				21EF0B7020664D37008EA865 /* InfoComment */,
@@ -2118,6 +2225,7 @@
 			isa = PBXGroup;
 			children = (
 				21F82B561F17719D0019B176 /* AppDelegate */,
+				2145940E206BF5060006E238 /* Update */,
 				21F82B5B1F17719D0019B176 /* Base */,
 				21F82B6D1F17719D0019B176 /* Macro */,
 				21F82B731F17719D0019B176 /* Manager */,
@@ -2520,6 +2628,7 @@
 			files = (
 				2124BEDE2063940400CB79E8 /* EditVC.m in Sources */,
 				21CFFB2320566C2E00D245ED /* InformationModel.m in Sources */,
+				214593FB206B2F370006E238 /* UserPhotoView.m in Sources */,
 				2124BE632060B4DC00CB79E8 /* InfoCommentModel.m in Sources */,
 				2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */,
 				21EF0B98206749F7008EA865 /* OptionalTitleModel.m in Sources */,
@@ -2534,6 +2643,7 @@
 				21EF0B83206681E5008EA865 /* MyCommentDetailTableView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
 				21EF0B4A2064D24E008EA865 /* ForumCircleTableView.m in Sources */,
+				2145940D206B36650006E238 /* HomePageCircleTableView.m in Sources */,
 				217BDAF22069462F00E17DEE /* CircleCommentDetailVC.m in Sources */,
 				21111BA11F8B5F2C0021B3FE /* AddressPickerView.m in Sources */,
 				21EF0B69206643B4008EA865 /* InfoCommentVC.m in Sources */,
@@ -2577,6 +2687,7 @@
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
 				2124BED42063560200CB79E8 /* SearchHistoryCell.m in Sources */,
+				21459405206B351A0006E238 /* HomePageInfoModel.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
 				2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */,
 				2124BEB920628A3300CB79E8 /* AddOptionalCell.m in Sources */,
@@ -2597,6 +2708,7 @@
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				21EB9C6120561AB600394C3C /* UIImage+Tint.m in Sources */,
 				21AC59401FDE7A1B00F19DE8 /* SortBar.m in Sources */,
+				21459414206BF5060006E238 /* GengXinModel.m in Sources */,
 				21AC59451FDE7A1B00F19DE8 /* CustomPickerView.m in Sources */,
 				21AC59441FDE7A1B00F19DE8 /* TLPickerTextField.m in Sources */,
 				21AC594D1FDE7A1B00F19DE8 /* TLNetworking.m in Sources */,
@@ -2614,11 +2726,13 @@
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
 				21111BD81F8B5F2C0021B3FE /* UIApplication+Custom.m in Sources */,
 				21AC58AB1FDE75AA00F19DE8 /* HttpRequestObject.m in Sources */,
+				214593F8206B2B3D0006E238 /* HomePageCircleCell.m in Sources */,
 				21CFFB2C205673D100D245ED /* NewsFlashDetailVC.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
 				217BDAFC2069486600E17DEE /* CircleCommentDetailTableView.m in Sources */,
+				21459413206BF5060006E238 /* TLUpdateVC.m in Sources */,
 				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
 				21EF0B642065F839008EA865 /* ReplyCommentView.m in Sources */,
 				2124BE802061FFDF00CB79E8 /* PlatformModel.m in Sources */,
@@ -2635,15 +2749,18 @@
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				2124BEA320625FE300CB79E8 /* CurrencyPriceCell.m in Sources */,
 				2124BE602060B3C800CB79E8 /* InfoCommentCell.m in Sources */,
+				21459408206B35290006E238 /* HomePageCircleModel.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21CFFB0C205663A600D245ED /* HomeChildVC.m in Sources */,
 				21EF0B7A20666BF7008EA865 /* MyCommentModel.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
+				214593F5206B2B270006E238 /* HomePageInfoCell.m in Sources */,
 				21AC59421FDE7A1B00F19DE8 /* TLDatePicker.m in Sources */,
 				21EF0B8020667AA5008EA865 /* MyCommentDetailVC.m in Sources */,
 				21EF0B9E20677DBD008EA865 /* PlatformTitleModel.m in Sources */,
+				214593FE206B34A10006E238 /* HomePageInfoVC.m in Sources */,
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
 				21EF0B7320664D5F008EA865 /* InfoCommentTableView.m in Sources */,
 				21EB9C7020562D3E00394C3C /* BaseTableViewCell.m in Sources */,
@@ -2657,6 +2774,7 @@
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
 				2124BEB020627FC400CB79E8 /* QuotesOptionalVC.m in Sources */,
 				21AC59471FDE7A1B00F19DE8 /* TLAlert.m in Sources */,
+				21459401206B34B30006E238 /* HomePageCircleVC.m in Sources */,
 				21CFFB0320565DB900D245ED /* QuotesVC.m in Sources */,
 				21EF0B9B20677477008EA865 /* OptionalListModel.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
@@ -2695,6 +2813,7 @@
 				2128825B20579D8600A57A5A /* ForumListTableView.m in Sources */,
 				2124BEBD2062907000CB79E8 /* SearchCurrencyVC.m in Sources */,
 				212882732057A37700A57A5A /* YYImageClipViewController.m in Sources */,
+				214593EE206B24610006E238 /* HomePageInfoTableView.m in Sources */,
 				2124BE4B205FEEE100CB79E8 /* SGAlertView.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
@@ -2718,6 +2837,7 @@
 				21EF0BA72067953D008EA865 /* CurrencyPriceModel.m in Sources */,
 				21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */,
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
+				214593EB206B23980006E238 /* HomePageHeaderView.m in Sources */,
 				2124BE19205FD42D00CB79E8 /* TLWXManager.m in Sources */,
 				21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */,
 				21EF0B5B2064DAD4008EA865 /* ForumDetailHeaderView.m in Sources */,

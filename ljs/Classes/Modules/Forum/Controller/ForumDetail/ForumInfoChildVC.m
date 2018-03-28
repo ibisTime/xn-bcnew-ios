@@ -66,12 +66,17 @@
 #pragma mark - Init
 - (void)initInfoTableView {
     
-    self.infoTableView = [[ForumInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight) style:UITableViewStylePlain];
+    self.infoTableView = [[ForumInfoTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"暂无订单" text:@"暂无资讯"];
+    self.infoTableView.tag = 1800 + self.index;
+    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
     
     [self.view addSubview:self.infoTableView];
+    [self.infoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.mas_equalTo(0);
+    }];
 }
 
 #pragma mark - Data
@@ -95,7 +100,10 @@
         weakSelf.infoTableView.infos = objs;
         [weakSelf.infoTableView reloadData_tl];
         
-        weakSelf.refreshSuccess();
+        if (weakSelf.refreshSuccess) {
+            
+            weakSelf.refreshSuccess();
+        }
         
     } failure:^(NSError *error) {
         

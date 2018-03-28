@@ -35,6 +35,7 @@
 
 #define kBackgroundColor        [UIColor colorWithHexString:@"#FAFCFF"]   //背景色
 #define kLineColor              [UIColor colorWithHexString:@"#E2E2E2"]   //分割线
+#define kBlueLineColor              [UIColor colorWithHexString:@"#FAFCFF"]   //蓝色分割线
 #define kTextColor              [UIColor colorWithHexString:@"#3A3A3A"]   //一级文字
 #define kTextColor2             [UIColor colorWithHexString:@"#818181"]   //二级文字
 #define kTextColor3             [UIColor colorWithHexString:@"#666666"]   //三级文字
@@ -48,21 +49,9 @@
 #define kCommentSecondColor     [UIColor colorWithHexString:@"#FAFAFA"]   //评论二级颜色
 #define kPlaceholderColor       [UIColor colorWithHexString:@"#CCCCCC"]
     //占位颜色
-/****颜色列表***/
-
-
-#define kLightGreyColor RGB(153, 153, 153)         //亮灰色 #999999
-#define kOrangeRedColor RGB(255, 83, 27)           //橘红色 #ff531b
-#define kPaleGreyColor RGB(245, 245, 245)          //淡灰色 #f5f5f5
-#define kDeepGreenColor RGB(65, 117, 5)            //深绿色 #417505
-#define kLightGreenColor RGB(200, 220, 81)         //浅绿色 #c8dc51
-#define kDarkGreenColor kButtonBackgroundColor     //暗绿色 #335322  RGBa(51, 83, 34)
-#define kBrickRedColor RGB(240, 41, 0)             //砖红色 #fo2900
+#define kClearColor [UIColor clearColor]           //透明
 #define kWhiteColor RGB(255, 255, 255)             //白色   #ffffff
 #define kBlackColor RGB(0, 0, 0)                   //黑色   #000000
-#define kSilverGreyColor RGB(236, 236, 236)        //银灰色 #ececec
-#define kShallowGreyColor RGB(206, 206, 206)       //浅灰色 #cecece
-#define kClearColor [UIColor clearColor]           //透明
 
 #pragma mark - 界面尺寸
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width

@@ -205,7 +205,7 @@ _Pragma("clang diagnostic pop") \
 - (void)reloadData_tl {
     
     [super reloadData];
-    
+
     long sections = 1;//默认为1组
     BOOL isEmpty = YES; //判断数据是否为空
     
@@ -249,6 +249,7 @@ _Pragma("clang diagnostic pop") \
         
         [self.placeHolderView removeFromSuperview];
     }
+    
 }
 
 #pragma mark - UITableViewDelegate

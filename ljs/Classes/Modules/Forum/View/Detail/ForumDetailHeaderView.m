@@ -182,8 +182,7 @@
     [self.descLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@15);
-        make.right.equalTo(@(-15));
-        make.height.lessThanOrEqualTo(@50);
+        make.width.equalTo(@(kScreenWidth - 20));
         make.top.equalTo(self.infoView.mas_bottom).offset(15);
     }];
     //展开按钮
@@ -206,11 +205,21 @@
         _descLbl.numberOfLines = 0;
         
         [_descLbl labelWithTextString:_detailModel.introduce lineSpace:5];
+        
     } else {
         
         _descLbl.numberOfLines = 5;
         
         [_descLbl labelWithTextString:_detailModel.introduce lineSpace:5];
+    }
+    //刷新布局
+    [self layoutIfNeeded];
+    
+    self.height = self.showBtn.yy + 20;
+    //刷新headerView
+    if (self.refreshHeaderBlock) {
+        
+        self.refreshHeaderBlock();
     }
 }
 
@@ -221,11 +230,16 @@
     //吧名
     self.postBarNameLbl.text = [NSString stringWithFormat:@"#%@#", detailModel.name];
     //关注量
-    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%ld", detailModel.keepCount];
+    NSString *keepCount = [NSString stringWithFormat:@"%ld", detailModel.keepCount];
+    
+    self.followNumLbl.text = [NSString stringWithFormat:@"关注量:%@", [keepCount convertLargeNumberWithNum:2]];
     //发帖量
-    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%ld", detailModel.postCount];
+    NSString *postCount = [NSString stringWithFormat:@"%ld", detailModel.postCount];
+    self.postNumLbl.text = [NSString stringWithFormat:@"发帖量:%@", [postCount convertLargeNumberWithNum:2]];
     //今日跟贴数
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%ld", detailModel.dayCommentCount];
+    NSString *dayCommentCount = [NSString stringWithFormat:@"%ld", detailModel.dayCommentCount];
+    
+    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%@", [dayCommentCount convertLargeNumberWithNum:2]];
     //24h涨跌幅度
     if ([detailModel.coin.todayChange valid]) {
         
@@ -234,7 +248,7 @@
     //24h成交量
     if ([detailModel.coin.todayVol valid]) {
         
-        self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"成交(24h):%@", [detailModel.coin.todayVol convertLargeNumber]];
+        self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"成交(24h):%@", [detailModel.coin.todayVol convertLargeNumberWithNum:2]];
     }
     
     //描述
@@ -244,7 +258,11 @@
     //
     [self layoutIfNeeded];
     
-    self.height = self.descLbl.yy + 20;
+    //计算内容行数
+    NSInteger count = [self.descLbl getLinesArrayOfStringInLabel];
+    self.showBtn.hidden = count > 5 ? NO: YES;
+    
+    self.height = count > 5 ? self.showBtn.yy + 20: self.descLbl.yy + 20;
 }
 
 @end

@@ -33,6 +33,8 @@
 @property (nonatomic, strong) TLPlaceholderView *footerView;
 //回复编号
 @property (nonatomic, copy) NSString *replyCode;
+//判断是评论还是回复
+@property (nonatomic, assign) BOOL isComment;
 
 @end
 
@@ -86,7 +88,7 @@
     InfoCommentModel *commentModel = self.commentModel.commentList[index];
     
     self.replyCode = commentModel.code;
-    
+    self.isComment = NO;
     self.tableView.scrollEnabled = NO;
     
     self.inputTV.commentTV.placholder = [NSString stringWithFormat:@"对%@进行回复", commentModel.nickname];
@@ -111,6 +113,8 @@
 - (void)initCommentTableView {
     
     self.tableView = [[CircleCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -179,9 +183,11 @@
 
 - (void)requestCommentList {
     
+    NSString *code = @"628663";
+
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628286";
+    http.code = code;
     http.showView = self.view;
     http.parameters[@"code"] = self.code;
     
@@ -198,22 +204,19 @@
     }];
 }
 
-#pragma mark - Setting
-- (void)setCode:(NSString *)code {
-    
-    _code = code;
-    _replyCode = code;
-}
-
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
+    
+    NSString *code = @"628652";
+    NSString *type = self.isComment ? @"1": @"2";
+    NSString *objectCode = self.isComment ? self.code: self.replyCode;
     
     //type(1 资讯 2 评论)
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628200";
-    http.parameters[@"type"] = @"2";
-    http.parameters[@"objectCode"] = self.replyCode;
+    http.code = code;
+    http.parameters[@"type"] = type;
+    http.parameters[@"objectCode"] = objectCode;
     http.parameters[@"content"] = text;
     http.parameters[@"userId"] = [TLUser user].userId;
     
@@ -245,6 +248,54 @@
     
     self.tableView.scrollEnabled = YES;
     
+}
+
+- (void)zanCommentWithComment:(InfoCommentModel *)commentModel {
+    //顶级类型传1，非顶级传2
+        NSString *type = [commentModel.isTop isEqualToString:@"1"] ? @"1": @"2";
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628653";
+    http.showView = self.view;
+    http.parameters[@"type"] = type;
+    http.parameters[@"objectCode"] = commentModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([commentModel.isPoint isEqualToString:@"1"]) {
+            
+            commentModel.isPoint = @"0";
+            commentModel.pointCount -= 1;
+            
+        } else {
+            
+            commentModel.isPoint = @"1";
+            commentModel.pointCount += 1;
+        }
+        
+        [self.tableView reloadData];
+        //刷新资讯详情的评论列表
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - RefreshDelegate
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        InfoCommentModel *commentModel = index == 0 ? weakSelf.commentModel: weakSelf.commentModel.commentList[index - 1];
+        
+        [weakSelf zanCommentWithComment:commentModel];
+    }];
 }
 
 @end

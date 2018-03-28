@@ -130,6 +130,9 @@
                 if (isSuccess) {
                     
                     [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithSucces:@"分享失败"];
                 }
             };
             

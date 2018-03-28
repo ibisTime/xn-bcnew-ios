@@ -28,6 +28,7 @@
 #import "TabbarViewController.h"
 #import "InfoDetailVC.h"
 #import "TLUserLoginVC.h"
+#import "TLUpdateVC.h"
 
 //#import "AppDelegate+Launch.h"
 
@@ -69,7 +70,8 @@
     
     if ([url.host containsString:@"qq"]) {
         
-        return [TencentOAuth HandleOpenURL:url];
+        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+//        [TencentOAuth HandleOpenURL:url];
         
     } else {
 
@@ -86,7 +88,8 @@
 
     if ([url.host containsString:@"qq"]) {
 
-        return [TencentOAuth HandleOpenURL:url];
+        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+//        [TencentOAuth HandleOpenURL:url];
 
     } else {
 
@@ -110,7 +113,7 @@
 - (void)configServiceAddress {
     
     //配置环境
-    [AppConfig config].runEnv = RunEnvDev;
+    [AppConfig config].runEnv = RunEnvRelease;
 }
 
 - (void)configIQKeyboard {
@@ -134,9 +137,16 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-    self.window.rootViewController = tabbarCtrl;
+    if (1) {
+        //先配置到，检查更新的VC,开启更新检查
+        TLUpdateVC *updateVC = [[TLUpdateVC alloc] init];
+        self.window.rootViewController = updateVC;
+        
+    } else {
     
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        self.window.rootViewController = tabbarCtrl;
+    }
     //重新登录
     if([TLUser user].checkLogin) {
         

@@ -12,6 +12,7 @@ target ‘ljs’ do
     pod 'SDWebImage',               '3.8.1'
     pod 'SVProgressHUD',            '2.2'
     pod 'IQKeyboardManager',        '4.0.13'
+    pod 'TFHpple',                  '2.0.0'
 
     pod 'MLLabel',                  '1.10.3'
     pod 'MBProgressHUD',            '0.9.2’

@@ -44,6 +44,7 @@ PODS:
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SVProgressHUD (2.2)
+  - TFHpple (2.0.0)
   - TZImagePickerController (1.8.0)
 
 DEPENDENCIES:
@@ -61,6 +62,7 @@ DEPENDENCIES:
   - Realm (= 2.8.0)
   - SDWebImage (= 3.8.1)
   - SVProgressHUD (= 2.2)
+  - TFHpple (= 2.0.0)
   - TZImagePickerController (= 1.8.0)
 
 SPEC CHECKSUMS:
@@ -80,8 +82,9 @@ SPEC CHECKSUMS:
   Realm: 929243ad2b618b3232e70658bedc61110e7563f1
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: 3f37f3409ddb15f35c99315ae7dc33c474aa3256
+  TFHpple: a916fe0799eb30aa29b2670d14d5868cdd3a5b81
   TZImagePickerController: 2a74f34f116e8229264e2afc122b0d8d4683c626
 
-PODFILE CHECKSUM: d28269b4020f770920d15f745410e2b81f3a3677
+PODFILE CHECKSUM: c1bcf7f820d3a8b54132f2cdbf9997263d837854
 
 COCOAPODS: 1.4.0

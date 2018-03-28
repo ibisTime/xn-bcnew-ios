@@ -11,6 +11,7 @@
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
 #import "NSNumber+Extension.h"
+#import "NSString+Extension.h"
 
 @interface CurrencyPriceCell()
 //币种名称
@@ -126,7 +127,8 @@
 //    self.allVolumeLbl.text = [NSString stringWithFormat:@"流通量/额 %@/%@", currency.all_volume,currency.all_volume_cny];
     //一日交易量
 //    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量/额 %@/%@", currency.one_day_volume,currency.one_day_volume_cny];
-    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量 %@", currency.h24VolumeCny];
+    self.oneDayVolumeLbl.text = [NSString stringWithFormat:@"24H量 %@", [currency.h24VolumeCny convertLargeNumberWithNum:2]];
+    
     //人民币价格
     
     NSString *priceCny = [@([currency.priceCny doubleValue]) convertToRealMoneyWithNum:4];

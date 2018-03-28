@@ -125,7 +125,7 @@
     //平台名称
     self.platformNameLbl.text = currency.exchangeCname;
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastCnyPrice];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.lastCnyPrice];
     //涨跌情况
     NSString *priceFluctStr = currency.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];

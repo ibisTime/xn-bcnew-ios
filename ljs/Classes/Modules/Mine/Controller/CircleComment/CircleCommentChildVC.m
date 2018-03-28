@@ -9,7 +9,7 @@
 #import "CircleCommentChildVC.h"
 
 //M
-#import "MyCommentModel.h"
+#import "CircleCommentModel.h"
 //V
 #import "CircleCommentTableView.h"
 //C
@@ -19,7 +19,7 @@
 //
 @property (nonatomic, strong) CircleCommentTableView *tableView;
 //评论列表
-@property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
+@property (nonatomic, strong) NSArray <CircleCommentModel *>*comments;
 
 @end
 
@@ -41,6 +41,7 @@
     NSString *text = [self.type isEqualToString:@"0"] ? @"暂无回复": @"暂无评论";
     self.tableView = [[CircleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.isReplyMe = [self.type isEqualToString:@"0"] ? YES: NO;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
@@ -62,7 +63,7 @@
     
     helper.tableView = self.tableView;
     
-    [helper modelClass:[MyCommentModel class]];
+    [helper modelClass:[CircleCommentModel class]];
     
     [self.tableView addRefreshAction:^{
         
@@ -102,12 +103,11 @@
 
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MyCommentModel *comment = self.comments[indexPath.row];
+    CircleCommentModel *comment = self.comments[indexPath.row];
     
     CircleCommentDetailVC *detailVC = [CircleCommentDetailVC new];
     
-    detailVC.code = comment.code;
-    detailVC.typeName = comment.news.typeName;
+    detailVC.code = comment.post.code;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

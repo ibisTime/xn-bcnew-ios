@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *plateCode;
 //
 @property (nonatomic, copy) NSString *plateName;
+//userId
+@property (nonatomic, copy) NSString *userId;
 //发布时间
 @property (nonatomic, copy) NSString *publishDatetime;
 //头像

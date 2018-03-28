@@ -134,7 +134,7 @@
         make.top.equalTo(bgView.mas_bottom).offset(28);
     }];
     //第三方登录
-    [self initThirdLoginView];
+//    [self initThirdLoginView];
     
 }
 

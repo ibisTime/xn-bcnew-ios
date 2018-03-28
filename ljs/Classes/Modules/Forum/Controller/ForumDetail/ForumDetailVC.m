@@ -13,6 +13,7 @@
 //Category
 #import <UIScrollView+TLAdd.h>
 //Extension
+#import <IQKeyboardManager.h>
 //M
 #import "ForumDetailModel.h"
 //V
@@ -31,7 +32,7 @@
 
 #define kBottomHeight 50
 
-@interface ForumDetailVC ()<UIScrollViewDelegate, InputTextViewDelegate>
+@interface ForumDetailVC ()<UIScrollViewDelegate, InputTextViewDelegate, UITableViewDelegate>
 //
 @property (nonatomic, strong) ForumDetailHeaderView *headerView;
 //
@@ -54,6 +55,22 @@
 @end
 
 @implementation ForumDetailVC
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    //隐藏第三方键盘
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    //显示第三方键盘
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,7 +98,6 @@
 }
 
 - (void)replyComment:(NSNotification *)notification {
-    
     
 }
 
@@ -122,12 +138,24 @@
 
 - (void)initTableView {
 
+    BaseWeakSelf;
+    
+    self.canScroll = YES;
+
     self.tableView = [[ForumDetailTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomHeight - kBottomInsetHeight) style:UITableViewStylePlain];
+    
+    self.tableView.delegate = self;
     
     [self.view addSubview:self.tableView];
     
     //Header
     self.headerView = [[ForumDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    
+    self.headerView.refreshHeaderBlock = ^{
+        
+        weakSelf.tableView.tableHeaderView = weakSelf.headerView;
+    };
+    
     self.headerView.backgroundColor = kWhiteColor;
 }
 
@@ -137,7 +165,7 @@
     
     self.titles = @[@"圈子", @"资讯", @"行情"];
     
-    self.selectScrollView = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight) itemTitles:self.titles];
+    self.selectScrollView = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, kSuperViewHeight - kBottomHeight - kBottomInsetHeight) itemTitles:self.titles];
     
     self.selectScrollView.selectBlock = ^(NSInteger index) {
         
@@ -145,10 +173,12 @@
         
         if (index == 0) {
             
-            weakSelf.tableView.frame = CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomHeight - kBottomInsetHeight);
+            weakSelf.selectScrollView.height = kSuperViewHeight - kBottomHeight - kBottomInsetHeight;
+            weakSelf.tableView.height = weakSelf.selectScrollView.height;
         } else {
             
-            weakSelf.tableView.frame = CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight);
+            weakSelf.tableView.height = kSuperViewHeight;
+            weakSelf.selectScrollView.height = kSuperViewHeight;
         }
     };
     
@@ -166,13 +196,14 @@
             
             ForumCircleChildVC *childVC = [[ForumCircleChildVC alloc] init];
             
-            childVC.detailModel = self.detailModel;
             childVC.refreshSuccess = ^{
                 
                 [weakSelf.tableView endRefreshHeader];
             };
+            childVC.index = i;
+            childVC.detailModel = self.detailModel;
             
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, self.selectScrollView.height - 40);
             
             [self addChildViewController:childVC];
             
@@ -182,13 +213,14 @@
             
             ForumInfoChildVC *childVC = [[ForumInfoChildVC alloc] init];
             
-            childVC.toCoin = self.detailModel.toCoin;
             childVC.refreshSuccess = ^{
                 
                 [weakSelf.tableView endRefreshHeader];
             };
+            childVC.index = i;
+            childVC.toCoin = self.detailModel.code;
             
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
             
             [self addChildViewController:childVC];
             
@@ -198,13 +230,15 @@
             
             ForumQuotesChildVC *childVC = [[ForumQuotesChildVC alloc] init];
             
-            childVC.type = self.detailModel ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
-            childVC.toCoin = self.detailModel.toCoin;
             childVC.refreshSuccess = ^{
                 
                 [weakSelf.tableView endRefreshHeader];
             };
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight - kBottomInsetHeight);
+            childVC.index = i;
+            //detailModel不为空则是币种
+            childVC.type = self.isPlatform ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
+            childVC.toCoin = self.detailModel.toCoin;
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
             childVC.type = ForumQuotesTypeCurrency;
             
             [self addChildViewController:childVC];
@@ -221,7 +255,7 @@
 
     [self.tableView addGestureRecognizer:panGR];
 
-    self.tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+1000);
+    self.tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+10000);
 }
 
 

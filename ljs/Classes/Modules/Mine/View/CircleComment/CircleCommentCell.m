@@ -16,15 +16,18 @@
 #import "NSString+Date.h"
 #import "UIButton+EnLargeEdge.h"
 #import "UILabel+Extension.h"
+#import "NSString+Check.h"
 //V
 #import "LinkLabel.h"
+#import "UserPhotoView.h"
+#import "TLUser.h"
 
 #define kHeadIconW 40
 
 @interface CircleCommentCell()
 
 //头像
-@property (nonatomic, strong) UIImageView *photoIV;
+@property (nonatomic, strong) UserPhotoView *photoIV;
 //昵称
 @property (nonatomic, strong) UILabel *nameLbl;
 //回复的人
@@ -57,7 +60,7 @@
     
     self.isFirst = YES;
     //头像
-    self.photoIV = [[UIImageView alloc] init];
+    self.photoIV = [[UserPhotoView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
     self.photoIV.backgroundColor = kClearColor;
@@ -149,40 +152,34 @@
         make.left.equalTo(self.nameLbl.mas_left);
         make.right.equalTo(@(-leftMargin));
         make.top.equalTo(self.contentLbl.mas_bottom).offset(10);
-        make.height.equalTo(@65);
     }];
     //标题
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@10);
-        make.left.equalTo(@10);
-        make.right.equalTo(@(-10));
-        make.height.lessThanOrEqualTo(@65);
+        make.edges.mas_equalTo(UIEdgeInsetsMake(10, 10, 10, 10));
     }];
 }
 
 #pragma mark - Setting
-- (void)setCommentModel:(MyCommentModel *)commentModel {
+- (void)setCommentModel:(CircleCommentModel *)commentModel {
     
     _commentModel = commentModel;
     
-    ArticleInfo *info = commentModel.news;
-    
-    BOOL isReplyMe = [commentModel.parentUserId isEqualToString:[TLUser user].userId];
-    
-    NSString *photo = isReplyMe ? commentModel.photo: commentModel.parentPhoto;
-    
+    NSString *photo = commentModel.photo;
+    //1:资讯 2:圈子
+    self.photoIV.commentType = @"2";
+    self.photoIV.userId = commentModel.userId;
     [self.photoIV sd_setImageWithURL:[NSURL URLWithString:[photo convertImageUrl]]
                     placeholderImage:USER_PLACEHOLDER_SMALL];
     
-    self.nameLbl.text = isReplyMe ? commentModel.nickname: [TLUser user].nickname;
+    self.nameLbl.text = commentModel.nickname;
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
     
-    NSString *nickname = isReplyMe ? @"我":commentModel.parentNickName;
-    
-    self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", nickname];
+    NSString *nickname = self.isReplyMe ? @"我":commentModel.parentNickName;
+    NSString *replyName = [nickname valid] ? [NSString stringWithFormat:@"回复 %@", nickname]: @"评论";
+    self.replyNameLbl.text = replyName;
     self.contentLbl.text = commentModel.content;
-    [self.titleLbl labelWithTextString:info.title lineSpace:5];
+    [self.titleLbl labelWithTextString:commentModel.post.content lineSpace:5];
     //
     [self setSubviewLayout];
     //

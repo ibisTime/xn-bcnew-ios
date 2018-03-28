@@ -53,13 +53,18 @@
 #pragma mark - Init
 - (void)initTableView {
     
-    self.tableView = [[ForumQuotesTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight) style:UITableViewStylePlain];
+    self.tableView = [[ForumQuotesTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.tag = 1800 + self.index;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无行情"];
 
     self.tableView.type = self.type;
     
     [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.mas_equalTo(0);
+    }];
 
 }
 
@@ -72,13 +77,14 @@
     
     helper.code = @"628340";
     
-    if (self.type == ForumQuotesTypeCurrency) {
-        
-        helper.parameters[@"coinSymbol"] = self.toCoin;
-    }else {
-        
-//        helper.parameters[@"exchangeEname"] = self.titleModel.ename;
-    }
+//    if (self.type == ForumQuotesTypeCurrency) {
+//
+//        helper.parameters[@"coinSymbol"] = self.toCoin;
+//    }else {
+//
+//        helper.parameters[@"exchangeEname"] = self.toCoin;
+//    }
+    helper.parameters[@"keywords"] = self.toCoin;
     
     helper.tableView = self.tableView;
     
@@ -92,7 +98,10 @@
         
         [weakSelf.tableView reloadData_tl];
         
-        weakSelf.refreshSuccess();
+        if (weakSelf.refreshSuccess) {
+            
+            weakSelf.refreshSuccess();
+        }
         
     } failure:^(NSError *error) {
         

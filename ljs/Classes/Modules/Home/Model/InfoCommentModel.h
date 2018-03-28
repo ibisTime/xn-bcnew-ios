@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *content;
 
 //userId
-@property (nonatomic, copy) NSString *commenter;
+@property (nonatomic, copy) NSString *userId;
 
 @property (nonatomic, copy) NSString *photo;
 @property (nonatomic, copy) NSString *entityCode;

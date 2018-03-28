@@ -115,7 +115,7 @@
         
         [infoIV mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(@(idx*margin + 15));
+            make.left.equalTo(@(idx*(kWidth(110) + margin)+ 15));
             make.top.equalTo(self.titleLbl.mas_bottom).offset(10);
             make.width.equalTo(@(kWidth(110)));
             make.height.equalTo(@(kWidth(100)));

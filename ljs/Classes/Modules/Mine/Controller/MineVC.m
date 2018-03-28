@@ -54,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     self.title = @"我的";
     //通知
     [self addNotification];
@@ -420,7 +420,6 @@
         {
             [self checkLogin:nil];
         }break;
-            
         default:
             break;
     }

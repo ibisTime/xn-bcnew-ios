@@ -10,6 +10,7 @@
 //Category
 #import "NSString+Date.h"
 #import "UILabel+Extension.h"
+#import "NSString+Extension.h"
 
 @interface NewsFlashListCell()
 
@@ -148,7 +149,7 @@
         make.top.equalTo(self.timeLbl.mas_bottom).offset(10);
         make.left.equalTo(self.timeLbl.mas_left);
         make.right.equalTo(@(-x));
-        make.height.lessThanOrEqualTo(@90);
+//        make.height.lessThanOrEqualTo(@90);
     }];
     //分享
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,8 +176,11 @@
     [self.dateBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
     self.timeLbl.text = [flashModel.showDatetime convertDateWithFormat:@"HH:mm:ss"];
     
+    //过滤特殊字符串
+    NSString *content = [NSString filterHTML:flashModel.content];
+    
     self.contentLbl.numberOfLines = flashModel.isSelect ? 0: 3;
-    [self.contentLbl labelWithTextString:[NSString stringWithFormat:@"%@", flashModel.content] lineSpace:5];
+    [self.contentLbl labelWithTextString:content lineSpace:5];
     
     self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
     //

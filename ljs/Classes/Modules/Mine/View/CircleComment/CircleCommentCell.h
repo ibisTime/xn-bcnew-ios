@@ -8,12 +8,14 @@
 
 #import "BaseTableViewCell.h"
 //M
-#import "MyCommentModel.h"
+#import "CircleCommentModel.h"
 
 @interface CircleCommentCell : BaseTableViewCell
 //
-@property (nonatomic, strong) MyCommentModel *commentModel;
+@property (nonatomic, strong) CircleCommentModel *commentModel;
 //
 @property (nonatomic, strong) UIView *articleView;
+//是否回复我的
+@property (nonatomic, assign) BOOL isReplyMe;
 
 @end

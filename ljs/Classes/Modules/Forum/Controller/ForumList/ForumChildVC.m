@@ -54,11 +54,8 @@
     //登录后刷新列表
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginNotification object:nil];
     
-    if ([self.type isEqualToString:kFoucsPost]) {
-        
-        //关注或取消关注刷新界面
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
-    }
+    //关注或取消关注刷新界面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
 }
 
 - (void)refreshForumList {
@@ -159,6 +156,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628240";
+    http.showView = self.view;
     http.parameters[@"code"] = forumModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
     
@@ -193,6 +191,7 @@
     ForumDetailVC *detailVC = [ForumDetailVC new];
     
     detailVC.code = self.forums[indexPath.row].code;
+    
     detailVC.type = ForumEntrancetypeForum;
 
     [self.navigationController pushViewController:detailVC animated:YES];

@@ -11,12 +11,16 @@
 #import "ForumQuotesTableView.h"
 
 @interface ForumQuotesChildVC : BaseViewController
+//索引
+@property (nonatomic, assign) NSInteger index;
 //是否滚动
 @property (nonatomic, assign) BOOL vcCanScroll;
 //类型
 @property (nonatomic, assign) ForumQuotesType type;
 //币种编号
 @property (nonatomic, copy) NSString *toCoin;
+//平台编号
+@property (nonatomic, copy) NSString *ename;
 //刷新数据
 @property (nonatomic, copy)  void(^refreshSuccess)();
 

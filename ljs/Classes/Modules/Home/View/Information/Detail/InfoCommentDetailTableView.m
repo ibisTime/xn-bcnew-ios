@@ -49,7 +49,21 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
     
     cell.commentModel = self.commentModel;
     
+    cell.zanBtn.tag = 2300 + indexPath.row + 1000*indexPath.section;
+    
+    [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
+}
+
+- (void)clickZan:(UIButton *)sender {
+    
+    NSInteger index = sender.tag - 2300;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
+    }
 }
 
 #pragma mark - UITableViewDelegate

@@ -41,6 +41,7 @@
     
     self.tableView = [[SearchCurrencyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无热门币种"];
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
@@ -128,6 +129,8 @@
         
         currency.isChoice = @"1";
         
+        [self.tableView reloadData];
+
         if (self.currencyBlock) {
             
             self.currencyBlock();

@@ -261,7 +261,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628850";
-    http.parameters[@"toCoin"] = self.titleModel.ename;
+    http.parameters[@"toCoin"] = self.titleModel.symbol;
     
     [http postWithSuccess:^(id responseObject) {
         

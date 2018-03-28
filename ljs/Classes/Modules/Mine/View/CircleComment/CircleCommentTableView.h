@@ -8,10 +8,12 @@
 
 #import "TLTableView.h"
 //M
-#import "MyCommentModel.h"
+#import "CircleCommentModel.h"
 
 @interface CircleCommentTableView : TLTableView
 //
-@property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
+@property (nonatomic, strong) NSArray <CircleCommentModel *>*comments;
+//是否回复我的
+@property (nonatomic, assign) BOOL isReplyMe;
 
 @end

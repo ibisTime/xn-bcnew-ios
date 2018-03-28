@@ -15,14 +15,16 @@
 #import "NSString+Date.h"
 #import "UIButton+EnLargeEdge.h"
 #import "UILabel+Extension.h"
+#import "NSString+Check.h"
 //V
 #import "LinkLabel.h"
+#import "UserPhotoView.h"
 
 #define kHeadIconW 40
 
 @interface MyCommentCell ()
 //头像
-@property (nonatomic, strong) UIImageView *photoIV;
+@property (nonatomic, strong) UserPhotoView *photoIV;
 //昵称
 @property (nonatomic, strong) UILabel *nameLbl;
 //回复的人
@@ -57,7 +59,7 @@
     
     self.isFirst = YES;
     //头像
-    self.photoIV = [[UIImageView alloc] init];
+    self.photoIV = [[UserPhotoView alloc] init];
     self.photoIV.layer.cornerRadius = kHeadIconW/2.0;
     self.photoIV.layer.masksToBounds = YES;
     self.photoIV.backgroundColor = kClearColor;
@@ -110,7 +112,7 @@
     self.titleLbl = [UILabel labelWithBackgroundColor:kHexColor(@"#F6F6F6")
                                             textColor:kTextColor
                                                  font:14.0];
-    self.titleLbl.numberOfLines = 2;
+    self.titleLbl.numberOfLines = 0;
     
     [self.articleView addSubview:self.titleLbl];
     
@@ -170,10 +172,10 @@
     //标题
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
 
-        make.top.equalTo(self.infoIV.mas_top);
-        make.left.equalTo(self.infoIV.mas_right);
-        make.right.equalTo(@0);
-        make.height.equalTo(@65);
+        make.top.equalTo(self.infoIV.mas_top).offset(10);
+        make.left.equalTo(self.infoIV.mas_right).offset(10);
+        make.right.equalTo(@(-10));
+        make.bottom.equalTo(@(-10));
     }];
 }
 
@@ -184,22 +186,26 @@
     
     ArticleInfo *info = commentModel.news;
     
-    BOOL isReplyMe = [commentModel.parentUserId isEqualToString:[TLUser user].userId];
-
-    NSString *photo = isReplyMe ? commentModel.photo: commentModel.parentPhoto;
-    
+    NSString *photo = commentModel.photo;
+    //1:资讯 2:圈子
+    self.photoIV.commentType = @"1";
+    self.photoIV.userId = commentModel.userId;
     [self.photoIV sd_setImageWithURL:[NSURL URLWithString:[photo convertImageUrl]]
                     placeholderImage:USER_PLACEHOLDER_SMALL];
     
-    self.nameLbl.text = isReplyMe ? commentModel.nickname: [TLUser user].nickname;
+    self.nameLbl.text = commentModel.nickname;
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
     
-    NSString *nickname = isReplyMe ? @"我":commentModel.parentNickName;
+    NSString *nickname = self.isReplyMe ? @"我":commentModel.parentNickName;
     
-    self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", nickname];
+    NSString *replyName = [nickname valid] ? [NSString stringWithFormat:@"回复 %@", nickname]: @"评论";
+    self.replyNameLbl.text = replyName;
     self.contentLbl.text = commentModel.content;
     [self.titleLbl labelWithTextString:info.title lineSpace:5];
-    [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[info.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    if (info.pics > 0) {
+        
+        [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[info.pics[0] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    }
     
     //
     [self setSubviewLayout];

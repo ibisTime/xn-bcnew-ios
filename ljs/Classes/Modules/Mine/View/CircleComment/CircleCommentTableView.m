@@ -42,6 +42,8 @@ static NSString *identifierCell = @"CircleCommentCell";
     
     CircleCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
+    cell.isReplyMe = self.isReplyMe;
+    
     cell.commentModel = self.comments[indexPath.row];
     
     cell.articleView.tag = 2000 + indexPath.row;

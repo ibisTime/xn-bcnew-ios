@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, ForumEntrancetype) {
 @property (nonatomic, copy) NSString *code;
 //币种编号
 @property (nonatomic, copy) NSString *toCoin;
+//是否平台
+@property (nonatomic, assign) BOOL isPlatform;
 //入口
 @property (nonatomic, assign) ForumEntrancetype type;
 

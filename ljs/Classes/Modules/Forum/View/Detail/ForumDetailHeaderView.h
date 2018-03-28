@@ -13,5 +13,6 @@
 @interface ForumDetailHeaderView : UIScrollView
 //
 @property (nonatomic, strong) ForumDetailModel *detailModel;
+@property (nonatomic, copy) void(^refreshHeaderBlock)();
 
 @end

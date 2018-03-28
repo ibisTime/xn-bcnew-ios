@@ -7,10 +7,6 @@
 //
 
 #import "InfoCommentChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
 //M
 #import "MyCommentModel.h"
 //V
@@ -46,6 +42,7 @@
 
     self.tableView = [[InfoCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
+    self.tableView.isReplyMe = [self.type isEqualToString:@"0"] ? YES: NO;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];

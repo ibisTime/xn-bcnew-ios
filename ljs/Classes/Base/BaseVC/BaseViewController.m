@@ -35,9 +35,6 @@
     
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
-    // 设置导航栏背景色
-    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 //    self.navigationItem.backBarButtonItem = backItem;
 //    //navigation底部分割线
@@ -46,7 +43,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
+    
+    // 设置导航栏背景色
+    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     self.navigationController.interactivePopGestureRecognizer.delegate = self;

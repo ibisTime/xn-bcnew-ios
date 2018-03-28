@@ -8,7 +8,7 @@
 
 #import "CircleCommentDetailTableView.h"
 //V
-#import "MyCommentDetailCell.h"
+#import "CircleCommentDetailCell.h"
 
 @interface CircleCommentDetailTableView()<UITableViewDataSource, UITableViewDelegate>
 
@@ -16,7 +16,7 @@
 
 @implementation CircleCommentDetailTableView
 
-static NSString *infoCommentCellID = @"MyCommentDetailCell";
+static NSString *infoCommentCellID = @"CircleCommentDetailCell";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,7 +25,7 @@ static NSString *infoCommentCellID = @"MyCommentDetailCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[MyCommentDetailCell class] forCellReuseIdentifier:infoCommentCellID];
+        [self registerClass:[CircleCommentDetailCell class] forCellReuseIdentifier:infoCommentCellID];
     }
     
     return self;
@@ -45,7 +45,7 @@ static NSString *infoCommentCellID = @"MyCommentDetailCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MyCommentDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
+    CircleCommentDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
     InfoCommentModel *commentModel = indexPath.row == 0 ? self.commentModel: self.commentModel.commentList[indexPath.row - 1];
     
     cell.isReply = indexPath.row == 0 ? NO: YES;
@@ -53,7 +53,21 @@ static NSString *infoCommentCellID = @"MyCommentDetailCell";
     cell.backgroundColor = indexPath.row != 0 ? kBackgroundColor: kWhiteColor;
     cell.commentModel = commentModel;
     
+    cell.zanBtn.tag = 1300 + indexPath.row + 1000*indexPath.section;
+    
+    [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
+}
+
+- (void)clickZan:(UIButton *)sender {
+    
+    NSInteger index = sender.tag - 1300;
+    
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
+        
+        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -70,7 +84,9 @@ static NSString *infoCommentCellID = @"MyCommentDetailCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return self.commentModel.cellHeight;
+    CGFloat height = indexPath.row == 0 ? self.commentModel.cellHeight: self.commentModel.commentList[indexPath.row - 1].cellHeight;
+    
+    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

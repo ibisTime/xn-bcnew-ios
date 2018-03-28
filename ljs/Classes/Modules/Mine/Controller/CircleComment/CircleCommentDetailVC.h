@@ -11,7 +11,5 @@
 @interface CircleCommentDetailVC : BaseViewController
 //评论编号
 @property (nonatomic, copy) NSString *code;
-//文章title
-@property (nonatomic, copy) NSString *typeName;
 
 @end

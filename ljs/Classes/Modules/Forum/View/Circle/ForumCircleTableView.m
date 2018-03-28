@@ -149,7 +149,7 @@ static NSString *forumCircleCellID = @"ForumCircleCell";
     //topLine
     UIView *topLine = [[UIView alloc] init];
     
-    topLine.backgroundColor = kLineColor;
+    topLine.backgroundColor = kBlueLineColor;
     
     [headerView addSubview:topLine];
     [topLine mas_makeConstraints:^(MASConstraintMaker *make) {

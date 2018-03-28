@@ -13,5 +13,7 @@
 @interface InfoCommentTableView : TLTableView
 //
 @property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
+//
+@property (nonatomic, assign) BOOL isReplyMe;
 
 @end

@@ -17,6 +17,7 @@
 #import "UILabel+Extension.h"
 #import "NSString+Date.h"
 #import "UIView+Responder.h"
+#import "NSString+Check.h"
 //Extension
 //M
 //V
@@ -320,6 +321,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628201";
+    http.showView = self;
     http.parameters[@"type"] = @"1";
     http.parameters[@"objectCode"] = self.detailModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
@@ -355,7 +357,8 @@
     _detailModel = detailModel;
     
     [self.titleLbl labelWithTextString:detailModel.title lineSpace:5];
-    self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", detailModel.auther];
+    NSString *auther = [detailModel.auther valid] ? detailModel.auther: @"- -";
+    self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", auther];
     self.sourceLbl.text = [NSString stringWithFormat:@"来自: %@", detailModel.source];
     self.timeLbl.text = [detailModel.showDatetime convertToDetailDate];
     NSString *image = [detailModel.isPoint isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";

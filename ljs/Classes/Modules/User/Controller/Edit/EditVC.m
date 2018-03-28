@@ -132,6 +132,17 @@ typedef struct TitleInfo TitleInfo;
         return;
     }
     
+    NSInteger maxLength = 16;
+    
+    TitleInfo title = [self getInfoWithText:self.contentTf.text maxLength:maxLength];
+    
+    if (title.length > maxLength) {
+        
+        self.contentTf.text = [self.contentTf.text substringToIndex:title.number];
+        
+        [TLAlert alertWithInfo:@"昵称不能超过8个汉字或16个英文字母"];
+        return ;
+    }
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
@@ -140,6 +151,8 @@ typedef struct TitleInfo TitleInfo;
     http.parameters[@"token"] = [TLUser user].token;
     http.parameters[@"nickname"] = self.contentTf.text;
     [http postWithSuccess:^(id responseObject) {
+        
+        [self.view endEditing:YES];
         
         [TLAlert alertWithSucces:@"修改成功"];
         [TLUser user].nickname = self.contentTf.text;

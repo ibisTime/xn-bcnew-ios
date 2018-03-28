@@ -181,7 +181,7 @@ static NSString *informationListCellID = @"InformationListCell";
     //topLine
     UIView *topLine = [[UIView alloc] init];
     
-    topLine.backgroundColor = kLineColor;
+    topLine.backgroundColor = kBlueLineColor;
     
     [headerView addSubview:topLine];
     [topLine mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -274,6 +274,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628240";
+    http.showView = self.view;
     http.parameters[@"code"] = forumModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
     
@@ -294,6 +295,9 @@
         }
         
         [self.forumTableView reloadData];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FollowOrCancelFollow" object:nil];
+
         
     } failure:^(NSError *error) {
         
@@ -324,6 +328,7 @@
         ForumDetailVC *detailVC = [ForumDetailVC new];
         
         detailVC.type = ForumEntrancetypeForum;
+        detailVC.code = self.forums[indexPath.row].code;
         
         [self.navigationController pushViewController:detailVC animated:YES];
     }

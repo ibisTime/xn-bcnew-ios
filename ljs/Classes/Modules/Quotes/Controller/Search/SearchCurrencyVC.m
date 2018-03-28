@@ -127,7 +127,7 @@
 #pragma mark -
 - (void)initSelectScrollView {
     
-    self.titles = @[@"热门搜索", @"历史搜索"];
+    self.titles = @[@"热门币种", @"历史搜索"];
     
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) itemTitles:self.titles];
     
@@ -276,6 +276,8 @@
         
         currency.isChoice = @"1";
         
+        [self.currencyTableView reloadData];
+
         if (self.currencyBlock) {
             
             self.currencyBlock();

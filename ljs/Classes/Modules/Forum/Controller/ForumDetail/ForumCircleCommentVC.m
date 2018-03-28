@@ -256,10 +256,56 @@
     self.tableView.scrollEnabled = YES;
 }
 
+- (void)zanCommentWithComment:(InfoCommentModel *)commentModel {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628653";
+    http.showView = self.view;
+    http.parameters[@"type"] = @"1";
+    http.parameters[@"objectCode"] = commentModel.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *promptStr = [commentModel.isPoint isEqualToString:@"1"] ? @"取消点赞成功": @"点赞成功";
+        [TLAlert alertWithSucces:promptStr];
+        
+        if ([commentModel.isPoint isEqualToString:@"1"]) {
+            
+            commentModel.isPoint = @"0";
+            commentModel.pointCount -= 1;
+            
+        } else {
+            
+            commentModel.isPoint = @"1";
+            commentModel.pointCount += 1;
+        }
+        
+        [self.tableView reloadData];
+        //刷新资讯详情的评论列表
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
+}
+
+- (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        InfoCommentModel *commentModel = weakSelf.commentModel;
+        
+        [weakSelf zanCommentWithComment:commentModel];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

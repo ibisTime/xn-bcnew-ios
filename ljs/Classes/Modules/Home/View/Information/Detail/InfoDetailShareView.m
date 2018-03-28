@@ -78,12 +78,12 @@ static NSString *kShareTypeWeiBo    = @"WeiBo";
         [arr addObject:timeLineModel];
     }
     //判断是否安装微博
-    if (installedWeibo || installedWeibohd) {
-        
-        ThirdLoginModel *weiboModel = [self getThirdModelWithName:@"微博" image:@"weibo" type:ThirdTypeWeiBo];
-        [arr addObject:weiboModel];
-    }
-    
+//    if (installedWeibo || installedWeibohd) {
+//
+//        ThirdLoginModel *weiboModel = [self getThirdModelWithName:@"微博" image:@"weibo" type:ThirdTypeWeiBo];
+//        [arr addObject:weiboModel];
+//    }
+//
     self.thirdModels = arr;
     
     __block CGFloat margin = kScreenWidth/(1.0*(arr.count+1));

@@ -134,6 +134,14 @@ static NSString *identifierCell = @"OptionalCell";
         [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [TLAlert alertWithSucces:@"删除成功"];
+        //当自选数为0时，刷新界面
+        if (self.optionals.count == 0) {
+            
+            if (self.refreshBlock) {
+                
+                self.refreshBlock();
+            }
+        }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             

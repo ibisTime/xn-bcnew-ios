@@ -13,5 +13,6 @@
 @interface OptionalTableView : TLTableView
 //
 @property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
+@property (nonatomic, copy) void (^refreshBlock)();
 
 @end

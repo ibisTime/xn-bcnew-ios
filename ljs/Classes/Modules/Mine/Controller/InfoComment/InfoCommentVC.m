@@ -69,7 +69,7 @@
 }
 
 - (void)addChildVC {
-    
+    //0:回复我的 1:我回复的
     NSArray *typeList = @[
                         @"0",
                         @"1",

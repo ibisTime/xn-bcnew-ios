@@ -15,5 +15,7 @@
 @property (nonatomic, strong) MyCommentModel *commentModel;
 //
 @property (nonatomic, strong) UIView *articleView;
+//
+@property (nonatomic, assign) BOOL isReplyMe;
 
 @end
