@@ -12,15 +12,11 @@
 #import "QQManager.h"
 //Macro
 #import "APICodeMacro.h"
-//Framework
 //Category
 #import "UIScrollView+SnapShot.h"
-//Extension
-//M
 //V
 #import "NewsFlashShareView.h"
 #import "NewsFlashDetailView.h"
-//C
 
 @interface NewsFlashDetailVC ()
 //分享
@@ -37,6 +33,13 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    if (@available(iOS 11.0, *)) {
+        self.detailView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 - (void)viewDidLoad {
@@ -132,7 +135,7 @@
                     [TLAlert alertWithSucces:@"分享成功"];
                 } else {
                     
-                    [TLAlert alertWithSucces:@"分享失败"];
+                    [TLAlert alertWithError:@"分享失败"];
                 }
             };
             

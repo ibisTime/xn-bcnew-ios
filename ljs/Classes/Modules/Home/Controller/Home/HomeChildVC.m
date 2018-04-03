@@ -74,6 +74,7 @@
     
     self.flashTableView = [[NewsFlashListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     
+    self.flashTableView.isAll = [self.status isEqualToString:kAllNewsFlash];
     self.flashTableView.refreshDelegate = self;
     self.flashTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无快讯"];
 
@@ -110,7 +111,10 @@
     helper.parameters[@"type"] = self.status;
     
     helper.tableView = self.flashTableView;
-    
+    if ([TLUser user].isLogin) {
+        
+        helper.parameters[@"userId"] = [TLUser user].userId;
+    }
     [helper modelClass:[NewsFlashModel class]];
     
     [self.flashTableView addRefreshAction:^{
@@ -262,6 +266,11 @@
     
     [self.navigationController pushViewController:detailVC animated:YES];
     return ;
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

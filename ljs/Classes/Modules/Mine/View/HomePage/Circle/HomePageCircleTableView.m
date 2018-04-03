@@ -43,6 +43,7 @@ static NSString *homePageCircleCell = @"HomePageCircleCell";
     
     HomePageCircleCell *cell = [tableView dequeueReusableCellWithIdentifier:homePageCircleCell forIndexPath:indexPath];
     
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     cell.commentModel = self.pageModels[indexPath.row];
 
     return cell;
@@ -58,7 +59,7 @@ static NSString *homePageCircleCell = @"HomePageCircleCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 100;
+    return self.pageModels[indexPath.row].cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

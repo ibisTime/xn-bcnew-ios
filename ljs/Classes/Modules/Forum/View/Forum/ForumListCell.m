@@ -83,7 +83,7 @@
         
         return ;
     }
-    if (![self.postType isEqualToString:kAllPost] && _forumModel.isTopThree) {
+    if ([self.postType isEqualToString:kHotPost] && _forumModel.isTopThree) {
         
         //排名
         self.rankIV = [[UIImageView alloc] initWithImage:kImage(_forumModel.rankImage)];

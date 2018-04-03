@@ -49,6 +49,7 @@ static NSString *identifierCell = @"NewsFlashListCell";
     
     NewsFlashListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
+    cell.isAll = self.isAll;
     NewsFlashModel *new = self.news[indexPath.section];
     
     new.isShowDate = [self isShowDateWithIndexPath:indexPath];

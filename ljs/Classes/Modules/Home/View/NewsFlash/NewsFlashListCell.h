@@ -15,5 +15,7 @@
 @property (nonatomic, strong) UIButton *shareBtn;
 //
 @property (nonatomic, strong) NewsFlashModel *flashModel;
+//是否全部
+@property (nonatomic, assign) BOOL isAll;
 
 @end

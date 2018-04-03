@@ -12,7 +12,6 @@
 #import "QQManager.h"
 //Macro
 #import "APICodeMacro.h"
-//Framework
 //Category
 #import "TLProgressHUD.h"
 //Extension
@@ -69,9 +68,9 @@
     [[IQKeyboardManager sharedManager] setEnable:NO];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     //显示第三方键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [[IQKeyboardManager sharedManager] setEnable:YES];
@@ -285,12 +284,9 @@
 - (void)reloadHeaderView {
     
     self.tableView.tableHeaderView = self.headerView;
-    //刷新
-    [self.tableView reloadData];
-    //底部按钮
-    [self initBottomView];
+    //获取评论列表
+    [self requestCommentList];
     
-    [TLProgressHUD dismiss];
 }
 
 #pragma mark - Events
@@ -416,7 +412,7 @@
             
         case ThirdTypeTimeLine:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
                                            title:self.detailModel.title
                                             desc:desc
                                              url:self.shareUrl];
@@ -442,7 +438,7 @@
                     [TLAlert alertWithSucces:@"分享成功"];
                 }else {
                     
-                    [TLAlert alertWithSucces:@"分享失败"];
+                    [TLAlert alertWithError:@"分享失败"];
                 }
             };
             
@@ -545,7 +541,24 @@
     
     [helper modelClass:[InfoCommentModel class]];
     
-    [self refreshCommentList];
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.comments = objs;
+        
+        weakSelf.tableView.detailModel = weakSelf.detailModel;
+        weakSelf.tableView.newestComments = objs;
+        //刷新
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData_tl];
+        });
+        //底部按钮
+        [weakSelf initBottomView];
+        
+        [TLProgressHUD dismiss];
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
     [self.tableView addLoadMoreAction:^{
         
@@ -715,6 +728,14 @@
         
         [weakSelf zanCommentWithComment:commentModel];
     }];
+}
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

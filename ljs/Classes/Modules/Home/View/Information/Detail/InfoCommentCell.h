@@ -15,5 +15,7 @@
 @property (nonatomic, strong) InfoCommentModel *commentModel;
 //点赞按钮
 @property (nonatomic, strong) UIButton *zanBtn;
+//点击回复
+@property (nonatomic, copy) void(^clickReplyBlock)(NSInteger index);
 
 @end

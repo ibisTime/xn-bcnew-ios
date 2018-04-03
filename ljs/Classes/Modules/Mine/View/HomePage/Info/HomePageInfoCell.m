@@ -86,6 +86,8 @@
     
     self.articleView.backgroundColor = kHexColor(@"#F6F6F6");
     self.articleView.userInteractionEnabled = YES;
+    self.articleView.layer.cornerRadius = 4;
+    self.articleView.clipsToBounds = YES;
     
     [self addSubview:self.articleView];
     
@@ -151,7 +153,7 @@
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.infoIV.mas_top);
-        make.left.equalTo(self.infoIV.mas_right);
+        make.left.equalTo(self.infoIV.mas_right).offset(5);
         make.right.equalTo(@0);
         make.height.equalTo(@65);
     }];
@@ -166,7 +168,7 @@
     
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
     
-    NSString *replyStr = [commentModel.isMyComment isEqualToString:@"1"]? @"评论了":[NSString stringWithFormat:@"%@进行回复", commentModel.parentNickName];
+    NSString *replyStr = [commentModel.isMyComment isEqualToString:@"1"]? @"评论了":[NSString stringWithFormat:@"%@进行回复", commentModel.nickname];
     
     self.replyNameLbl.text = replyStr;
     self.contentLbl.text = commentModel.content;

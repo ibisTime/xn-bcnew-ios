@@ -13,5 +13,7 @@
 @interface NewsFlashListTableView : TLTableView
 //
 @property (nonatomic, strong) NSArray <NewsFlashModel *>*news;
+//是否全部资讯
+@property (nonatomic, assign) BOOL isAll;
 
 @end

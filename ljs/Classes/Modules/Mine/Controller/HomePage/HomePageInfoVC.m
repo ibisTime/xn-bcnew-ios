@@ -7,8 +7,6 @@
 //
 
 #import "HomePageInfoVC.h"
-//Macro
-//Framework
 //Category
 #import "NSString+Extension.h"
 //Extension

@@ -7,8 +7,6 @@
 //
 
 #import "HomePageCircleVC.h"
-//Macro
-//Framework
 //Category
 #import "NSString+Extension.h"
 //Extension
@@ -18,7 +16,6 @@
 //V
 #import "HomePageHeaderView.h"
 #import "HomePageCircleTableView.h"
-//C
 
 @interface HomePageCircleVC ()
 

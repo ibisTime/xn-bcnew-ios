@@ -44,6 +44,13 @@
 
 @implementation UserDetailEditVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -205,6 +212,8 @@
         arr[0].url = key;
         
         [self.tableView reloadData];
+        //更新用户信息
+        [[TLUser user] updateUserInfo];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
         
@@ -258,7 +267,9 @@
         [TLAlert alertWithSucces:@"修改成功"];
         
         [self.tableView reloadData];
-
+        //更新用户信息
+        [[TLUser user] updateUserInfo];
+        
     } failure:^(NSError *error) {
         
     }];

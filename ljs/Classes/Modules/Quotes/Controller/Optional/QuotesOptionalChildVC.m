@@ -21,6 +21,10 @@
 @property (nonatomic, strong) AddOptionalTableView *tableView;
 //
 @property (nonatomic, strong) NSMutableArray <OptionalModel *>*optionals;
+//定时器
+@property (nonatomic, strong) NSTimer *timer;
+//
+@property (nonatomic, strong) TLPageDataHelper *helper;
 
 @end
 
@@ -34,6 +38,57 @@
     [self requestOptionalList];
     //刷新自选列表
     [self.tableView beginRefreshing];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    //定时器刷起来
+    [self startTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    //定时器停止
+    [self stopTimer];
+}
+
+#pragma mark - 定时器
+- (void)startTimer {
+    
+    //开启定时器,实时刷新
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(refreshOptionalList)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)refreshOptionalList {
+    
+    BaseWeakSelf;
+    //刷新自选列表
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.optionals = objs;
+        
+        weakSelf.tableView.optionals = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//定时器停止
+- (void)stopTimer {
+    
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 #pragma mark - Init
@@ -77,6 +132,7 @@
     helper.tableView = self.tableView;
     
     [helper modelClass:[OptionalModel class]];
+    self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         
@@ -89,7 +145,6 @@
             [weakSelf.tableView reloadData_tl];
             
         } failure:^(NSError *error) {
-            
             
         }];
     }];

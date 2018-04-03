@@ -15,11 +15,11 @@
 
 @interface MineCell ()
 
-@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UIImageView *iconIV;
 
 @property (nonatomic, strong) UILabel *titleLbl;
 
-@property (nonatomic, strong) UIImageView *accessoryImageView;
+@property (nonatomic, strong) UIImageView *rightArrowIV;
 
 @end
 
@@ -39,10 +39,10 @@
 #pragma mark - Init
 - (void)initSubviews {
     
-    self.iconImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:self.iconImageView];
-    self.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.iconIV = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.iconIV];
+    self.iconIV.contentMode = UIViewContentModeScaleAspectFit;
+    [self.iconIV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@16);
         make.height.equalTo(@16);
         make.centerY.equalTo(self.contentView.mas_centerY);
@@ -51,16 +51,16 @@
     }];
     
     //右边箭头
-    self.accessoryImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:self.accessoryImageView];
-    [self.accessoryImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.rightArrowIV = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.rightArrowIV];
+    [self.rightArrowIV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@7);
         make.height.equalTo(@12);
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-15);
         
     }];
-    self.accessoryImageView.image = [UIImage imageNamed:@"更多-灰色"];
+    self.rightArrowIV.image = [UIImage imageNamed:@"更多-灰色"];
     
     self.rightLabel = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:15.0];
     
@@ -70,7 +70,7 @@
         
         make.width.lessThanOrEqualTo(@200);
         make.height.equalTo(@15.0);
-        make.right.equalTo(self.accessoryImageView.mas_left).offset(-15);
+        make.right.equalTo(self.rightArrowIV.mas_left).offset(-15);
         make.centerY.equalTo(@0);
         
     }];
@@ -81,7 +81,7 @@
     [self.contentView addSubview:self.titleLbl];
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.iconImageView.mas_right).offset(10);
+        make.left.equalTo(self.iconIV.mas_right).offset(10);
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
@@ -99,12 +99,33 @@
 
 - (void)setMineModel:(MineModel *)mineModel {
     
-    self.iconImageView.image = [UIImage imageNamed:mineModel.imgName];
+    _mineModel = mineModel;
+    
+    self.iconIV.image = [UIImage imageNamed:mineModel.imgName];
     
     self.titleLbl.text = mineModel.text;
 
     self.rightLabel.text = mineModel.rightText;
     
+    
+    if (mineModel.isSpecial) {
+        
+        [self.titleLbl mas_updateConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.iconIV.mas_left);
+
+        }];
+    }
+    
+    self.rightArrowIV.hidden = mineModel.isHiddenArrow;
+    
+    if (mineModel.isHiddenArrow) {
+        
+        [self.rightLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.mas_right).offset(-15);
+        }];
+    }
 }
 
 @end

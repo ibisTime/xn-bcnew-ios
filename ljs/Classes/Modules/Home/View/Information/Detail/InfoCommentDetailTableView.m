@@ -45,6 +45,8 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BaseWeakSelf;
+
     InfoCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
     
     cell.commentModel = self.commentModel;
@@ -52,6 +54,14 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
     cell.zanBtn.tag = 2300 + indexPath.row + 1000*indexPath.section;
     
     [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.clickReplyBlock = ^(NSInteger index) {
+        
+        if (weakSelf.refreshDelegate && [weakSelf.refreshDelegate respondsToSelector:@selector(refreshTableViewEventClick:selectRowAtIndex:)]) {
+            
+            [weakSelf.refreshDelegate refreshTableViewEventClick:weakSelf selectRowAtIndex:index];
+        }
+    };
     
     return cell;
 }

@@ -82,11 +82,13 @@
     self.contentLbl.textColor = [UIColor textColor];
     self.contentLbl.numberOfLines = 0;
     [self addSubview:self.contentLbl];
-    //文章
+    //圈子
     self.articleView = [[UIView alloc] init];
     
     self.articleView.backgroundColor = kHexColor(@"#F6F6F6");
     self.articleView.userInteractionEnabled = YES;
+    self.articleView.layer.cornerRadius = 4;
+    self.articleView.clipsToBounds = YES;
     
     [self addSubview:self.articleView];
     //标题
@@ -144,7 +146,7 @@
     
     self.timeLbl.text = [commentModel.commentDatetime convertToDetailDate];
     
-    NSString *replyStr = [commentModel.isMyComment isEqualToString:@"1"]? @"评论了":[NSString stringWithFormat:@"%@进行回复", commentModel.parentNickName];
+    NSString *replyStr = [commentModel.isMyComment isEqualToString:@"1"]? @"评论了":[NSString stringWithFormat:@"%@进行回复", commentModel.nickname];
     
     self.replyNameLbl.text = replyStr;
     self.contentLbl.text = commentModel.content;

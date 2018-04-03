@@ -170,8 +170,11 @@
 - (void)clickReply:(UITapGestureRecognizer *)tapGR {
     
     NSInteger index = tapGR.view.tag - 1900;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReplyComment" object:@(index)];
+ 
+    if (self.myReplyBlock) {
+        
+        self.myReplyBlock(index);
+    }
 }
 
 #pragma mark - Setting

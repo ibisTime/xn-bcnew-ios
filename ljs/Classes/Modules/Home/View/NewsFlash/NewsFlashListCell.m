@@ -84,7 +84,6 @@
     self.contentLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                 textColor:kAppCustomMainColor
                                                      font:15.0];
-    
     self.contentLbl.numberOfLines = 3;
     
     [self addSubview:self.contentLbl];
@@ -182,7 +181,14 @@
     self.contentLbl.numberOfLines = flashModel.isSelect ? 0: 3;
     [self.contentLbl labelWithTextString:content lineSpace:5];
     
-    self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
+    if (self.isAll) {
+        
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kTextColor;
+
+    } else {
+        
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
+    }
     //
     [self layoutSubviews];
     

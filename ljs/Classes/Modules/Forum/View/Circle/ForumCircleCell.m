@@ -211,7 +211,10 @@
     
     NSInteger index = tapGR.view.tag - 1900;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReplyComment" object:@(index)];
+    if (self.forumCommentReplyBlock) {
+        
+        self.forumCommentReplyBlock(index);
+    }
 }
 
 #pragma mark - Setting

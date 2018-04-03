@@ -26,9 +26,13 @@
 //C
 #import "NavigationController.h"
 #import "TabbarViewController.h"
-#import "InfoDetailVC.h"
 #import "TLUserLoginVC.h"
 #import "TLUpdateVC.h"
+//禁止IQKeyboardManager的VC类
+#import "InfoDetailVC.h"
+#import "InfoCommentDetailVC.h"
+#import "ForumDetailVC.h"
+#import "ForumCircleCommentVC.h"
 
 //#import "AppDelegate+Launch.h"
 
@@ -113,7 +117,7 @@
 - (void)configServiceAddress {
     
     //配置环境
-    [AppConfig config].runEnv = RunEnvRelease;
+    [AppConfig config].runEnv = RunEnvDev;
 }
 
 - (void)configIQKeyboard {
@@ -121,14 +125,16 @@
     //
 //    [IQKeyboardManager sharedManager].enable = YES;
     [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[InfoDetailVC class]];
-//    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[SendCommentVC class]];
-    
+    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[InfoCommentDetailVC class]];
+    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[ForumDetailVC class]];
+    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[ForumCircleCommentVC class]];
+
 }
 
 - (void)configRootViewController {
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;

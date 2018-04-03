@@ -48,10 +48,13 @@
 - (void)initSubviews {
     
     self.backgroundColor = kWhiteColor;
+    
+//    CGFloat height = kDevice_Is_iPhoneX ? kWidth(194): kWidth(170);
     //icon
     UIImageView *iconIV = [[UIImageView alloc] initWithImage:kImage(@"消息分享")];
     
     iconIV.frame = CGRectMake(0, 0, kScreenWidth, kWidth(170));
+    iconIV.contentMode = UIViewContentModeScaleAspectFill;
     
     [self addSubview:iconIV];
     self.iconIV = iconIV;

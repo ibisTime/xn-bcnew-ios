@@ -145,7 +145,14 @@
         
         self.historyBlock(self.tableView.historyRecords[indexPath.row]);
     }
+}
 
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

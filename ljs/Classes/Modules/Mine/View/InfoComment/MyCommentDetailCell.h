@@ -17,5 +17,7 @@
 @property (nonatomic, strong) UIButton *zanBtn;
 //是否回复
 @property (nonatomic, assign) BOOL isReply;
+//点击回复
+@property (nonatomic, copy) void(^myReplyBlock)(NSInteger index);
 
 @end

@@ -29,6 +29,7 @@
 //是否显示日期
 @property (nonatomic, assign) BOOL isShowDate;
 
+
 @end
 
 FOUNDATION_EXTERN  NSString *const kAllNewsFlash;    //全部快讯

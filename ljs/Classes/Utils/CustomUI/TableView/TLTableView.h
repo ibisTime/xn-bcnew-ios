@@ -24,6 +24,9 @@
 /* 选中cell上的button时可使用 */
 
 - (void)refreshTableViewButtonClick:(TLTableView *)refreshTableview button:(UIButton *)sender selectRowAtIndex:(NSInteger)index;
+/* 选中cell上的控件时可使用 */
+
+- (void)refreshTableViewEventClick:(TLTableView *)refreshTableview selectRowAtIndex:(NSInteger)index;
 
 @end
 

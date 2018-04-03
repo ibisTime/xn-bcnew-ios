@@ -49,6 +49,9 @@ static NSString *forumCircleCellID = @"ForumCircleCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BaseWeakSelf;
+
     //分区0热门评论 分区1最新评论
     ForumCommentModel *commentModel = indexPath.section == 0 ? self.detailModel.hotPostList[indexPath.row]: self.newestComments[indexPath.row];
     
@@ -59,6 +62,16 @@ static NSString *forumCircleCellID = @"ForumCircleCell";
     [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
     
     cell.commentModel = commentModel;
+    
+    __block NSIndexPath *idxPath = indexPath;
+    
+    cell.forumCommentReplyBlock = ^(NSInteger index) {
+        
+        if (weakSelf.refreshDelegate && [weakSelf.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+            
+            [weakSelf.refreshDelegate refreshTableView:weakSelf didSelectRowAtIndexPath:idxPath];
+        }
+    };
     
     return cell;
 }

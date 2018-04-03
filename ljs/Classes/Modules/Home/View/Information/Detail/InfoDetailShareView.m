@@ -11,6 +11,7 @@
 #import "UIView+Responder.h"
 #import "UIButton+EnLargeEdge.h"
 
+#define kBgViewHeight  (150 + kBottomInsetHeight)
 
 @interface InfoDetailShareView()
 
@@ -49,7 +50,7 @@ static NSString *kShareTypeWeiBo    = @"WeiBo";
     
     self.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.5];
     
-    self.bgView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 150)];
+    self.bgView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kBgViewHeight)];
     
     self.bgView.backgroundColor = kWhiteColor;
     
@@ -181,7 +182,7 @@ static NSString *kShareTypeWeiBo    = @"WeiBo";
     [UIView animateWithDuration:0.5 animations:^{
         
         self.alpha = 1;
-        self.bgView.transform = CGAffineTransformMakeTranslation(0, -150);
+        self.bgView.transform = CGAffineTransformMakeTranslation(0, -kBgViewHeight);
         
     } completion:^(BOOL finished) {
         

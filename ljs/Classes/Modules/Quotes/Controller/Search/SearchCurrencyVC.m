@@ -96,6 +96,7 @@
                                             titleWidth:0
                                            placeholder:@"请输入平台/币种"];
     self.searchTF.delegate = self;
+    self.searchTF.returnKeyType = UIReturnKeySearch;
     
     [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
     [searchBgView addSubview:self.searchTF];

@@ -7,16 +7,12 @@
 //
 
 #import "ForumInfoChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
+
 //M
 #import "InformationModel.h"
 //V
 #import "ForumInfoTableView.h"
 #import "TLPlaceholderView.h"
-
 //C
 #import "InfoDetailVC.h"
 
@@ -135,6 +131,15 @@
     detailVC.code = self.infos[indexPath.row].code;
     
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

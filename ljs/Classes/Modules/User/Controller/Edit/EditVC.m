@@ -33,7 +33,6 @@ typedef struct TitleInfo TitleInfo;
     [super viewDidAppear:animated];
     
     [self.contentTf becomeFirstResponder];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

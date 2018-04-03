@@ -8,10 +8,6 @@
 
 #import "QuotesPlatformVC.h"
 
-//Macro
-//Framework
-//Category
-//Extension
 //M
 #import "PlatformModel.h"
 #import "OptionalModel.h"
@@ -31,6 +27,10 @@
 @property (nonatomic, strong) UILabel *platformNameLbl;
 //帖子数
 @property (nonatomic, strong) UILabel *postNumLbl;
+//定时器
+@property (nonatomic, strong) NSTimer *timer;
+//
+@property (nonatomic, strong) TLPageDataHelper *helper;
 
 @end
 
@@ -48,6 +48,43 @@
     [self.tableView beginRefreshing];
     //获取贴吧信息
     [self requestForumInfo];
+}
+
+#pragma mark - 定时器
+- (void)startTimer {
+    
+    //开启定时器,实时刷新
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(refreshPlatformList)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)refreshPlatformList {
+    
+    BaseWeakSelf;
+    //刷新平台列表
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.platforms = objs;
+        
+        weakSelf.tableView.platforms = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//定时器停止
+- (void)stopTimer {
+    
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 #pragma mark - Init
@@ -130,7 +167,6 @@
         
         make.edges.mas_equalTo(0);
     }];
-    //判断是否是具体平台
     
 }
 
@@ -143,6 +179,21 @@
     detailVC.type = ForumEntrancetypeQuotes;
     
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)clickPlatformWithIndex:(NSInteger)index {
+
+    //刷新平台列表
+    [self.tableView beginRefreshing];
+    //判断是否当前子控制器,是则开启定时器。否则关闭
+    if (index == self.currentIndex) {
+        
+        //定时器开启
+        [self startTimer];
+        return ;
+    }
+    //定时器停止
+    [self stopTimer];
 }
 
 #pragma mark - Data
@@ -164,6 +215,8 @@
     helper.tableView = self.tableView;
     
     [helper modelClass:[OptionalModel class]];
+    
+    self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         

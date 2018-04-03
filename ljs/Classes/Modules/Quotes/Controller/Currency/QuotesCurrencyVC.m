@@ -7,10 +7,7 @@
 //
 
 #import "QuotesCurrencyVC.h"
-//Macro
-//Framework
-//Category
-//Extension
+
 //M
 #import "CurrencyModel.h"
 #import "CurrencyPriceModel.h"
@@ -31,6 +28,10 @@
 @property (nonatomic, strong) UILabel *currencyNameLbl;
 //帖子数
 @property (nonatomic, strong) UILabel *postNumLbl;
+//定时器
+@property (nonatomic, strong) NSTimer *timer;
+//
+@property (nonatomic, strong) TLPageDataHelper *helper;
 
 @end
 
@@ -57,6 +58,58 @@
     [self.tableView beginRefreshing];
     //获取贴吧信息
     [self requestForumInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    //定时器刷起来
+    [self startTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    //定时器停止
+    [self stopTimer];
+}
+
+#pragma mark - 定时器
+- (void)startTimer {
+    
+    //开启定时器,实时刷新
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(refreshCurrencyList)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)refreshCurrencyList {
+    
+    BaseWeakSelf;
+    
+    //刷新币种列表
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.currencyPrices = objs;
+        
+        weakSelf.tableView.currencyPrices = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//定时器停止
+- (void)stopTimer {
+    
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 #pragma mark - Init
@@ -170,6 +223,7 @@
     helper.tableView = self.tableView;
     
     [helper modelClass:[CurrencyPriceModel class]];
+    self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         

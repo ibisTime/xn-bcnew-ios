@@ -166,6 +166,8 @@
     MineModel *cache = [MineModel new];
     
     cache.text = @"清除缓存";
+    cache.isSpecial = YES;
+    cache.isHiddenArrow = YES;
     cache.action = ^{
         
         [weakSelf clearCache];
@@ -423,6 +425,15 @@
         default:
             break;
     }
+}
+
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

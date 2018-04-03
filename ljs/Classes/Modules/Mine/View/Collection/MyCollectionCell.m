@@ -77,7 +77,7 @@
     
     self.titleLbl.text = collectionModel.title;
     
-    NSString *author = [collectionModel.auther valid] ? [NSString stringWithFormat:@"作者: %@", collectionModel.auther]: @"";
+    NSString *author = [collectionModel.auther valid] ? [NSString stringWithFormat:@"作者: %@", collectionModel.auther]: @"作者: - -";
     
     self.authorLbl.text = author;
     //

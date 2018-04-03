@@ -52,6 +52,10 @@
 @property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
 //币种
 @property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
+//定时器
+@property (nonatomic, strong) NSTimer *timer;
+//
+@property (nonatomic, strong) TLPageDataHelper *helper;
 
 @end
 
@@ -66,6 +70,15 @@
         //刷新自选列表
         [self.tableView beginRefreshing];
     }
+    //定时器刷起来
+    [self startTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    //定时器停止
+    [self stopTimer];
 }
 
 - (void)viewDidLoad {
@@ -81,8 +94,9 @@
     [self requestOptionalList];
     //获取平台title列表
     [self requestPlatformTitleList];
-    //获取平台title列表
+    //获取币种title列表
     [self requestCurrencyTitleList];
+    
 }
 
 #pragma mark - Init
@@ -161,7 +175,15 @@
 
 - (void)initSelectScrollViewWithIdx:(NSInteger)idx {
     
+    BaseWeakSelf;
+    
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    
+//    selectSV.selectBlock = ^(NSInteger index) {
+//
+//        //点击标签
+//        [weakSelf ];
+//    };
     
     [self.switchSV addSubview:selectSV];
     
@@ -180,12 +202,12 @@
             
             childVC.type = PlatformTypePlatform;
             childVC.titleModel = self.platformTitleList[i];
+            childVC.currentIndex = i;
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
             
             [self addChildViewController:childVC];
             
             [self.selectSV.scrollView addSubview:childVC.view];
-            
         } else {
             
             //币种
@@ -206,8 +228,43 @@
     }
 }
 
-#pragma mark - Events
+- (void)startTimer {
+    
+    //开启定时器,实时刷新
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(refreshOptionalList)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
 
+//定时器停止
+- (void)stopTimer {
+    
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)refreshOptionalList {
+    
+    BaseWeakSelf;
+    
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.optionals = objs;
+
+        weakSelf.tableView.optionals = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - Events
 /**
  添加币种
  */
@@ -266,6 +323,7 @@
     helper.tableView = self.tableView;
     
     [helper modelClass:[OptionalListModel class]];
+    self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         

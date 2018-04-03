@@ -239,11 +239,15 @@
     //今日跟贴数
     NSString *dayCommentCount = [NSString stringWithFormat:@"%ld", detailModel.dayCommentCount];
     
-    self.updatePostNumLbl.text = [NSString stringWithFormat:@"今日跟贴:%@", [dayCommentCount convertLargeNumberWithNum:2]];
+    NSString *updatePost = [NSString stringWithFormat:@"今日跟贴:%@", [dayCommentCount convertLargeNumberWithNum:2]];
+    [self.updatePostNumLbl labelWithString:updatePost
+                                     title:[dayCommentCount convertLargeNumberWithNum:2]
+                                      font:Font(15.0)
+                                     color:kThemeColor];
     //24h涨跌幅度
     if ([detailModel.coin.todayChange valid]) {
         
-        self.oneDayChangeRateLbl.text = [NSString stringWithFormat:@"涨跌幅:%@", detailModel.coin.todayChange];
+        self.oneDayChangeRateLbl.text = [NSString stringWithFormat:@"涨跌幅:%@%%", detailModel.coin.todayChange];
     }
     //24h成交量
     if ([detailModel.coin.todayVol valid]) {

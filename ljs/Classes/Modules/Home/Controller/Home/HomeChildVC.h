@@ -15,7 +15,5 @@
 @property (nonatomic, copy) NSString *status;
 //编号
 @property (nonatomic, copy) NSString *code;
-//标题
-@property (nonatomic, copy) NSString *title;
 
 @end

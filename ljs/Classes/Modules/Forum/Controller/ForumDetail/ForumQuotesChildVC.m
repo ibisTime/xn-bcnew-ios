@@ -47,7 +47,7 @@
     
     //获取行情列表
     [self requestQuotesList];
-    
+    NSLog(@"Height = %lf", self.tableView.height);
 }
 
 #pragma mark - Init
@@ -123,6 +123,15 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

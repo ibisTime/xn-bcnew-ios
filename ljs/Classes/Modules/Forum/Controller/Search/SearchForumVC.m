@@ -94,7 +94,8 @@
                                             titleWidth:0
                                            placeholder:@"请输入吧名"];
     self.searchTF.delegate = self;
-    
+    self.searchTF.returnKeyType = UIReturnKeySearch;
+
     [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
     [searchBgView addSubview:self.searchTF];
     [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {

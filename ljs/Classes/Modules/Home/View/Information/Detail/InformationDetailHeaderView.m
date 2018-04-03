@@ -98,8 +98,8 @@
     [self addSubview:self.zanBtn];
     //点赞数
     self.zanNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                             textColor:kHexColor(@"#FF4747")
-                                                                    font:17.0];
+                                             textColor:kTextColor
+                                                  font:17.0];
     
     [self addSubview:self.zanNumLbl];
 }
@@ -364,7 +364,9 @@
     NSString *image = [detailModel.isPoint isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
     [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
     [self.detailView loadWebWithString:detailModel.content];
+    UIColor *textColor = [detailModel.isPoint isEqualToString:@"0"] ? kTextColor: kHexColor(@"#FF4747");
     self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", detailModel.pointCount];
+    self.zanNumLbl.textColor = textColor;
 }
 
 @end

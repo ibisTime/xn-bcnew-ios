@@ -64,12 +64,13 @@
     [[IQKeyboardManager sharedManager] setEnable:NO];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     //显示第三方键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [[IQKeyboardManager sharedManager] setEnable:YES];
+    
 }
 
 - (void)viewDidLoad {
@@ -93,12 +94,7 @@
 #pragma mark - 通知
 - (void)addNotification {
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyComment:) name:@"ReplyComment" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subVCLeaveTop) name:@"SubVCLeaveTop" object:nil];
-}
-
-- (void)replyComment:(NSNotification *)notification {
-    
 }
 
 - (void)subVCLeaveTop {
@@ -377,8 +373,8 @@
         [TLAlert alertWithSucces:[NSString stringWithFormat:@"%@成功", @"发布"]];
         
         self.tableView.scrollEnabled = YES;
-        
-        [self.tableView beginRefreshing];
+        //刷新圈子的评论列表
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
         
     } failure:^(NSError *error) {
         
@@ -445,6 +441,15 @@
         
         vc.vcCanScroll = vcCanScroll;
     }
+}
+
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

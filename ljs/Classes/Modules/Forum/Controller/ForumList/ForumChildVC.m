@@ -56,6 +56,9 @@
     
     //关注或取消关注刷新界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
+    //发布帖子刷新界面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"RefreshCommentList" object:nil];
+
 }
 
 - (void)refreshForumList {
@@ -204,6 +207,15 @@
         
         [weakSelf followForum:index];
     }];
+}
+
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

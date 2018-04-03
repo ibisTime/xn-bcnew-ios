@@ -56,6 +56,8 @@ static NSString *informationListCellID = @"InformationListCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BaseWeakSelf;
     //分区0 相关文章
     if (indexPath.section == 0) {
         
@@ -75,6 +77,16 @@ static NSString *informationListCellID = @"InformationListCell";
     [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
     
     cell.commentModel = commentModel;
+    
+    __block NSIndexPath *idxPath = indexPath;
+    
+    cell.clickReplyBlock = ^(NSInteger index) {
+        
+        if (weakSelf.refreshDelegate && [weakSelf.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+            
+            [weakSelf.refreshDelegate refreshTableView:weakSelf didSelectRowAtIndexPath:idxPath];
+        }
+    };
     
     return cell;
 }

@@ -42,6 +42,7 @@ static NSString *homePageInfoCell = @"HomePageInfoCell";
     
     HomePageInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:homePageInfoCell forIndexPath:indexPath];
     
+    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     cell.commentModel = self.pageModels[indexPath.row];
     
     cell.articleView.tag = 2000 + indexPath.row;

@@ -5,18 +5,13 @@
 //  Created by 蔡卓越 on 2018/3/20.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
-//Macro
-//Framework
-//Category
 //Extension
 #import <IQKeyboardManager.h>
-//M
 //V
 #import "BaseView.h"
 #import "InputTextView.h"
 #import "InfoCommentDetailTableView.h"
 #import "TLPlaceholderView.h"
-//C
 
 #define kBottomHeight 50
 
@@ -48,12 +43,13 @@
     [[IQKeyboardManager sharedManager] setEnable:NO];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     //显示第三方键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [[IQKeyboardManager sharedManager] setEnable:YES];
+    
 }
 
 - (void)viewDidLoad {
@@ -66,33 +62,6 @@
     [self requestCommentList];
     //底部
     [self initBottomView];
-    //点击回复
-    [self addNotification];
-}
-
-- (void)viewDidLayoutSubviews {
-    
-    self.tableView.tableFooterView = self.footerView;
-}
-
-#pragma mark - Notification
-- (void)addNotification {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyComment:) name:@"ReplyComment" object:nil];
-}
-
-- (void)replyComment:(NSNotification *)notification {
-    
-    NSInteger index = [notification.object integerValue];
-    
-    InfoCommentModel *commentModel = self.commentModel.commentList[index];
-    
-    self.replyCode = commentModel.code;
-    
-    self.tableView.scrollEnabled = NO;
-    
-    self.inputTV.commentTV.placholder = [NSString stringWithFormat:@"对%@进行回复", commentModel.nickname];
-    [self.inputTV show];
 }
 
 #pragma mark - Init
@@ -181,6 +150,7 @@
     [self.inputTV show];
 }
 
+#pragma mark - Data
 - (void)requestCommentList {
     
     NSString *code = @"628286";
@@ -202,6 +172,15 @@
         self.tableView.commentModel = self.commentModel;
         
         [self.tableView reloadData];
+        //判断是否有二次评论，没有就展示沙发
+        if (self.commentModel.commentList.count == 0) {
+            
+            self.tableView.tableFooterView = self.footerView;
+
+        } else {
+            
+            self.tableView.tableFooterView = nil;
+        }
 
     } failure:^(NSError *error) {
         
@@ -308,6 +287,37 @@
         
         [weakSelf zanCommentWithComment:commentModel];
     }];
+}
+
+/**
+ 点击回复
+ */
+- (void)refreshTableViewEventClick:(TLTableView *)refreshTableview selectRowAtIndex:(NSInteger)index {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        [weakSelf commentWithIndex:index];
+    }];
+}
+
+- (void)commentWithIndex:(NSInteger)index {
+
+    InfoCommentModel *commentModel = self.commentModel.commentList[index];
+    
+    self.replyCode = commentModel.code;
+    
+    self.tableView.scrollEnabled = NO;
+    
+    self.inputTV.commentTV.placholder = [NSString stringWithFormat:@"对%@进行回复", commentModel.nickname];
+    [self.inputTV show];
+}
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -23,5 +23,9 @@
 @property (nonatomic, copy) NSString *code;
 //title
 @property (nonatomic, strong) PlatformTitleModel *titleModel;
+//当前索引
+@property (nonatomic, assign) NSInteger currentIndex;
+//点击刷新
+- (void)clickPlatformWithIndex:(NSInteger)index;
 
 @end

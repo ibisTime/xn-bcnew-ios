@@ -45,6 +45,8 @@ static NSString *infoCommentCellID = @"CircleCommentDetailCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BaseWeakSelf;
+
     CircleCommentDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
     InfoCommentModel *commentModel = indexPath.row == 0 ? self.commentModel: self.commentModel.commentList[indexPath.row - 1];
     
@@ -56,6 +58,16 @@ static NSString *infoCommentCellID = @"CircleCommentDetailCell";
     cell.zanBtn.tag = 1300 + indexPath.row + 1000*indexPath.section;
     
     [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
+    
+    __block NSIndexPath *idxPath = indexPath;
+    
+    cell.circleReplyBlock = ^(NSInteger index) {
+        
+        if (weakSelf.refreshDelegate && [weakSelf.refreshDelegate respondsToSelector:@selector(refreshTableView:didSelectRowAtIndexPath:)]) {
+            
+            [weakSelf.refreshDelegate refreshTableView:weakSelf didSelectRowAtIndexPath:idxPath];
+        }
+    };
     
     return cell;
 }

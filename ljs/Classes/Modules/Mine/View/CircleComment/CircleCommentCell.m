@@ -97,6 +97,8 @@
     
     self.articleView.backgroundColor = kHexColor(@"#F6F6F6");
     self.articleView.userInteractionEnabled = YES;
+    self.articleView.layer.cornerRadius = 4;
+    self.articleView.clipsToBounds = YES;
     
     [self addSubview:self.articleView];
 

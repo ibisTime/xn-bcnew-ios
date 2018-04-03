@@ -14,6 +14,8 @@
 @property (nonatomic,copy) NSString *text;
 @property (nonatomic, copy) NSString *rightText;
 @property (nonatomic, assign) BOOL isSpecial;
+//是否隐藏箭头
+@property (nonatomic, assign) BOOL isHiddenArrow;
 
 @property (nonatomic,strong) void(^action)();
 
