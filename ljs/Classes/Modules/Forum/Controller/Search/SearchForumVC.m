@@ -236,11 +236,6 @@
     helper.code = @"628237";
     helper.parameters[@"keywords"] = self.searchStr;
     
-    if ([TLUser user].userId) {
-        
-        helper.parameters[@"userId"] = [TLUser user].userId;
-    }
-    
     helper.tableView = self.forumTableView;
     
     [helper modelClass:[ForumModel class]];
@@ -249,6 +244,13 @@
     
     [self.forumTableView addRefreshAction:^{
         
+        if ([TLUser user].userId) {
+            
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        } else {
+            
+            helper.parameters[@"userId"] = @"";
+        }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.forums = objs;
@@ -316,7 +318,6 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FollowOrCancelFollow" object:nil];
 
-        
     } failure:^(NSError *error) {
         
     }];
@@ -359,6 +360,10 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
+        //刷新关注状态
+        [weakSelf.forumTableView beginRefreshing];
+
+    } event:^{
         
         [weakSelf followForum:index];
     }];

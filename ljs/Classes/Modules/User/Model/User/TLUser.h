@@ -99,3 +99,5 @@
 FOUNDATION_EXTERN  NSString *const kUserLoginNotification;
 FOUNDATION_EXTERN  NSString *const kUserLoginOutNotification;
 FOUNDATION_EXTERN  NSString *const kUserInfoChange;
+FOUNDATION_EXTERN  NSString *const kUserTokenExpiredNotification;    //Token过期
+

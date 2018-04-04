@@ -211,6 +211,9 @@
     
     [http postWithSuccess:^(id responseObject) {
         
+        //评论完成，清空内容
+        self.inputTV.commentTV.text = @"";
+        
         NSString *code = responseObject[@"data"][@"code"];
         
         if ([code containsString:@"approve"]) {
@@ -282,6 +285,11 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
+        
+        //刷新点赞状态
+        [weakSelf requestCommentList];
+        
+    } event:^{
         
         InfoCommentModel *commentModel = weakSelf.commentModel;
         

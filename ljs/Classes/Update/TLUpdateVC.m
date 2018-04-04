@@ -20,12 +20,10 @@
 
 @implementation TLUpdateVC
 
-
 - (void)viewWillAppear:(BOOL)animated {
 
     [super viewWillAppear:animated];
 //    [self updateApp];
-
 }
 
 - (void)viewDidLoad {
@@ -47,7 +45,6 @@
 
 //    [self updateApp];
     [self configUpdate];
-
 }
 
 - (void)updateApp {
@@ -102,26 +99,23 @@
         
         [TLProgressHUD dismiss];
         [self addPlaceholderView];
-        
     }];
-    
-    
-
 }
-
-
 
 - (void)tl_placeholderOperation {
 
 //    [self updateApp];
     [self configUpdate];
-
 }
 
 - (NSString *)buildVersion {
     
    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+}
+
+- (NSString *)buildShortVersionString {
     
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 
 //#pragma mark - Config
@@ -138,7 +132,8 @@
         GengXinModel *update = [GengXinModel mj_objectWithKeyValues:responseObject[@"data"]];
         [self removePlaceholderView];
         //获取当前版本号
-        NSString *currentVersion = [self buildVersion];
+//        NSString *currentVersion = [self buildVersion];
+        NSString *currentVersion = [self buildShortVersionString];
 
         if (![currentVersion isEqualToString:update.version]) {
 
@@ -163,13 +158,11 @@
 //                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.xiaZaiUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
                     [self goLjClubWeb:update.downloadUrl];
 
-
                 }];
             }
         } else {
             
             [self setRootVC];
-            
         }
 
     } failure:^(NSError *error) {
@@ -191,10 +184,6 @@
     //检查更新过后再
     TabbarViewController *tabBarCtrl = [[TabbarViewController alloc] init];
     [UIApplication sharedApplication].keyWindow.rootViewController = tabBarCtrl;
-
-
 }
-
-
 
 @end

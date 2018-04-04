@@ -179,9 +179,11 @@
           
           if ([responseObject[@"errorCode"] isEqual:@"4"]) {
               //token错误  4
+              //清除失效的token
+              [[TLUser user] loginOut];
               
               [TLAlert alertWithTitle:nil message:@"为了您的账户安全，请重新登录" confirmAction:^{
-                  [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:kUserTokenExpiredNotification object:nil];
               }];
               return;
           }

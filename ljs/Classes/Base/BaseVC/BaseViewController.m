@@ -93,6 +93,28 @@
     }
 }
 
+/**
+ 判断用户是否登录
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess event:(void(^)(void))event {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (event) {
+        
+        event();
+    }
+}
+
 #pragma mark - Setting
 - (void)setTitle:(NSString *)title {
     

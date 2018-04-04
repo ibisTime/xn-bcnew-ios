@@ -24,6 +24,7 @@
 NSString *const kUserLoginNotification = @"kUserLoginNotification";
 NSString *const kUserLoginOutNotification = @"kUserLoginOutNotification";
 NSString *const kUserInfoChange = @"kUserInfoChange";
+NSString *const kUserTokenExpiredNotification = @"kUserTokenExpiredNotification";       //Token过期
 
 @implementation TLUser
 
@@ -131,6 +132,8 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:TOKEN_ID_KEY];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_ID_KEY];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_INFO_DICT_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 - (void)saveUserInfo:(NSDictionary *)userInfo {

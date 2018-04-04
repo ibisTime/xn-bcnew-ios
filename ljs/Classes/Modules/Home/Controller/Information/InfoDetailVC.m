@@ -337,31 +337,27 @@
     BaseWeakSelf;
     
     [self checkLogin:^{
-        
+        //刷新收藏状态
         TLNetworking *http = [TLNetworking new];
         
-        http.code = @"628202";
-        http.showView = self.view;
-        http.parameters[@"objectCode"] = weakSelf.code;
+        http.code = @"628206";
+        
+        http.parameters[@"code"] = self.code;
         http.parameters[@"userId"] = [TLUser user].userId;
         
         [http postWithSuccess:^(id responseObject) {
             
-            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"未收藏": @"收藏";
-            NSString *promptStr = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"取消收藏成功": @"收藏成功";
-            [TLAlert alertWithSucces:promptStr];
-            [sender setImage:kImage(image) forState:UIControlStateNormal];
+            weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
             
-            weakSelf.detailModel.isCollect = [self.detailModel.isCollect isEqualToString:@"1"] ? @"0": @"1";
-            
-            if (self.collectionBlock) {
-                
-                self.collectionBlock();
-            }
+            [weakSelf.collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
             
         } failure:^(NSError *error) {
             
         }];
+    } event:^{
+        
+        [weakSelf collectionArticle:sender];
     }];
 }
 
@@ -562,7 +558,7 @@
         weakSelf.tableView.detailModel = weakSelf.detailModel;
         weakSelf.tableView.newestComments = objs;
         //刷新
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData_tl];
         });
         //底部按钮
@@ -660,6 +656,37 @@
     }];
 }
 
+/**
+ 收藏资讯
+ */
+- (void)collectionArticle:(UIButton *)sender {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628202";
+    http.showView = self.view;
+    http.parameters[@"objectCode"] = self.code;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"未收藏": @"收藏";
+        NSString *promptStr = [self.detailModel.isCollect isEqualToString:@"1"] ? @"取消收藏成功": @"收藏成功";
+        [TLAlert alertWithSucces:promptStr];
+        [sender setImage:kImage(image) forState:UIControlStateNormal];
+        
+        self.detailModel.isCollect = [self.detailModel.isCollect isEqualToString:@"1"] ? @"0": @"1";
+        
+        if (self.collectionBlock) {
+            
+            self.collectionBlock();
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
     //type(1 资讯 2 评论)
@@ -672,6 +699,9 @@
     http.parameters[@"userId"] = [TLUser user].userId;
     
     [http postWithSuccess:^(id responseObject) {
+        
+        //评论完成，清空内容
+        self.inputTV.commentTV.text = @"";
         
         NSString *code = responseObject[@"data"][@"code"];
         
@@ -734,6 +764,11 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
+        
+        //刷新点赞状态
+        [weakSelf requestInfoDetail];
+        
+    } event:^{
         
         NSInteger section = index/1000;
         NSInteger row = index - section*1000;

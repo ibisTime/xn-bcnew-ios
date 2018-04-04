@@ -85,8 +85,7 @@
 - (void)shareEventsWithType:(NewsFlashShareType)type {
     
     UIImage *shareImage = [self.detailView snapshotViewWithCapInsets:UIEdgeInsetsZero];
-    
-    
+
     switch (type) {
         case NewsFlashShareTypeWeChat:
         {

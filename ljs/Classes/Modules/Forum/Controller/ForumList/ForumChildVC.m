@@ -103,11 +103,6 @@
     
     helper.code = code;
     
-    if ([TLUser user].isLogin) {
-        
-        helper.parameters[@"userId"] = [TLUser user].userId;
-    }
-    
     if ([self.type isEqualToString:kHotPost]) {
         
         helper.parameters[@"location"] = @"1";
@@ -117,6 +112,14 @@
     [helper modelClass:[ForumModel class]];
     
     [self.tableView addRefreshAction:^{
+        
+        if ([TLUser user].isLogin) {
+            
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        } else {
+            
+            helper.parameters[@"userId"] = @"";
+        }
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
@@ -205,6 +208,11 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
+        
+        //刷新关注状态
+        [weakSelf.tableView beginRefreshing];
+
+    } event:^{
         
         [weakSelf followForum:index];
     }];

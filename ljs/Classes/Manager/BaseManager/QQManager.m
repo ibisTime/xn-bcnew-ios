@@ -62,11 +62,6 @@
 
         self.qqShare([resp.result isEqualToString:@"0"], [resp.result intValue]);
     }
-
-//    if([resp isKindOfClass:[r class]]) { //分享回调
-//
-//
-//    }
 }
 
 - (void)handleSendResult:(QQApiSendResultCode)sendResult
@@ -116,7 +111,11 @@
 }
 
 #pragma mark - 分享
-+ (void)qqShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url previewImage:(NSString *)previewImageUrl {
++ (void)qqShareWebPageWithScene:(int)scene
+                          title:(NSString *)title
+                           desc:(NSString *)desc
+                            url:(NSString *)url
+                   previewImage:(NSString *)previewImageUrl {
     
     if (![TencentOAuth iphoneQQInstalled]) {
         
@@ -146,7 +145,10 @@
 }
 
 
-+ (void)qqShareImageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc image:(UIImage *)image {
++ (void)qqShareImageWithScene:(int)scene
+                        title:(NSString *)title
+                         desc:(NSString *)desc
+                        image:(UIImage *)image {
     
     if (![TencentOAuth iphoneQQInstalled]) {
         
@@ -162,7 +164,7 @@
     NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"链接社";
     NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用链接社";
     
-    NSData *imgData = UIImagePNGRepresentation(image);
+    NSData *imgData = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width, image.size.height)];
     
     QQApiImageObject *imgObj = [QQApiImageObject objectWithData:imgData
                                                previewImageData:imgData

@@ -375,17 +375,20 @@
     
     helper.code = @"628336";
     
-    if ([TLUser user].isLogin) {
-        
-        helper.parameters[@"userId"] = [TLUser user].userId;
-    }
-    
     helper.tableView = self.tableView;
     
     [helper modelClass:[OptionalListModel class]];
     self.helper = helper;
     
     [self.tableView addRefreshAction:^{
+        
+        if ([TLUser user].isLogin) {
+            
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        } else {
+            
+            helper.parameters[@"userId"] = @"";
+        }
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             

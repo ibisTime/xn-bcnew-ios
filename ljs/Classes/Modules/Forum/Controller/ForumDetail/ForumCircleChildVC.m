@@ -7,10 +7,6 @@
 //
 
 #import "ForumCircleChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
 //M
 #import "ForumCommentModel.h"
 //V
@@ -42,7 +38,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"RefreshForumDetail" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"RefreshCommentList" object:nil];
-
 }
 
 - (void)refresh:(NSNotification *)notification {
@@ -110,6 +105,9 @@
     if ([TLUser user].isLogin) {
         
         helper.parameters[@"userId"] = [TLUser user].userId;
+    } else {
+        
+        helper.parameters[@"userId"] = @"";
     }
     
     helper.tableView = self.tableView;
@@ -199,6 +197,10 @@
     BaseWeakSelf;
     
     [self checkLogin:^{
+        //刷新点赞状态
+        [weakSelf requestCircleList];
+        
+    } event:^{
         
         NSInteger section = index/1000;
         NSInteger row = index - section*1000;

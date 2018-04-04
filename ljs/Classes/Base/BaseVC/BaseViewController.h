@@ -25,6 +25,14 @@
 - (void)removePlaceholderView; //移除
 - (void)addPlaceholderView; // 添加
 
+/**
+ 登录成功后执行loginSuccess
+ */
 - (void)checkLogin:(void(^)(void))loginSuccess;
+/**
+ 登录成功后执行loginSuccess
+ 已经登录的执行event
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess event:(void(^)(void))event;
 
 @end

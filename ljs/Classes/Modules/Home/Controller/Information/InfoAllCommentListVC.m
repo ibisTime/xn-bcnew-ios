@@ -222,6 +222,11 @@
     BaseWeakSelf;
     [self checkLogin:^{
         
+        //刷新点赞状态
+        [weakSelf requestInfoDetail];
+        
+    } event:^{
+        
         NSInteger section = index/1000;
         NSInteger row = index - section*1000;
         

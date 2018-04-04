@@ -344,6 +344,9 @@
         NSString *image = [self.detailModel.isPoint isEqualToString:@"1"] ? @"圆点赞": @"圆未点赞";
         [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
         self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.pointCount];
+        UIColor *textColor = [self.detailModel.isPoint isEqualToString:@"0"] ? kTextColor: kHexColor(@"#FF4747");
+
+        self.zanNumLbl.textColor = textColor;
         
     } failure:^(NSError *error) {
         

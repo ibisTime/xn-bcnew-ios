@@ -28,6 +28,8 @@
 @property (nonatomic, strong) InformationListTableView *infoTableView;
 //infoList
 @property (nonatomic, strong) NSArray <InformationModel *>*infos;
+//
+@property (nonatomic, strong) TLPageDataHelper *flashHelper;
 
 @end
 
@@ -114,6 +116,7 @@
     helper.parameters[@"type"] = self.status;
     
     helper.tableView = self.flashTableView;
+    self.flashHelper = helper;
     
     [helper modelClass:[NewsFlashModel class]];
     
@@ -122,7 +125,11 @@
         if ([TLUser user].isLogin) {
             
             helper.parameters[@"userId"] = [TLUser user].userId;
+        } else {
+            
+            helper.parameters[@"userId"] = @"";
         }
+        
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.news = objs;
@@ -132,7 +139,6 @@
             [weakSelf.flashTableView reloadData_tl];
             
         } failure:^(NSError *error) {
-            
             
         }];
     }];
@@ -182,7 +188,6 @@
             
         } failure:^(NSError *error) {
             
-            
         }];
     }];
     
@@ -196,7 +201,6 @@
             
             [weakSelf.infoTableView reloadData_tl];
 
-            
         } failure:^(NSError *error) {
             
         }];
@@ -210,6 +214,8 @@
  */
 - (void)userClickNewsFlash:(NewsFlashModel *)flashModel {
     
+    BaseWeakSelf;
+    
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628094";
@@ -218,7 +224,17 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        [self.flashTableView beginRefreshing];
+        [self.flashHelper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.news = objs;
+            
+            weakSelf.flashTableView.news = objs;
+            
+            [weakSelf.flashTableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
         
     } failure:^(NSError *error) {
         

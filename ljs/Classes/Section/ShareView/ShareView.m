@@ -92,8 +92,8 @@
  
     BaseWeakSelf;
     
-    NSString *shareTitle = PASS_NULL_TO_NIL(_shareTitle).length > 0 ? _shareTitle : @"美业销帮";
-    NSString *shareDesc = PASS_NULL_TO_NIL(_shareDesc).length > 0 ? _shareDesc : @"欢迎使用美业销帮";
+    NSString *shareTitle = PASS_NULL_TO_NIL(_shareTitle).length > 0 ? _shareTitle : @"链接社";
+    NSString *shareDesc = PASS_NULL_TO_NIL(_shareDesc).length > 0 ? _shareDesc : @"欢迎使用链接社";
     UIImage *shareImage =  [_shareImgStr isEqualToString:@""] || _shareImgStr == nil? [UIImage imageNamed:APP_ICON] : [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_shareImgStr convertImageUrl]]]];
     
     WXMediaMessage *message = [WXMediaMessage message];

@@ -113,7 +113,7 @@
 }
 
 #pragma mark - 修改拍照底部button文字
--(UIView *)findView:(UIView *)aView withName:(NSString *)name{
+- (UIView *)findView:(UIView *)aView withName:(NSString *)name{
     
     Class cl = [aView class];
     
@@ -138,7 +138,7 @@
     
 }
 
--(void)addSomeElements:(UIViewController *)viewController {
+- (void)addSomeElements:(UIViewController *)viewController {
     
     UIView *PLCropOverlay = [self findView:viewController.view withName:@"PLCropOverlay"];
     

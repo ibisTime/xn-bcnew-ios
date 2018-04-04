@@ -92,12 +92,46 @@
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subVCLeaveTop) name:@"SubVCLeaveTop" object:nil];
+    //发布帖子刷新界面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestForumDetail) name:@"RefreshCommentList" object:nil];
 }
 
 - (void)subVCLeaveTop {
     
     self.canScroll = YES;
     self.vcCanScroll = NO;
+}
+
+/**
+ 刷新今日跟帖数
+ */
+- (void)refreshCommentCount {
+    
+    NSString *code = self.type == ForumEntrancetypeQuotes ? @"628239": @"628238";
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = code;
+    if (self.type == ForumEntrancetypeQuotes) {
+        
+        http.parameters[@"toCoin"] = self.toCoin;
+        
+    } else {
+        
+        http.parameters[@"code"] = self.code;
+    }
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.detailModel = [ForumDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        self.headerView.detailModel = self.detailModel;
+        self.tableView.tableHeaderView = self.headerView;
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - 下拉刷新
@@ -365,6 +399,9 @@
     http.parameters[@"userId"] = [TLUser user].userId;
     
     [http postWithSuccess:^(id responseObject) {
+        
+        //评论完成，清空内容
+        self.inputTV.commentTV.text = @"";
         
         NSString *code = responseObject[@"data"][@"code"];
         

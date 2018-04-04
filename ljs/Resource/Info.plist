@@ -118,10 +118,6 @@
 	<string>允许使用您的麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>允许访问您的相册</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

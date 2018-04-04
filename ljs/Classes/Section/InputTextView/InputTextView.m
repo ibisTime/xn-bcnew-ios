@@ -116,7 +116,7 @@
 #pragma mark - Events
 - (void)cancle:(UIButton *)sender {
     
-    self.commentTV.text = @"";
+    self.commentTV.text = nil;
     
     [self.delegate clickedCancelBtn];
     

@@ -109,7 +109,7 @@
 - (void)configServiceAddress {
     
     //配置环境
-    [AppConfig config].runEnv = RunEnvDev;
+    [AppConfig config].runEnv = RunEnvTest;
 }
 
 - (void)configIQKeyboard {
@@ -157,8 +157,9 @@
     
     //登出
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOut) name:kUserLoginOutNotification object:nil];
-    //登录
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kIMLoginNotification object:nil];
+    //Token失效
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenExpried) name:kUserTokenExpiredNotification object:nil];
+
 }
 
 #pragma mark- 退出登录
@@ -166,20 +167,18 @@
     
     //user 退出
     [[TLUser user] loginOut];
-    
-//    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-//
-//    TLUserLoginVC *loginVC = [TLUserLoginVC new];
-//
-//    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-//    
-//    [vc presentViewController:nav animated:YES completion:nil];
 }
 
-#pragma mark - 用户登录
-- (void)userLogin {
+#pragma mark - Token失效
+- (void)tokenExpried {
     
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    TLUserLoginVC *loginVC = [TLUserLoginVC new];
+    
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+    
+    [vc presentViewController:nav animated:YES completion:nil];
 }
-
 
 @end

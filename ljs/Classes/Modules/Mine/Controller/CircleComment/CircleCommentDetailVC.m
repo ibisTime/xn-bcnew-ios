@@ -164,6 +164,10 @@
     http.code = code;
     http.showView = self.view;
     http.parameters[@"code"] = self.code;
+    if ([TLUser user].userId) {
+        
+        http.parameters[@"userId"] = [TLUser user].userId;
+    }
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -204,6 +208,9 @@
     http.parameters[@"userId"] = [TLUser user].userId;
     
     [http postWithSuccess:^(id responseObject) {
+        
+        //评论完成，清空内容
+        self.inputTV.commentTV.text = @"";
         
         NSString *code = responseObject[@"data"][@"code"];
         
@@ -274,6 +281,10 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
+        //刷新点赞状态
+        [weakSelf requestCommentList];
+
+    } event:^{
         
         InfoCommentModel *commentModel = index == 0 ? weakSelf.commentModel: weakSelf.commentModel.commentList[index - 1];
         

@@ -70,6 +70,7 @@
 
     _placholder = [placholder copy];
     self.placeholderLbl.text = _placholder;
+    [self addSubview:self.placeholderLbl];
 
 }
 
