@@ -134,8 +134,8 @@
         //获取当前版本号
 //        NSString *currentVersion = [self buildVersion];
         NSString *currentVersion = [self buildShortVersionString];
-
-        if (![currentVersion isEqualToString:update.version]) {
+        //1:已shangxian 0:未shangxian
+        if (![currentVersion isEqualToString:update.version] && [update.isUpdated isEqualToString:@"1"]) {
 
             if ([update.forceUpdate isEqualToString:@"0"]) {
 

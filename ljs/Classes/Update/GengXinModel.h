@@ -16,7 +16,9 @@
 //@property (nonatomic, copy) NSString *xiaZaiUrl;
 @property (nonatomic, copy) NSString *downloadUrl;
 
-
+//强制gengxin
 @property (nonatomic, copy) NSString *forceUpdate;
+//是否shangxian
+@property (nonatomic, copy) NSString *isUpdated;
 
 @end

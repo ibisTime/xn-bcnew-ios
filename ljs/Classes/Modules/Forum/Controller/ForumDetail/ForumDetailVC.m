@@ -227,8 +227,8 @@
         
     } else {
         
-        self.selectScrollView.height = kSuperViewHeight;
-        self.tableView.height = kSuperViewHeight;
+        self.selectScrollView.height = kSuperViewHeight - kBottomInsetHeight;
+        self.tableView.height = kSuperViewHeight - kBottomInsetHeight;
         self.tableView.tableFooterView = self.selectScrollView;
     }
 }
@@ -268,7 +268,7 @@
             childVC.index = i;
             childVC.toCoin = self.detailModel.code;
             
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight);
             
             [self addChildViewController:childVC];
             
@@ -287,7 +287,7 @@
             //detailModel不为空则是币种
             childVC.type = self.detailModel.coin ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
             childVC.toCoin = self.detailModel.toCoin;
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight);
             
             [self addChildViewController:childVC];
             
