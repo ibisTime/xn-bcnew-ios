@@ -7,22 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+JPush.h"
 
 //Manager
 #import "AppConfig.h"
 #import "TLUser.h"
 #import "QQManager.h"
 #import "TLWXManager.h"
-//Macro
-//Framework
-//Category
 //Extension
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "IQKeyboardManager.h"
-//M
-//V
 //C
 #import "NavigationController.h"
 #import "TabbarViewController.h"
@@ -53,14 +49,10 @@
     [self configWeChat];
     //服务器环境
     [self configServiceAddress];
-    //获取七牛云域名
-//    [[TLUser user] requestQiniuDomain];
     //键盘
     [self configIQKeyboard];
-    //配置地图
-//    [self configMapKit];
     //配置极光
-//    [self configJPushWithOptions:launchOptions];
+//    [self jpushInitWithLaunchOption:launchOptions];
     //配置根控制器
     [self configRootViewController];
     
@@ -175,13 +167,13 @@
     //user 退出
     [[TLUser user] loginOut];
     
-    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    TLUserLoginVC *loginVC = [TLUserLoginVC new];
-    
-    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-    
-    [vc presentViewController:nav animated:YES completion:nil];
+//    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+//
+//    TLUserLoginVC *loginVC = [TLUserLoginVC new];
+//
+//    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+//    
+//    [vc presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - 用户登录

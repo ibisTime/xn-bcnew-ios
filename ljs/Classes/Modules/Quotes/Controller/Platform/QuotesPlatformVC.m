@@ -48,6 +48,31 @@
     [self.tableView beginRefreshing];
     //获取贴吧信息
     [self requestForumInfo];
+    //添加通知
+    [self addNotification];
+}
+
+#pragma mark - 通知
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
+}
+
+- (void)didSwitchLabel:(NSNotification *)notification {
+    
+    NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
+    
+    NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
+
+    if (labelIndex == self.currentIndex && segmentIndex == 2) {
+        //刷新列表
+        [self.tableView beginRefreshing];
+        //定时器刷起来
+        [self startTimer];
+        return ;
+    }
+    //定时器停止
+    [self stopTimer];
 }
 
 #pragma mark - 定时器
@@ -61,10 +86,13 @@
                                         repeats:YES];
     
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    NSLog(@"平台定时器开启, index = %ld", self.currentIndex);
+
 }
 
 - (void)refreshPlatformList {
-    
+    NSLog(@"平台定时器刷新中, index = %ld", self.currentIndex);
+
     BaseWeakSelf;
     //刷新平台列表
     [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
@@ -85,6 +113,7 @@
     
     [self.timer invalidate];
     self.timer = nil;
+    NSLog(@"平台定时器停止, index = %ld", self.currentIndex);
 }
 
 #pragma mark - Init
@@ -274,6 +303,14 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

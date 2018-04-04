@@ -49,17 +49,17 @@ static NSString *currencyCell = @"CurrencyCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    if (self.type == ForumQuotesTypePlatform) {
-//
-//        PlatformModel *platform = self.platforms[indexPath.row];
-//
-//        PlatformCell *cell = [tableView dequeueReusableCellWithIdentifier:platformCell forIndexPath:indexPath];
-//
-//        cell.platform = platform;
-//        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
-//
-//        return cell;
-//    }
+    if (self.type == ForumQuotesTypePlatform) {
+
+        CurrencyModel *currency = self.currencys[indexPath.row];
+
+        PlatformCell *cell = [tableView dequeueReusableCellWithIdentifier:platformCell forIndexPath:indexPath];
+
+        cell.currency = currency;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+
+        return cell;
+    }
     
     CurrencyModel *currency = self.currencys[indexPath.row];
     

@@ -84,4 +84,8 @@ void TLLog(NSString *format, ...) {
     return @"1106729019";
 }
 
+- (NSString *)pushKey {
+    
+    return @"bfb492cb1bd1c84633b92614";
+}
 @end

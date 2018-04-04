@@ -53,7 +53,8 @@
 - (void)addNotification {
     //登录后刷新列表
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginNotification object:nil];
-    
+    //退出登录刷新列表
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginOutNotification object:nil];
     //关注或取消关注刷新界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
     //发布帖子刷新界面
@@ -196,7 +197,7 @@
     detailVC.code = self.forums[indexPath.row].code;
     
     detailVC.type = ForumEntrancetypeForum;
-
+    
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -208,7 +209,6 @@
         [weakSelf followForum:index];
     }];
 }
-
 
 /**
  VC被释放时移除通知

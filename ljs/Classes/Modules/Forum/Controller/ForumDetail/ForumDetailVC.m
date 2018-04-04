@@ -7,9 +7,6 @@
 //
 
 #import "ForumDetailVC.h"
-
-//Macro
-//Framework
 //Category
 #import <UIScrollView+TLAdd.h>
 //Extension
@@ -165,21 +162,32 @@
     
     self.selectScrollView.selectBlock = ^(NSInteger index) {
         
-        weakSelf.bottomView.hidden = index == 0 ? NO: YES;
-        
-        if (index == 0) {
-            
-            weakSelf.selectScrollView.height = kSuperViewHeight - kBottomHeight - kBottomInsetHeight;
-            weakSelf.tableView.height = weakSelf.selectScrollView.height;
-        } else {
-            
-            weakSelf.tableView.height = kSuperViewHeight;
-            weakSelf.selectScrollView.height = kSuperViewHeight;
-        }
+        [weakSelf didSelectWithIndex:index];
     };
     
     self.tableView.tableFooterView = self.selectScrollView;
     
+}
+
+/**
+ 切换标签
+ */
+- (void)didSelectWithIndex:(NSInteger)index {
+    
+    self.bottomView.hidden = index == 0 ? NO: YES;
+    //圈子
+    if (index == 0) {
+        
+        self.selectScrollView.height = kSuperViewHeight - kBottomHeight - kBottomInsetHeight;
+        self.tableView.height = self.selectScrollView.height;
+        self.tableView.tableFooterView = self.selectScrollView;
+        
+    } else {
+        
+        self.selectScrollView.height = kSuperViewHeight;
+        self.tableView.height = kSuperViewHeight;
+        self.tableView.tableFooterView = self.selectScrollView;
+    }
 }
 
 - (void)addSubViewController {
@@ -232,10 +240,9 @@
             };
             childVC.index = i;
             //detailModel不为空则是币种
-            childVC.type = self.isPlatform ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
+            childVC.type = self.detailModel.coin ? ForumQuotesTypeCurrency: ForumQuotesTypePlatform;
             childVC.toCoin = self.detailModel.toCoin;
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
-            childVC.type = ForumQuotesTypeCurrency;
             
             [self addChildViewController:childVC];
             

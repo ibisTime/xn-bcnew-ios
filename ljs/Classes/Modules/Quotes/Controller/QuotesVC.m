@@ -7,11 +7,8 @@
 //
 
 #import "QuotesVC.h"
-//Macro
-//Framework
 //Category
 #import "UIBarButtonItem+convience.h"
-//Extension
 //M
 #import "QuotesManager.h"
 #import "OptionalListModel.h"
@@ -36,6 +33,8 @@
 @property (nonatomic, strong) UIScrollView *switchSV;
 //小滚动
 @property (nonatomic, strong) SelectScrollView *selectSV;
+//当前大标签索引
+@property (nonatomic, assign) NSInteger currentSegmentIndex;
 //类型
 @property (nonatomic, copy) NSString *kind;
 //
@@ -56,6 +55,10 @@
 @property (nonatomic, strong) NSTimer *timer;
 //
 @property (nonatomic, strong) TLPageDataHelper *helper;
+//当前平台索引
+@property (nonatomic, assign) NSInteger platformLabelIndex;
+//当前币种索引
+@property (nonatomic, assign) NSInteger currencyLabelIndex;
 
 @end
 
@@ -70,25 +73,40 @@
         //刷新自选列表
         [self.tableView beginRefreshing];
     }
-    //定时器刷起来
-    [self startTimer];
+    
+    if (self.currentSegmentIndex == 2) {
+        
+        [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
+                                      labelIndex:self.platformLabelIndex];
+    } else if (self.currentSegmentIndex == 3) {
+        
+        [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
+                                      labelIndex:self.currencyLabelIndex];
+    }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     
-    [super viewWillDisappear:animated];
-    //定时器停止
-    [self stopTimer];
+    [super viewDidDisappear:animated];
+    
+    //页面消失，所有的定时器停止
+    if (self.currentSegmentIndex == 1) {
+        
+        [self stopTimer];
+        return ;
+    }
+    
+    [self startCurrencyTimerWithSegmentIndex:1
+                                  labelIndex:0];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     //判断是否有选择的币种
     [self initFooterView];
     //顶部切换
     [self initSegmentView];
-    //
+    //添加+搜索
     [self addItem];
     //获取自选列表
     [self requestOptionalList];
@@ -96,7 +114,6 @@
     [self requestPlatformTitleList];
     //获取币种title列表
     [self requestCurrencyTitleList];
-    
 }
 
 #pragma mark - Init
@@ -126,6 +143,10 @@
 }
 
 - (void)initSegmentView {
+    
+    self.currentSegmentIndex = 1;
+    self.platformLabelIndex = 0;
+    self.currencyLabelIndex = 0;
     
     NSArray *titleArr = @[
                           @"自选",
@@ -179,11 +200,19 @@
     
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
-//    selectSV.selectBlock = ^(NSInteger index) {
-//
-//        //点击标签
-//        [weakSelf ];
-//    };
+    selectSV.selectBlock = ^(NSInteger index) {
+        
+        if (idx == 1) {
+            
+            weakSelf.platformLabelIndex = index;
+        } else if (idx == 2) {
+            
+            weakSelf.currencyLabelIndex = index;
+        }
+        //点击标签
+        [weakSelf startCurrencyTimerWithSegmentIndex:weakSelf.currentSegmentIndex
+                                          labelIndex:index];
+    };
     
     [self.switchSV addSubview:selectSV];
     
@@ -200,9 +229,9 @@
             
 //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             
+            childVC.currentIndex = i;
             childVC.type = PlatformTypePlatform;
             childVC.titleModel = self.platformTitleList[i];
-            childVC.currentIndex = i;
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
             
             [self addChildViewController:childVC];
@@ -214,6 +243,7 @@
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
             
 //            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
+            childVC.currentIndex = i;
             childVC.type = i == 0 ? CurrencyTypePrice:  CurrencyTypeCurrency;
             if (i != 0) {
                 
@@ -238,6 +268,8 @@
                                         repeats:YES];
     
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    NSLog(@"自选定时器开启");
+
 }
 
 //定时器停止
@@ -245,10 +277,14 @@
     
     [self.timer invalidate];
     self.timer = nil;
+    NSLog(@"自选定时器停止");
+
 }
 
 - (void)refreshOptionalList {
     
+    NSLog(@"自选定时器刷新中");
+
     BaseWeakSelf;
     
     [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
@@ -297,6 +333,30 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+/**
+ 点击标签
+ */
+- (void)didSelectIndex:(NSInteger)index {
+    
+    
+}
+
+/**
+ 开启当前显示页面的定时器
+ */
+- (void)startCurrencyTimerWithSegmentIndex:(NSInteger)segmentIndex
+                                labelIndex:(NSInteger)labelIndex {
+    
+    NSDictionary *dic = @{
+                          @"segmentIndex": @(segmentIndex),
+                          @"labelIndex": @(labelIndex),
+                          };
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSwitchLabel"
+                                                        object:nil
+                                                      userInfo:dic];
+}
+
 #pragma mark - Data
 /**
  获取自选列表
@@ -342,6 +402,11 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
+            
+            if (weakSelf.currentSegmentIndex == 1) {
+                //定时器开启
+                [weakSelf startTimer];
+            }
             
         } failure:^(NSError *error) {
             
@@ -449,9 +514,31 @@
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
     
+    self.currentSegmentIndex = index;
+    
     [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
     [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
     
+    //1:自选, 不是自选就停止定时器
+    if (index == 1) {
+        //开启自选定时器
+        [self startTimer];
+        
+        return ;
+    }
+    
+    NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
+    [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
+    //自选定时器停止
+    [self stopTimer];
+}
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -308,13 +308,6 @@
     self.inputTV.commentTV.placholder = [NSString stringWithFormat:@"对%@进行回复", commentModel.nickname];
     [self.inputTV show];
 }
-/**
- VC被释放时移除通知
- */
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

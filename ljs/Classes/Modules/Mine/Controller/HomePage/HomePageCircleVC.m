@@ -63,7 +63,7 @@
     
     [self.view addSubview:imageView];
     
-    self.tableView = [[HomePageCircleTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kTabBarHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[HomePageCircleTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
     
     [self.view addSubview:self.tableView];
     

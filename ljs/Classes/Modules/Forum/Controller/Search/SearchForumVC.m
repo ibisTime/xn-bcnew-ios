@@ -10,6 +10,7 @@
 //Category
 #import "UIBarButtonItem+convience.h"
 //Extension
+#import <IQKeyboardManager.h>
 //M
 #import "ForumModel.h"
 //V
@@ -46,10 +47,24 @@
 
 @implementation SearchForumVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    //隐藏第三方键盘
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    //显示第三方键盘
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     //取消
     [self addCancelItem];
     //搜索
@@ -178,6 +193,8 @@
 }
 
 - (void)back {
+    
+    [self.searchTF resignFirstResponder];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -346,6 +363,7 @@
         [weakSelf followForum:index];
     }];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

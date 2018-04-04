@@ -156,4 +156,45 @@
     
 }
 
+- (void)setCurrency:(CurrencyModel *)currency {
+    
+    _currency = currency;
+    
+    //币种名称
+    self.currencyNameLbl.text = currency.coinSymbol;
+    //一日交易量
+    NSString *volumeStr = currency.volume;
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", currency.toCoinSymbol,volumeStr];
+    
+    //对应币种价格
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastPrice];
+    
+    //人民币价格
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.lastCnyPrice];
+    self.rmbPriceLbl.textColor = currency.bgColor;
+    
+    //涨跌情况
+    NSString *priceFluctStr = currency.changeRate;
+    CGFloat fluct = [priceFluctStr doubleValue];
+    
+    if (fluct > 0) {
+        
+        priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
+        
+    } else  {
+        
+        priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
+    }
+    
+    [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
+    [self.priceFluctBtn setBackgroundColor:currency.bgColor forState:UIControlStateNormal];
+    
+    CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
+    [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.equalTo(@(btnW > 75 ? btnW: 75));
+    }];
+    
+}
+
 @end

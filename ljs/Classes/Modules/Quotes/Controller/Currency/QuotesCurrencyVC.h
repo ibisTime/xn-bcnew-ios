@@ -23,5 +23,7 @@
 @property (nonatomic, copy) NSString *code;
 //title
 @property (nonatomic, strong) CurrencyTitleModel *titleModel;
+//当前索引
+@property (nonatomic, assign) NSInteger currentIndex;
 
 @end

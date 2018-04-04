@@ -14,7 +14,7 @@
 #import "APICodeMacro.h"
 #import "TLUIHeader.h"
 #import "AppConfig.h"
-
+#import "NSString+Check.h"
 //#import "TabbarViewController.h"
 
 #define USER_ID_KEY @"user_id_key"
@@ -53,6 +53,7 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
 }
 
 - (void)setUserId:(NSString *)userId {
+    
     _userId = [userId copy];
     [[NSUserDefaults standardUserDefaults] setObject:_userId forKey:USER_ID_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -118,8 +119,8 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
 
 - (void)loginOut {
 
-    self.userId = nil;
-    self.token = nil;
+    self.userId = @"";
+    self.token = @"";
     self.photo = nil;
     self.mobile = nil;
     self.nickname = nil;

@@ -43,6 +43,8 @@
     [self initHeaderView];
     //
     [self initTableView];
+    //添加通知
+    [self addNotification];
     
     if (self.type == CurrencyTypePrice) {
         //获取币价
@@ -60,16 +62,25 @@
     [self requestForumInfo];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+#pragma mark - 通知
+- (void)addNotification {
     
-    [super viewWillAppear:animated];
-    //定时器刷起来
-    [self startTimer];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)didSwitchLabel:(NSNotification *)notification {
     
-    [super viewWillDisappear:animated];
+    NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
+    
+    NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
+    
+    if (labelIndex == self.currentIndex && segmentIndex == 3) {
+        //刷新列表
+        [self.tableView beginRefreshing];
+        //定时器刷起来
+        [self startTimer];
+        return ;
+    }
     //定时器停止
     [self stopTimer];
 }
@@ -85,10 +96,13 @@
                                         repeats:YES];
     
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    NSLog(@"币种定时器开启, index = %ld", self.currentIndex);
+
 }
 
 - (void)refreshCurrencyList {
-    
+    NSLog(@"币种定时器刷新中, index = %ld", self.currentIndex);
+
     BaseWeakSelf;
     
     //刷新币种列表
@@ -110,6 +124,8 @@
     
     [self.timer invalidate];
     self.timer = nil;
+    NSLog(@"币种定时器停止, index = %ld", self.currentIndex);
+
 }
 
 #pragma mark - Init
@@ -333,6 +349,14 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

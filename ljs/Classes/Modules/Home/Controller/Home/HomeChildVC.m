@@ -60,8 +60,11 @@
 
 #pragma mark - Init
 - (void)addNotification {
-    
+    //用户登录刷新首页快讯
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewsFlash) name:kUserLoginNotification object:nil];
+    //用户退出登录刷新首页快讯
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewsFlash) name:kUserLoginOutNotification object:nil];
+
 }
 
 - (void)refreshNewsFlash {
@@ -111,14 +114,15 @@
     helper.parameters[@"type"] = self.status;
     
     helper.tableView = self.flashTableView;
-    if ([TLUser user].isLogin) {
-        
-        helper.parameters[@"userId"] = [TLUser user].userId;
-    }
+    
     [helper modelClass:[NewsFlashModel class]];
     
     [self.flashTableView addRefreshAction:^{
         
+        if ([TLUser user].isLogin) {
+            
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.news = objs;
@@ -214,9 +218,7 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        flashModel.isRead = @"1";
-        
-        [self.flashTableView reloadData];
+        [self.flashTableView beginRefreshing];
         
     } failure:^(NSError *error) {
         

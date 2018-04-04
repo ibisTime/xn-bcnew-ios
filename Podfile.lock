@@ -25,6 +25,9 @@ PODS:
   - FDFullscreenPopGesture (1.1)
   - HappyDNS (0.3.10)
   - IQKeyboardManager (4.0.13)
+  - JCore (1.1.7)
+  - JPush (3.0.8):
+    - JCore (~> 1.1.7)
   - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.10)
@@ -52,6 +55,7 @@ DEPENDENCIES:
   - CDCommon (= 1.0.3)
   - FDFullscreenPopGesture (= 1.1)
   - IQKeyboardManager (= 4.0.13)
+  - JPush (= 3.0.8)
   - Masonry (= 1.0.1)
   - MBProgressHUD (= 0.9.2)
   - MJExtension (= 3.0.10)
@@ -72,6 +76,8 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
+  JCore: f7459c81c135281a874a6beafdd321666adcc834
+  JPush: 9574d072cc37e93fa293ba69b43ce763c440943a
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
@@ -85,6 +91,6 @@ SPEC CHECKSUMS:
   TFHpple: a916fe0799eb30aa29b2670d14d5868cdd3a5b81
   TZImagePickerController: 2a74f34f116e8229264e2afc122b0d8d4683c626
 
-PODFILE CHECKSUM: c1bcf7f820d3a8b54132f2cdbf9997263d837854
+PODFILE CHECKSUM: c19a74646d2005b132ea388a69a8fc2b18df319b
 
 COCOAPODS: 1.4.0

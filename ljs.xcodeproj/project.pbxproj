@@ -147,6 +147,8 @@
 		219CF52E2072550300012F68 /* SGAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CF51F2072550300012F68 /* SGAlertView.m */; };
 		219CF52F2072550300012F68 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 219CF5212072550300012F68 /* sound.caf */; };
 		219CF5302072550300012F68 /* SGQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CF5232072550300012F68 /* SGQRCodeTool.m */; };
+		219CF5372073559600012F68 /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CF5332073559200012F68 /* AppDelegate+JPush.m */; };
+		219CF5382073559600012F68 /* JPushModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CF5362073559400012F68 /* JPushModel.m */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */; };
@@ -252,6 +254,10 @@
 		21EF0B9E20677DBD008EA865 /* PlatformTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EF0B9D20677DBD008EA865 /* PlatformTitleModel.m */; };
 		21EF0BA120678BE6008EA865 /* CurrencyTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EF0BA020678BE6008EA865 /* CurrencyTitleModel.m */; };
 		21EF0BA72067953D008EA865 /* CurrencyPriceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EF0BA62067953D008EA865 /* CurrencyPriceModel.m */; };
+		21F0F1772073591B00E39A55 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F0F1762073591B00E39A55 /* CoreFoundation.framework */; };
+		21F0F1792073592600E39A55 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F0F1782073592600E39A55 /* UserNotifications.framework */; };
+		21F0F17C2073C97200E39A55 /* InfoAllCommentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F0F17B2073C97200E39A55 /* InfoAllCommentListVC.m */; };
+		21F0F17F2073C9EE00E39A55 /* InfoAllCommentListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F0F17E2073C9EE00E39A55 /* InfoAllCommentListTableView.m */; };
 		21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B5A1F17719D0019B176 /* AppDelegate.mm */; };
 		21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B5E1F17719D0019B176 /* BaseModel.m */; };
 		21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B611F17719D0019B176 /* BaseViewController.m */; };
@@ -537,6 +543,11 @@
 		219CF5212072550300012F68 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		219CF5232072550300012F68 /* SGQRCodeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeTool.m; sourceTree = "<group>"; };
 		219CF5242072550300012F68 /* SGQRCodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeTool.h; sourceTree = "<group>"; };
+		219CF5332073559200012F68 /* AppDelegate+JPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPush.m"; sourceTree = "<group>"; };
+		219CF5342073559200012F68 /* AppDelegate+JPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPush.h"; sourceTree = "<group>"; };
+		219CF5352073559300012F68 /* JPushModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPushModel.h; sourceTree = "<group>"; };
+		219CF5362073559400012F68 /* JPushModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPushModel.m; sourceTree = "<group>"; };
+		219CF539207356B100012F68 /* ljs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ljs.entitlements; sourceTree = "<group>"; };
 		21AC586D1FDE72B800F19DE8 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		21AC586E1FDE72B900F19DE8 /* APICodeMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICodeMacro.h; sourceTree = "<group>"; };
 		21AC586F1FDE72BA00F19DE8 /* AppColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColorMacro.h; sourceTree = "<group>"; };
@@ -753,6 +764,12 @@
 		21EF0BA020678BE6008EA865 /* CurrencyTitleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyTitleModel.m; sourceTree = "<group>"; };
 		21EF0BA52067953D008EA865 /* CurrencyPriceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrencyPriceModel.h; sourceTree = "<group>"; };
 		21EF0BA62067953D008EA865 /* CurrencyPriceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyPriceModel.m; sourceTree = "<group>"; };
+		21F0F1762073591B00E39A55 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		21F0F1782073592600E39A55 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		21F0F17A2073C97200E39A55 /* InfoAllCommentListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoAllCommentListVC.h; sourceTree = "<group>"; };
+		21F0F17B2073C97200E39A55 /* InfoAllCommentListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoAllCommentListVC.m; sourceTree = "<group>"; };
+		21F0F17D2073C9EE00E39A55 /* InfoAllCommentListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoAllCommentListTableView.h; sourceTree = "<group>"; };
+		21F0F17E2073C9EE00E39A55 /* InfoAllCommentListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoAllCommentListTableView.m; sourceTree = "<group>"; };
 		21F827CF1F1742E80019B176 /* ljs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ljs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F82B591F17719D0019B176 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		21F82B5A1F17719D0019B176 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -793,6 +810,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F0F1792073592600E39A55 /* UserNotifications.framework in Frameworks */,
+				21F0F1772073591B00E39A55 /* CoreFoundation.framework in Frameworks */,
 				214593DF206A3D060006E238 /* Security.framework in Frameworks */,
 				214593DB206A3CAB0006E238 /* libiconv.tbd in Frameworks */,
 				214593DD206A3CE50006E238 /* libstdc++.tbd in Frameworks */,
@@ -1177,6 +1196,8 @@
 				21CFFB28205673C000D245ED /* InfoDetailVC.m */,
 				2124BE6E20613E5900CB79E8 /* InfoCommentDetailVC.h */,
 				2124BE6F20613E5900CB79E8 /* InfoCommentDetailVC.m */,
+				21F0F17A2073C97200E39A55 /* InfoAllCommentListVC.h */,
+				21F0F17B2073C97200E39A55 /* InfoAllCommentListVC.m */,
 			);
 			path = Information;
 			sourceTree = "<group>";
@@ -1590,6 +1611,17 @@
 				219CF5242072550300012F68 /* SGQRCodeTool.h */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		219CF5322073557500012F68 /* Push */ = {
+			isa = PBXGroup;
+			children = (
+				219CF5342073559200012F68 /* AppDelegate+JPush.h */,
+				219CF5332073559200012F68 /* AppDelegate+JPush.m */,
+				219CF5352073559300012F68 /* JPushModel.h */,
+				219CF5362073559400012F68 /* JPushModel.m */,
+			);
+			path = Push;
 			sourceTree = "<group>";
 		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
@@ -2106,6 +2138,8 @@
 				21EF0B632065F839008EA865 /* ReplyCommentView.m */,
 				214593E0206A50200006E238 /* InfoDetailShareView.h */,
 				214593E1206A50200006E238 /* InfoDetailShareView.m */,
+				21F0F17D2073C9EE00E39A55 /* InfoAllCommentListTableView.h */,
+				21F0F17E2073C9EE00E39A55 /* InfoAllCommentListTableView.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -2212,6 +2246,7 @@
 		21F827D11F1742E80019B176 /* ljs */ = {
 			isa = PBXGroup;
 			children = (
+				219CF539207356B100012F68 /* ljs.entitlements */,
 				21F82B551F17719D0019B176 /* Classes */,
 				21F82C911F17719D0019B176 /* Extension */,
 				21F82C921F17719D0019B176 /* Resource */,
@@ -2239,6 +2274,7 @@
 			children = (
 				21F82B591F17719D0019B176 /* AppDelegate.h */,
 				21F82B5A1F17719D0019B176 /* AppDelegate.mm */,
+				219CF5322073557500012F68 /* Push */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -2452,6 +2488,8 @@
 		6D1019D17ED73A7EE047960F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21F0F1782073592600E39A55 /* UserNotifications.framework */,
+				21F0F1762073591B00E39A55 /* CoreFoundation.framework */,
 				214593DE206A3D060006E238 /* Security.framework */,
 				214593DC206A3CE50006E238 /* libstdc++.tbd */,
 				214593DA206A3CAB0006E238 /* libiconv.tbd */,
@@ -2511,6 +2549,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -2647,6 +2688,7 @@
 				21EF0B69206643B4008EA865 /* InfoCommentVC.m in Sources */,
 				21111BA21F8B5F2C0021B3FE /* CircleGuideView.m in Sources */,
 				217BDAEF2069461000E17DEE /* CircleCommentChildVC.m in Sources */,
+				21F0F17F2073C9EE00E39A55 /* InfoAllCommentListTableView.m in Sources */,
 				212FEEA820688FD30002F293 /* ForumDetailTableView.m in Sources */,
 				21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */,
 				21AC589F1FDE754400F19DE8 /* AppConfig.m in Sources */,
@@ -2676,6 +2718,7 @@
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
 				217BDAE62068C64000E17DEE /* ForumCommentModel.m in Sources */,
 				21EF0B3F2064CEB2008EA865 /* ForumCircleChildVC.m in Sources */,
+				219CF5382073559600012F68 /* JPushModel.m in Sources */,
 				2124BEC1206296F800CB79E8 /* SearchCurrencyTableView.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
 				2124BE0A205FB57E00CB79E8 /* InformationListCell2.m in Sources */,
@@ -2703,6 +2746,7 @@
 				2128825220577D3900A57A5A /* ForumModel.m in Sources */,
 				21AC593E1FDE7A1B00F19DE8 /* TopLabelUtil.m in Sources */,
 				2124BE16205FD40700CB79E8 /* ShareView.m in Sources */,
+				219CF5372073559600012F68 /* AppDelegate+JPush.m in Sources */,
 				21AC58AA1FDE75AA00F19DE8 /* HttpLogger.m in Sources */,
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				219CF5252072550300012F68 /* SGGenerateQRCodeVC.m in Sources */,
@@ -2714,6 +2758,7 @@
 				21AC594D1FDE7A1B00F19DE8 /* TLNetworking.m in Sources */,
 				21111BCD1F8B5F2C0021B3FE /* CustomTextView.m in Sources */,
 				2124BE8B2062395F00CB79E8 /* QuotesCurrencyVC.m in Sources */,
+				21F0F17C2073C97200E39A55 /* InfoAllCommentListVC.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
 				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
 				21CFFB2620566D9A00D245ED /* InformationListTableView.m in Sources */,
@@ -2960,6 +3005,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKTVZ75A59;
@@ -2991,6 +3037,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;

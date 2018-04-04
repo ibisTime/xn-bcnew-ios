@@ -284,7 +284,6 @@
 
     self.headerView.userPhoto.image = USER_PLACEHOLDER_SMALL;
     self.navigationItem.rightBarButtonItem = nil;
-
 }
 
 /**

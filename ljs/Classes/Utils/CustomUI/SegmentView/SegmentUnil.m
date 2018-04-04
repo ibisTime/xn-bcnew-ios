@@ -42,7 +42,7 @@
 
 @implementation SegmentUnil
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.segmentHeight  = frame.size.height;

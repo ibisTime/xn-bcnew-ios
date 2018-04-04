@@ -12,7 +12,6 @@
 #import "TLNetworking.h"
 #import "TLUser.h"
 #import "TLAlert.h"
-//Framework
 //Category
 #import "UILabel+Extension.h"
 #import "NSString+Date.h"

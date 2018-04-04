@@ -7,14 +7,10 @@
 //
 
 #import "ForumQuotesChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
+
 //M
 #import "PlatformModel.h"
 #import "CurrencyModel.h"
-//C
 
 @interface ForumQuotesChildVC ()
 //行情
@@ -30,8 +26,17 @@
     [super viewDidLoad];
     //
     [self initTableView];
-    //获取行情列表
-    [self requestQuotesList];
+    
+    if (self.type == ForumQuotesTypePlatform) {
+        
+        //获取平台行情列表
+        [self requestPlatformQuotesList];
+    } else {
+        
+        //获取币种行情列表
+        [self requestCurrencyQuotesList];
+    }
+    
     //添加通知
     [self addNotification];
 }
@@ -45,9 +50,25 @@
 
 - (void)refresh:(NSNotification *)notification {
     
-    //获取行情列表
-    [self requestQuotesList];
-    NSLog(@"Height = %lf", self.tableView.height);
+    if (self.type == ForumQuotesTypePlatform) {
+        
+        //获取平台行情列表
+        [self requestPlatformQuotesList];
+    } else {
+        
+        //获取币种行情列表
+        [self requestCurrencyQuotesList];
+    }
+}
+
+#pragma mark - Setting
+- (void)setVcCanScroll:(BOOL)vcCanScroll {
+    
+    _vcCanScroll = vcCanScroll;
+    
+    self.tableView.vcCanScroll = vcCanScroll;
+    
+    self.tableView.contentOffset = CGPointZero;
 }
 
 #pragma mark - Init
@@ -59,7 +80,7 @@
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无行情"];
 
     self.tableView.type = self.type;
-    
+
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -69,7 +90,56 @@
 }
 
 #pragma mark - Data
-- (void)requestQuotesList {
+- (void)requestPlatformQuotesList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628340";
+
+    helper.parameters[@"keywords"] = self.toCoin;
+    
+    helper.tableView = self.tableView;
+    
+    [helper modelClass:[CurrencyModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.currencys = objs;
+        
+        weakSelf.tableView.currencys = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+        if (weakSelf.refreshSuccess) {
+            
+            weakSelf.refreshSuccess();
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.currencys = objs;
+            
+            weakSelf.tableView.currencys = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.tableView endRefreshingWithNoMoreData_tl];
+}
+
+- (void)requestCurrencyQuotesList {
     
     BaseWeakSelf;
     
@@ -124,7 +194,6 @@
     
     [self.tableView endRefreshingWithNoMoreData_tl];
 }
-
 
 /**
  VC被释放时移除通知

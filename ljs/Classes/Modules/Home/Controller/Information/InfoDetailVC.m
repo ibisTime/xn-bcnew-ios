@@ -28,6 +28,7 @@
 #import "InfoDetailShareView.h"
 //C
 #import "InfoCommentDetailVC.h"
+#import "InfoAllCommentListVC.h"
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
 
@@ -229,7 +230,8 @@
     UIButton *commentNumBtn = [UIButton buttonWithImageName:@"留言"];
     
     commentNumBtn.contentMode = UIViewContentModeScaleAspectFit;
-
+    [commentNumBtn addTarget:self action:@selector(lookAllComment) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.bottomView addSubview:commentNumBtn];
     
     [commentNumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -376,6 +378,18 @@
         
         [weakSelf.inputTV show];
     }];
+}
+
+/**
+ 查看全部评论
+ */
+- (void)lookAllComment {
+    
+    InfoAllCommentListVC *commentListVC = [InfoAllCommentListVC new];
+    
+    commentListVC.code = self.code;
+    
+    [self.navigationController pushViewController:commentListVC animated:YES];
 }
 
 #pragma mark - 分享

@@ -7,11 +7,6 @@
 //
 
 #import "CircleCommentVC.h"
-//Macro
-//Framework
-//Category
-//Extension
-//M
 //V
 #import "TopLabelUtil.h"
 
@@ -78,7 +73,7 @@
         CircleCommentChildVC *childVC = [[CircleCommentChildVC alloc] init];
         
         childVC.type = typeList[i];
-        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
         
         [self addChildViewController:childVC];
         
