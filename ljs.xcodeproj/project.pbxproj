@@ -205,6 +205,7 @@
 		21AC59881FDE891B00F19DE8 /* SegmentUnil.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC59871FDE891B00F19DE8 /* SegmentUnil.m */; };
 		21B76C92206A342C00056AFB /* QQManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B76C91206A342C00056AFB /* QQManager.m */; };
 		21B76C9B206A3B3C00056AFB /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B76C9A206A3B3C00056AFB /* TencentOpenAPI.framework */; };
+		21C01A482074CBAF00587DF0 /* ForumQuotesCurrencyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C01A472074CBAF00587DF0 /* ForumQuotesCurrencyCell.m */; };
 		21CFFB0020565D8100D245ED /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFFAFF20565D8100D245ED /* HomeVC.m */; };
 		21CFFB0320565DB900D245ED /* QuotesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFFB0220565DB900D245ED /* QuotesVC.m */; };
 		21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFFB0520565DCC00D245ED /* ForumVC.m */; };
@@ -666,6 +667,8 @@
 		21B76C90206A342C00056AFB /* QQManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QQManager.h; sourceTree = "<group>"; };
 		21B76C91206A342C00056AFB /* QQManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QQManager.m; sourceTree = "<group>"; };
 		21B76C9A206A3B3C00056AFB /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		21C01A462074CBAF00587DF0 /* ForumQuotesCurrencyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumQuotesCurrencyCell.h; sourceTree = "<group>"; };
+		21C01A472074CBAF00587DF0 /* ForumQuotesCurrencyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumQuotesCurrencyCell.m; sourceTree = "<group>"; };
 		21CFFAFE20565D8100D245ED /* HomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
 		21CFFAFF20565D8100D245ED /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		21CFFB0120565DB900D245ED /* QuotesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuotesVC.h; sourceTree = "<group>"; };
@@ -2065,6 +2068,8 @@
 			children = (
 				21EF0B502064D2CD008EA865 /* ForumQuotesTableView.h */,
 				21EF0B512064D2CD008EA865 /* ForumQuotesTableView.m */,
+				21C01A462074CBAF00587DF0 /* ForumQuotesCurrencyCell.h */,
+				21C01A472074CBAF00587DF0 /* ForumQuotesCurrencyCell.m */,
 			);
 			path = Quotes;
 			sourceTree = "<group>";
@@ -2701,6 +2706,7 @@
 				219CF52E2072550300012F68 /* SGAlertView.m in Sources */,
 				2124BE6D2061227A00CB79E8 /* InputTextView.m in Sources */,
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
+				21C01A482074CBAF00587DF0 /* ForumQuotesCurrencyCell.m in Sources */,
 				21CFFB0F205666A200D245ED /* InfoManager.m in Sources */,
 				21AC589C1FDE751700F19DE8 /* TLBaseModel.m in Sources */,
 				2124BE872062393B00CB79E8 /* QuotesPlatformVC.m in Sources */,

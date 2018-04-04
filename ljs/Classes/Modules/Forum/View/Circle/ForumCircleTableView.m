@@ -106,12 +106,10 @@ static NSString *forumCircleCellID = @"ForumCircleCell";
         
         height = self.detailModel.hotPostList[indexPath.row].cellHeight;
         
-        NSLog(@"height = %lf", height);
         return height;
     }
     
     height = self.newestComments[indexPath.row].cellHeight;
-    NSLog(@"height = %lf", height);
     
     return height;
 }
@@ -206,13 +204,13 @@ static NSString *forumCircleCellID = @"ForumCircleCell";
         scrollView.contentOffset = CGPointZero;
     }
     
-    if (scrollOffset <= 0) {
+    if (scrollOffset < 0) {
         
         //偏移量小于等于零说明tableview到顶了
         self.vcCanScroll = NO;
         
         scrollView.contentOffset = CGPointZero;
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SubVCLeaveTop" object:nil];
     }
 }

@@ -48,6 +48,14 @@
 @property (nonatomic, strong) BaseView *bottomView;
 //输入框
 @property (nonatomic, strong) InputTextView *inputTV;
+//当前索引
+@property (nonatomic, assign) NSInteger currentIndex;
+//圈子
+@property (nonatomic, strong) ForumCircleChildVC *circleChildVC;
+//资讯
+@property (nonatomic, strong) ForumInfoChildVC *infoChildVC;
+//行情
+@property (nonatomic, strong) ForumQuotesChildVC *quotesChildVC;
 
 @end
 
@@ -196,11 +204,12 @@
     
     self.selectScrollView.selectBlock = ^(NSInteger index) {
         
+        weakSelf.currentIndex = index;
+        
         [weakSelf didSelectWithIndex:index];
     };
     
     self.tableView.tableFooterView = self.selectScrollView;
-    
 }
 
 /**
@@ -246,6 +255,7 @@
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
+            self.circleChildVC = childVC;
             
         } else if (i == 1) {
             
@@ -263,7 +273,8 @@
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
-            
+            self.infoChildVC = childVC;
+
         } else {
             
             ForumQuotesChildVC *childVC = [[ForumQuotesChildVC alloc] init];
@@ -281,7 +292,8 @@
             [self addChildViewController:childVC];
             
             [_selectScrollView.scrollView addSubview:childVC.view];
-            
+            self.quotesChildVC = childVC;
+
         }
     }
     
@@ -444,9 +456,9 @@
         
         //当视图到达顶部时，使视图悬停
         scrollView.contentOffset = CGPointMake(0, bottomOffset);
-        
+
         if (self.canScroll) {
-            
+
             self.canScroll = NO;
             self.vcCanScroll = YES;
         }
@@ -457,9 +469,13 @@
         
         [scrollView addGestureRecognizer:panGR];
         
+//        tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+10000);
+
+        
     } else {
         
         //处理tableview和scrollView同时滚的问题（当vc不能滚动时，设置scrollView悬停）
+
         if (!self.canScroll) {
             
             scrollView.contentOffset = CGPointMake(0, bottomOffset);
@@ -467,22 +483,36 @@
     }
     
     self.tableView.showsVerticalScrollIndicator = _canScroll ? YES: NO;
+    
 }
 
 - (void)setVcCanScroll:(BOOL)vcCanScroll {
     
+//    if (self.currentIndex == 0) {
+//
+//        self.circleChildVC.vcCanScroll = vcCanScroll;
+//
+//    } else if (self.currentIndex == 1) {
+//
+//        self.infoChildVC.vcCanScroll = vcCanScroll;
+//
+//    } else {
+//
+//        self.quotesChildVC.vcCanScroll = vcCanScroll;
+//    }
+    
     for (ForumCircleChildVC *vc in self.childViewControllers) {
-        
+
         vc.vcCanScroll = vcCanScroll;
     }
-    
+
     for (ForumInfoChildVC *vc in self.childViewControllers) {
-        
+
         vc.vcCanScroll = vcCanScroll;
     }
-    
+
     for (ForumQuotesChildVC *vc in self.childViewControllers) {
-        
+
         vc.vcCanScroll = vcCanScroll;
     }
 }

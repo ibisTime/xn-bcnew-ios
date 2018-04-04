@@ -45,7 +45,6 @@
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"RefreshForumDetail" object:nil];
-    
 }
 
 - (void)refresh:(NSNotification *)notification {

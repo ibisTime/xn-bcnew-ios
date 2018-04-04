@@ -318,7 +318,7 @@
             
         case InfoShareTypeTimeline:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
                                            title:self.detailModel.title
                                             desc:desc
                                              url:self.shareUrl];

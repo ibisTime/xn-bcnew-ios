@@ -9,7 +9,7 @@
 #import "ForumQuotesTableView.h"
 //V
 #import "PlatformCell.h"
-#import "CurrencyCell.h"
+#import "ForumQuotesCurrencyCell.h"
 
 @interface ForumQuotesTableView()<UITableViewDelegate, UITableViewDataSource>
 
@@ -18,7 +18,7 @@
 @implementation ForumQuotesTableView
 
 static NSString *platformCell = @"PlatformCell";
-static NSString *currencyCell = @"CurrencyCell";
+static NSString *currencyCell = @"ForumQuotesCurrencyCell";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -29,7 +29,7 @@ static NSString *currencyCell = @"CurrencyCell";
         //平台
         [self registerClass:[PlatformCell class] forCellReuseIdentifier:platformCell];
         //具体币种
-        [self registerClass:[CurrencyCell class] forCellReuseIdentifier:currencyCell];
+        [self registerClass:[ForumQuotesCurrencyCell class] forCellReuseIdentifier:currencyCell];
     }
     
     return self;
@@ -63,7 +63,7 @@ static NSString *currencyCell = @"CurrencyCell";
     
     CurrencyModel *currency = self.currencys[indexPath.row];
     
-    CurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
+    ForumQuotesCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
     
     cell.currency = currency;
     cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
@@ -104,24 +104,27 @@ static NSString *currencyCell = @"CurrencyCell";
 }
 
 #pragma mark - UIScrollView
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+
     CGFloat scrollOffset = scrollView.contentOffset.y;
-    
+
     if (!self.vcCanScroll) {
         //处理tableview和scrollView同时滚的问题（当vc不能滚动时，设置scrollView偏移量为0）
         scrollView.contentOffset = CGPointZero;
+
     }
-    
-    if (scrollOffset <= 0) {
-        
+    //滚动结束时offset会等于0，tableview会滚回到顶部，所以这里判断小于0
+    if (scrollOffset < 0) {
+
         //偏移量小于等于零说明tableview到顶了
         self.vcCanScroll = NO;
-        
+
         scrollView.contentOffset = CGPointZero;
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SubVCLeaveTop" object:nil];
     }
+
 }
 
 //tableview和scrollView可以同时滚动,解决手势冲突问题

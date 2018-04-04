@@ -224,17 +224,21 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        [self.flashHelper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.news = objs;
-            
-            weakSelf.flashTableView.news = objs;
-            
-            [weakSelf.flashTableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
+        flashModel.isRead = @"1";
+        flashModel.isSelect = YES;
+        [self.flashTableView reloadData];
+        
+//        [self.flashHelper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//            weakSelf.news = objs;
+//
+//            weakSelf.flashTableView.news = objs;
+//
+//            [weakSelf.flashTableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
         
     } failure:^(NSError *error) {
         

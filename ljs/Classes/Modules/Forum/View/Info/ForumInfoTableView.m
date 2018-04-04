@@ -11,7 +11,7 @@
 #import "InformationListCell.h"
 #import "InformationListCell2.h"
 
-@interface ForumInfoTableView()<UITableViewDataSource, UITableViewDelegate>
+@interface ForumInfoTableView()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end
 
@@ -116,7 +116,7 @@ static NSString *informationListCell2 = @"InformationListCell2";
         scrollView.contentOffset = CGPointZero;
     }
     
-    if (scrollOffset <= 0) {
+    if (scrollOffset < 0) {
         
         //偏移量小于等于零说明tableview到顶了
         self.vcCanScroll = NO;
