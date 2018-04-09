@@ -2554,10 +2554,10 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -3011,9 +3011,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZKTVZ75A59;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3031,8 +3032,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "44639d8b-e9fe-4526-9b79-9b1bc764d8dc";
+				PROVISIONING_PROFILE_SPECIFIER = dev_czyljclub;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3043,7 +3044,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = ZKTVZ75A59;
@@ -3064,7 +3066,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b336984-6ad6-4d46-b761-d68912631e9f";
+				PROVISIONING_PROFILE = "55a93a37-59bd-4cf4-a63c-7aa0bdec9e8d";
 				PROVISIONING_PROFILE_SPECIFIER = dis_czyljclub_as;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

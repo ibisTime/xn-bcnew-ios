@@ -49,6 +49,8 @@
         [self requestFlashList];
         //刷新
         [self.flashTableView beginRefreshing];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoadHomeVC"
+                                                            object:nil];
         
     } else {
         //资讯
@@ -66,7 +68,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewsFlash) name:kUserLoginNotification object:nil];
     //用户退出登录刷新首页快讯
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewsFlash) name:kUserLoginOutNotification object:nil];
-
+    //收到推送刷新首页快讯
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshNewsFlash)
+                                                 name:@"DidReceivePushNotification"
+                                               object:nil];
 }
 
 - (void)refreshNewsFlash {
@@ -214,8 +220,6 @@
  */
 - (void)userClickNewsFlash:(NewsFlashModel *)flashModel {
     
-    BaseWeakSelf;
-    
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"628094";
@@ -227,18 +231,6 @@
         flashModel.isRead = @"1";
         flashModel.isSelect = YES;
         [self.flashTableView reloadData];
-        
-//        [self.flashHelper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-//
-//            weakSelf.news = objs;
-//
-//            weakSelf.flashTableView.news = objs;
-//
-//            [weakSelf.flashTableView reloadData_tl];
-//
-//        } failure:^(NSError *error) {
-//
-//        }];
         
     } failure:^(NSError *error) {
         
@@ -284,7 +276,7 @@
     
     NewsFlashDetailVC *detailVC = [NewsFlashDetailVC new];
     
-    detailVC.flashModel = flashModel;
+    detailVC.code = flashModel.code;
     
     [self.navigationController pushViewController:detailVC animated:YES];
     return ;

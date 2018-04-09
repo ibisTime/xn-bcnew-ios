@@ -10,10 +10,13 @@
 //Manager
 #import "TLWXManager.h"
 #import "QQManager.h"
+#import "TLProgressHUD.h"
 //Macro
 #import "APICodeMacro.h"
 //Category
 #import "UIScrollView+SnapShot.h"
+//M
+#import "NewsFlashModel.h"
 //V
 #import "NewsFlashShareView.h"
 #import "NewsFlashDetailView.h"
@@ -23,6 +26,8 @@
 @property (nonatomic, strong) NewsFlashShareView *shareView;
 //内容
 @property (nonatomic, strong) NewsFlashDetailView *detailView;
+//
+@property (nonatomic, strong) NewsFlashModel *flashModel;
 
 @end
 
@@ -46,10 +51,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"快讯分享";
-    //内容
-    [self initDetailView];
-    //底部按钮
-    [self initShareView];
+    //获取快讯详情
+    [self requestFlashDetail];
     //获取AppUrl
     [self requestAppUrl];
 }
@@ -155,7 +158,44 @@
     }
 }
 
+#pragma mark - Setting
+//- (void)setCode:(NSString *)code {
+//
+//    _code = code;
+//    //
+//    [self requestFlashDetail];
+//}
+
 #pragma mark - Data
+
+/**
+ 详情查快讯
+ */
+- (void)requestFlashDetail {
+    
+    [TLProgressHUD show];
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628096";
+    http.showView = self.view;
+    http.parameters[@"code"] = self.code;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.flashModel = [NewsFlashModel mj_objectWithKeyValues:responseObject[@"data"]];
+        //内容
+        [self initDetailView];
+        //底部按钮
+        [self initShareView];
+        
+    } failure:^(NSError *error) {
+        
+        [TLProgressHUD dismiss];
+
+    }];
+}
+
 - (void)requestAppUrl {
     
     TLNetworking *http = [TLNetworking new];
@@ -165,10 +205,12 @@
     
     [http postWithSuccess:^(id responseObject) {
         
+        [TLProgressHUD dismiss];
         self.detailView.url = responseObject[@"data"][@"cvalue"];
-        
+
     } failure:^(NSError *error) {
         
+        [TLProgressHUD dismiss];
     }];
 }
 

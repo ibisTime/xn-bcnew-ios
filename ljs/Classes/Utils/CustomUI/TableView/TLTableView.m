@@ -84,7 +84,7 @@ _Pragma("clang diagnostic pop") \
         
         tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    
+
     return tableView;
     
 }

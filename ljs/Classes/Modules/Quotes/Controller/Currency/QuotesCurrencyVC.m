@@ -77,6 +77,11 @@
     if (labelIndex == self.currentIndex && segmentIndex == 3) {
         //刷新列表
         [self.tableView beginRefreshing];
+        //币价没有贴吧
+        if (self.currentIndex != 0) {
+            //刷新贴吧信息
+            [self requestForumInfo];
+        }
         //定时器刷起来
         [self startTimer];
         return ;

@@ -30,8 +30,8 @@
     
     [super viewWillAppear:animated];
     
-    if (![TLUser user].isLogin) {
-        
+    if (![TLUser user].isLogin && [self.type isEqualToString:kFoucsPost]) {
+
         self.tableView.tableFooterView = self.tableView.placeHolderView;
     }
 }
@@ -52,9 +52,9 @@
 #pragma mark - Init
 - (void)addNotification {
     //登录后刷新列表
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kUserLoginNotification object:nil];
     //退出登录刷新列表
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:kUserLoginOutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:kUserLoginOutNotification object:nil];
     //关注或取消关注刷新界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshForumList) name:@"FollowOrCancelFollow" object:nil];
     //发布帖子刷新界面
@@ -62,8 +62,38 @@
 
 }
 
-- (void)refreshForumList {
+- (void)userLogin {
     
+    //判断是否是关注列表
+    if ([self.type isEqualToString:kFoucsPost]) {
+        
+        //获取币吧列表
+        [self requestForumList];
+        
+        self.tableView.hiddenHeader = NO;
+    }
+    //刷新币吧列表
+    [self.tableView beginRefreshing];
+}
+
+- (void)userLogout {
+    
+    //判断是否是关注列表
+    if ([self.type isEqualToString:kFoucsPost]) {
+        
+        //清空数据
+        self.tableView.forums = nil;
+        [self.tableView reloadData];
+        self.tableView.hiddenHeader = YES;
+        self.tableView.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币吧"];
+        return ;
+    }
+    //刷新币吧列表
+    [self.tableView beginRefreshing];
+}
+
+- (void)refreshForumList {
+
     //刷新币吧列表
     [self.tableView beginRefreshing];
 }
@@ -89,6 +119,7 @@
  */
 - (void)requestForumList {
     
+    //判断是否是关注列表
     if ([self.type isEqualToString:kFoucsPost]) {
         
         if (![TLUser user].isLogin) {
@@ -96,6 +127,7 @@
             return ;
         }
     }
+    
     NSString *code = [self.type isEqualToString:kFoucsPost] ? @"628245": @"628237";
     BaseWeakSelf;
     

@@ -186,4 +186,9 @@
     [UIApplication sharedApplication].keyWindow.rootViewController = tabBarCtrl;
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

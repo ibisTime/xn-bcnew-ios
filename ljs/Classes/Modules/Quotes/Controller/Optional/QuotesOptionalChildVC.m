@@ -7,10 +7,6 @@
 //
 
 #import "QuotesOptionalChildVC.h"
-//Macro
-//Framework
-//Category
-//Extension
 //M
 #import "OptionalModel.h"
 //V
@@ -190,6 +186,11 @@
         optional.isChoice = @"1";
         
         [self.tableView reloadData];
+        
+        if (self.addSuccess) {
+            
+            self.addSuccess();
+        }
         
     } failure:^(NSError *error) {
         

@@ -14,6 +14,7 @@
 //Category
 #import "UILabel+Extension.h"
 #import "NSString+Date.h"
+#import <UIScrollView+TLAdd.h>
 //
 #import "SGQRCodeTool.h"
 
@@ -47,9 +48,13 @@
 #pragma mark - Init
 - (void)initSubviews {
     
+    if (@available(iOS 11.0, *)) {
+        
+        [self adjustsContentInsets];
+    }
+    
     self.backgroundColor = kWhiteColor;
     
-//    CGFloat height = kDevice_Is_iPhoneX ? kWidth(194): kWidth(170);
     //icon
     UIImageView *iconIV = [[UIImageView alloc] initWithImage:kImage(@"消息分享")];
     

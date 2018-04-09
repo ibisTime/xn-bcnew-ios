@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+typedef void(^AddQuotesSuccess)();
+
 @interface QuotesOptionalVC : BaseViewController
+//添加成功
+@property (nonatomic, copy) AddQuotesSuccess addSuccess;
 
 @end

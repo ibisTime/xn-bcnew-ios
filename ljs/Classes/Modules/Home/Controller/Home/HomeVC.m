@@ -40,8 +40,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //监听推送
+    [self addPushNotification];
     //顶部切换
     [self initSegmentView];
+    
+}
+
+#pragma mark - Notification
+- (void)addPushNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeSelect)
+                                                 name:@"DidReceivePushNotification"
+                                               object:nil];
+}
+
+- (void)changeSelect {
+    
+    //切换到热点界面
+    SelectScrollView *selectSV = (SelectScrollView *)[self.view viewWithTag:2500];
+    
+    selectSV.currentIndex = 1;
 }
 
 #pragma mark - Init
@@ -101,15 +121,17 @@
     
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(index*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
+    selectSV.tag = 2500 + index;
+    
     [self.switchSV addSubview:selectSV];
     
-    self.selectSV = selectSV;
-    
-    [self addSubViewController];
+    [self addSubViewController:index];
 }
 
-- (void)addSubViewController {
+- (void)addSubViewController:(NSInteger)index {
     
+    SelectScrollView *selectSV = (SelectScrollView *)[self.view viewWithTag:2500+index];
+
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
@@ -128,7 +150,7 @@
         
         [self addChildViewController:childVC];
         
-        [self.selectSV.scrollView addSubview:childVC.view];
+        [selectSV.scrollView addSubview:childVC.view];
     }
 }
 

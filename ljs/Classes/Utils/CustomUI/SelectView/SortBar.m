@@ -67,12 +67,16 @@ static const float kAnimationdDuration = 0.3;
     [self changeItemTitleColorWithIndex:0];
     
     CGFloat lineW = [NSString getWidthWithString:self.sortNames[0] font:MIN(kWidth(16.0), 16)];
+    CGFloat lineH = 4;
     
     CGFloat leftM = self.allBtnWidth > kScreenWidth ? 10: (widthItem - lineW)/2.0;
     
     _selectLine = [[UIView alloc] init];
     
     _selectLine.backgroundColor = kAppCustomMainColor;
+//    _selectLine.layer.cornerRadius = lineH/2.0;
+//    _selectLine.clipsToBounds = YES;
+
     [self addSubview:_selectLine];
     
     [_selectLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,7 +84,7 @@ static const float kAnimationdDuration = 0.3;
         make.left.equalTo(@(leftM));
         make.bottom.equalTo(@(self.frame.size.height -1));
         make.width.equalTo(@(lineW));
-        make.height.equalTo(@2);
+        make.height.equalTo(@(lineH));
     }];
 }
 

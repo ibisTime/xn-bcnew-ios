@@ -10,8 +10,12 @@
 //M
 #import "OptionalTitleModel.h"
 
+typedef void(^AddQuotesSuccess)();
+
 @interface QuotesOptionalChildVC : BaseViewController
 //
 @property (nonatomic, strong) OptionalTitleModel *titleModel;
+//添加成功
+@property (nonatomic, copy) AddQuotesSuccess addSuccess;
 
 @end

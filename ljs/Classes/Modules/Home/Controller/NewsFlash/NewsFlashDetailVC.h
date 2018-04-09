@@ -11,7 +11,7 @@
 #import "NewsFlashModel.h"
 
 @interface NewsFlashDetailVC : BaseViewController
-//
-@property (nonatomic, strong) NewsFlashModel *flashModel;
+//快讯编号
+@property (nonatomic, copy) NSString *code;
 
 @end

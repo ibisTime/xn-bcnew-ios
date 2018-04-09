@@ -8,11 +8,8 @@
 
 #import "QuotesOptionalVC.h"
 
-//Macro
-//Framework
 //Category
 #import "UIBarButtonItem+convience.h"
-//Extension
 //M
 #import "OptionalTitleModel.h"
 //V
@@ -72,6 +69,7 @@
         QuotesOptionalChildVC *childVC = [[QuotesOptionalChildVC alloc] init];
         
         childVC.titleModel = self.titleList[i];
+        childVC.addSuccess = self.addSuccess;
         
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
         

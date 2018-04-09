@@ -67,6 +67,8 @@
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
         //刷新列表
         [self.tableView beginRefreshing];
+        //刷新贴吧信息
+        [self requestForumInfo];
         //定时器刷起来
         [self startTimer];
         return ;

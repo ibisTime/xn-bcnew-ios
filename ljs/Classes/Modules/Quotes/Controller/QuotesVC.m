@@ -68,12 +68,6 @@
     
     [super viewWillAppear:animated];
     
-    if ([TLUser user].isLogin) {
-        
-        //刷新自选列表
-        [self.tableView beginRefreshing];
-    }
-    
     if (self.currentSegmentIndex == 2) {
         
         [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
@@ -114,6 +108,34 @@
     [self requestPlatformTitleList];
     //获取币种title列表
     [self requestCurrencyTitleList];
+    //添加通知
+    [self addNotification];
+}
+
+#pragma mark - addNotification
+- (void)addNotification {
+    //登录后刷新列表
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kUserLoginNotification object:nil];
+    //退出登录刷新列表
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:kUserLoginOutNotification object:nil];
+    
+}
+
+- (void)userLogin {
+    
+    //刷新自选列表
+    self.tableView.hiddenHeader = NO;
+    [self.tableView beginRefreshing];
+}
+
+- (void)userLogout {
+    //关闭定时器
+    [self stopTimer];
+    //清空数据
+    self.tableView.optionals = nil;
+    [self.tableView reloadData_tl];
+    self.tableView.hiddenHeader = YES;
+    self.tableView.tableFooterView = self.footerView;
 }
 
 #pragma mark - Init
@@ -155,7 +177,7 @@
     
     CGFloat h = 34;
     
-    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(249), (44-h), kWidth(248), h)];
+    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(249), (44-h), kWidth(250), h)];
     
     self.labelUnil.delegate = self;
     self.labelUnil.backgroundColor = [UIColor clearColor];
@@ -311,6 +333,11 @@
         
         QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
         
+        optionalVC.addSuccess = ^{
+            
+            [weakSelf.tableView beginRefreshing];
+        };
+        
         [weakSelf.navigationController pushViewController:optionalVC animated:YES];
     }];
 }
@@ -363,12 +390,6 @@
  */
 - (void)requestOptionalList {
     
-    if (![TLUser user].isLogin) {
-        
-        self.tableView.tableFooterView = self.footerView;
-        return ;
-    }
-    
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -376,20 +397,14 @@
     helper.code = @"628336";
     
     helper.tableView = self.tableView;
-    
+
     [helper modelClass:[OptionalListModel class]];
     self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         
-        if ([TLUser user].isLogin) {
-            
-            helper.parameters[@"userId"] = [TLUser user].userId;
-        } else {
-            
-            helper.parameters[@"userId"] = @"";
-        }
-        
+        helper.parameters[@"userId"] = [TLUser user].userId;
+
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             if (objs.count == 0) {
@@ -415,7 +430,9 @@
             
         }];
     }];
-    
+    //判断是否登录，没有登录就不能下拉刷新
+    self.tableView.hiddenHeader = ![TLUser user].isLogin;
+
     [self.tableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
@@ -432,6 +449,15 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
+    //添加数据
+    if ([TLUser user].isLogin) {
+        
+        //刷新自选列表
+        [self.tableView beginRefreshing];
+    } else {
+        
+        self.tableView.tableFooterView = self.footerView;
+    }
 }
 
 /**

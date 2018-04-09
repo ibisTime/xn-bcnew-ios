@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *source;
 //状态
 @property (nonatomic, copy) NSString *status;
+//类型(1:热门 0:普通)
+@property (nonatomic, copy) NSString *type;
 //内容
 @property (nonatomic, copy) NSString *content;
 //CellHeight

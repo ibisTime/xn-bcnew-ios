@@ -42,7 +42,7 @@
 
 @implementation TopLabelUtil
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.segmentHeight  = frame.size.height;
@@ -60,7 +60,8 @@
     }
     return self;
 }
--(void)mainViewScrollDidScroll:(NSNotification *)noti
+
+- (void)mainViewScrollDidScroll:(NSNotification *)noti
 {
     UIButton *button = [self viewWithTag:[noti.object intValue]];
     if (button.tag == self.defaultSelectIndex)
@@ -75,7 +76,7 @@
     }
 }
 
--(UIScrollView *)bgScrollView{
+- (UIScrollView *)bgScrollView {
     if (!_bgScrollView){
         _bgScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.segmentWidth, self.frame.size.height)];
         _bgScrollView.showsHorizontalScrollIndicator = NO;
@@ -83,19 +84,19 @@
     }
     return _bgScrollView;
 }
--(void)registerKVOPaths{
+- (void)registerKVOPaths {
     for (NSString *keyPath in [self observeKeyPaths]) {
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
--(NSArray *)observeKeyPaths{
+- (NSArray *)observeKeyPaths {
     NSArray *pathArr = [NSArray arrayWithObjects:@"titleNormalColor",@"titleSelectColor",@"titleFont",@"defaultSelectIndex", @"lineType", nil];
     return pathArr;
 }
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     [self updateUIWithNewValueOfKeypath:keyPath];
 }
--(void)updateUIWithNewValueOfKeypath:(NSString *)keyPath{
+- (void)updateUIWithNewValueOfKeypath:(NSString *)keyPath {
     if ([keyPath isEqualToString:@"titleNormalColor"]) {
         [self updateSegmentViewUI:^(UIButton *btn) {
             [btn setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
@@ -124,7 +125,7 @@
     [self setNeedsLayout];//标记需要刷新
     [self layoutIfNeeded];//刷新界面
 }
--(void)updateSegmentViewUI:(void(^)(UIButton *btn))complete {
+- (void)updateSegmentViewUI:(void(^)(UIButton *btn))complete {
     
     for (UIButton *btn in self.btnArray) {
         
@@ -195,7 +196,7 @@
 }
 
 //segment 点击按钮事件
--(void)btnIndexClick:(id)sender {
+- (void)btnIndexClick:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
     
@@ -222,7 +223,7 @@
 }
 
 //滑动了，根据偏移的量还改变字体颜色
--(void)dyDidScrollChangeTheTitleColorWithContentOfSet:(CGFloat)width{
+- (void)dyDidScrollChangeTheTitleColorWithContentOfSet:(CGFloat)width {
     NSInteger leftIndex = width/kScreenWidth -1;
     if (leftIndex < 0) {
         leftIndex = 0;
@@ -278,7 +279,7 @@
     self.bottomLine.frame = frame;
 }
 
--(void)dealloc{
+- (void)dealloc {
     for (NSString *keyPath in [self observeKeyPaths]) {
         [self removeObserver:self forKeyPath:keyPath];
     }
@@ -286,7 +287,7 @@
 }
 
 #pragma mark - 消息小红点
-- (void)showBadgeOnItemIndex:(int)index{
+- (void)showBadgeOnItemIndex:(int)index {
     
     //移除之前的小红点
     [self removeBadgeOnItemIndex:index];
@@ -309,14 +310,14 @@
     
 }
 
-- (void)hideBadgeOnItemIndex:(int)index{
+- (void)hideBadgeOnItemIndex:(int)index {
     
     //移除小红点
     [self removeBadgeOnItemIndex:index];
     
 }
 
-- (void)removeBadgeOnItemIndex:(int)index{
+- (void)removeBadgeOnItemIndex:(int)index {
     
     //按照tag值进行移除
     for (UIView *subView in self.subviews) {

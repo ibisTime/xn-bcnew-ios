@@ -8,11 +8,9 @@
 
 #import "AppDelegate.h"
 #import "JPUSHService.h"
-#import "JPushModel.h"
 
 
 @interface AppDelegate (JPush)<JPUSHRegisterDelegate>
-
 //初始化
 - (void)jpushInitWithLaunchOption:(NSDictionary *)launchOptions;
 

@@ -72,4 +72,9 @@
 //过滤html特殊字符
 + (NSString *)filterHTML:(NSString *)html;
 
+/**
+ 截取指定字数的字符串
+ */
+- (NSString *)subStringWithNum:(NSInteger)num;
+
 @end

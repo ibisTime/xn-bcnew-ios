@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "JPushModel.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
@@ -16,5 +17,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManage;
 
 @property (nonatomic, assign) CLLocationCoordinate2D myCoordinate;
+//极光
+@property (nonatomic, strong) JPushModel *model;
+
 @end
 

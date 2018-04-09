@@ -474,4 +474,17 @@
     }
     return html;
 }
+
+- (NSString *)subStringWithNum:(NSInteger)num {
+    
+    //判断字符串是否大于num
+    if (self.length > num) {
+        
+        NSString *subString = [self substringToIndex:num];
+        
+        return subString;
+    }
+    return self;
+}
+
 @end

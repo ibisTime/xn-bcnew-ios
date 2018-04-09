@@ -52,7 +52,7 @@
     //键盘
     [self configIQKeyboard];
     //配置极光
-//    [self jpushInitWithLaunchOption:launchOptions];
+    [self jpushInitWithLaunchOption:launchOptions];
     //配置根控制器
     [self configRootViewController];
     
@@ -126,7 +126,7 @@
 - (void)configRootViewController {
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;

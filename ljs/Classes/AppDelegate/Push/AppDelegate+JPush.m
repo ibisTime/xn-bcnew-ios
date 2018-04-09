@@ -13,7 +13,13 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
+//Category
 #import "AppConfig.h"
+#import "TLAlert.h"
+#import "NSString+Extension.h"
+//C
+#import "NewsFlashDetailVC.h"
+#import "TabbarViewController.h"
 
 @implementation AppDelegate (JPush)
 
@@ -28,8 +34,29 @@
 
 }
 
+////后台进入前台
+//- (void)applicationWillEnterForeground:(UIApplication *)application {
+//
+//    //后台进入前台,未读消息数清零
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    /**
+     以下代码没写，导致这个问题（Not get deviceToken yet. Maybe: your certificate not configured APNs?...）
+     */
+    [self jpushRegisterDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    
+    NSLog(@"app的APNS权限问题或者app运行在模拟器");
+}
 
 - (void)jpushInitWithLaunchOption:(NSDictionary *)launchOptions {
+    //打开APP,未读消息数清零
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -74,7 +101,6 @@
 }
 
 //  iOS 8 .9 后台进入前台
-
 - (void)jpushDidReceiveRemoteApplication:(UIApplication *)application notification:(NSDictionary *)userInfo {
     
     [JPUSHService handleRemoteNotification:userInfo];
@@ -87,64 +113,86 @@
     
     JPushModel *model = [JPushModel mj_objectWithKeyValues:userInfo];
     
-    Aps *aps = model.aps;
+    self.model = model;
     
     UIViewController *topmostVC = [self topViewController];
     
-    if (application.applicationState > 0) {
-        
-        [self checkMessageTypeWithModel:model vc:topmostVC];
-        
-    }else if (application.applicationState == 0) {
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:aps.alert preferredStyle:UIAlertControllerStyleAlert];
-        
-
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"去看看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            [self checkMessageTypeWithModel:model vc:topmostVC];
-        }];
-        
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
-        
-        [alertController addAction:yesAction];
-        
-        [alertController addAction:noAction];
-        
-        [topmostVC presentViewController:alertController animated:YES completion:nil];
-        
-    }
+    [self checkMessageTypeWithModel:model vc:topmostVC];
 }
 
 - (void)checkMessageTypeWithModel:(JPushModel *)model vc:(UIViewController *)vc {
     
     Aps *aps = model.aps;
     
-    NSInteger badge = aps.badge.integerValue;
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
-    
-    NSString *openType = model.openType;
-    
-    
-    if ([openType isEqualToString:@"0"]) {
-        //系统消息
-        
-//        SystemNoticeVC *systemNotice = [SystemNoticeVC new];
+//    NSInteger badge = aps.badge.integerValue;
 //
-//        [vc.navigationController pushViewController:systemNotice animated:YES];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+    //角标清零
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
+    //判断HomeVC是否加载
+    if ([[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[TabbarViewController class]]) {
         
-        
-    }else if ([openType isEqualToString:@"1"]) {
-        
-        //进入帖子详情页
-//        CSWArticleDetailVC *articleDetailVC = [CSWArticleDetailVC new];
-//
-//        articleDetailVC.articleCode = model.code;
-//
-//        [vc.navigationController pushViewController:articleDetailVC animated:YES];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePushNotification"
+                                                            object:nil];
+        //判断内容是否有150字
+        NSString *content;
+        if (aps.alert.length > 150) {
+            
+            NSString *subString = [aps.alert subStringWithNum:150];
+            content = [NSString stringWithFormat:@"%@......", subString];
+        } else {
+            
+            content = aps.alert;
+        }
+        [TLAlert alertWithTitle:@"推送信息"
+                            msg:content
+                     confirmMsg:@"查看"
+                      cancleMsg:@"取消"
+                         cancle:^(UIAlertAction *action) {
+                             
+                         }
+                        confirm:^(UIAlertAction *action) {
+                            
+                            NewsFlashDetailVC *detailVC = [NewsFlashDetailVC new];
+                            
+                            detailVC.code = model.flashCode;
+                            
+                            [vc.navigationController pushViewController:detailVC animated:YES];
+                        }];
+        return ;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didLoadHomeVC)
+                                                 name:@"DidLoadHomeVC"
+                                               object:nil];
+}
+
+- (void)didLoadHomeVC {
+    
+    UIViewController *topmostVC = [self topViewController];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePushNotification"
+                                                        object:nil];
+    //最多展示150字
+    NSString *subString = [self.model.aps.alert subStringWithNum:150];
+    
+    [TLAlert alertWithTitle:@"推送信息"
+                        msg:[NSString stringWithFormat:@"%@......", subString]
+                 confirmMsg:@"查看"
+                  cancleMsg:@"取消"
+                     cancle:^(UIAlertAction *action) {
+                         
+                     }
+                    confirm:^(UIAlertAction *action) {
+                        
+                        NewsFlashDetailVC *detailVC = [NewsFlashDetailVC new];
+                        
+                        detailVC.code = self.model.flashCode;
+                        
+                        [topmostVC.navigationController pushViewController:detailVC animated:YES];
+                    }];
 }
 
 //获取当前控制器
@@ -211,6 +259,8 @@
     
     JPushModel *model = [JPushModel mj_objectWithKeyValues:userInfo];
     
+    self.model = model;
+
     UIViewController *topmostVC = [self topViewController];
     
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -261,8 +311,7 @@
 //        "content-available" = 1;
 //        sound = default;
 //    };
-//    name = tianlei; //附加字段
-//    url = "https://www.jiguang.cn/push/app/7cd9f997dcedd781b3409c52/push/notification";
+//    flashCode = 编号; //附加字段
 //}
 
 @end

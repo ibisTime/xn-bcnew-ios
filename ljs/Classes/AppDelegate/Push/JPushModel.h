@@ -16,7 +16,7 @@
 
 @property (nonatomic, copy) NSString *openType;
 
-@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *flashCode;
 
 @end
 

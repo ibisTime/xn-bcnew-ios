@@ -181,13 +181,13 @@
     self.contentLbl.numberOfLines = flashModel.isSelect ? 0: 3;
     [self.contentLbl labelWithTextString:content lineSpace:5];
     
-    if (self.isAll) {
+    if ([flashModel.type isEqualToString:@"1"]) {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kTextColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
 
     } else {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kTextColor;
     }
     //
     [self layoutSubviews];

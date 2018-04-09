@@ -20,7 +20,6 @@
 #import "ForumDetailTableView.h"
 #import "ForumDetailHeaderView.h"
 #import "InputTextView.h"
-
 #import "ForumQuotesTableView.h"
 //C
 #import "ForumCircleChildVC.h"
@@ -56,6 +55,8 @@
 @property (nonatomic, strong) ForumInfoChildVC *infoChildVC;
 //行情
 @property (nonatomic, strong) ForumQuotesChildVC *quotesChildVC;
+//是否加载
+@property (nonatomic, assign) BOOL isLoad;
 
 @end
 
@@ -81,12 +82,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"币吧";
+    _isLoad = NO;
     //币种信息
     [self initTableView];
     //底部输入框
     [self initBottomView];
-    //圈子、资讯和行情
-    [self initSelectScrollView];
     //详情
     [self requestForumDetail];
     //添加下拉刷新
@@ -102,6 +102,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subVCLeaveTop) name:@"SubVCLeaveTop" object:nil];
     //发布帖子刷新界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestForumDetail) name:@"RefreshCommentList" object:nil];
+    //刷新跟帖量
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestForumDetail) name:@"RefreshPostNum" object:nil];
+    
 }
 
 - (void)subVCLeaveTop {
@@ -305,6 +308,9 @@
     [self.tableView addGestureRecognizer:panGR];
 
     self.tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+10000);
+    
+    //已加载子控制器
+    _isLoad = YES;
 }
 
 
@@ -392,9 +398,13 @@
         self.tableView.tableHeaderView = self.headerView;
         
         [self.tableView reloadData];
-        //添加子控制器
-        [self addSubViewController];
-        
+        if (!_isLoad) {
+            
+            //圈子、资讯和行情
+            [self initSelectScrollView];
+            //添加子控制器
+            [self addSubViewController];
+        }
     } failure:^(NSError *error) {
         
     }];
@@ -431,6 +441,8 @@
         self.tableView.scrollEnabled = YES;
         //刷新圈子的评论列表
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
+        //刷新发帖量
+        [self requestForumDetail];
         
     } failure:^(NSError *error) {
         
@@ -468,9 +480,6 @@
         UIPanGestureRecognizer *panGR = tableView.panGestureRecognizer;
         
         [scrollView addGestureRecognizer:panGR];
-        
-//        tableView.contentSize = CGSizeMake(kScreenWidth, self.selectScrollView.yy+10000);
-
         
     } else {
         

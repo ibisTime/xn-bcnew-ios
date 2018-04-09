@@ -270,7 +270,9 @@
         [self.tableView reloadData];
         //刷新圈子的评论列表
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
-        
+        //刷新跟帖量
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshPostNum" object:nil];
+
     } failure:^(NSError *error) {
         
     }];
