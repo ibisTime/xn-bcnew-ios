@@ -271,12 +271,13 @@
     NSDate *inputDate = [NSString dateFromString:date formatter:@"MMM dd, yyyy hh:mm:ss aa"];
     
     NSArray *weekdays = [NSArray arrayWithObjects:@"星期日", @"星期一", @"星期二", @"星期三", @"星期四", @"星期五", @"星期六", nil];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    //设置为0时区
+    NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+
     [calendar setTimeZone: timeZone];
-    NSCalendarUnit calendarUnit = NSWeekdayCalendarUnit;
-    NSDateComponents *theComponents = [calendar components:calendarUnit fromDate:inputDate];
-    
+    NSDateComponents *theComponents = [calendar components:NSCalendarUnitWeekday fromDate:inputDate];
+
     return [weekdays objectAtIndex:theComponents.weekday - 1];
 }
 
