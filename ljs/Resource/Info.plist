@@ -47,6 +47,9 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>baidumap</string>
+		<string>iosamap</string>
+		<string>comgooglemaps</string>
 		<string>doubanradio</string>
 		<string>uppaysdk</string>
 		<string>uppaywallet</string>

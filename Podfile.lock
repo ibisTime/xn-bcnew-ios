@@ -69,6 +69,30 @@ DEPENDENCIES:
   - TFHpple (= 2.0.0)
   - TZImagePickerController (= 1.8.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - DACircularProgress
+    - FDFullscreenPopGesture
+    - HappyDNS
+    - IQKeyboardManager
+    - JCore
+    - JPush
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - MLLabel
+    - PYPhotoBrowser
+    - Qiniu
+    - Realm
+    - SDWebImage
+    - SVProgressHUD
+    - TFHpple
+    - TZImagePickerController
+  https://github.com/tianleios/CDSpecs.git:
+    - CDCommon
+
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CDCommon: 3551a469e0787c1c7ffdb8d2e2ba912747b903a1
@@ -93,4 +117,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c19a74646d2005b132ea388a69a8fc2b18df319b
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
