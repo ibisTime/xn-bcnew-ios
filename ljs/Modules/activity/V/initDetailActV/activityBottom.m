@@ -24,7 +24,7 @@
         //
         self.backgroundColor = kWhiteColor;
         
-        [self initSubviews];
+//        [self initSubviews];
     }
     return self;
 }
