@@ -955,11 +955,11 @@
 		186E8BBF209C0A9C00532B1C /* C */ = {
 			isa = PBXGroup;
 			children = (
-				186E8BC0209C0A9C00532B1C /* ActivityCommentsVC */,
 				186E8BC3209C0A9C00532B1C /* ActivityVC */,
 				186E8BC6209C0A9C00532B1C /* detailActivityVC */,
 				186E8BC9209C0A9C00532B1C /* FillInRegistrationFormVC */,
 				186E8BCC209C0A9C00532B1C /* signUpUsersListVC */,
+				186E8BC0209C0A9C00532B1C /* ActivityCommentsVC */,
 			);
 			path = C;
 			sourceTree = "<group>";

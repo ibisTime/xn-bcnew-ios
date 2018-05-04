@@ -84,10 +84,10 @@
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628206";
+    http.code = @"628511";
     // type content objectCode
 //    http.parameters[@"code"] = self.code;
-//    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"userId"] = [TLUser user].userId;
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -114,7 +114,8 @@
     helper.parameters[@"type"] = @"2";
     helper.parameters[@"content"] = self.content;
     helper.parameters[@"objectCode"] = self.objectCode;
-    
+    helper.parameters[@"userId"] = [TLUser user].userId;
+
 //    if ([TLUser user].userId) {
     
 //        helper.parameters[@"userId"] = [TLUser user].userId;

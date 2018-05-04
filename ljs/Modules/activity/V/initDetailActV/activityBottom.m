@@ -140,14 +140,14 @@
     [self.viewController.navigationController pushViewController:commentListVC animated:YES];
 }
 -(void)openPhoneCallBut{
-    NSLog(@"openPhoneCallBut");
-    //¶¶发出通知，告诉外界打电话按钮被点击了
+   
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"openPhoneCallBut" object:nil];
  
 }
 -(void)openCollectionBut{
     
-    //¶¶发出通知，告诉外界收藏按钮被点击了
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:nil];
 
     

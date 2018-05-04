@@ -135,39 +135,15 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
 -(void)openCollectionBut
 {
     NSLog(@"openCollectionBut");
-    BaseWeakSelf;
     
-        [self checkLogin:^{
-    //刷新收藏状态
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = @"628512";
-    
-    //        http.parameters[@"code"] = self.code;
-    http.parameters[@"userId"] = [TLUser user].userId;
-    
-    [http postWithSuccess:^(id responseObject) {
-        
-        //            weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
-        //            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
-        
-        //            [weakSelf.collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-        } event:^{
-    
-//            [weakSelf collectionArticle:sender];
-        }];
 }
 
 
 -(void)openPhoneCallBut
-{
+{  NSLog(@"openPhoneCallBut");
    UIApplication * app =  [UIApplication sharedApplication];
     //传一个电话号码
-   [ app openURL:[NSURL URLWithString:@"tel//10086"]];
+    [ app openURL:[NSURL URLWithString:@"tel://10086"]];
 }
 
 

@@ -30,7 +30,7 @@
     
     //活动
     [self initsignUpUserListView];
-    //获取活动列表
+    //获取报名列表
     [self requestSignUpUserList];
     //刷新
     
