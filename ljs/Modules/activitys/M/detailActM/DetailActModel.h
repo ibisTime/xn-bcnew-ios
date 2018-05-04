@@ -25,8 +25,6 @@
 @property (nonatomic,copy) NSString * contactMobile;
 @property (nonatomic,copy) NSString * photo;
 
-
-@property (nonatomic,copy) NSString * content;
 @property (nonatomic, copy) NSString *code;
 
 @end

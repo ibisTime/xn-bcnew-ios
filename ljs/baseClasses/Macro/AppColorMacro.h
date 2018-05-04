@@ -49,6 +49,8 @@
 #define kCommentSecondColor     [UIColor colorWithHexString:@"#FAFAFA"]   //评论二级颜色
 #define kPlaceholderColor       [UIColor colorWithHexString:@"#CCCCCC"]
     //占位颜色
+#define kpigColor      [UIColor colorWithHexString:@"#FF5757"]
+
 #define kClearColor [UIColor clearColor]           //透明
 #define kWhiteColor RGB(255, 255, 255)             //白色   #ffffff
 #define kBlackColor RGB(0, 0, 0)                   //黑色   #000000

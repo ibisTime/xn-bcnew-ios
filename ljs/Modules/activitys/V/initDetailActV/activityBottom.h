@@ -11,9 +11,4 @@
 @interface activityBottom : BaseView
 @property (nonatomic, strong) DetailActModel *detailActModel;
 
-//编号
-@property (nonatomic, copy) NSString *code;
-
-@property (nonatomic, copy) NSString *content;
-
 @end

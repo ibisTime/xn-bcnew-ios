@@ -1,5 +1,5 @@
 //
-//  activityBottom.h
+//  initDetailActMap.h
 //  ljs
 //
 //  Created by apple on 2018/5/2.
@@ -7,13 +7,8 @@
 //
 
 #import "BaseView.h"
+
 #import "DetailActModel.h"
-@interface activityBottom : BaseView
+@interface initDetailActMap : BaseView
 @property (nonatomic, strong) DetailActModel *detailActModel;
-
-//编号
-@property (nonatomic, copy) NSString *code;
-
-@property (nonatomic, copy) NSString *content;
-
 @end
