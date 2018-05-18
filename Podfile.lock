@@ -23,9 +23,9 @@ PODS:
   - CDCommon/ImageTool (1.0.3)
   - DACircularProgress (2.3.1)
   - FDFullscreenPopGesture (1.1)
-  - HappyDNS (0.3.10)
+  - HappyDNS (0.3.14)
   - IQKeyboardManager (4.0.13)
-  - JCore (1.1.7)
+  - JCore (1.1.9)
   - JPush (3.0.8):
     - JCore (~> 1.1.7)
   - Masonry (1.0.1)
@@ -40,9 +40,6 @@ PODS:
   - Qiniu (7.1.5):
     - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
-  - Realm (2.8.0):
-    - Realm/Headers (= 2.8.0)
-  - Realm/Headers (2.8.0)
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
@@ -63,14 +60,13 @@ DEPENDENCIES:
   - MLLabel (= 1.10.3)
   - PYPhotoBrowser (= 1.1.5)
   - Qiniu (= 7.1.5)
-  - Realm (= 2.8.0)
   - SDWebImage (= 3.8.1)
   - SVProgressHUD (= 2.2)
   - TFHpple (= 2.0.0)
   - TZImagePickerController (= 1.8.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - DACircularProgress
     - FDFullscreenPopGesture
@@ -85,7 +81,6 @@ SPEC REPOS:
     - MLLabel
     - PYPhotoBrowser
     - Qiniu
-    - Realm
     - SDWebImage
     - SVProgressHUD
     - TFHpple
@@ -98,9 +93,9 @@ SPEC CHECKSUMS:
   CDCommon: 3551a469e0787c1c7ffdb8d2e2ba912747b903a1
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
-  JCore: f7459c81c135281a874a6beafdd321666adcc834
+  JCore: 27598485098d0db99d2812cba048003457d08cfb
   JPush: 9574d072cc37e93fa293ba69b43ce763c440943a
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
@@ -109,12 +104,11 @@ SPEC CHECKSUMS:
   MLLabel: 3760fb38aeac53b212409b634bc4aa4bf39ab628
   PYPhotoBrowser: ae866ee6b263b2e680dbb0abcbbad32bae7db1e3
   Qiniu: 77a3dba411556a383d72d17e842345a9d4c83252
-  Realm: 929243ad2b618b3232e70658bedc61110e7563f1
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: 3f37f3409ddb15f35c99315ae7dc33c474aa3256
   TFHpple: a916fe0799eb30aa29b2670d14d5868cdd3a5b81
   TZImagePickerController: 2a74f34f116e8229264e2afc122b0d8d4683c626
 
-PODFILE CHECKSUM: c19a74646d2005b132ea388a69a8fc2b18df319b
+PODFILE CHECKSUM: f1b470f900203f82bc2b9dcebffd9a7056998e82
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

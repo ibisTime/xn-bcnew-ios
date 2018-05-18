@@ -17,7 +17,7 @@
 
 //v
 @property (nonatomic, strong) ActivityListCell *cell;
-
+@property (nonatomic, strong) detailActivityVC* detOfActVC;
 @end
 
 @implementation ActivityListV
@@ -74,14 +74,35 @@ static NSString *identifierCell = @"activityListCell";
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //
     detailActivityVC* detOfActVC = [[detailActivityVC alloc ] init ];
+    self.detOfActVC = detOfActVC;
+    detOfActVC.code = self.cell.actModel.code;
+
+    if (0 == indexPath.section) {
+        activityModel *model = self.activities[indexPath.section];
+        detOfActVC.code = model.code;
+
+        
+    }else if (1 == indexPath.section)
+    {
+        activityModel *model = self.activities[indexPath.section];
+
+       detOfActVC.code = model.code;
+
+        
+    }
+    
+    //
 //    localMapManager *detOfActVC = [[localMapManager alloc] init];
-        detOfActVC.code = self.cell.actModel.code;
     [self.viewController.navigationController pushViewController:detOfActVC animated:YES];
+//    [self.viewController presentViewController:detOfActVC animated:YES completion:^{
+//
+//    } ];
+
+    
     
 }
 

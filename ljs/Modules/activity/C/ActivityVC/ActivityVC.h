@@ -9,5 +9,6 @@
 #import "BaseViewController.h"
 
 @interface ActivityVC : BaseViewController
-
+//类型
+@property (nonatomic, copy) NSString *kind;
 @end

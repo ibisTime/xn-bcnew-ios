@@ -253,6 +253,7 @@
         make.top.equalTo(commentNumBtn.mas_top).offset(-1);
         make.centerX.equalTo(commentNumBtn.mas_right).offset(-5);
     }];
+    
     //点击评论
     UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
                                           titleColor:kHexColor(@"#9E9E9E")
@@ -272,6 +273,8 @@
     
     [commentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, kWidth(-100), 0, 0)];
 }
+
+
 
 #pragma mark - 通知
 - (void)addNotification {

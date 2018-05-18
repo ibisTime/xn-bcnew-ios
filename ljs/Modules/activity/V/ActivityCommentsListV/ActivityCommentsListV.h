@@ -8,7 +8,8 @@
 
 #import "TLTableView.h"
 #import "ActivityCommentsM.h"
+#import "InfoCommentModel.h"
 @interface ActivityCommentsListV : TLTableView
-@property (nonatomic, strong) NSArray <ActivityCommentsM *>*newestComments;
+@property (nonatomic, strong) NSArray <InfoCommentModel *>*newestComments;
 
 @end

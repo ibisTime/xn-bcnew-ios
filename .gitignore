@@ -29,3 +29,14 @@ Chat/HyphenateSDK/HyphenateLite_armv7
 Extension/
 FilterEngine.framework/
 opencv2.framework/
+TencentOpenAPI.framework/TencentOpenAPI
+TencentOpenAPI.framework/Headers/QQApiInterface.h
+TencentOpenAPI.framework/Headers/QQApiInterfaceObject.h
+TencentOpenAPI.framework/Headers/sdkdef.h
+TencentOpenAPI.framework/Headers/TencentOAuth.h
+WechatSDK1.8.2/libWeChatSDK.a
+WechatSDK1.8.2/read_me.txt
+WechatSDK1.8.2/README.txt
+WechatSDK1.8.2/WechatAuthSDK.h
+WechatSDK1.8.2/WXApi.h
+WechatSDK1.8.2/WXApiObject.h

@@ -13,5 +13,6 @@
 @property (nonatomic, copy) NSString *objectCode;
 //
 @property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *code;
 
 @end

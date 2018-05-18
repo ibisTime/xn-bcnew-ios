@@ -22,7 +22,7 @@ target ‘ljs’ do
 
     #七牛云
     pod 'Qiniu',                    '7.1.5'
-    pod 'Realm',                    '2.8.0'
+    # pod 'Realm',                    '2.8.0'
     #极光
     pod 'JPush',                    '3.0.8'
     #公共库

@@ -224,7 +224,7 @@ _Pragma("clang diagnostic pop") \
             numOfRow = [self.dataSource tableView:self numberOfRowsInSection:i];
         }
         
-        if (numOfRow > 0) { //只要有一组有数据就不为空
+        if (numOfRow > 0 || self) { //只要有一组有数据就不为空
             isEmpty = NO;
         }
     }
@@ -248,6 +248,11 @@ _Pragma("clang diagnostic pop") \
     }else{
         
         [self.placeHolderView removeFromSuperview];
+//        if ([self.dataSource respondsToSelector:@selector(reloadData)]) {
+////            [self reloadData];
+//        }
+        
+        
     }
     
 }

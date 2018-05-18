@@ -242,7 +242,7 @@
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     
     NSDate *date01 = [formatter dateFromString:self];
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
     formatter.locale = [NSLocale currentLocale];
     
     return [formatter stringFromDate:date01];

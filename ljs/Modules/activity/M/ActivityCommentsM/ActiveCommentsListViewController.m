@@ -1,24 +1,23 @@
 //
-//  InfoCommentDetailVC.m
+//  ActiveCommentsListViewController.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/20.
+//  Created by shaojianfei on 2018/5/17.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
-//Extension
+
+#import "ActiveCommentsListViewController.h"
 #import <IQKeyboardManager.h>
 //V
 #import "BaseView.h"
 #import "InputTextView.h"
 #import "InfoCommentDetailTableView.h"
 #import "TLPlaceholderView.h"
+#import "ActivityNewsCommentView.h"
 #define kBottomHeight 50
-
-#import "InfoCommentDetailVC.h"
-
-@interface InfoCommentDetailVC ()<InputTextViewDelegate, RefreshDelegate>
+@interface ActiveCommentsListViewController ()<InputTextViewDelegate, RefreshDelegate>
 //评论
-@property (nonatomic, strong) InfoCommentDetailTableView *tableView;
+@property (nonatomic, strong) ActivityNewsCommentView *tableView;
 //底部
 @property (nonatomic, strong) BaseView *bottomView;
 //输入框
@@ -28,25 +27,30 @@
 @property (nonatomic, strong) TLPlaceholderView *footerView;
 //回复编号
 @property (nonatomic, copy) NSString *replyCode;
+@property (nonatomic, strong) TLPageDataHelper *helper;
+@property (nonatomic, strong) NSArray <InfoCommentModel *>*comments;
+@property (nonatomic, strong) InfoDetailModel * detailModel;
+
+
 
 @end
 
-@implementation InfoCommentDetailVC
+@implementation ActiveCommentsListViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     //隐藏第三方键盘
-    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-    [[IQKeyboardManager sharedManager] setEnable:NO];
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+//    [[IQKeyboardManager sharedManager] setEnable:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    //显示第三方键盘
-    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
-    [[IQKeyboardManager sharedManager] setEnable:YES];
+//    显示第三方键盘
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+//    [[IQKeyboardManager sharedManager] setEnable:YES];
     
 }
 
@@ -79,7 +83,7 @@
  */
 - (void)initCommentTableView {
     
-    self.tableView = [[InfoCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[ActivityNewsCommentView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
     
@@ -121,7 +125,7 @@
                                            titleFont:12.0
                                         cornerRadius:17.5];
     
-    [commentBtn addTarget:self action:@selector(clickComment) forControlEvents:UIControlEventTouchUpInside];
+    [commentBtn addTarget:self action:@selector(ReplaComment) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:commentBtn];
     [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -137,22 +141,79 @@
 /**
  去占沙发
  */
-- (void)clickComment {
+- (void)ReplaComment {
     
     self.replyCode = self.code;
     
     self.tableView.scrollEnabled = NO;
-    
     self.inputTV.commentTV.placholder = @"说出你的看法";
-    
+    NSLog(@"点击了评论");
+
     [self.inputTV show];
 }
-
+- (void)test
+{
+    
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628286]";
+    // type content objectCode
+//    helper.parameters[@"start"] = @"0";
+//    helper.parameters[@"limit"] = @"10";
+//    helper.parameters[@"objectCode"] = self.objectCode;
+    helper.parameters[@"userId"] = [TLUser user].userId;
+    
+        if ([TLUser user].userId) {
+    
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        }
+    helper.tableView = self.tableView;
+    self.helper = helper;
+    
+    [helper modelClass:[InfoCommentModel class]];
+    
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.comments = objs;
+        weakSelf.tableView.detailModel = weakSelf.detailModel;
+        weakSelf.tableView.newestComments = objs;
+        //        weakSelf.tableView.detailModel = weakSelf.detailModel;
+        //        weakSelf.tableView1.comments = objs;
+        //刷新
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData_tl];
+        });
+        
+//        [TLProgressHUD dismiss];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    [self.tableView addLoadMoreAction:^{
+        
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.comments = objs;
+            
+            weakSelf.tableView.newestComments = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+}
 #pragma mark - Data
 - (void)requestCommentList {
     
     NSString *code = @"628286";
-
+     BaseWeakSelf;
     TLNetworking *http = [TLNetworking new];
     
     http.code = code;
@@ -166,20 +227,22 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.commentModel = [InfoCommentModel mj_objectWithKeyValues:responseObject[@"data"]];
-        
-        self.tableView.commentModel = self.commentModel;
+//        weakSelf.comments = self;
+        weakSelf.tableView.commentModel = weakSelf.commentModel;
+        weakSelf.tableView.newestComments = weakSelf.commentModel.commentList;
+//        self.tableView.commentModel = self.commentModel;
         
         [self.tableView reloadData];
         //判断是否有二次评论，没有就展示沙发
         if (self.commentModel.commentList.count == 0) {
             
             self.tableView.tableFooterView = self.footerView;
-
+            
         } else {
             
             self.tableView.tableFooterView = nil;
         }
-
+        
     } failure:^(NSError *error) {
         
     }];
@@ -195,12 +258,12 @@
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
     NSString *code = @"628200";
-
+    
     if (self.commentModel) {
         code = @"628511";
-
+        
     }
-
+    
     NSString *type = @"2";
     //type(1 资讯 2 评论)
     TLNetworking *http = [TLNetworking new];
@@ -209,11 +272,11 @@
     http.parameters[@"type"] = type;
     if (self.commentModel) {
         http.parameters[@"objectCode"] = self.commentModel.code;
-
+        
     }
     else{
         http.parameters[@"objectCode"] = self.replyCode;
-
+        
     }
     http.parameters[@"content"] = text;
     http.parameters[@"userId"] = [TLUser user].userId;
@@ -319,7 +382,7 @@
 }
 
 - (void)commentWithIndex:(NSInteger)index {
-
+    
     InfoCommentModel *commentModel = self.commentModel.commentList[index];
     
     self.replyCode = commentModel.code;

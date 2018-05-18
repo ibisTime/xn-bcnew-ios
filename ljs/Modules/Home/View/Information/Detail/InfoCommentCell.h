@@ -7,9 +7,9 @@
 //
 
 #import "BaseTableViewCell.h"
-//M
 #import "InfoCommentModel.h"
 
+//M
 @interface InfoCommentCell : BaseTableViewCell
 //
 @property (nonatomic, strong) InfoCommentModel *commentModel;
@@ -17,5 +17,4 @@
 @property (nonatomic, strong) UIButton *zanBtn;
 //点击回复
 @property (nonatomic, copy) void(^clickReplyBlock)(NSInteger index);
-
 @end

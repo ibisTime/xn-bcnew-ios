@@ -196,6 +196,7 @@
     NSString *zanImg = [commentModel.isPoint isEqualToString:@"1"] ? @"点赞": @"未点赞";
     [self.zanBtn setImage:kImage(zanImg) forState:UIControlStateNormal];
     if (self.isReply) {
+        self.photoIV.hidden =YES;
         
         self.replyNameLbl.text = [NSString stringWithFormat:@"回复 %@", commentModel.parentNickName];
     }

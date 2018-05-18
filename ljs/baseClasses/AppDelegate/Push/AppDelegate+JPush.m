@@ -95,7 +95,7 @@
         }
         else{
             NSLog(@"registrationID获取失败，code：%d",resCode);
-        }
+        }   
     }];
 
 }

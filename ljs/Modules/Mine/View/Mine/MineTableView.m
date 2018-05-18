@@ -79,13 +79,13 @@ static NSString *identifierCell = @"MineCell";
     
     cell.rightLabel.textColor = indexPath.row == 4 ? kThemeColor: kTextColor2;
 
-    if (indexPath.row == 4) {
-        
-        //获取缓存大小
-        NSInteger cacheSize = [SDImageCache sharedImageCache].getSize;
-        
-        cell.rightLabel.text = [NSString stringWithFormat:@"%.1lf M",cacheSize/1024.0/1024.0];
-    }
+//    if (indexPath.row == 4) {
+//        
+//        //获取缓存大小
+//        NSInteger cacheSize = [SDImageCache sharedImageCache].getSize;
+//        
+//        cell.rightLabel.text = [NSString stringWithFormat:@"%.1lf M",cacheSize/1024.0/1024.0];
+//    }
     
     return cell;
 }

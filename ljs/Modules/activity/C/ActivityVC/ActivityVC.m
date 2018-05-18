@@ -95,7 +95,7 @@
     helper.code = @"628507";
     
 //    helper.parameters[@"type"] = self.status;
-//    helper.parameters[@"status"] = @"1";
+    helper.parameters[@"status"] = @"1";
     helper.tableView = self.ActivityListTableView;
     
     self.flashHelper = helper;

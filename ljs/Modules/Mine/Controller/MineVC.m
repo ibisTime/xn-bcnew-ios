@@ -35,7 +35,8 @@
 #import "InfoCommentVC.h"
 #import "CircleCommentVC.h"
 #import "MyCollectionListVC.h"
-
+#import "TakeActivityVCr.h"
+#import "MyArticleViewController.h"
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
 @property (nonatomic, strong) MineGroup *group;
@@ -121,24 +122,11 @@
         }];
     };
     
-    //圈子评论
-    MineModel *forumComment = [MineModel new];
-    
-    forumComment.text = @"圈子评论";
-    forumComment.imgName = @"圈子评论";
-    forumComment.action = ^{
-        
-        [weakSelf checkLogin:^{
-            
-            CircleCommentVC *commentVC = [CircleCommentVC new];
-            
-            [weakSelf.navigationController pushViewController:commentVC animated:YES];
-        }];
-    };
+   
     //资讯评论
     MineModel *infoComment = [MineModel new];
     
-    infoComment.text = @"资讯评论";
+    infoComment.text = @"评论";
     infoComment.imgName = @"资讯评论";
     infoComment.action = ^{
         
@@ -148,6 +136,34 @@
             
             [weakSelf.navigationController pushViewController:commentVC animated:YES];
         }];
+    };
+    //圈子评论
+   MineModel *forumComment = [MineModel new];
+    forumComment.text = @"我参与的活动";
+    forumComment.imgName = @"圈子评论";
+    forumComment.action = ^{
+        
+        [weakSelf checkLogin:^{
+            
+//            CircleCommentVC *commentVC = [CircleCommentVC new];
+            TakeActivityVCr *takeVc = [TakeActivityVCr new];
+            takeVc.view.frame = CGRectMake(0, 0, 375, 667);
+            takeVc.view.backgroundColor = kBackgroundColor;
+            [weakSelf.navigationController pushViewController:takeVc animated:YES];
+        }];
+    };
+    //清除缓存
+    MineModel *cache = [MineModel new];
+    
+    cache.text = @"我的文章";
+//    cache.isSpecial = YES;
+    cache.imgName = @"关于";
+
+//    cache.isHiddenArrow = YES;
+    cache.action = ^{
+        
+        MyArticleViewController *myArticle = [[MyArticleViewController alloc] init];
+        [self.navigationController pushViewController:myArticle animated:YES];
     };
     
     //关于
@@ -163,20 +179,12 @@
         
         [weakSelf.navigationController pushViewController:htmlVC animated:YES];
     };
-    //清除缓存
-    MineModel *cache = [MineModel new];
-    
-    cache.text = @"清除缓存";
-    cache.isSpecial = YES;
-    cache.isHiddenArrow = YES;
-    cache.action = ^{
-        
-        [weakSelf clearCache];
-    };
-    
+   
     self.group = [MineGroup new];
     
-    self.group.sections = @[@[collection, forumComment, infoComment, aboutUs, cache]];
+//    self.group.sections = @[@[collection, forumComment, infoComment, aboutUs, cache]];
+    self.group.sections = @[@[collection, infoComment,forumComment,cache, aboutUs]];
+
     
     self.tableView.mineGroup = self.group;
     

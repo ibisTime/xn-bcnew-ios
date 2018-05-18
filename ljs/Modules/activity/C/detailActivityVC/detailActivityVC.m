@@ -132,18 +132,72 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
 
 
 #pragma mark - event
+//收藏活动
+
+///**
+// 收藏资讯
+// */
+//- (void)collectionInfo:(UIButton *)sender {
+//
+//    BaseWeakSelf;
+//
+//    [self checkLogin:^{
+//        //刷新收藏状态
+//        TLNetworking *http = [TLNetworking new];
+//
+//        http.code = @"628512";
+//        weakSelf;
+//        http.parameters[@"code"] = self.detailActModel.code;
+//        http.parameters[@"userId"] = [TLUser user].userId;
+//
+//        [http postWithSuccess:^(id responseObject) {
+//
+////            weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+////            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+////
+////            [weakSelf.collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//    } event:^{
+//
+////        [weakSelf collectionArticle:sender];
+//    }];
+//}
+
 -(void)openCollectionBut
 {
     NSLog(@"openCollectionBut");
-    
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+    http.code = @"628512";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"token"] = [TLUser user].token;
+    http.parameters[@"code"] = self.detailActModel.code;
+    [http postWithSuccess:^(id responseObject) {
+        
+        
+        [TLAlert alertWithSucces:@"收藏成功"];
+        
+        [[TLUser user] updateUserInfo];
+        
+    } failure:^(NSError *error) {
+        [TLAlert alertWithError:error.description];
+        
+    }];
 }
 
-
+//打电话
 -(void)openPhoneCallBut
 {  NSLog(@"openPhoneCallBut");
    UIApplication * app =  [UIApplication sharedApplication];
     //传一个电话号码
-    [ app openURL:[NSURL URLWithString:@"tel://10086"]];
+    if (self.detailActModel.contactMobile.length > 0) {
+        NSString *str = [NSString stringWithFormat:@"%@",self.detailActModel.contactMobile];
+        [app openURL:[NSURL URLWithString:str]];
+    }
+
 }
 
 

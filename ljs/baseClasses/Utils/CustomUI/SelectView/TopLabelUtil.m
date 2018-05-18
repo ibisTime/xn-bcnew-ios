@@ -34,7 +34,6 @@
 
 @property(nonatomic,strong)UIView *bottomLine;
 
-@property(nonatomic,strong)UIButton *selectBtn;
 //底部线条长度
 @property (nonatomic, assign) CGFloat lineWidth;
 
@@ -167,13 +166,13 @@
         
         UIButton *btn = [UIButton buttonWithTitle:_titleArray[i]
                                        titleColor:_titleNormalColor
-                                  backgroundColor:kClearColor
+                                  backgroundColor:kAppCustomMainColor
                                         titleFont:16.0];
         
         btn.frame = CGRectMake(btnX, 0, BTN_LINE_WIDTH, self.segmentHeight);
         btn.tag = i+1000;
-        btn.layer.borderWidth = 1;
-        btn.layer.borderColor = kWhiteColor.CGColor;
+//        btn.layer.borderWidth = 1;
+//        btn.layer.borderColor = kWhiteColor.CGColor;
         [btn setTitleColor:_titleSelectColor forState:UIControlStateSelected];
         [btn setBackgroundColor:kWhiteColor forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnIndexClick:) forControlEvents:UIControlEventTouchUpInside];

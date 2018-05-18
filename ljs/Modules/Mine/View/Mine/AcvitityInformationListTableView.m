@@ -1,22 +1,23 @@
 //
-//  InfoCommentDetailTableView.m
+//  AcvitityInformationListTableView.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/20.
+//  Created by shaojianfei on 2018/5/18.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "InfoCommentDetailTableView.h"
-//V
-#import "InfoCommentCell.h"
-
-@interface InfoCommentDetailTableView()<UITableViewDataSource, UITableViewDelegate>
+#import "AcvitityInformationListTableView.h"
+#import "InformationListCell.h"
+#import "InformationListCell2.h"
+#import "ActivityListTakeCell.h"
+#import <MJExtension/MJExtension.h>
+@interface AcvitityInformationListTableView()<UITableViewDataSource, UITableViewDelegate>
 
 @end
+@implementation AcvitityInformationListTableView
 
-@implementation InfoCommentDetailTableView
-
-static NSString *infoCommentCellID = @"InfoCommentCell";
+static NSString *informationListCell = @"ActivityListTakeCell";
+static NSString *informationListCell2 = @"InformationListCell2";
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -25,7 +26,9 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
         self.dataSource = self;
         self.delegate = self;
         
-        [self registerClass:[InfoCommentCell class] forCellReuseIdentifier:infoCommentCellID];
+        [self registerClass:[ActivityListTakeCell class] forCellReuseIdentifier:informationListCell];
+        [self registerClass:[InformationListCell2 class] forCellReuseIdentifier:informationListCell2];
+        
     }
     
     return self;
@@ -33,47 +36,21 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
 
 #pragma mark - UITableViewDataSource;
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return self.infos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BaseWeakSelf;
+    ActivityListModel *info = (ActivityListModel *)self.infos[indexPath.row];
     
-    InfoCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:infoCommentCellID forIndexPath:indexPath];
+    ActivityDetailModel *detalModel = [ActivityDetailModel mj_objectWithKeyValues:info.activity];
     
-    cell.commentModel = self.commentModel;
-    
-    cell.zanBtn.tag = 2300 + indexPath.row + 1000*indexPath.section;
-    
-    [cell.zanBtn addTarget:self action:@selector(clickZan:) forControlEvents:UIControlEventTouchUpInside];
-    
-    cell.clickReplyBlock = ^(NSInteger index) {
-        
-        if (weakSelf.refreshDelegate && [weakSelf.refreshDelegate respondsToSelector:@selector(refreshTableViewEventClick:selectRowAtIndex:)]) {
-            
-            [weakSelf.refreshDelegate refreshTableViewEventClick:weakSelf selectRowAtIndex:index];
-        }
-    };
-    
+        ActivityListTakeCell *cell = [tableView dequeueReusableCellWithIdentifier:informationListCell forIndexPath:indexPath];
+        //shuju
+        cell.infoModel = detalModel;
     return cell;
-}
-
-- (void)clickZan:(UIButton *)sender {
-    
-    NSInteger index = sender.tag - 2300;
-    
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(refreshTableViewButtonClick:button:selectRowAtIndex:)]) {
-        
-        [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
-    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -86,11 +63,16 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
         
         [self.refreshDelegate refreshTableView:self didSelectRowAtIndexPath:indexPath];
     }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return self.commentModel.cellHeight;
+//    ActivityDetailModel *info = (ActivityDetailModel *)self.infos[indexPath.row];
+    
+   
+        return 125;
+   
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -112,6 +94,5 @@ static NSString *infoCommentCellID = @"InfoCommentCell";
     
     return [UIView new];
 }
-
 
 @end

@@ -1,11 +1,10 @@
 //
-//  InfoCommentDetailVC.m
+//  ActivityNewSVC.m
 //  ljs
 //
-//  Created by 蔡卓越 on 2018/3/20.
+//  Created by shaojianfei on 2018/5/16.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
-//Extension
 #import <IQKeyboardManager.h>
 //V
 #import "BaseView.h"
@@ -15,10 +14,13 @@
 #define kBottomHeight 50
 
 #import "InfoCommentDetailVC.h"
-
-@interface InfoCommentDetailVC ()<InputTextViewDelegate, RefreshDelegate>
+#import "ActivityNewSVC.h"
+#import "ActivityNewsCommentView.h"
+#import "MyCommentDetailTableView.h"
+#import "CircleCommentDetailTableView.h"
+@interface ActivityNewSVC ()<InputTextViewDelegate, RefreshDelegate>
 //评论
-@property (nonatomic, strong) InfoCommentDetailTableView *tableView;
+@property (nonatomic, strong) ActivityNewsCommentView *tableView;
 //底部
 @property (nonatomic, strong) BaseView *bottomView;
 //输入框
@@ -28,11 +30,9 @@
 @property (nonatomic, strong) TLPlaceholderView *footerView;
 //回复编号
 @property (nonatomic, copy) NSString *replyCode;
-
 @end
 
-@implementation InfoCommentDetailVC
-
+@implementation ActivityNewSVC
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -79,7 +79,7 @@
  */
 - (void)initCommentTableView {
     
-    self.tableView = [[InfoCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[ActivityNewsCommentView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
     
@@ -152,7 +152,7 @@
 - (void)requestCommentList {
     
     NSString *code = @"628286";
-
+    
     TLNetworking *http = [TLNetworking new];
     
     http.code = code;
@@ -168,18 +168,19 @@
         self.commentModel = [InfoCommentModel mj_objectWithKeyValues:responseObject[@"data"]];
         
         self.tableView.commentModel = self.commentModel;
+        self.tableView.newestComments = self.commentModel.commentList;
         
         [self.tableView reloadData];
         //判断是否有二次评论，没有就展示沙发
         if (self.commentModel.commentList.count == 0) {
             
             self.tableView.tableFooterView = self.footerView;
-
+            
         } else {
             
             self.tableView.tableFooterView = nil;
         }
-
+        
     } failure:^(NSError *error) {
         
     }];
@@ -195,12 +196,12 @@
 #pragma mark - InputTextViewDelegate
 - (void)clickedSureBtnWithText:(NSString *)text {
     NSString *code = @"628200";
-
+    
     if (self.commentModel) {
         code = @"628511";
-
+        
     }
-
+    
     NSString *type = @"2";
     //type(1 资讯 2 评论)
     TLNetworking *http = [TLNetworking new];
@@ -209,11 +210,11 @@
     http.parameters[@"type"] = type;
     if (self.commentModel) {
         http.parameters[@"objectCode"] = self.commentModel.code;
-
+        
     }
     else{
         http.parameters[@"objectCode"] = self.replyCode;
-
+        
     }
     http.parameters[@"content"] = text;
     http.parameters[@"userId"] = [TLUser user].userId;
@@ -319,7 +320,7 @@
 }
 
 - (void)commentWithIndex:(NSInteger)index {
-
+    
     InfoCommentModel *commentModel = self.commentModel.commentList[index];
     
     self.replyCode = commentModel.code;
@@ -342,4 +343,6 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 @end
+

@@ -52,6 +52,7 @@ typedef void (^ClickBtnBlock)(NSInteger index);
 @property (nonatomic, assign) LineType lineType;
 //小红点
 @property (nonatomic, strong) UIView *redView;
+@property(nonatomic,strong)UIButton *selectBtn;
 
 //选择到哪个按钮
 - (void)selectSortBarWithIndex:(NSInteger)index;

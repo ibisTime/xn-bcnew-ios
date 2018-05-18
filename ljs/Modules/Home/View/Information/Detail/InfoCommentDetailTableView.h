@@ -9,9 +9,11 @@
 #import "TLTableView.h"
 //M
 #import "InfoCommentModel.h"
-
+#import "InformationListCell.h"
 @interface InfoCommentDetailTableView : TLTableView
 //
 @property (nonatomic, strong) InfoCommentModel *commentModel;
+//最新评论
+@property (nonatomic, strong) NSArray <InfoCommentModel*> *newestComments;
 
 @end

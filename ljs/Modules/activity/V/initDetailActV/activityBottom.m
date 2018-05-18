@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *phoneCallBut;
 
 
+@property (nonatomic, assign) int SignState;// 1已报名待通过 2 未报名 3 已通过
 
 @property (nonatomic, strong) UIButton * collectionBut;
 
@@ -117,10 +118,34 @@
     _detailActModel = detailActModel;
     self.content = detailActModel.content;
     self.code = detailActModel.code;
-//    self.users.text = [NSString stringWithFormat:(@"已报名申请个数(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
+    
+    if ([detailActModel.isEnroll isEqualToString:@"1"]) {
+        //申请报名中
+        [self.signUpBut setTitle:@"报名申请中" forState:UIControlStateDisabled];
+        [self.signUpBut setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+        self.signUpBut.enabled = NO;
+    }
+    else if ([detailActModel.isEnroll isEqualToString:@"2"])
+    {
+        //报名成功
+        self.signUpBut.enabled = NO;
+        [self.signUpBut setTitle:@"已通过请注意查看短信" forState:UIControlStateDisabled];
+        [self.signUpBut setBackgroundColor:kpigColor forState:UIControlStateDisabled];
+        }
+    else
+    {
+        //未报名
+        [self.signUpBut setTitle:@"立即报名" forState:UIControlStateDisabled];
+        [self.signUpBut setBackgroundColor:kpigColor forState:UIControlStateDisabled];
+        self.signUpBut.enabled = YES;
+    }
+    //    self.users.text = [NSString stringWithFormat:(@"已报名申请个数(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
 //    [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"用户名"]];
     
+   
     
+    
+
 }
 
 
@@ -128,7 +153,16 @@
 -(void)openSignUp{
     NSLog(@"openSignUp");
     FillInRegistrationFormVC * fillInRegistrationFormVC = [[FillInRegistrationFormVC alloc] init];
-//    signUpUsersVC.code = self.code;
+    fillInRegistrationFormVC.code = self.code;
+    NSLog(@"%@",self.code);
+    MJWeakSelf;
+    
+    fillInRegistrationFormVC.signUpSucessClock = ^(BOOL index) {
+        if (index ==1) {
+            weakSelf.signUpBut.enabled = NO;
+        };
+    };
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signSucessUp) name:@"SignSucess" object:nil];
     [self.viewController.navigationController pushViewController:fillInRegistrationFormVC animated:YES];
 }
 -(void)openComment{
@@ -145,16 +179,41 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"openPhoneCallBut" object:nil];
  
 }
--(void)openCollectionBut{
+-(void)openCollectionBut : (UIButton*)btn {
     
-    
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:nil];
+  
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:btn];
 
     
   
 }
 
+-(void)signSucessUp
+{
+    self.SignState = 1;
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"SignState"];
+    
+    [self.signUpBut setTitle:@"报名申请中" forState:UIControlStateDisabled];
+    [self.signUpBut setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+    self.signUpBut.enabled = NO;
 
+    
+    
+}
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

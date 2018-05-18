@@ -35,6 +35,8 @@
 @property (nonatomic, strong) ReplyCommentView *lastView;
 //
 @property (nonatomic, assign) BOOL isFirst;
+//线
+@property (nonatomic, strong) UIView * bottomLine;
 
 @end
 
@@ -102,7 +104,7 @@
     UIView *bottomLine = [[UIView alloc] init];
     
     bottomLine.backgroundColor = kLineColor;
-    
+    self.bottomLine = bottomLine;
     [self addSubview:bottomLine];
     [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -196,8 +198,11 @@
         lastView = replyView;
     }];
     
-    self.lastView = lastView;
-    
+    if (self.commentModel) {
+        self.lastView = lastView;
+
+    }
+    self.bottomLine.hidden =YES;
     self.isFirst = NO;
     
     _commentModel.cellHeight = self.lastView.yy + 10;

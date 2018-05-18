@@ -12,5 +12,6 @@
 @interface ActivityListV : TLTableView
 //activities
 @property (nonatomic, strong) NSArray <activityModel *>*activities;
+@property (nonatomic, assign) BOOL IsTakeActivity;
 
 @end
