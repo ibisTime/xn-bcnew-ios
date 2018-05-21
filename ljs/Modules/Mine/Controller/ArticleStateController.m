@@ -18,6 +18,10 @@
 //C
 #import "NewsFlashDetailVC.h"
 #import "InfoDetailVC.h"
+#import "ArticleModel.h"
+#import "MyCommentModel.h"
+#import "ArticleCommentModel.h"
+#import "ArticleCommentTableView.h"
 @interface ArticleStateController ()<RefreshDelegate>
 //快讯
 @property (nonatomic, strong) NewsFlashListTableView *flashTableView;
@@ -26,14 +30,19 @@
 
 
 //资讯
-@property (nonatomic, strong) InformationListTableView *infoTableView;
+@property (nonatomic, strong) ArticleCommentTableView *infoTableView;
 //infoList
-@property (nonatomic, strong) NSArray <InformationModel *>*infos;
+@property (nonatomic, strong) NSArray <ArticleCommentModel *>*infos;
 //**********************************
 
 
 //
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
+
+@property (nonatomic, strong) ArticleModel *articleModel;
+
+@property (nonatomic, strong) ArticleCommentModel *commentModel;
+
 
 @end
 
@@ -75,6 +84,8 @@
                                              selector:@selector(refreshNewsFlash)
                                                  name:@"DidReceivePushNotification"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(indexChange:) name:@"indexChange" object:nil];
+    
 }
 
 - (void)refreshNewsFlash {
@@ -82,11 +93,19 @@
     //
     [self.flashTableView beginRefreshing];
 }
-
+//切换子标题
+- (void)indexChange: (NSNotification*)not
+{
+    NSDictionary * infoDic = [not object];
+    NSString * type = infoDic[@"str"];
+    self.type = type;
+    [self requestInfoList];
+    
+}
 
 - (void)initInfoTableView {
-    
-    self.infoTableView = [[InformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.type = @"0";
+    self.infoTableView = [[ArticleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
     self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
@@ -105,52 +124,99 @@
     
     BaseWeakSelf;
     
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    TLNetworking *http = [TLNetworking new];
+//    U201805160952110342835
+    http.code = @"628198";
     
-    helper.code = @"628205";
-    
-    helper.parameters[@"type"] = self.code;
-    
-    helper.tableView = self.infoTableView;
-    
-    [helper modelClass:[InformationModel class]];
-    
-    [self.infoTableView addRefreshAction:^{
+    http.parameters[@"type"] = self.code;
+    http.parameters[@"status"] = self.type;
+    http.parameters[@"start"] = @"0";
+    http.parameters[@"limit"] = @"1";
+    if ([TLUser user].isLogin) {
         
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            
-            weakSelf.infos = objs;
-            //数据转给tableview
-            weakSelf.infoTableView.infos = objs;
-            
-            [weakSelf.infoTableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
-    
-    [self.infoTableView addLoadMoreAction:^{
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"token"] = [TLUser user].token;
         
-        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.infos = objs;
-            
-            weakSelf.infoTableView.infos = objs;
-            
-            [weakSelf.infoTableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
+    } else {
+        
+        http.parameters[@"userId"] = @"";
+        http.parameters[@"token"] = @"";
+        
+    }
+    [http postWithSuccess:^(id responseObject) {
+        [ ArticleModel mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"list" : @"ArticleCommentModel"
+                     };
         }];
+        self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
+        self.infos = self.articleModel.list;
+        self.infoTableView.infos = self.articleModel.list;
+        
+        [self.infoTableView reloadData];
+    } failure:^(NSError *error) {
+        
     }];
+//    helper.tableView = self.infoTableView;
     
-    [self.infoTableView endRefreshingWithNoMoreData_tl];
+//    [helper modelClass:[ArticleModel class]];
+    
+//    [self.infoTableView addRefreshAction:^{
+//
+//        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//
+//            weakSelf.infos = objs;
+//            //数据转给tableview
+//            weakSelf.infoTableView.infos = objs;
+//
+//            [weakSelf.infoTableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//    }];
+//
+//    [self.infoTableView addLoadMoreAction:^{
+//
+//        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//            weakSelf.infos = objs;
+//
+//            weakSelf.infoTableView.infos = objs;
+//
+//            [weakSelf.infoTableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//    }];
+//
+//    [self.infoTableView endRefreshingWithNoMoreData_tl];
 }
 
+- (void)requstMyArticleList
+{
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628198";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"status"] = @"0";
+    http.parameters[@"start"] = @"0";
+    http.parameters[@"limit"] = @"1";
 
+    
+    [http postWithSuccess:^(id responseObject) {
+        
 
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+}
 /**
  用户点击cell阅读快讯
  */
@@ -178,22 +244,7 @@
     
     BaseWeakSelf;
     
-    if ([self.kind isEqualToString:kNewsFlash]) {
-        
-        NewsFlashModel *flashModel = self.news[indexPath.section];
-        
-        if ([[TLUser user] isLogin] && [flashModel.isRead isEqualToString:@"0"]) {
-            
-            //用户点击阅读快讯
-            [self userClickNewsFlash:flashModel];
-            
-        }else {
-            
-            [self.flashTableView reloadData];
-        }
-        
-        return ;
-    }
+    
     InfoDetailVC *detailVC = [InfoDetailVC new];
     
     detailVC.code = self.infos[indexPath.row].code;

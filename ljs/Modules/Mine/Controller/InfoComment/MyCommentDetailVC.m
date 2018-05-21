@@ -64,7 +64,10 @@
     //获取评论列表
     [self requestCommentList];
     //底部
-    [self initBottomView];
+    if (self.IsHidden == NO) {
+        [self initBottomView];
+
+    }
     //原文
     [self addArticleItem];
 }

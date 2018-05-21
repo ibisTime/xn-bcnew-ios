@@ -1,12 +1,12 @@
 //
-//  MyArticleViewController.m
+//  MineCenterViewController.m
 //  ljs
 //
-//  Created by shaojianfei on 2018/5/18.
+//  Created by shaojianfei on 2018/5/19.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "MyArticleViewController.h"
+#import "MineCenterViewController.h"
 #import "InfoManager.h"
 //M
 #import "NewsFlashModel.h"
@@ -17,11 +17,15 @@
 //C
 #import "HomeChildVC.h"
 #import "ArticleStateController.h"
-@interface MyArticleViewController ()<SegmentDelegate>
+#import "HomePageInfoVC.h"
+#import "HomePageHeaderView.h"
+@interface MineCenterViewController ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
 //大滚动
 @property (nonatomic, strong) UIScrollView *switchSV;
+@property (nonatomic, strong) HomePageHeaderView *headerView;
+
 //小滚动
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
@@ -34,18 +38,19 @@
 @property (nonatomic, strong) NSArray <InfoTypeModel *>*infoTypeList;
 @end
 
-@implementation MyArticleViewController
+@implementation MineCenterViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.title = @"我的资讯";
-    self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+    self.titles = [NSMutableArray arrayWithObjects:@"资讯", @"文章",@"活动", nil];
     [super viewDidLoad];
     [self addPushNotification];
     //顶部切换
     [self initSegmentView];
+    
     // Do any additional setup after loading the view.
 }
-
 #pragma mark - Notification
 - (void)addPushNotification {
     
@@ -65,10 +70,22 @@
 
 #pragma mark - Init
 - (void)initSegmentView {
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
     
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.image = kImage(@"我的-背景");
+    
+    imageView.tag = 1500;
+    imageView.backgroundColor = kAppCustomMainColor;
+    
+    [self.view addSubview:imageView];
+    self.headerView = [[HomePageHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
+    
+    self.headerView.backgroundColor = kHexColor(@"#2E2E2E");
+    [self.view addSubview:_headerView];
     
     //***********设置顶部条**************************
-    NSArray *titleArr = @[@"我的文章"];
+    NSArray *titleArr = @[@"我的资讯"];
     
     self.statusList = @[ kHotNewsFlash];
     self.titles = [NSMutableArray array];
@@ -82,24 +99,25 @@
     self.labelUnil.titleFont = Font(18);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
-//    self.labelUnil.layer.cornerRadius = h/2.0;
-//    self.labelUnil.layer.borderWidth = 1;
-//    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
+    //    self.labelUnil.layer.cornerRadius = h/2.0;
+    //    self.labelUnil.layer.borderWidth = 1;
+    //    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
     self.labelUnil.userInteractionEnabled = NO;
     self.labelUnil.selectBtn.selected = YES;
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateSelected];
+    self.labelUnil .hidden = YES;
     
     
     self.navigationItem.titleView = self.labelUnil;
     //******************************************
     
     //1.切换背景
-    self.switchSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight)];
+    self.switchSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 110, kScreenWidth, kSuperViewHeight)];
     [self.view addSubview:self.switchSV];
     [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
-//    //2.订单列表
+    //    //2.订单列表
     NSArray *kindArr = @[ kInformation];
     for (int i = 0; i < titleArr.count; i++) {
         
@@ -107,7 +125,7 @@
         
         if ([self.kind isEqualToString:kInformation]) {
             
-            self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+            self.titles = [NSMutableArray arrayWithObjects:@"动态", @"资讯",@"活动", nil];
             
             [self initSelectScrollView:i];
             
@@ -116,7 +134,7 @@
             [self requestInfoTypeList];
         }
     }
-
+    
 }
 
 - (void)initSelectScrollView:(NSInteger)index {
@@ -134,21 +152,24 @@
     
     SelectScrollView *selectSV = (SelectScrollView *)[self.view viewWithTag:2500+index];
     
-   
+    
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
-        ArticleStateController *childVC = [[ArticleStateController alloc] init];
-//
-//        if ([self.kind isEqualToString:kNewsFlash]) {
-//
-//            childVC.status = self.statusList[i];
-//
-//        } else {
+        HomePageInfoVC *childVC = [[HomePageInfoVC alloc] init];
+        childVC.IsCenter = YES;
+        childVC.userId = [TLUser user].userId;
+//        ArticleStateController *childVC = [[ArticleStateController alloc] init];
+        //
+        //        if ([self.kind isEqualToString:kNewsFlash]) {
+        //
+        //            childVC.status = self.statusList[i];
+        //
+        //        } else {
         
-            childVC.code = self.infoTypeList[i].code;
-            childVC.titleStr = self.titles[i];
-//        }
+        childVC.code = self.infoTypeList[i].code;
+        childVC.titleStr = self.titles[i];
+        //        }
         childVC.kind = self.kind;
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         
@@ -156,7 +177,7 @@
         
         [selectSV.scrollView addSubview:childVC.view];
     }
-    
+    [self requestUserInfo];
     selectSV.selectBlock = ^(NSInteger index) {
         NSString * str = [NSString stringWithFormat:@"%ld",index];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"indexChange" object:@{@"str":str}];
@@ -166,28 +187,52 @@
 #pragma mark - Data
 - (void)requestInfoTypeList {
     
-      self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
-      [self initSelectScrollView:1];
+    self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+    [self initSelectScrollView:1];
+    
+}
 
+/**
+ 获取用户信息
+ */
+- (void)requestUserInfo {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"805121";
+    
+    if ([TLUser user].isLogin) {
+        
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"token"] = [TLUser user].token;
+        
+    } else {
+        
+        http.parameters[@"userId"] = @"";
+        http.parameters[@"token"] = @"";
+        
+    }
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *photo = responseObject[@"data"][@"photo"];
+        NSString *nickname = responseObject[@"data"][@"nickname"];
+        //
+        [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[photo convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
+        
+        [self.headerView.nameBtn setTitle:nickname forState:UIControlStateNormal];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
     
     [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
-//    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
+    //    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
     
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

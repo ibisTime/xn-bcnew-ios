@@ -112,8 +112,8 @@
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
     helper.code = @"628340";
+    helper.parameters[@"type"] = @"E";
 
     if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
         

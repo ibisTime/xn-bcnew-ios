@@ -13,5 +13,13 @@
 @interface HomePageInfoVC : BaseViewController
 //用户编号
 @property (nonatomic, copy) NSString *userId;
+//类型
+@property (nonatomic, copy) NSString *kind;
+//状态
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, assign) BOOL IsCenter ;
 
+//编号
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *type;
 @end

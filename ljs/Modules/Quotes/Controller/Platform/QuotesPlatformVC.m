@@ -47,7 +47,7 @@
     //刷新平台列表
     [self.tableView beginRefreshing];
     //获取贴吧信息
-    [self requestForumInfo];
+//    [self requestForumInfo];
     //添加通知
     [self addNotification];
 }
@@ -237,9 +237,11 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628340";
+    helper.code = @"628345";
     
-    helper.parameters[@"exchangeEname"] = self.titleModel.ename;
+    helper.parameters[@"type"] = @"E";
+    helper.parameters[@"coinSymbol"] = @"BTC";
+    helper.parameters[@"exchangeEname"] = @"bitfinex";
 
     helper.parameters[@"userId"] = [TLUser user].userId;
     

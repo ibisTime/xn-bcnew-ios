@@ -1,108 +1,29 @@
 //
-//  HTMLStrVC.m
-//  YS_iOS
+//  Html5Vc.m
+//  ljs
 //
-//  Created by 蔡卓越 on 2017/6/29.
-//  Copyright © 2017年 caizhuoyue. All rights reserved.
+//  Created by shaojianfei on 2018/5/19.
+//  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "HTMLStrVC.h"
+#import "Html5Vc.h"
 #import <WebKit/WebKit.h>
 #import "APICodeMacro.h"
-#import "AppConfig.h"
-
-@interface HTMLStrVC ()<WKNavigationDelegate,UIWebViewDelegate>
-
+@interface Html5Vc ()<WKNavigationDelegate>
 @property (nonatomic, copy) NSString *htmlStr;
-@property (nonatomic, strong) UIButton *Submit;
-@property (nonatomic, strong) UIWebView *web;
-@property (nonatomic, strong) WKWebView *webView;
 
+@property (nonatomic, strong) WKWebView *webView;
 @end
 
-@implementation HTMLStrVC
+@implementation Html5Vc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *Submit = [UIButton buttonWithType:UIButtonTypeCustom];
-    [Submit setTitle:@"发布" forState:UIControlStateNormal];
-    
-    [Submit addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:Submit];
-    [Submit mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.left.equalTo(@0);
-        make.width.height.equalTo(@(100));
+    [self requestContent];
 
-    }];
-    self.Submit =Submit;
-    self.navigationItem.titleView = Submit;
-    NSLog(@"%@",[AppConfig config].qiniuDomain);
-    NSArray *arr =   [self.ckey componentsSeparatedByString:@"?"];
-    self.ckey = arr[0];
-    NSString *ownerId ;
-    if ([TLUser user].userId) {
-        ownerId = [TLUser user].userId;
-    }else{
-        
-        ownerId = @"";
-    }
-    NSString *strurl=[NSString stringWithFormat:@"%@/news/addNews.html?ownerId=%@",self.ckey,ownerId];
-    
-    UIWebView *web = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    web.delegate = self;
-    self.web =web;
-    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strurl]]];
-    
-    [self.view addSubview:web];
-    
     // Do any additional setup after loading the view.
-
-//    [self requestContent];
 }
-- (void)clickBack
-{
-    
-    NSLog(@"发布资讯");
-    NSString *result = [self.web stringByEvaluatingJavaScriptFromString:@"doSubmit();"];
-    
-    NSLog(@"%@",result);
-    
-}
-
-
-
-
-
-
-//UIWebViewDelegate协议方法
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-    
-    
-    UIWebView *web = webView;
-    
-    //获取所有的html
-    
-    NSString *allHtml = @"document.documentElement.innerHTML";
-    
-    //获取网页title
-    
-    NSString *htmlTitle = @"document.title";
-    
-    //获取网页的一个值
-    
-    NSString *htmlNum = @"document.getElementById('title').innerText";
-    
-    //最后调用 stringByEvaluatingJavaScriptFromString 获取相应内容
-    
-    //例如 如下代码获取Html内容
-    
-    NSString *allHtmlInfo = [web stringByEvaluatingJavaScriptFromString:allHtml];
-}
+#pragma mark - Data
 
 - (void)requestContent {
     
@@ -112,7 +33,7 @@
     
     switch (self.type) {
             
-        case HTMLTypeAboutUs: {
+        case HtmlTypeTypeAboutUs: {
             
             ckey = @"about_us";
             
@@ -121,7 +42,7 @@
         } break;
             
     }
-
+    
     self.navigationItem.titleView = [UILabel labelWithTitle:name frame:CGRectMake(0, 0, 200, 44)];
     
     TLNetworking *http = [TLNetworking new];
@@ -144,7 +65,7 @@
 #pragma mark - Init
 
 - (void)initWebView {
-
+    
     NSString *jS = [NSString stringWithFormat:@"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'); meta.setAttribute('width', %lf); document.getElementsByTagName('head')[0].appendChild(meta);",kScreenWidth];
     
     WKUserScript *wkUserScript = [[WKUserScript alloc] initWithSource:jS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
@@ -197,10 +118,19 @@
     _webView.scrollView.contentSize = CGSizeMake(kScreenWidth, height);
     
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

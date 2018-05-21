@@ -37,6 +37,9 @@
 #import "MyCollectionListVC.h"
 #import "TakeActivityVCr.h"
 #import "MyArticleViewController.h"
+#import "Html5Vc.h"
+#import "HomePageInfoVC.h"
+#import "MineCenterViewController.h"
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
 @property (nonatomic, strong) MineGroup *group;
@@ -48,6 +51,9 @@
 @property (nonatomic, strong) MineHeaderView *headerView;
 //选择头像
 @property (nonatomic, strong) TLImagePicker *imagePicker;
+@property (nonatomic, strong)  UIImageView *imageView;
+@property (nonatomic, strong)  UITapGestureRecognizer *tapGR;
+
 
 @end
 
@@ -140,7 +146,7 @@
     //圈子评论
    MineModel *forumComment = [MineModel new];
     forumComment.text = @"我参与的活动";
-    forumComment.imgName = @"圈子评论";
+    forumComment.imgName = @"我发布的活动";
     forumComment.action = ^{
         
         [weakSelf checkLogin:^{
@@ -157,7 +163,7 @@
     
     cache.text = @"我的文章";
 //    cache.isSpecial = YES;
-    cache.imgName = @"关于";
+    cache.imgName = @"我的文章";
 
 //    cache.isHiddenArrow = YES;
     cache.action = ^{
@@ -173,7 +179,7 @@
     aboutUs.imgName = @"关于";
     aboutUs.action = ^{
         
-        HTMLStrVC *htmlVC = [[HTMLStrVC alloc] init];
+        Html5Vc *htmlVC = [[Html5Vc alloc] init];
         
         htmlVC.type = HTMLTypeAboutUs;
         
@@ -194,14 +200,22 @@
 - (void)initTableView {
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
-    
+    self.imageView = imageView;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.image = kImage(@"我的-背景");
-    
+    imageView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookArticle:)];
+//    self.tapGR = tapGR;
+//    [imageView addGestureRecognizer:tapGR];
     imageView.tag = 1500;
     imageView.backgroundColor = kAppCustomMainColor;
-    
-    [self.view addSubview:imageView];
+    UIView*view = [[UIControl alloc] initWithFrame:CGRectMake(0,0,kScreenWidth,110)] ;
+    view.backgroundColor = [UIColor clearColor];
+    [(UIControl *)view addTarget:self action:@selector(lookArticle) forControlEvents:UIControlEventTouchUpInside];
+   
+    [view addSubview:imageView];
+    [self.view addSubview:view];
+//    [self.view addSubview:imageView];
     
     self.tableView = [[MineTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kTabBarHeight) style:UITableViewStyleGrouped];
     
@@ -218,6 +232,13 @@
 
 }
 
+- (void)lookArticle
+{
+    
+    NSLog(@"点击头像");
+    
+    
+}
 - (TLImagePicker *)imagePicker {
     
     if (!_imagePicker) {
@@ -430,12 +451,36 @@
         {
             [self checkLogin:nil];
         }break;
+        case MineHeaderSeletedTypeDefault:
+        {
+            NSLog(@"点击了头像");
+            [self goUserDetail];
+        }break;
+            
         default:
             break;
     }
 }
 
 
+- (void)goUserDetail {
+    
+    
+    if (![TLUser user].userId) {
+        [TLAlert alertWithError:@"无 userId"];
+        return;
+    }else{
+    
+    
+        MineCenterViewController *pageVC = [[MineCenterViewController alloc] init];
+        
+        pageVC.userId = [TLUser user].userId;
+        
+        [self.navigationController pushViewController:pageVC animated:YES];
+        return ;
+    
+    }
+}
 /**
  VC被释放时移除通知
  */

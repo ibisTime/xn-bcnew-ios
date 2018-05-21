@@ -295,16 +295,26 @@
 		B870F5C620AED06400335B87 /* ActivityListTakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C520AED06400335B87 /* ActivityListTakeCell.m */; };
 		B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */; };
 		B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5CB20AF15CE00335B87 /* ArticleStateController.m */; };
+		B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8839C6520B174B100024A66 /* QCInfomationModel.m */; };
 		B8844A8720A9E0E00058D5F3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8844A8420A9E0E00058D5F3 /* README.txt */; };
 		B8844A8820A9E0E00058D5F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8844A8620A9E0E00058D5F3 /* libWeChatSDK.a */; };
 		B8844A8C20A9E3780058D5F3 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8844A8B20A9E3770058D5F3 /* read_me.txt */; };
 		B8844A8E20A9E45D0058D5F3 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8844A8D20A9E45D0058D5F3 /* TencentOpenAPI.framework */; };
+		B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423C20B271D500A99740 /* HomeQuotesView.m */; };
+		B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */; };
 		B8B489A120AC807F004D7BC9 /* ActivityNewSVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */; };
 		B8BD683820AC4BCC00DCADD0 /* ActivityNewsCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD683720AC4BCC00DCADD0 /* ActivityNewsCommentView.m */; };
 		B8D0D4D820AEB36E006B99D5 /* ActivityLimitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4D720AEB36E006B99D5 /* ActivityLimitModel.m */; };
 		B8D0D4DB20AEB3FF006B99D5 /* ActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4DA20AEB3FF006B99D5 /* ActivityListModel.m */; };
 		B8D0D4DE20AEB4BA006B99D5 /* ActivityDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4DD20AEB4BA006B99D5 /* ActivityDetailModel.m */; };
 		B8D0D4E120AEC3DD006B99D5 /* AcvitityInformationListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4E020AEC3DD006B99D5 /* AcvitityInformationListTableView.m */; };
+		B8DCABFD20B02068009B6EE9 /* ArticleStateTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCABFC20B02068009B6EE9 /* ArticleStateTableView.m */; };
+		B8DCAC0320B03EDA009B6EE9 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0220B03EDA009B6EE9 /* ArticleModel.m */; };
+		B8DCAC0620B0458D009B6EE9 /* ArticleCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0520B0458D009B6EE9 /* ArticleCommentModel.m */; };
+		B8DCAC0920B04789009B6EE9 /* ArticleCommentTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0820B04789009B6EE9 /* ArticleCommentTableView.m */; };
+		B8DCAC0C20B04AF2009B6EE9 /* ArticleCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0B20B04AF2009B6EE9 /* ArticleCommentCell.m */; };
+		B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */; };
+		B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
 /* End PBXBuildFile section */
@@ -876,6 +886,8 @@
 		B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyArticleViewController.m; sourceTree = "<group>"; };
 		B870F5CA20AF15CE00335B87 /* ArticleStateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleStateController.h; sourceTree = "<group>"; };
 		B870F5CB20AF15CE00335B87 /* ArticleStateController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleStateController.m; sourceTree = "<group>"; };
+		B8839C6420B174B100024A66 /* QCInfomationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCInfomationModel.h; sourceTree = "<group>"; };
+		B8839C6520B174B100024A66 /* QCInfomationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCInfomationModel.m; sourceTree = "<group>"; };
 		B8844A8220A9E0E00058D5F3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		B8844A8320A9E0E00058D5F3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		B8844A8420A9E0E00058D5F3 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -883,6 +895,10 @@
 		B8844A8620A9E0E00058D5F3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		B8844A8B20A9E3770058D5F3 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		B8844A8D20A9E45D0058D5F3 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = SOURCE_ROOT; };
+		B89D423C20B271D500A99740 /* HomeQuotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesView.m; sourceTree = "<group>"; };
+		B89D423D20B271D500A99740 /* HomeQuotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesView.h; sourceTree = "<group>"; };
+		B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesSortBar.m; sourceTree = "<group>"; };
+		B89D423F20B271D600A99740 /* HomeQuotesSortBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesSortBar.h; sourceTree = "<group>"; };
 		B8B4899F20AC807F004D7BC9 /* ActivityNewSVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityNewSVC.h; sourceTree = "<group>"; };
 		B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityNewSVC.m; sourceTree = "<group>"; };
 		B8BD683620AC4BCC00DCADD0 /* ActivityNewsCommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityNewsCommentView.h; sourceTree = "<group>"; };
@@ -895,6 +911,20 @@
 		B8D0D4DD20AEB4BA006B99D5 /* ActivityDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailModel.m; sourceTree = "<group>"; };
 		B8D0D4DF20AEC3DD006B99D5 /* AcvitityInformationListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AcvitityInformationListTableView.h; sourceTree = "<group>"; };
 		B8D0D4E020AEC3DD006B99D5 /* AcvitityInformationListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcvitityInformationListTableView.m; sourceTree = "<group>"; };
+		B8DCABFB20B02068009B6EE9 /* ArticleStateTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleStateTableView.h; sourceTree = "<group>"; };
+		B8DCABFC20B02068009B6EE9 /* ArticleStateTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleStateTableView.m; sourceTree = "<group>"; };
+		B8DCAC0120B03EDA009B6EE9 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
+		B8DCAC0220B03EDA009B6EE9 /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		B8DCAC0420B0458D009B6EE9 /* ArticleCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleCommentModel.h; sourceTree = "<group>"; };
+		B8DCAC0520B0458D009B6EE9 /* ArticleCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleCommentModel.m; sourceTree = "<group>"; };
+		B8DCAC0720B04789009B6EE9 /* ArticleCommentTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleCommentTableView.h; sourceTree = "<group>"; };
+		B8DCAC0820B04789009B6EE9 /* ArticleCommentTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleCommentTableView.m; sourceTree = "<group>"; };
+		B8DCAC0A20B04AF2009B6EE9 /* ArticleCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleCommentCell.h; sourceTree = "<group>"; };
+		B8DCAC0B20B04AF2009B6EE9 /* ArticleCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleCommentCell.m; sourceTree = "<group>"; };
+		B8DCAC0D20B06FE4009B6EE9 /* Html5Vc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Html5Vc.h; sourceTree = "<group>"; };
+		B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Html5Vc.m; sourceTree = "<group>"; };
+		B8DCAC1020B08140009B6EE9 /* MineCenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCenterViewController.h; sourceTree = "<group>"; };
+		B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCenterViewController.m; sourceTree = "<group>"; };
 		B8F37F2D20AD44F0005EBB09 /* ActiveCommentsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActiveCommentsListViewController.h; sourceTree = "<group>"; };
 		B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActiveCommentsListViewController.m; sourceTree = "<group>"; };
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
@@ -1728,6 +1758,8 @@
 				B8D0D4DD20AEB4BA006B99D5 /* ActivityDetailModel.m */,
 				B870F5C420AED06400335B87 /* ActivityListTakeCell.h */,
 				B870F5C520AED06400335B87 /* ActivityListTakeCell.m */,
+				B8839C6420B174B100024A66 /* QCInfomationModel.h */,
+				B8839C6520B174B100024A66 /* QCInfomationModel.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2102,6 +2134,10 @@
 		21CFFAF020565D3100D245ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B89D423F20B271D600A99740 /* HomeQuotesSortBar.h */,
+				B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */,
+				B89D423D20B271D500A99740 /* HomeQuotesView.h */,
+				B89D423C20B271D500A99740 /* HomeQuotesView.m */,
 				21CFFB0120565DB900D245ED /* QuotesVC.h */,
 				21CFFB0220565DB900D245ED /* QuotesVC.m */,
 				2124BEBA2062904100CB79E8 /* Search */,
@@ -2193,11 +2229,25 @@
 		21CFFAF820565D4700D245ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8DCABFB20B02068009B6EE9 /* ArticleStateTableView.h */,
+				B8DCABFC20B02068009B6EE9 /* ArticleStateTableView.m */,
 				B870F5CA20AF15CE00335B87 /* ArticleStateController.h */,
 				B870F5CB20AF15CE00335B87 /* ArticleStateController.m */,
 				B870F5C720AF0ADA00335B87 /* MyArticleViewController.h */,
 				B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */,
+				B8DCAC1020B08140009B6EE9 /* MineCenterViewController.h */,
+				B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */,
+				B8DCAC0120B03EDA009B6EE9 /* ArticleModel.h */,
+				B8DCAC0A20B04AF2009B6EE9 /* ArticleCommentCell.h */,
+				B8DCAC0B20B04AF2009B6EE9 /* ArticleCommentCell.m */,
+				B8DCAC0220B03EDA009B6EE9 /* ArticleModel.m */,
+				B8DCAC0720B04789009B6EE9 /* ArticleCommentTableView.h */,
+				B8DCAC0820B04789009B6EE9 /* ArticleCommentTableView.m */,
+				B8DCAC0420B0458D009B6EE9 /* ArticleCommentModel.h */,
+				B8DCAC0520B0458D009B6EE9 /* ArticleCommentModel.m */,
 				B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */,
+				B8DCAC0D20B06FE4009B6EE9 /* Html5Vc.h */,
+				B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */,
 				B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */,
 				21CFFB0720565DDD00D245ED /* MineVC.h */,
 				21CFFB0820565DDD00D245ED /* MineVC.m */,
@@ -2836,7 +2886,6 @@
 				TargetAttributes = {
 					21F827CE1F1742E80019B176 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = ZKTVZ75A59;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -2941,10 +2990,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2124BEDE2063940400CB79E8 /* EditVC.m in Sources */,
+				B8DCAC0920B04789009B6EE9 /* ArticleCommentTableView.m in Sources */,
 				21CFFB2320566C2E00D245ED /* InformationModel.m in Sources */,
 				214593FB206B2F370006E238 /* UserPhotoView.m in Sources */,
 				2124BE632060B4DC00CB79E8 /* InfoCommentModel.m in Sources */,
 				2124BE26205FD4F700CB79E8 /* NewsFlashShareView.m in Sources */,
+				B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */,
 				21EF0B98206749F7008EA865 /* OptionalTitleModel.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
 				21EF0B5E2065078B008EA865 /* InfoDetailModel.m in Sources */,
@@ -3001,6 +3052,7 @@
 				21EF0B3F2064CEB2008EA865 /* ForumCircleChildVC.m in Sources */,
 				219CF5382073559600012F68 /* JPushModel.m in Sources */,
 				2124BEC1206296F800CB79E8 /* SearchCurrencyTableView.m in Sources */,
+				B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
 				2124BE0A205FB57E00CB79E8 /* InformationListCell2.m in Sources */,
 				21EF0B6F20664936008EA865 /* InfoCommentChildVC.m in Sources */,
@@ -3021,6 +3073,7 @@
 				21EF0BA120678BE6008EA865 /* CurrencyTitleModel.m in Sources */,
 				2124BED720635B9300CB79E8 /* SearchHistoryChildVC.m in Sources */,
 				2124BE29205FE40F00CB79E8 /* NewsFlashDetailView.m in Sources */,
+				B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
 				B8D0D4D820AEB36E006B99D5 /* ActivityLimitModel.m in Sources */,
 				212882632057A11100A57A5A /* MineCell.m in Sources */,
@@ -3047,9 +3100,11 @@
 				186E8BF7209C0A9D00532B1C /* ActivityCommentsVC.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
 				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
+				B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */,
 				21CFFB2620566D9A00D245ED /* InformationListTableView.m in Sources */,
 				2124BE9A206240AC00CB79E8 /* PlatformCell.m in Sources */,
 				21288247205776F000A57A5A /* OptionalTableView.m in Sources */,
+				B8DCAC0320B03EDA009B6EE9 /* ArticleModel.m in Sources */,
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
 				2124BEEE2063B61B00CB79E8 /* ThirdLoginModel.m in Sources */,
@@ -3120,6 +3175,7 @@
 				21CFFB0320565DB900D245ED /* QuotesVC.m in Sources */,
 				21EF0B9B20677477008EA865 /* OptionalListModel.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
+				B8DCAC0C20B04AF2009B6EE9 /* ArticleCommentCell.m in Sources */,
 				2124BEB62062885A00CB79E8 /* AddOptionalTableView.m in Sources */,
 				21EF0B6C206643D3008EA865 /* CircleCommentVC.m in Sources */,
 				21EF0B9520669035008EA865 /* MyCollectionModel.m in Sources */,
@@ -3139,6 +3195,7 @@
 				21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */,
 				186E8BFC209C0A9D00532B1C /* ActivityCommentsM.m in Sources */,
 				2128824E20577CAB00A57A5A /* ForumChildVC.m in Sources */,
+				B8DCAC0620B0458D009B6EE9 /* ArticleCommentModel.m in Sources */,
 				186E8C08209C0A9D00532B1C /* signUpUser.m in Sources */,
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
 				21EF0B4F2064D2A5008EA865 /* ForumInfoTableView.m in Sources */,
@@ -3165,6 +3222,7 @@
 				186E8C03209C0A9D00532B1C /* ActivityListV.m in Sources */,
 				186E8BFA209C0A9D00532B1C /* FillInRegistrationFormVC.m in Sources */,
 				212882732057A37700A57A5A /* YYImageClipViewController.m in Sources */,
+				B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */,
 				214593EE206B24610006E238 /* HomePageInfoTableView.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
@@ -3194,6 +3252,7 @@
 				21EF0B5B2064DAD4008EA865 /* ForumDetailHeaderView.m in Sources */,
 				21AC593C1FDE7A1B00F19DE8 /* TLTableView.m in Sources */,
 				186E8C02209C0A9D00532B1C /* ActivityListCell.m in Sources */,
+				B8DCABFD20B02068009B6EE9 /* ArticleStateTableView.m in Sources */,
 				21AC593F1FDE7A1B00F19DE8 /* SelectScrollView.m in Sources */,
 				21158E491F1C502400A07266 /* BarButton.m in Sources */,
 				21F82CA31F17719D0019B176 /* TLAuthHelper.m in Sources */,
@@ -3332,7 +3391,7 @@
 				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3370,7 +3429,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

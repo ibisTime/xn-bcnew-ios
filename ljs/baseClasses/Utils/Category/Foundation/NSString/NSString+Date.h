@@ -51,6 +51,8 @@
 - (NSString *)convertToTimelineDate;
 
 - (NSString *)convertDate;
+- (NSString *)formateDateStr;
+
 //转为指定格式
 - (NSString *)convertDateWithFormat:(NSString *)format;
 //根据时间获得星期几

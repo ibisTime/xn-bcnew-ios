@@ -9,6 +9,7 @@
 #import "HomePageInfoTableView.h"
 //V
 #import "HomePageInfoCell.h"
+#import "ArticleCommentCell.h"
 
 @interface HomePageInfoTableView()<UITableViewDelegate, UITableViewDataSource>
 
@@ -17,6 +18,8 @@
 @implementation HomePageInfoTableView
 
 static NSString *homePageInfoCell = @"HomePageInfoCell";
+static NSString *articleCommentCell = @"ArticleCommentCell";
+
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
@@ -26,6 +29,8 @@ static NSString *homePageInfoCell = @"HomePageInfoCell";
         self.delegate = self;
         
         [self registerClass:[HomePageInfoCell class] forCellReuseIdentifier:homePageInfoCell];
+        
+         [self registerClass:[ArticleCommentCell class] forCellReuseIdentifier:articleCommentCell];
     }
     
     return self;
@@ -34,12 +39,25 @@ static NSString *homePageInfoCell = @"HomePageInfoCell";
 #pragma mark - UITableViewDataSource;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+    if (self.IsArticle == YES) {
+        return self.infos.count;
+
+    }
     return self.pageModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.IsArticle == YES) {
+        ArticleCommentModel *info = self.infos[indexPath.row];
+        
+        
+        ArticleCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:articleCommentCell forIndexPath:indexPath];
+        //shuju
+        cell.infoModel = info;
+        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+
+        return cell;
+    }
     HomePageInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:homePageInfoCell forIndexPath:indexPath];
     
     cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
@@ -75,7 +93,10 @@ static NSString *homePageInfoCell = @"HomePageInfoCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.IsArticle == YES) {
+        return 130;
+        
+    }
     return self.pageModels[indexPath.row].cellHeight;
 }
 

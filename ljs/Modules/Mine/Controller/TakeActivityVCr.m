@@ -36,6 +36,7 @@
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 @property (nonatomic, strong) ActivityLimitModel *limitModel;
 
+
 @end
 
 @implementation TakeActivityVCr

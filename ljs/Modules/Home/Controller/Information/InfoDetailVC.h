@@ -11,6 +11,10 @@
 @interface InfoDetailVC : BaseViewController
 //编号
 @property (nonatomic, copy) NSString *code;
+@property (nonatomic, strong) UIBarButtonItem *item;
+@property (nonatomic, assign) BOOL IsNeed;
+
+
 //取消收藏/收藏
 @property (nonatomic, copy) void(^collectionBlock)();
 

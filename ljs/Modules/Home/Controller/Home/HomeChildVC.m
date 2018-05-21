@@ -271,7 +271,7 @@
         return ;
     }
     InfoDetailVC *detailVC = [InfoDetailVC new];
-    
+    detailVC.IsNeed = YES;
     detailVC.code = self.infos[indexPath.row].code;
     detailVC.title = self.titleStr;
     detailVC.collectionBlock = ^{

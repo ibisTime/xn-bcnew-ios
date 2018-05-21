@@ -31,6 +31,7 @@
 #import "InfoAllCommentListVC.h"
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
+#import "HTMLStrVC.h"
 
 #define kBottomHeight 50
 
@@ -158,6 +159,26 @@
  */
 - (void)initCommentTableView {
     
+//    UIButton *Submit = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [Submit setTitle:@"发布" forState:UIControlStateNormal];
+//
+//    [Submit addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self.view addSubview:Submit];
+//    [Submit mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.left.equalTo(@0);
+//        make.width.height.equalTo(@(100));
+//
+//    }];
+    if (self.IsNeed == YES) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
+        [item setTintColor:[UIColor whiteColor]];
+        self.item = item;
+        self.navigationItem.rightBarButtonItem = item;
+    }
+    
+    
     self.tableView = [[InformationDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
@@ -170,6 +191,15 @@
         make.edges.mas_equalTo(0);
         make.bottom.equalTo(@(-kBottomHeight-kBottomInsetHeight));
     }];
+    
+}
+- (void)clickBack
+{
+    
+    NSLog(@"clickBack");
+    HTMLStrVC *vc = [[HTMLStrVC alloc] init];
+    vc.ckey = self.shareUrl;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -615,14 +645,14 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = USER_CKEY_CVALUE;
-    http.parameters[@"ckey"] = @"h5ShareUrl";
+    http.parameters[@"ckey"] = @"h5Url";
     
     [http postWithSuccess:^(id responseObject) {
         
         self.shareUrl = [NSString stringWithFormat:@"%@?code=%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
         
     } failure:^(NSError *error) {
-        
+        NSLog(@"error");
     }];
 }
 

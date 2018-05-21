@@ -15,7 +15,7 @@
 #import "BaseView.h"
 //C
 #import "ForumDetailVC.h"
-
+#import "TLNetworking.h"
 @interface QuotesCurrencyVC ()
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
@@ -32,6 +32,8 @@
 @property (nonatomic, strong) NSTimer *timer;
 //
 @property (nonatomic, strong) TLPageDataHelper *helper;
+@property (nonatomic, strong) TLNetworking *help;
+
 
 @end
 
@@ -240,7 +242,7 @@
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
     helper.code = @"628341";
-    
+    helper.parameters[@"symbol"] = @"BTC";
     helper.tableView = self.tableView;
     
     [helper modelClass:[CurrencyPriceModel class]];
@@ -286,8 +288,8 @@
     
     BaseWeakSelf;
     
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     helper.code = @"628340";
     
     helper.parameters[@"coinSymbol"] = self.titleModel.symbol;

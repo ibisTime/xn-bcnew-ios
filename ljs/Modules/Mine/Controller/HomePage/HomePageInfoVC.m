@@ -19,6 +19,8 @@
 //C
 #import "MyCommentDetailVC.h"
 #import "InfoDetailVC.h"
+#import "ArticleModel.h"
+#import "ArticleCommentModel.h"
 
 @interface HomePageInfoVC ()<RefreshDelegate>
 
@@ -28,6 +30,10 @@
 @property (nonatomic, strong) HomePageInfoTableView *tableView;
 //数据
 @property (nonatomic, strong) NSArray <MyCommentModel *>*pageModels;
+@property (nonatomic, strong) ArticleModel *articleModel;
+@property (nonatomic, strong) ArticleCommentModel *articleCommentModel;
+@property (nonatomic, strong) NSArray <ArticleCommentModel *>*infos;
+
 
 @end
 
@@ -38,6 +44,8 @@
     [super viewWillAppear:animated];
     // 设置导航栏背景色
     [self.navigationController.navigationBar setBackgroundImage:[kHexColor(@"#2E2E2E") convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    //子标题切换
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(indexChange:) name:@"indexChange" object:nil];
 }
 
 - (void)viewDidLoad {
@@ -56,15 +64,29 @@
 #pragma mark - Init
 - (void)initTableView {
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
+    if (self.IsCenter == NO) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
+        
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.image = kImage(@"我的-背景");
+        
+        imageView.tag = 1500;
+        imageView.backgroundColor = kAppCustomMainColor;
+        
+        [self.view addSubview:imageView];
+        //tableview的header
+        self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
+        
+        self.tableView.refreshDelegate = self;
+        
+        [self.view addSubview:self.tableView];
+        self.headerView = [[HomePageHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
+        
+        self.headerView.backgroundColor = kHexColor(@"#2E2E2E");
+        
+        self.tableView.tableHeaderView = self.headerView;
+    }
     
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.image = kImage(@"我的-背景");
-    
-    imageView.tag = 1500;
-    imageView.backgroundColor = kAppCustomMainColor;
-    
-    [self.view addSubview:imageView];
     
     self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
     
@@ -72,13 +94,66 @@
     
     [self.view addSubview:self.tableView];
     
-    //tableview的header
-    self.headerView = [[HomePageHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
+   
     
-    self.headerView.backgroundColor = kHexColor(@"#2E2E2E");
+}
+//切换子标题
+- (void)indexChange: (NSNotification*)not
+{
+    NSDictionary * infoDic = [not object];
+    NSString * type = infoDic[@"str"];
+    self.type = type;
+    //获取个人中心资讯
+    if ([self.type isEqualToString:@"0"]) {
+        self.tableView.IsArticle = NO;
+        [self.tableView beginRefreshing];
+    }else if ([self.type isEqualToString:@"1"]){
+//        [self.tableView beginRefreshing];
+        [self requestInfoList];
+    }else{
+        //点击活动 返回
+        return;
+    }
     
-    self.tableView.tableHeaderView = self.headerView;
     
+}
+- (void)requestInfoList {
+    
+    BaseWeakSelf;
+    
+    TLNetworking *http = [TLNetworking new];
+    //    U201805160952110342835
+    http.code = @"628198";
+    
+//    http.parameters[@"type"] = self.type;
+    http.parameters[@"status"] =@"0";
+    http.parameters[@"start"] = @"0";
+    http.parameters[@"limit"] = @"10";
+    if ([TLUser user].isLogin) {
+        
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"token"] = [TLUser user].token;
+        
+    } else {
+        
+        http.parameters[@"userId"] = @"";
+        http.parameters[@"token"] = @"";
+        
+    }
+    [http postWithSuccess:^(id responseObject) {
+        [ ArticleModel mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"list" : @"ArticleCommentModel"
+                     };
+        }];
+        self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
+        self.infos = self.articleModel.list;
+        self.tableView.infos = self.articleModel.list;
+        self.tableView.IsArticle = YES;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - Data
@@ -167,6 +242,9 @@
     detailVC.code = comment.code;
     detailVC.articleCode = comment.news.code;
     detailVC.typeName = comment.news.typeName;
+    if (self.IsCenter == YES) {
+        detailVC.IsHidden = YES;
+    }
 
     [self.navigationController pushViewController:detailVC animated:YES];
 }

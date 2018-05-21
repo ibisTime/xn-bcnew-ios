@@ -94,8 +94,8 @@
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
     helper.code = @"628340";
+    helper.parameters[@"type"] = @"E";
 
     helper.parameters[@"keywords"] = self.toCoin;
     
@@ -143,9 +143,9 @@
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
     helper.code = @"628340";
-    
+    helper.parameters[@"type"] = @"E";
+
 //    if (self.type == ForumQuotesTypeCurrency) {
 //
 //        helper.parameters[@"coinSymbol"] = self.toCoin;

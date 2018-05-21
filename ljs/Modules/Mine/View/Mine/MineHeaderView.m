@@ -60,7 +60,7 @@
 //    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)];
 //
 //    [self.userPhoto addGestureRecognizer:tapGR];
-    //昵称
+//    昵称
     self.nameBtn = [UIButton buttonWithTitle:@""
                                   titleColor:kWhiteColor
                              backgroundColor:kClearColor

@@ -15,5 +15,7 @@
 @property (nonatomic, copy) NSString *articleCode;
 //文章title
 @property (nonatomic, copy) NSString *typeName;
+//个人中心详情 隐藏底部
+@property (nonatomic, assign) BOOL  IsHidden;
 
 @end

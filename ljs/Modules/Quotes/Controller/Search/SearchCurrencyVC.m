@@ -225,8 +225,9 @@
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
     helper.code = @"628340";
+    helper.parameters[@"type"] = @"E";
+
     helper.parameters[@"keywords"] = self.searchStr;
     
     if ([TLUser user].userId) {

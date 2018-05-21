@@ -25,6 +25,7 @@
 #import "QuotesOptionalVC.h"
 #import "SearchCurrencyVC.h"
 #import "NavigationController.h"
+#import "HomeQuotesView.h"
 
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
@@ -60,6 +61,10 @@
 //当前币种索引
 @property (nonatomic, assign) NSInteger currencyLabelIndex;
 
+@property (nonatomic, strong) NSArray *titleBars;
+@property (nonatomic, strong) HomeQuotesView *quotesView;
+
+
 @end
 
 @implementation QuotesVC
@@ -69,11 +74,11 @@
     [super viewWillAppear:animated];
     
     if (self.currentSegmentIndex == 2) {
-        
+
         [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
                                       labelIndex:self.platformLabelIndex];
     } else if (self.currentSegmentIndex == 3) {
-        
+
         [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
                                       labelIndex:self.currencyLabelIndex];
     }
@@ -175,7 +180,7 @@
                           @"平台",
                           @"币种"];
     
-    CGFloat h = 34;
+    CGFloat h = 34-4;
     
     self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(249), (44-h), kWidth(250), h)];
     
@@ -183,7 +188,7 @@
     self.labelUnil.backgroundColor = [UIColor clearColor];
     self.labelUnil.titleNormalColor = kWhiteColor;
     self.labelUnil.titleSelectColor = kAppCustomMainColor;
-    self.labelUnil.titleFont = Font(18.0);
+    self.labelUnil.titleFont = Font(16.0);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
     self.labelUnil.layer.cornerRadius = h/2.0;
@@ -242,6 +247,16 @@
 }
 
 - (void)addSubViewController {
+    
+    self.titleBars = @[@"涨幅榜", @"跌幅榜",@"预警中"];
+    
+    self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, 90) itemTitles:self.titleBars];
+    [self.view addSubview:self.quotesView];
+    self.quotesView.selectBlock = ^(NSInteger index) {
+        
+        //点击标签
+    };
+    
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
         //平台
@@ -391,11 +406,15 @@
 - (void)requestOptionalList {
     
     BaseWeakSelf;
-    
+//    return;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628336";
-    
+    helper.code = @"628351";
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"10";
+    helper.parameters[@"direction"] = @"0";
+
+
     helper.tableView = self.tableView;
 
     [helper modelClass:[OptionalListModel class]];
