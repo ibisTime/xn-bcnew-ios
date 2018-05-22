@@ -11,6 +11,7 @@
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
 #import "NSString+Extension.h"
+#import "NSNumber+Extension.h"
 @interface PlatformCell()
 //币种名称
 @property (nonnull, strong) UILabel *currencyNameLbl;
@@ -116,24 +117,27 @@
 
 #pragma mark - Setting
 - (void)setPlatform:(PlatformModel *)platform {
-    
     _platform = platform;
     
+    
+//    platform.bgColor = kThemeColor;
     //币种名称
-    self.currencyNameLbl.text = platform.coinSymbol;
+    self.currencyNameLbl.text = [platform.symbol uppercaseString];
     //一日交易量
-    NSString *volumeStr = platform.volume;
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", platform.toCoinSymbol,volumeStr];
+    NSString *volumeStr = [NSString stringWithFormat:@"%d",platform.volume.intValue];
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [platform.toSymbol uppercaseString] ,volumeStr];
     
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", platform.lastPrice];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", [platform.lastPrice convertToRealMoneyWithNum:8]];
     
     //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", platform.lastCnyPrice];
-    self.rmbPriceLbl.textColor = platform.bgColor;
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf", [platform.lastCnyPrice doubleValue]];
+    UIColor *fluctColor  = [platform getPercentColorWithPercent:platform.percentChange];;
     
+    self.rmbPriceLbl.textColor = fluctColor;
+
     //涨跌情况
-    NSString *priceFluctStr = platform.changeRate;
+    NSString *priceFluctStr = platform.changeRate ;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {

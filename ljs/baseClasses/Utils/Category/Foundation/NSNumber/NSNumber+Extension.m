@@ -139,5 +139,70 @@
     
     return [NSString stringWithFormat:@"%@",p];
 }
++ (NSString *)mult1:(NSString *)mult1 mult2:(NSString *)mult2 scale:(NSUInteger)scale {
+    
+    NSDecimalNumber *mult1Num = [[NSDecimalNumber alloc] initWithString:mult1];
+    NSDecimalNumber *mult2Num = [[NSDecimalNumber alloc] initWithString:mult2];
+    NSDecimalNumber *result = [mult1Num decimalNumberByMultiplyingBy:mult2Num];
+    NSDecimalNumberHandler *roundUp = [NSDecimalNumberHandler
+                                       decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                       scale:scale
+                                       raiseOnExactness:NO
+                                       raiseOnOverflow:NO
+                                       raiseOnUnderflow:NO
+                                       raiseOnDivideByZero:YES];
+    
+    return [[result decimalNumberByRoundingAccordingToBehavior:roundUp] stringValue];
+    
+}
+
++ (NSString *)div1:(NSString *)div1 div2:(NSString *)div2 scale:(NSUInteger)scale {
+    
+    NSDecimalNumber *div1Num = [[NSDecimalNumber alloc] initWithString:div1];
+    NSDecimalNumber *div2Num = [[NSDecimalNumber alloc] initWithString:div2];
+    NSDecimalNumber *result = [div1Num decimalNumberByDividingBy:div2Num];
+    NSDecimalNumberHandler *roundUp = [NSDecimalNumberHandler
+                                       decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                       scale:scale
+                                       raiseOnExactness:NO
+                                       raiseOnOverflow:NO
+                                       raiseOnUnderflow:NO
+                                       raiseOnDivideByZero:YES];
+    
+    return [[result decimalNumberByRoundingAccordingToBehavior:roundUp] stringValue];
+    
+}
+
++ (NSString *)add1:(NSString *)add1 add2:(NSString *)add2 scale:(NSUInteger)scale {
+    
+    NSDecimalNumber *add1Num = [[NSDecimalNumber alloc] initWithString:add1];
+    NSDecimalNumber *add2Num = [[NSDecimalNumber alloc] initWithString:add2];
+    NSDecimalNumber *result = [add1Num decimalNumberByAdding:add2Num];
+    NSDecimalNumberHandler *roundUp = [NSDecimalNumberHandler
+                                       decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                       scale:scale
+                                       raiseOnExactness:NO
+                                       raiseOnOverflow:NO
+                                       raiseOnUnderflow:NO
+                                       raiseOnDivideByZero:YES];
+    
+    return [[result decimalNumberByRoundingAccordingToBehavior:roundUp] stringValue];
+}
+
++ (NSString *)sub1:(NSString *)sub1 sub2:(NSString *)sub2 scale:(NSUInteger)scale {
+    
+    NSDecimalNumber *sub1Num = [[NSDecimalNumber alloc] initWithString:sub1];
+    NSDecimalNumber *sub2Num = [[NSDecimalNumber alloc] initWithString:sub2];
+    NSDecimalNumber *result = [sub1Num decimalNumberBySubtracting:sub2Num];
+    NSDecimalNumberHandler *roundUp = [NSDecimalNumberHandler
+                                       decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                       scale:scale
+                                       raiseOnExactness:NO
+                                       raiseOnOverflow:NO
+                                       raiseOnUnderflow:NO
+                                       raiseOnDivideByZero:YES];
+    
+    return [[result decimalNumberByRoundingAccordingToBehavior:roundUp] stringValue];
+}
 
 @end
