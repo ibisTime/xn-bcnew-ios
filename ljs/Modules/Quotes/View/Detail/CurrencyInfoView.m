@@ -207,38 +207,48 @@
     
     _platform = platform;
     //币种名称
-    self.currencyNameLbl.text = [platform.coinSymbol uppercaseString];
+    self.currencyNameLbl.text = [platform.symbol uppercaseString];
+    self.currencyNameLbl.textColor = [UIColor whiteColor];
     //当前人民币价格
+    self.rmbPriceLbl.textColor = [UIColor whiteColor];
     self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf", [platform.lastCnyPrice doubleValue]];
     //涨跌情况
     NSString *priceFluctStr = platform.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {
-        
         priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
         
     } else  {
         
         priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
     }
+    self.backgroundColor = _platform.bgColor;
+
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
-    [self.priceFluctBtn setTitleColor:platform.bgColor forState:UIControlStateNormal];
+    [self.priceFluctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //关注量
-//    self.followNumLbl.text = [NSString stringWithFormat:@"%ld位币友在关注", platform.choiceCount];
-//    //最高价
-//    self.highPriceLbl.text = [NSString stringWithFormat:@"高:%@", [platform.high convertToRealMoneyWithNum:8]];
-//    //最低价
-//    self.lowPriceLbl.text = [NSString stringWithFormat:@"低:%@", [platform.low convertToRealMoneyWithNum:8]];
-//    //开盘
-//    self.startPriceLbl.text = [NSString stringWithFormat:@"开:%@", [platform.open convertToRealMoneyWithNum:8]];
-//    //额
+    self.followNumLbl.text = [NSString stringWithFormat:@"量:%@", [platform.amount convertToRealMoneyWithNum:8]];
+    self.followNumLbl.textColor = [UIColor whiteColor];
+    //最高价
+    self.highPriceLbl.text = [NSString stringWithFormat:@"高:%@", [platform.high convertToRealMoneyWithNum:8]];
+    self.highPriceLbl.textColor = [UIColor whiteColor];
+    //最低价
+    self.lowPriceLbl.text = [NSString stringWithFormat:@"低:%@", [platform.low convertToRealMoneyWithNum:8]];
+    self.lowPriceLbl.textColor = [UIColor whiteColor];
+    //开盘
+    self.startPriceLbl.text = [NSString stringWithFormat:@"开:%@", [platform.open convertToRealMoneyWithNum:8]];
+    self.startPriceLbl.textColor = [UIColor whiteColor];
+    //额
 //    NSString *volumeStr = platform.tradeVolume;
-//    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"额:%@", volumeStr];
-//    //收
-//    self.endPriceLbl.text = [NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];
-//    //市值
-//    self.marketVolumeLbl.text = [NSString stringWithFormat:@"市值:%@", [platform getNumWithVolume:platform.totalMarketCapCny]];
+    self.tradeVolumeLbl.text = /*[NSString stringWithFormat:@"额:%@", volumeStr];*/[NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];
+    self.tradeVolumeLbl.textColor = [UIColor whiteColor];
+    //收
+    self.endPriceLbl.text = /*[NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];*/[NSString stringWithFormat:@"买:%@", platform.bidPrice];
+    self.endPriceLbl.textColor = [UIColor whiteColor];
+    //市值
+    self.marketVolumeLbl.text = /*[NSString stringWithFormat:@"市值:%@", [platform getNumWithVolume:platform.totalMarketCapCny]];*/[NSString stringWithFormat:@"卖:%@", platform.askPrice];
+    self.marketVolumeLbl.textColor = [UIColor whiteColor];
 }
 
 #pragma mark - Events

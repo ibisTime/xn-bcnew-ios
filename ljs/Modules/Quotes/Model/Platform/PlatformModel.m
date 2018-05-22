@@ -146,3 +146,7 @@
 }
 
 @end
+
+@implementation CoinInfo
+
+@end

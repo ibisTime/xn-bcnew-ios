@@ -97,7 +97,7 @@
     
     //k线图
     //交易对
-    NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.coinSymbol, platform.toCoinSymbol];
+    NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
     NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
     
     [self.kLineView loadRequestWithString:html];

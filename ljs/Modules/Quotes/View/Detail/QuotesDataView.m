@@ -180,66 +180,66 @@
     
     _platform = platform;
     //总市值
-//    NSString *marketVolume = [NSString stringWithFormat:@"总市值  %@", [platform getNumWithVolume:platform.totalMarketCapCny]];
-//    
-//    [self.marketVolumeLbl labelWithString:marketVolume
-//                                    title:[platform getNumWithVolume:platform.totalMarketCapCny]
-//                                     font:Font(13.0)
-//                                    color:kTextColor];
-//    //额
-//    NSString *volumeStr = [platform getNumWithVolume:@([platform.coin.totalSupply doubleValue])];
-//    
-//    [self.tradeVolumeLbl labelWithString:[NSString stringWithFormat:@"总流通  %@", volumeStr]
-//                                   title:volumeStr
-//                                    font:Font(13.0)
-//                                   color:kTextColor];
-//    //开盘
-//    NSString *open = [NSString stringWithFormat:@"开盘价  %@", [platform.open convertToRealMoneyWithNum:8]];
-//    [self.startPriceLbl labelWithString:open
-//                                   title:[platform.open convertToRealMoneyWithNum:8]
-//                                    font:Font(13.0)
-//                                   color:kTextColor];
-//    //收
-//    NSString *close = [NSString stringWithFormat:@"昨收价  %@", [platform.close convertToRealMoneyWithNum:8]];
-//    [self.endPriceLbl labelWithString:close
-//                                  title:[platform.close convertToRealMoneyWithNum:8]
-//                                   font:Font(13.0)
-//                                  color:kTextColor];
-//    //最高价
-//    NSString *high = [NSString stringWithFormat:@"最高价  %@", [platform.high convertToRealMoneyWithNum:8]];
-//    [self.highPriceLbl labelWithString:high
-//                                  title:[platform.high convertToRealMoneyWithNum:8]
-//                                   font:Font(13.0)
-//                                  color:kTextColor];
-//    //最低价
-//    NSString *low = [NSString stringWithFormat:@"最低价  %@", [platform.low convertToRealMoneyWithNum:8]];
-//    [self.lowPriceLbl labelWithString:low
-//                                  title:[platform.low convertToRealMoneyWithNum:8]
-//                                   font:Font(13.0)
-//                                  color:kTextColor];
-//    //涨跌情况
-//    NSString *priceFluctStr = platform.changeRate;
-//    CGFloat fluct = [priceFluctStr doubleValue];
-//    
-//    if (fluct > 0) {
-//        
-//        priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
-//        
-//    } else  {
-//        
-//        priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
-//    }
-//    
-//    [self.priceFluctLbl labelWithString:[NSString stringWithFormat:@"涨跌幅  %@", priceFluctStr]
-//                                  title:priceFluctStr
-//                                   font:Font(13.0)
-//                                  color:platform.bgColor];
-//    //当前人民币价格
-//    NSString *lastCnyPrice = [NSString stringWithFormat:@"现价格  ￥%.2lf", [platform.lastCnyPrice doubleValue]];
-//    [self.rmbPriceLbl labelWithString:lastCnyPrice
-//                                  title:[NSString stringWithFormat:@"￥%.2lf", [platform.lastCnyPrice doubleValue]]
-//                                   font:Font(13.0)
-//                                  color:kTextColor];
+    NSString *marketVolume = [NSString stringWithFormat:@"总市值  %@", [platform getNumWithVolume:platform.totalMarketCapCny]];
+    
+    [self.marketVolumeLbl labelWithString:marketVolume
+                                    title:[platform getNumWithVolume:platform.totalMarketCapCny]
+                                     font:Font(13.0)
+                                    color:kTextColor];
+    //额
+    NSString *volumeStr = [platform getNumWithVolume:@([platform.coin.totalSupply doubleValue])];
+    
+    [self.tradeVolumeLbl labelWithString:[NSString stringWithFormat:@"总流通  %@", volumeStr]
+                                   title:volumeStr
+                                    font:Font(13.0)
+                                   color:kTextColor];
+    //开盘
+    NSString *open = [NSString stringWithFormat:@"开盘价  %@", [platform.open convertToRealMoneyWithNum:8]];
+    [self.startPriceLbl labelWithString:open
+                                   title:[platform.open convertToRealMoneyWithNum:8]
+                                    font:Font(13.0)
+                                   color:kTextColor];
+    //收
+    NSString *close = [NSString stringWithFormat:@"昨收价  %@", [platform.close convertToRealMoneyWithNum:8]];
+    [self.endPriceLbl labelWithString:close
+                                  title:[platform.close convertToRealMoneyWithNum:8]
+                                   font:Font(13.0)
+                                  color:kTextColor];
+    //最高价
+    NSString *high = [NSString stringWithFormat:@"最高价  %@", [platform.high convertToRealMoneyWithNum:8]];
+    [self.highPriceLbl labelWithString:high
+                                  title:[platform.high convertToRealMoneyWithNum:8]
+                                   font:Font(13.0)
+                                  color:kTextColor];
+    //最低价
+    NSString *low = [NSString stringWithFormat:@"最低价  %@", [platform.low convertToRealMoneyWithNum:8]];
+    [self.lowPriceLbl labelWithString:low
+                                  title:[platform.low convertToRealMoneyWithNum:8]
+                                   font:Font(13.0)
+                                  color:kTextColor];
+    //涨跌情况
+    NSString *priceFluctStr = platform.changeRate;
+    CGFloat fluct = [priceFluctStr doubleValue];
+    
+    if (fluct > 0) {
+        
+        priceFluctStr = [NSString stringWithFormat:@"+%@%%", priceFluctStr];
+        
+    } else  {
+        
+        priceFluctStr = [NSString stringWithFormat:@"%@%%", priceFluctStr];
+    }
+    
+    [self.priceFluctLbl labelWithString:[NSString stringWithFormat:@"涨跌幅  %@", priceFluctStr]
+                                  title:priceFluctStr
+                                   font:Font(13.0)
+                                  color:platform.bgColor];
+    //当前人民币价格
+    NSString *lastCnyPrice = [NSString stringWithFormat:@"现价格  ￥%.2lf", [platform.lastCnyPrice doubleValue]];
+    [self.rmbPriceLbl labelWithString:lastCnyPrice
+                                  title:[NSString stringWithFormat:@"￥%.2lf", [platform.lastCnyPrice doubleValue]]
+                                   font:Font(13.0)
+                                  color:kTextColor];
     
 }
 

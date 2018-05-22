@@ -14,6 +14,7 @@
 //V
 #import "DetailWebView.h"
 
+
 @interface CurrencyKLineHScreenVC ()
 //k线横屏
 @property (nonatomic, strong) DetailWebView *kLineView;
@@ -84,7 +85,7 @@
     
     //k线图
     //交易对
-    NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.coinSymbol, platform.toCoinSymbol];
+    NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
     NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@&isfull=1",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
     
     [self.kLineView loadRequestWithString:html];

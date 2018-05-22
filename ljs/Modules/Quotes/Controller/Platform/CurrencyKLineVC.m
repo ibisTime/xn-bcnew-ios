@@ -14,16 +14,18 @@
 //V
 #import "QuotesChangeView.h"
 #import "CurrencyInfoView.h"
-//#import "CurrencyBottomView.h"
+#import "CurrencyBottomView.h"
 #import "CurrencyKLineMapView.h"
 //#import "SetWarningView.h"
+#import "YBPopupMenu.h"
 //C
 #import "CurrencyKLineHScreenVC.h"
-//#import "SimulationTradeDetailVC.h"
+#import "WarningViewController.h"
+#import "UIView+Extension.h"
 
 #define kBottomHeight 50
 
-@interface CurrencyKLineVC ()
+@interface CurrencyKLineVC ()<CurrencyBottomViewDelegate,YBPopupMenuDelegate>
 //向下箭头
 @property (nonatomic, strong) UIImageView *arrowIV;
 //更换交易所和币种
@@ -33,7 +35,7 @@
 //k线图
 @property (nonatomic, strong) CurrencyKLineMapView *kLineView;
 //底部按钮
-//@property (nonatomic, strong) CurrencyBottomView *bottomView;
+@property (nonatomic, strong) CurrencyBottomView *bottomView;
 //设置预警
 //@property (nonatomic, strong) SetWarningView *warningView;
 //币种信息
@@ -86,7 +88,7 @@
     //K线图
     [self initKLineView];
 //    //底部按钮
-//    [self initBottomView];
+    [self initBottomView];
 }
 
 #pragma mark - Init
@@ -101,7 +103,7 @@
     symbolNameLbl.textAlignment = NSTextAlignmentCenter;
     symbolNameLbl.numberOfLines = 0;
     
-    NSString *toSymbol = [self.platform.toCoinSymbol uppercaseString];
+    NSString *toSymbol = [self.platform.toSymbol uppercaseString];
     
     NSString *text = [NSString stringWithFormat:@"%@\n%@", self.platform.exchangeCname, toSymbol];
     
@@ -147,9 +149,9 @@
     
     BaseWeakSelf;
     
-    CGFloat h = kSuperViewHeight - self.infoView.yy - 10 - kBottomHeight - kBottomInsetHeight - 10;
+    CGFloat h = kSuperViewHeight - self.infoView.yy - kBottomHeight - kBottomInsetHeight;
     
-    self.kLineView = [[CurrencyKLineMapView alloc] initWithFrame:CGRectMake(0, self.infoView.yy + 10, kScreenWidth, h)];
+    self.kLineView = [[CurrencyKLineMapView alloc] initWithFrame:CGRectMake(0, self.infoView.yy, kScreenWidth, h)];
     
     self.kLineView.horizontalScreenBlock = ^{
         
@@ -163,20 +165,42 @@
     [self.bgSV addSubview:self.kLineView];
 }
 
-//- (void)initBottomView {
-//
-//    BaseWeakSelf;
-//
-//    self.bottomView = [[CurrencyBottomView alloc] initWithFrame:CGRectMake(0, kSuperViewHeight - kBottomHeight - kBottomInsetHeight, kScreenWidth, kBottomHeight)];
-//
+- (void)initBottomView {
+
+
+    self.bottomView = [[CurrencyBottomView alloc] initWithFrame:CGRectMake(0, kSuperViewHeight - kBottomHeight - kBottomInsetHeight, kScreenWidth, kBottomHeight)];
+
 //    self.bottomView.bottomBlock = ^(BottomEventType type) {
 //
 //        [weakSelf bottomEventType:type];
 //    };
-//
-//    [self.view addSubview:self.bottomView];
-//}
+    self.bottomView.delegate = self;
+    [self.view addSubview:self.bottomView];
+}
+#pragma mark - CurrencyBottomViewDelegate
+- (void)selectBtnisChangeWrning:(BOOL)isChage with:(UIButton *)sender
+{
+    if (isChage) {
+        NSLog(@"预警");
+//        BaseWeakSelf;
+//        [self checkLogin:^{
+            WarningViewController *warning = [[WarningViewController alloc]init];
+            warning.platform = self.platform;
+            [self.navigationController pushViewController:warning animated:YES];
+           
+//        }];
+    }
+    else
+    {
+        [YBPopupMenu showRelyOnView:sender titles:@[@"USD",@"CNY",@"原价"] icons:nil menuWidth:90 delegate:self];
 
+    }
+}
+#pragma mark - YBPopupMenuDelegate
+- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
+{
+
+}
 #pragma mark - Events
 //- (void)bottomEventType:(BottomEventType)type {
 //
@@ -297,7 +321,7 @@
         
         self.infoView.platform = self.platform;
         self.kLineView.platform = self.platform;
-//        self.bottomView.platform = self.platform;
+        self.bottomView.backgroundColor = self.platform.bgColor;
         
     } failure:^(NSError *error) {
         

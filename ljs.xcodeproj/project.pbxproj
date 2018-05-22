@@ -323,6 +323,14 @@
 		C4BD789620B3AFC800C46D05 /* CurrencyKLineMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789520B3AFC800C46D05 /* CurrencyKLineMapView.m */; };
 		C4BD789920B3B05100C46D05 /* CurrencyKLineHScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */; };
 		C4BD789C20B3B23500C46D05 /* QuotesDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789B20B3B23500C46D05 /* QuotesDataView.m */; };
+		C4BD789F20B3C26000C46D05 /* CurrencyBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */; };
+		C4BD78A920B3E7C500C46D05 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */; };
+		C4BD78AA20B3E7C500C46D05 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */; };
+		C4BD78AB20B3E7C500C46D05 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A720B3E7C500C46D05 /* YBRectConst.m */; };
+		C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B020B3FF3600C46D05 /* WarningViewController.m */; };
+		C4BD78B420B402C000C46D05 /* WarningTirleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B320B402C000C46D05 /* WarningTirleView.m */; };
+		C4BD78B720B4166900C46D05 /* WarningCurrencyView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */; };
+		C4BD78BA20B45A7900C46D05 /* PlatformWarningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -948,6 +956,22 @@
 		C4BD789820B3B05100C46D05 /* CurrencyKLineHScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKLineHScreenVC.h; sourceTree = "<group>"; };
 		C4BD789A20B3B23500C46D05 /* QuotesDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesDataView.h; sourceTree = "<group>"; };
 		C4BD789B20B3B23500C46D05 /* QuotesDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesDataView.m; sourceTree = "<group>"; };
+		C4BD789D20B3C26000C46D05 /* CurrencyBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrencyBottomView.h; sourceTree = "<group>"; };
+		C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyBottomView.m; sourceTree = "<group>"; };
+		C4BD78A320B3E7C400C46D05 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		C4BD78A420B3E7C400C46D05 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		C4BD78A720B3E7C500C46D05 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
+		C4BD78A820B3E7C500C46D05 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		C4BD78AF20B3FF3600C46D05 /* WarningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningViewController.h; sourceTree = "<group>"; };
+		C4BD78B020B3FF3600C46D05 /* WarningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningViewController.m; sourceTree = "<group>"; };
+		C4BD78B220B402C000C46D05 /* WarningTirleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningTirleView.h; sourceTree = "<group>"; };
+		C4BD78B320B402C000C46D05 /* WarningTirleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningTirleView.m; sourceTree = "<group>"; };
+		C4BD78B520B4166900C46D05 /* WarningCurrencyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningCurrencyView.h; sourceTree = "<group>"; };
+		C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningCurrencyView.m; sourceTree = "<group>"; };
+		C4BD78B820B45A7900C46D05 /* PlatformWarningModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformWarningModel.h; sourceTree = "<group>"; };
+		C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformWarningModel.m; sourceTree = "<group>"; };
 		E041B8AEBBDCC121169B52FB /* libPods-Base_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1574,6 +1598,8 @@
 				2124BE7F2061FFDF00CB79E8 /* PlatformModel.m */,
 				21EF0B9C20677DBD008EA865 /* PlatformTitleModel.h */,
 				21EF0B9D20677DBD008EA865 /* PlatformTitleModel.m */,
+				C4BD78B820B45A7900C46D05 /* PlatformWarningModel.h */,
+				C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -1600,6 +1626,8 @@
 				C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */,
 				C4BD789820B3B05100C46D05 /* CurrencyKLineHScreenVC.h */,
 				C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */,
+				C4BD78AF20B3FF3600C46D05 /* WarningViewController.h */,
+				C4BD78B020B3FF3600C46D05 /* WarningViewController.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -2887,6 +2915,18 @@
 				C4BD789120B3AEDD00C46D05 /* CurrencyInfoView.m */,
 				C4BD789A20B3B23500C46D05 /* QuotesDataView.h */,
 				C4BD789B20B3B23500C46D05 /* QuotesDataView.m */,
+				C4BD789D20B3C26000C46D05 /* CurrencyBottomView.h */,
+				C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */,
+				C4BD78A820B3E7C500C46D05 /* YBPopupMenu.h */,
+				C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */,
+				C4BD78A320B3E7C400C46D05 /* YBPopupMenuPath.h */,
+				C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */,
+				C4BD78A420B3E7C400C46D05 /* YBRectConst.h */,
+				C4BD78A720B3E7C500C46D05 /* YBRectConst.m */,
+				C4BD78B220B402C000C46D05 /* WarningTirleView.h */,
+				C4BD78B320B402C000C46D05 /* WarningTirleView.m */,
+				C4BD78B520B4166900C46D05 /* WarningCurrencyView.h */,
+				C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -3089,6 +3129,7 @@
 				21111BB71F8B5F2C0021B3FE /* WTReTextField.m in Sources */,
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
 				B8D0D4DB20AEB3FF006B99D5 /* ActivityListModel.m in Sources */,
+				C4BD78AA20B3E7C500C46D05 /* YBPopupMenuPath.m in Sources */,
 				217BDAE62068C64000E17DEE /* ForumCommentModel.m in Sources */,
 				21EF0B3F2064CEB2008EA865 /* ForumCircleChildVC.m in Sources */,
 				219CF5382073559600012F68 /* JPushModel.m in Sources */,
@@ -3143,6 +3184,7 @@
 				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
 				B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */,
 				21CFFB2620566D9A00D245ED /* InformationListTableView.m in Sources */,
+				C4BD78B420B402C000C46D05 /* WarningTirleView.m in Sources */,
 				2124BE9A206240AC00CB79E8 /* PlatformCell.m in Sources */,
 				C4BD789320B3AEDD00C46D05 /* CurrencyInfoView.m in Sources */,
 				21288247205776F000A57A5A /* OptionalTableView.m in Sources */,
@@ -3162,9 +3204,11 @@
 				186E8BFF209C0A9D00532B1C /* signUpUsersListModel.m in Sources */,
 				21CFFB2C205673D100D245ED /* NewsFlashDetailVC.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
+				C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
 				B8D0D4DE20AEB4BA006B99D5 /* ActivityDetailModel.m in Sources */,
+				C4BD78B720B4166900C46D05 /* WarningCurrencyView.m in Sources */,
 				217BDAFC2069486600E17DEE /* CircleCommentDetailTableView.m in Sources */,
 				21459413206BF5060006E238 /* TLUpdateVC.m in Sources */,
 				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
@@ -3174,6 +3218,7 @@
 				2124BE942062406900CB79E8 /* PlatformAllCell.m in Sources */,
 				21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */,
 				21AC59481FDE7A1B00F19DE8 /* TLTimeButton.m in Sources */,
+				C4BD78AB20B3E7C500C46D05 /* YBRectConst.m in Sources */,
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
 				212FEEA520688CBF0002F293 /* ForumDetailModel.m in Sources */,
@@ -3207,6 +3252,7 @@
 				2124BE732061451C00CB79E8 /* InfoCommentDetailTableView.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21288241205771EB00A57A5A /* QuotesManager.m in Sources */,
+				C4BD78A920B3E7C500C46D05 /* YBPopupMenu.m in Sources */,
 				2124BE782061FF6700CB79E8 /* OptionalModel.m in Sources */,
 				217BDAEC20691FC300E17DEE /* ForumCircleCommentVC.m in Sources */,
 				219CF5262072550300012F68 /* SGScanningQRCodeVC.m in Sources */,
@@ -3285,6 +3331,7 @@
 				21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */,
 				21EB9C6A20562C9700394C3C /* KeyValueModel.m in Sources */,
 				186E8C09209C0A9D00532B1C /* signUpUsersListCell.m in Sources */,
+				C4BD78BA20B45A7900C46D05 /* PlatformWarningModel.m in Sources */,
 				21CFFB29205673C000D245ED /* InfoDetailVC.m in Sources */,
 				21F82C9F1F17719D0019B176 /* TabbarViewController.m in Sources */,
 				21EF0BA72067953D008EA865 /* CurrencyPriceModel.m in Sources */,
@@ -3306,6 +3353,7 @@
 				186E8C01209C0A9D00532B1C /* ActivityCommentsListV.m in Sources */,
 				2124BE7020613E5900CB79E8 /* InfoCommentDetailVC.m in Sources */,
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
+				C4BD789F20B3C26000C46D05 /* CurrencyBottomView.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
 				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
