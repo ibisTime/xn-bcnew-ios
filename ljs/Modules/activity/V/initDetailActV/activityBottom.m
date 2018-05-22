@@ -94,7 +94,7 @@
     //4
     self.collectionBut = [UIButton buttonWithImageName:@"未收藏" selectedImageName:@"收藏"];
     [self addSubview:self.collectionBut];
-    [self.collectionBut addTarget:self action:@selector(openCollectionBut) forControlEvents:UIControlEventTouchUpInside];
+    [self.collectionBut addTarget:self action:@selector(openCollection:) forControlEvents:UIControlEventTouchUpInside];
     [self.collectionBut mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.phoneCallBut.mas_right).offset(32);
         make.top.offset(10);
@@ -179,7 +179,7 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"openPhoneCallBut" object:nil];
  
 }
--(void)openCollectionBut : (UIButton*)btn {
+-(void)openCollection: (UIButton*)btn {
     
   
     [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:btn];

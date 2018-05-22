@@ -11,7 +11,7 @@
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
 #import "NSString+Extension.h"
-
+#import "NSNumber+Extension.h"
 @interface CurrencyCell()
 
 //平台名称
@@ -101,18 +101,18 @@
 }
 
 #pragma mark - Setting
-- (void)setCurrency:(CurrencyModel *)currency {
+- (void)setCurrency:(CurrencyPriceModel *)currency {
     
     _currency = currency;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@ %@", currency.exchangeCname, currency.toCoinSymbol];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@ %@",[currency.toSymbol uppercaseString] ,currency.symbol];
     
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", currency.lastPrice];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", [currency.lastPrice convertToRealMoneyWithNum:8]];
     
     //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", currency.lastCnyPrice];
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf", [currency.lastCnyPrice doubleValue]];
     self.rmbPriceLbl.textColor = currency.bgColor;
     
     //涨跌情况

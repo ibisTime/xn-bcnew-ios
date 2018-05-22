@@ -49,35 +49,35 @@ static NSString *currencyCell = @"CurrencyCell";
         return self.currencyPrices.count;
     }
     
-    return self.currencys.count;
+    return self.currencyPrices.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.type == CurrencyTypePrice) {
-        
-        CurrencyPriceModel *currency = self.currencyPrices[indexPath.row];
-        
-        CurrencyPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyPriceCell forIndexPath:indexPath];
-        
-        cell.currency = currency;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
-        
-        return cell;
-        
-    } else if (self.type == CurrencyTypeNewCurrency) {
-        
-        CurrencyModel *currency = self.currencys[indexPath.row];
-
-        NewCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:newCurrencyCell forIndexPath:indexPath];
-        
-        cell.currency = currency;
-        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
-        
-        return cell;
-    }
+//    if (self.type == CurrencyTypePrice) {
+//
+//        CurrencyPriceModel *currency = self.currencyPrices[indexPath.row];
+//
+//        CurrencyPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyPriceCell forIndexPath:indexPath];
+//
+//        cell.currency = currency;
+//        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+//
+//        return cell;
+//
+//    } else if (self.type == CurrencyTypeNewCurrency) {
+//
+//        CurrencyModel *currency = self.currencys[indexPath.row];
+//
+//        NewCurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:newCurrencyCell forIndexPath:indexPath];
+//
+//        cell.currency = currency;
+//        cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+//
+//        return cell;
+//    }
     
-    CurrencyModel *currency = self.currencys[indexPath.row];
+    CurrencyPriceModel *currency = self.currencyPrices[indexPath.row];
 
     CurrencyCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
     

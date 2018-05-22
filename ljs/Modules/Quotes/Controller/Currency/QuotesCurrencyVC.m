@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //头部
-    [self initHeaderView];
+//    [self initHeaderView];
     //
     [self initTableView];
     //添加通知
@@ -50,7 +50,7 @@
     
     if (self.type == CurrencyTypePrice) {
         //获取币价
-        [self requestCurrencyPriceList];
+//        [self requestCurrencyPriceList];
         //
         [self.tableView beginRefreshing];
         
@@ -61,7 +61,7 @@
     //
     [self.tableView beginRefreshing];
     //获取贴吧信息
-    [self requestForumInfo];
+//    [self requestForumInfo];
 }
 
 #pragma mark - 通知
@@ -82,10 +82,10 @@
         //币价没有贴吧
         if (self.currentIndex != 0) {
             //刷新贴吧信息
-            [self requestForumInfo];
+//            [self requestForumInfo];
         }
         //定时器刷起来
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     //定时器停止
@@ -138,7 +138,7 @@
 #pragma mark - Init
 - (void)initHeaderView {
     
-    self.headerView = [[BaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 85)];
+    self.headerView = [[BaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 34)];
     
     self.headerView.backgroundColor = kWhiteColor;
     
@@ -172,50 +172,50 @@
         make.height.equalTo(@40);
     }];
     //进吧
-    UIButton *forumBtn = [UIButton buttonWithTitle:@"进吧"
-                                        titleColor:kWhiteColor
-                                   backgroundColor:kAppCustomMainColor
-                                         titleFont:15.0
-                                      cornerRadius:4];
-    
-    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.headerView addSubview:forumBtn];
-    [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.equalTo(@0);
-        make.right.equalTo(@(-kWidth(25)));
-        make.width.equalTo(@87);
-        make.height.equalTo(@40);
-    }];
-    //帖子数
-    self.postNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                              textColor:kTextColor
-                                                   font:14.0];
-    self.postNumLbl.numberOfLines = 0;
-    
-    [self.headerView addSubview:self.postNumLbl];
-    [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.currencyNameLbl.mas_left);
-        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
-        make.right.equalTo(forumBtn.mas_left).offset(-15);
-    }];
-    
+//    UIButton *forumBtn = [UIButton buttonWithTitle:@"进吧"
+//                                        titleColor:kWhiteColor
+//                                   backgroundColor:kAppCustomMainColor
+//                                         titleFont:15.0
+//                                      cornerRadius:4];
+//
+//    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self.headerView addSubview:forumBtn];
+//    [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.centerY.equalTo(@0);
+//        make.right.equalTo(@(-kWidth(25)));
+//        make.width.equalTo(@87);
+//        make.height.equalTo(@40);
+//    }];
+//    //帖子数
+//    self.postNumLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                              textColor:kTextColor
+//                                                   font:14.0];
+//    self.postNumLbl.numberOfLines = 0;
+//
+//    [self.headerView addSubview:self.postNumLbl];
+//    [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.currencyNameLbl.mas_left);
+//        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
+//        make.right.equalTo(forumBtn.mas_left).offset(-15);
+//    }];
+//
 }
 
 - (void)initTableView {
     
-    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
     
     self.tableView.type = self.type;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
 
     [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.edges.mas_equalTo(0);
-    }];
+//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.edges.mas_equalTo(0);
+//    }];
     //判断是否是币价
     if (self.type != CurrencyTypePrice) {
         
@@ -290,23 +290,30 @@
     
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    helper.code = @"628340";
+    helper.code = @"628350";
     
-    helper.parameters[@"coinSymbol"] = self.titleModel.symbol;
+    helper.parameters[@"percentPeriod"] = @"24h";
+    helper.parameters[@"Symbol"] = @"BTC";
+    helper.parameters[@"keywords"] = @"huobiPro";
     
+    helper.parameters[@"exchangeEname"] = @"huobiPro";
+    helper.parameters[@"direction"] = @"0";
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"10";
+
 //    helper.parameters[@"userId"] = [TLUser user].userId;
     
     helper.tableView = self.tableView;
     
-    [helper modelClass:[CurrencyModel class]];
+    [helper modelClass:[CurrencyPriceModel class]];
     
     [self.tableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.currencys = objs;
+            weakSelf.currencyPrices = objs;
             
-            weakSelf.tableView.currencys = objs;
+            weakSelf.tableView.currencyPrices = objs;
             
             [weakSelf.tableView reloadData_tl];
             
@@ -319,9 +326,9 @@
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.currencys = objs;
+            weakSelf.currencyPrices = objs;
             
-            weakSelf.tableView.currencys = objs;
+            weakSelf.tableView.currencyPrices = objs;
             
             [weakSelf.tableView reloadData_tl];
             
@@ -337,7 +344,8 @@
     
     TLNetworking *http = [TLNetworking new];
     
-    http.code = @"628850";
+    http.code = @"628338";
+    
     http.parameters[@"toCoin"] = self.titleModel.symbol;
     
     [http postWithSuccess:^(id responseObject) {

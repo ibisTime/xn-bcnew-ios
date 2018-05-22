@@ -19,7 +19,18 @@
 @property (nonatomic, strong) UILabel *tradeVolumeLbl;
 //交易量涨跌情况
 @property (nonatomic, strong) UIButton *tradeVolumeFluctBtn;
-
+//排行
+@property (nonatomic, strong) UILabel *rankLbl;
+//图标
+@property (nonatomic, strong) UIImageView *iconIV;
+//币种名称
+@property (nonatomic, strong) UILabel *currencyNameLbl;
+//当前对应币种
+@property (nonatomic, strong) UILabel *opppsitePriceLbl;
+//当前人民币价格
+@property (nonatomic, strong) UILabel *rmbPriceLbl;
+//涨跌情况
+@property (nonatomic, strong) UIButton *priceFluctBtn;
 @end
 
 @implementation PlatformAllCell
@@ -94,8 +105,9 @@
     //平台名称
     self.platformNameLbl.text = [NSString stringWithFormat:@"%@(24h)", platform.exchangeCname];
     //一日交易量
-    NSString *volumeStr = platform.volume;
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"￥%@",volumeStr];
+    NSString *volumeStr = platform.tradeVolume;
+
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"交易量:%@", volumeStr];
     
     //涨跌情况
     NSString *tradeVolumeFluctStr = platform.changeRate;

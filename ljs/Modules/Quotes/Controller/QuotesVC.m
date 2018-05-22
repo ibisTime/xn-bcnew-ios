@@ -63,6 +63,7 @@
 
 @property (nonatomic, strong) NSArray *titleBars;
 @property (nonatomic, strong) HomeQuotesView *quotesView;
+@property (nonatomic, assign) CGFloat titleHeight;
 
 
 @end
@@ -203,6 +204,16 @@
     [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
     //2.添加自选
+    self.titleBars = @[@"涨幅榜", @"跌幅榜",@"预警中"];
+   
+    self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 46) itemTitles:self.titleBars];
+    [self.view addSubview:self.quotesView];
+    self.quotesView.selectBlock = ^(NSInteger index) {
+      // index 0 涨幅榜 1 跌幅榜 3预警中
+        NSLog(@"点击了%ld",index);
+        //点击标签
+    };
+    
     [self initOptionalTableView];
 }
 
@@ -248,14 +259,7 @@
 
 - (void)addSubViewController {
     
-    self.titleBars = @[@"涨幅榜", @"跌幅榜",@"预警中"];
-    
-    self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, 90) itemTitles:self.titleBars];
-    [self.view addSubview:self.quotesView];
-    self.quotesView.selectBlock = ^(NSInteger index) {
-        
-        //点击标签
-    };
+  
     
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
@@ -263,6 +267,8 @@
         if ([self.kind isEqualToString:kPlatform]) {
             
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
+            
+    
             
 //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             
@@ -276,6 +282,9 @@
             [self.selectSV.scrollView addSubview:childVC.view];
         } else {
             
+
+            [self.view addSubview:self.quotesView];
+           
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
             
@@ -409,10 +418,9 @@
 //    return;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628351";
+    helper.code = @"628336";
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
-    helper.parameters[@"direction"] = @"0";
 
 
     helper.tableView = self.tableView;
@@ -421,8 +429,10 @@
     self.helper = helper;
     
     [self.tableView addRefreshAction:^{
+        helper.parameters[@"userId"] = @"U201805160952110342835";
+
         
-        helper.parameters[@"userId"] = [TLUser user].userId;
+//        helper.parameters[@"userId"] = [TLUser user].userId;
 
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
@@ -442,7 +452,7 @@
             
             if (weakSelf.currentSegmentIndex == 1) {
                 //定时器开启
-                [weakSelf startTimer];
+//                [weakSelf startTimer];
             }
             
         } failure:^(NSError *error) {
@@ -566,11 +576,18 @@
     
     [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
     [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
+    if (index ==2 || index == 3) {
+        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 90)];
+    }else{
+        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 90)];
+
+        
+    }
     
     //1:自选, 不是自选就停止定时器
     if (index == 1) {
         //开启自选定时器
-        [self startTimer];
+//        [self startTimer];
         
         return ;
     }

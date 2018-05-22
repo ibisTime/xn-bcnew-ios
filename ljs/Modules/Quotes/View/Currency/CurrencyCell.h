@@ -9,9 +9,9 @@
 #import "BaseTableViewCell.h"
 //M
 #import "CurrencyModel.h"
-
+#import "CurrencyPriceModel.h"
 @interface CurrencyCell : BaseTableViewCell
 //
-@property (nonatomic, strong) CurrencyModel *currency;
+@property (nonatomic, strong) CurrencyPriceModel *currency;
 
 @end

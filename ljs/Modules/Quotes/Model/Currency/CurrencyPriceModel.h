@@ -16,7 +16,7 @@
 //币种名称
 @property (nonatomic, copy) NSString *name;
 //币种符号
-@property (nonatomic, copy) NSString *symbol;
+@property (nonatomic, copy) NSString *toSymbol;
 //24h涨跌幅
 @property (nonatomic, copy) NSString *percentChange24h;
 //美元市值
@@ -36,13 +36,43 @@
 //24h人民币交易量
 @property (nonatomic, copy) NSString *h24VolumeCny;
 //市值排名
-@property (nonatomic, copy) NSString *rank;
+@property (nonatomic, strong) NSNumber *rank;
 //
 @property (nonatomic, copy) NSString *availableSupply;
 
 @property (nonatomic, copy) NSString *lastUpdated;
+@property (nonatomic, copy) NSString *totalMarketCapCny;
+@property (nonatomic, copy) NSString *maxMarketCapCny;
+@property (nonatomic, copy) NSString *symbol;
+@property (nonatomic, copy) NSString *exchangeEname;
+@property (nonatomic, copy) NSString *totalMarketCapUsd;
+@property (nonatomic, copy) NSString *amount;
+@property (nonatomic, copy) NSString *maxMarketCapUsd;
+@property (nonatomic, copy) NSString *lastCnyPrice;
+@property (nonatomic, copy) NSString *lastUsdPrice;
+@property (nonatomic, copy) NSNumber *percentChange;
+@property (nonatomic, copy) NSString *choiceCount;
+@property (nonatomic, copy) NSString *isWarn;
+@property (nonatomic, copy) NSString *lastPrice;
+@property (nonatomic, copy) NSString *exchangeCname;
+@property (nonatomic, copy) NSString *changeRate;
 //涨跌颜色
 @property (nonatomic, strong) UIColor *bgColor;
+@property (nonatomic, strong) NSNumber *volume;
 
+@property (nonatomic, strong) NSNumber *flow_percent_change_24h;
+
+/**
+ 获取涨跌颜色
+ */
+- (UIColor *)getPercentColorWithPercent:(NSNumber *)percent;
+/**
+ 获取涨跌幅
+ */
+- (NSString *)getResultWithPercent:(NSNumber *)percent;
+/**
+ 获取币种数量
+ */
+- (NSString *)getNumWithVolume:(NSNumber *)volumeNum;
 
 @end

@@ -68,7 +68,7 @@
         //刷新列表
         [self.tableView beginRefreshing];
         //刷新贴吧信息
-        [self requestForumInfo];
+//        [self requestForumInfo];
         //定时器刷起来
         [self startTimer];
         return ;
@@ -154,50 +154,53 @@
         make.width.equalTo(@87);
         make.height.equalTo(@40);
     }];
-    //进吧
-    UIButton *forumBtn = [UIButton buttonWithTitle:@"进吧"
-                                        titleColor:kWhiteColor
-                                   backgroundColor:kAppCustomMainColor
-                                         titleFont:15.0
-                                      cornerRadius:4];
-    
-    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
-    [self.headerView addSubview:forumBtn];
-    [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.equalTo(@0);
-        make.right.equalTo(@(-kWidth(25)));
-        make.width.equalTo(@87);
-        make.height.equalTo(@40);
-    }];
-    //帖子数
-    self.postNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                              textColor:kTextColor
-                                                   font:14.0];
-    self.postNumLbl.numberOfLines = 0;
-    
-    [self.headerView addSubview:self.postNumLbl];
-    [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.platformNameLbl.mas_left);
-        make.top.equalTo(self.platformNameLbl.mas_bottom).offset(10);
-        make.right.equalTo(forumBtn.mas_left).offset(-15);
-    }];
-    
+//    //进吧
+//    UIButton *forumBtn = [UIButton buttonWithTitle:@"进吧"
+//                                        titleColor:kWhiteColor
+//                                   backgroundColor:kAppCustomMainColor
+//                                         titleFont:15.0
+//                                      cornerRadius:4];
+//
+//    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
+//    [self.headerView addSubview:forumBtn];
+//    [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.centerY.equalTo(@0);
+//        make.right.equalTo(@(-kWidth(25)));
+//        make.width.equalTo(@87);
+//        make.height.equalTo(@40);
+//    }];
+//    //帖子数
+//    self.postNumLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                              textColor:kTextColor
+//                                                   font:14.0];
+//    self.postNumLbl.numberOfLines = 0;
+//
+//    [self.headerView addSubview:self.postNumLbl];
+//    [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.platformNameLbl.mas_left);
+//        make.top.equalTo(self.platformNameLbl.mas_bottom).offset(10);
+//        make.right.equalTo(forumBtn.mas_left).offset(-15);
+//    }];
+//
 }
 
 - (void)initTableView {
     
-    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
     
     self.tableView.type = self.type;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
 
     [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.edges.mas_equalTo(0);
-    }];
+//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.mas_equalTo(self.headerView.mas_bottom).offset(90);
+//        make.right.equalTo(0);
+//        make.left.equalTo(0);
+//
+//    }];
     
 }
 
@@ -220,7 +223,7 @@
     if (index == self.currentIndex) {
         
         //定时器开启
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     //定时器停止
@@ -237,17 +240,23 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628345";
+    helper.code = @"628350";
     
-    helper.parameters[@"type"] = @"E";
-    helper.parameters[@"coinSymbol"] = @"BTC";
-    helper.parameters[@"exchangeEname"] = @"bitfinex";
+    helper.parameters[@"percentPeriod"] = @"24h";
+    helper.parameters[@"toSymbol"] = @"BTC";
+    helper.parameters[@"keywords"] = @"huobiPro";
+
+    helper.parameters[@"exchangeEname"] = @"huobiPro";
+    helper.parameters[@"direction"] = @"0";
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"10";
+
 
     helper.parameters[@"userId"] = [TLUser user].userId;
     
     helper.tableView = self.tableView;
     
-    [helper modelClass:[OptionalModel class]];
+    [helper modelClass:[PlatformModel class]];
     
     self.helper = helper;
     
