@@ -313,6 +313,7 @@
 		B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
+		C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C429627F20B506530011E2B2 /* WarningableViewCell.m */; };
 		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
 		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
 		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
@@ -937,6 +938,8 @@
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
 		B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActivityVCr.m; sourceTree = "<group>"; };
 		BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.release.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.release.xcconfig"; sourceTree = "<group>"; };
+		C429627E20B506530011E2B2 /* WarningableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningableViewCell.h; sourceTree = "<group>"; };
+		C429627F20B506530011E2B2 /* WarningableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningableViewCell.m; sourceTree = "<group>"; };
 		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -2927,6 +2930,8 @@
 				C4BD78B320B402C000C46D05 /* WarningTirleView.m */,
 				C4BD78B520B4166900C46D05 /* WarningCurrencyView.h */,
 				C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */,
+				C429627E20B506530011E2B2 /* WarningableViewCell.h */,
+				C429627F20B506530011E2B2 /* WarningableViewCell.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -3357,6 +3362,7 @@
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
 				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
+				C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */,
 				2124BEA92062600700CB79E8 /* CurrencyCell.m in Sources */,
 				2128826D2057A13D00A57A5A /* MineModel.m in Sources */,
 				21CFFB2020566C1C00D245ED /* NewsFlashModel.m in Sources */,

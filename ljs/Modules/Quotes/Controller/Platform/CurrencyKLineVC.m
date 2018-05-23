@@ -199,7 +199,26 @@
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
 {
+    switch (index) {
+        case 0:
+        {
+            [self.infoView changeMoney:[NSString stringWithFormat:@"$%.2lf", [self.platform.lastUsdPrice doubleValue]]];
+        }
+            break;
+        case 1:
+        {
+            [self.infoView changeMoney:[NSString stringWithFormat:@"¥%.2lf", [self.platform.lastCnyPrice doubleValue]]];
 
+        }
+            break;
+            
+        default:
+        {
+            [self.infoView changeMoney:[NSString stringWithFormat:@"%.2lf", [self.platform.lastPrice doubleValue]]];
+
+        }
+            break;
+    }
 }
 #pragma mark - Events
 //- (void)bottomEventType:(BottomEventType)type {

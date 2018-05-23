@@ -250,6 +250,10 @@
     self.marketVolumeLbl.text = /*[NSString stringWithFormat:@"市值:%@", [platform getNumWithVolume:platform.totalMarketCapCny]];*/[NSString stringWithFormat:@"卖:%@", platform.askPrice];
     self.marketVolumeLbl.textColor = [UIColor whiteColor];
 }
+- (void)changeMoney:(NSString *)str
+{
+    self.rmbPriceLbl.text = str;
+}
 
 #pragma mark - Events
 

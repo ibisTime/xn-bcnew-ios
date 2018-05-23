@@ -16,5 +16,5 @@
 @interface CurrencyInfoView : BaseView
 //
 @property (nonatomic, strong) PlatformModel *platform;
-
+- (void)changeMoney:(NSString *)str;
 @end

@@ -54,7 +54,7 @@
                                      backgroundColor:kClearColor
                                            titleFont:14.0];
     [warningBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [warningBtn setImage:kImage(@"设置预警") forState:UIControlStateNormal];
+//    [warningBtn setImage:kImage(@"设置预警") forState:UIControlStateNormal];
     warningBtn.tag = 10086;
     
     [self addSubview:warningBtn];
@@ -74,7 +74,7 @@
                                      backgroundColor:kClearColor
                                            titleFont:14.0];
     [moreBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setImage:kImage(@"更多") forState:UIControlStateNormal];
+//    [moreBtn setImage:kImage(@"更多") forState:UIControlStateNormal];
     
     [self addSubview:moreBtn];
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -11,7 +11,7 @@
 
 @interface PlatformWarningModel : BaseModel
 //主键
-@property (nonatomic, copy) NSString *ID;
+@property (nonatomic, copy) NSString *userId;
 //预警类型 PUSH("0", "推送");
 @property (nonatomic, copy) NSString *type;
 //交易所
@@ -25,11 +25,18 @@
 //涨跌幅
 @property (nonatomic, strong) NSNumber *changeRate;
 //预警价格
-@property (nonatomic, strong) NSNumber *warnPrice;
+@property (nonatomic, strong) NSString *warnPrice;
 //预警内容
 @property (nonatomic, copy) NSString *warnContent;
 //状态 TO_WARN("0", "待触发"), WARNED("1", "已触发");
 @property (nonatomic, copy) NSString *status;
+//币种
+@property (nonatomic, copy) NSString *warnCurrency;
+//预警方向 0 上涨 1 下跌
+@property (nonatomic, copy) NSString *warnDirection;
+//id
+@property (nonatomic, copy) NSString *id;
+
 
 
 @end
