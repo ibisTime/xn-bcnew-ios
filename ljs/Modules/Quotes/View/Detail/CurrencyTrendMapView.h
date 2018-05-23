@@ -1,5 +1,5 @@
 //
-//  CurrencyInfoView.h
+//  CurrencyTrendMapView.h
 //  bige
 //
 //  Created by 蔡卓越 on 2018/4/25.
@@ -7,15 +7,16 @@
 //
 
 #import "BaseView.h"
+
 //M
 #import "PlatformModel.h"
 
 /**
- 币种详情头部数据
+ 趋势图
  */
-@interface CurrencyInfoView : BaseView
-//
+@interface CurrencyTrendMapView : BaseView
+//币种信息
 @property (nonatomic, strong) PlatformModel *platform;
-- (void)changeMoney:(NSString *)str;
-- (void)cahngeColorWithAnalysis;
+@property (nonatomic, copy) void(^arrowEventBlock)(void);
+
 @end

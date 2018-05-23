@@ -43,7 +43,7 @@
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:kAppCustomMainColor , NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     
-    [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#F6F6F6"]];
 }
 
 - (void)createSubControllers {

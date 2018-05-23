@@ -63,9 +63,28 @@
         make.left.equalTo(@10);
         make.centerY.equalTo(@0);
         make.height.equalTo(@50);
-        make.right.equalTo(self.mas_centerX);
+        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 20)/3 * 2);
     }];
     [warningBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    
+    UIButton *AnalysisBtn = [UIButton buttonWithTitle:@"分析"
+                                       titleColor:[UIColor whiteColor]
+                                  backgroundColor:kClearColor
+                                        titleFont:14.0];
+    [AnalysisBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
+    //    [moreBtn setImage:kImage(@"更多") forState:UIControlStateNormal];
+    
+    [self addSubview:AnalysisBtn];
+    [AnalysisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(warningBtn.mas_right);
+        make.centerY.equalTo(@0);
+        make.height.equalTo(@50);
+        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 20)/3);
+        
+    }];
+    [AnalysisBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    AnalysisBtn.tag = 10087;
     
     
     //gengduo
@@ -79,7 +98,7 @@
     [self addSubview:moreBtn];
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mas_centerX);
+        make.left.equalTo(AnalysisBtn.mas_right);
         make.centerY.equalTo(@0);
         make.height.equalTo(@50);
         make.right.equalTo(self.mas_right).with.offset(-10);
@@ -89,6 +108,12 @@
 }
 - (void)settingWarning:(UIButton *)btn
 {
+    if (btn.tag == 10087) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(opendAnalysisVC)]) {
+            [self.delegate opendAnalysisVC];
+        }
+        return;
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectBtnisChangeWrning:with:)]) {
         [self.delegate selectBtnisChangeWrning:btn.tag == 10086 ? YES : NO with:btn];
     }

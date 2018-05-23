@@ -254,7 +254,45 @@
 {
     self.rmbPriceLbl.text = str;
 }
+- (void)cahngeColorWithAnalysis
+{
+    self.backgroundColor = kWhiteColor;
+    //币种名称
+    self.currencyNameLbl.textColor = kTextColor;
+    
+    [self addSubview:self.currencyNameLbl];
+    //当前人民币价格
+    self.rmbPriceLbl.textColor = kThemeColor;
+    
+    //涨跌情况
+    
+    [self.priceFluctBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
+    
+    //关注量
+    self.followNumLbl.textColor = kTextColor2;
+    
 
+    //高
+    self.highPriceLbl.textColor = kTextColor;
+    
+    
+    //低
+    self.lowPriceLbl.textColor = kTextColor;
+    
+    //开
+    self.startPriceLbl.textColor = kTextColor;
+    
+    //额
+    self.tradeVolumeLbl.textColor = kTextColor;
+    
+    //收
+    self.endPriceLbl.textColor = kTextColor;
+    
+    //市值
+    self.marketVolumeLbl.textColor = kTextColor;
+    
+    
+}
 #pragma mark - Events
 
 /**

@@ -57,6 +57,11 @@
     [http postWithSuccess:^(id responseObject) {
         NSLog(@"--->%@",responseObject);
         NSArray *arry = responseObject[@"data"][@"list"];
+        
+        if (self.page == 1) {
+            [self.addWarningArry removeAllObjects];
+        }
+        
         for (NSInteger index = 0 ; index < arry.count; index ++) {
             PlatformWarningModel *model = [PlatformWarningModel mj_objectWithKeyValues:(NSDictionary *)[arry objectAtIndex:index]];
             [self.addWarningArry addObject:model];
@@ -171,6 +176,8 @@
     [http postWithSuccess:^(id responseObject) {
         
         NSLog(@"--->%@",responseObject);
+        self.page = 1;
+        [self getcurrentList];
         
     } failure:^(NSError *error) {
         

@@ -314,6 +314,13 @@
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
 		C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C429627F20B506530011E2B2 /* WarningableViewCell.m */; };
+		C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628220B56AB40011E2B2 /* AnalysisViewController.m */; };
+		C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */; };
+		C429628C20B5867C0011E2B2 /* CurrencyInfoChildVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */; };
+		C429629620B587F30011E2B2 /* CurrencyInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */; };
+		C429629720B587F30011E2B2 /* CurrencyInfoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */; };
+		C429629820B587F30011E2B2 /* CurrencyInfoCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */; };
+		C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */; };
 		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
 		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
 		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
@@ -940,6 +947,20 @@
 		BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.release.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.release.xcconfig"; sourceTree = "<group>"; };
 		C429627E20B506530011E2B2 /* WarningableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningableViewCell.h; sourceTree = "<group>"; };
 		C429627F20B506530011E2B2 /* WarningableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningableViewCell.m; sourceTree = "<group>"; };
+		C429628120B56AB40011E2B2 /* AnalysisViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisViewController.h; sourceTree = "<group>"; };
+		C429628220B56AB40011E2B2 /* AnalysisViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisViewController.m; sourceTree = "<group>"; };
+		C429628720B580F70011E2B2 /* CurrencyTrendMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyTrendMapView.h; sourceTree = "<group>"; };
+		C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyTrendMapView.m; sourceTree = "<group>"; };
+		C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoChildVC.m; sourceTree = "<group>"; };
+		C429628B20B5867C0011E2B2 /* CurrencyInfoChildVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoChildVC.h; sourceTree = "<group>"; };
+		C429628E20B587F30011E2B2 /* CurrencyInfoCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoCell1.h; sourceTree = "<group>"; };
+		C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoHeaderView.m; sourceTree = "<group>"; };
+		C429629020B587F30011E2B2 /* CurrencyInfoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoTableView.h; sourceTree = "<group>"; };
+		C429629120B587F30011E2B2 /* CurrencyInfoCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoCell2.h; sourceTree = "<group>"; };
+		C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoCell1.m; sourceTree = "<group>"; };
+		C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoCell2.m; sourceTree = "<group>"; };
+		C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoTableView.m; sourceTree = "<group>"; };
+		C429629520B587F30011E2B2 /* CurrencyInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoHeaderView.h; sourceTree = "<group>"; };
 		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1631,6 +1652,10 @@
 				C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */,
 				C4BD78AF20B3FF3600C46D05 /* WarningViewController.h */,
 				C4BD78B020B3FF3600C46D05 /* WarningViewController.m */,
+				C429628120B56AB40011E2B2 /* AnalysisViewController.h */,
+				C429628220B56AB40011E2B2 /* AnalysisViewController.m */,
+				C429628B20B5867C0011E2B2 /* CurrencyInfoChildVC.h */,
+				C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -2207,6 +2232,7 @@
 		21CFFAF220565D3100D245ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C429628D20B587F30011E2B2 /* CurrencyInfo */,
 				C4BD788D20B3AE3C00C46D05 /* Detail */,
 				2124BEBE206296D500CB79E8 /* Search */,
 				21288244205776D800A57A5A /* Currency */,
@@ -2885,6 +2911,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C429628D20B587F30011E2B2 /* CurrencyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C429628E20B587F30011E2B2 /* CurrencyInfoCell1.h */,
+				C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */,
+				C429629020B587F30011E2B2 /* CurrencyInfoTableView.h */,
+				C429629120B587F30011E2B2 /* CurrencyInfoCell2.h */,
+				C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */,
+				C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */,
+				C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */,
+				C429629520B587F30011E2B2 /* CurrencyInfoHeaderView.h */,
+			);
+			path = CurrencyInfo;
+			sourceTree = "<group>";
+		};
 		C4BD787020B2A6D700C46D05 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -2932,6 +2973,8 @@
 				C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */,
 				C429627E20B506530011E2B2 /* WarningableViewCell.h */,
 				C429627F20B506530011E2B2 /* WarningableViewCell.m */,
+				C429628720B580F70011E2B2 /* CurrencyTrendMapView.h */,
+				C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -3082,6 +3125,7 @@
 				B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */,
 				21EF0B98206749F7008EA865 /* OptionalTitleModel.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
+				C429629720B587F30011E2B2 /* CurrencyInfoCell1.m in Sources */,
 				21EF0B5E2065078B008EA865 /* InfoDetailModel.m in Sources */,
 				21CFFB1A20566BA700D245ED /* NewsFlashListTableView.m in Sources */,
 				21111B9F1F8B5F2C0021B3FE /* City.m in Sources */,
@@ -3091,6 +3135,7 @@
 				21AC58951FDE741A00F19DE8 /* CaptchaView.m in Sources */,
 				21EF0B83206681E5008EA865 /* MyCommentDetailTableView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
+				C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */,
 				21EF0B4A2064D24E008EA865 /* ForumCircleTableView.m in Sources */,
 				B8BD683820AC4BCC00DCADD0 /* ActivityNewsCommentView.m in Sources */,
 				2145940D206B36650006E238 /* HomePageCircleTableView.m in Sources */,
@@ -3127,6 +3172,7 @@
 				C4BD789020B3AE5700C46D05 /* QuotesChangeView.m in Sources */,
 				186E8BF9209C0A9D00532B1C /* detailActivityVC.m in Sources */,
 				186E8C07209C0A9D00532B1C /* initDetailActMap.m in Sources */,
+				C429628C20B5867C0011E2B2 /* CurrencyInfoChildVC.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
 				212882652057A11100A57A5A /* MineTableView.m in Sources */,
@@ -3197,6 +3243,7 @@
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
 				2124BEEE2063B61B00CB79E8 /* ThirdLoginModel.m in Sources */,
+				C429629620B587F30011E2B2 /* CurrencyInfoHeaderView.m in Sources */,
 				21EF0B452064CEE2008EA865 /* ForumInfoChildVC.m in Sources */,
 				1875147C2098CDA10009F9DE /* localMapManager.m in Sources */,
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
@@ -3241,6 +3288,7 @@
 				186E8C06209C0A9D00532B1C /* initDetailActHead.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21CFFB0C205663A600D245ED /* HomeChildVC.m in Sources */,
+				C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */,
 				21EF0B7A20666BF7008EA865 /* MyCommentModel.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
 				214593F5206B2B270006E238 /* HomePageInfoCell.m in Sources */,
@@ -3312,6 +3360,7 @@
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				C4BD788C20B3AD3300C46D05 /* CurrencyKLineVC.m in Sources */,
 				186E8BFB209C0A9D00532B1C /* signUpUsersListVC.m in Sources */,
+				C429629820B587F30011E2B2 /* CurrencyInfoCell2.m in Sources */,
 				2128825B20579D8600A57A5A /* ForumListTableView.m in Sources */,
 				2124BEBD2062907000CB79E8 /* SearchCurrencyVC.m in Sources */,
 				186E8C03209C0A9D00532B1C /* ActivityListV.m in Sources */,
@@ -3329,6 +3378,7 @@
 				2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */,
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
+				C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */,
 				21EF0B9120668FE3008EA865 /* MyCollectionCell.m in Sources */,
 				21AC59701FDE81D500F19DE8 /* UIBarButtonItem+convience.m in Sources */,
 				21F82C9E1F17719D0019B176 /* NavigationController.m in Sources */,

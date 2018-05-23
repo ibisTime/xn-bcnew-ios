@@ -22,6 +22,8 @@
 #import "CurrencyKLineHScreenVC.h"
 #import "WarningViewController.h"
 #import "UIView+Extension.h"
+//分析页面
+#import "AnalysisViewController.h"
 
 #define kBottomHeight 50
 
@@ -136,6 +138,8 @@
     
     self.navigationItem.titleView = titleView;
     
+    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    
 }
 
 - (void)initInfoView {
@@ -196,6 +200,17 @@
 
     }
 }
+
+/**
+ 打开分写页面
+ */
+- (void)opendAnalysisVC
+{
+    AnalysisViewController *analysisvc = [[AnalysisViewController alloc]init];
+    analysisvc.platform = self.platform;
+    [self.navigationController pushViewController:analysisvc animated:YES];
+}
+
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
 {

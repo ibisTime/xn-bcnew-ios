@@ -11,6 +11,7 @@
 @protocol CurrencyBottomViewDelegate <NSObject>
 
 - (void)selectBtnisChangeWrning:(BOOL)isChage with:(UIButton *)sender;
+- (void)opendAnalysisVC;
 @end
 
 @interface CurrencyBottomView : UIView
