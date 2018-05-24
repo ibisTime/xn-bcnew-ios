@@ -229,13 +229,14 @@
 {
     if (isChage) {
         NSLog(@"预警");
-//        BaseWeakSelf;
-//        [self checkLogin:^{
+        BaseWeakSelf;
+        //是否登录
+        [self checkLogin:^{
             WarningViewController *warning = [[WarningViewController alloc]init];
             warning.platform = self.platform;
-            [self.navigationController pushViewController:warning animated:YES];
+            [weakSelf.navigationController pushViewController:warning animated:YES];
            
-//        }];
+        }];
     }
     else
     {
