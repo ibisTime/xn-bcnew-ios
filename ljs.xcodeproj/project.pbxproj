@@ -296,10 +296,6 @@
 		B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */; };
 		B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5CB20AF15CE00335B87 /* ArticleStateController.m */; };
 		B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8839C6520B174B100024A66 /* QCInfomationModel.m */; };
-		B8844A8720A9E0E00058D5F3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8844A8420A9E0E00058D5F3 /* README.txt */; };
-		B8844A8820A9E0E00058D5F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8844A8620A9E0E00058D5F3 /* libWeChatSDK.a */; };
-		B8844A8C20A9E3780058D5F3 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8844A8B20A9E3770058D5F3 /* read_me.txt */; };
-		B8844A8E20A9E45D0058D5F3 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8844A8D20A9E45D0058D5F3 /* TencentOpenAPI.framework */; };
 		B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423C20B271D500A99740 /* HomeQuotesView.m */; };
 		B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */; };
 		B8B489A120AC807F004D7BC9 /* ActivityNewSVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */; };
@@ -318,6 +314,32 @@
 		B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
+		C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C429627F20B506530011E2B2 /* WarningableViewCell.m */; };
+		C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628220B56AB40011E2B2 /* AnalysisViewController.m */; };
+		C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */; };
+		C429628C20B5867C0011E2B2 /* CurrencyInfoChildVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */; };
+		C429629620B587F30011E2B2 /* CurrencyInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */; };
+		C429629720B587F30011E2B2 /* CurrencyInfoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */; };
+		C429629820B587F30011E2B2 /* CurrencyInfoCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */; };
+		C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */; };
+		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
+		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
+		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
+		C4BD787C20B2A71400C46D05 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787820B2A71400C46D05 /* read_me.txt */; };
+		C4BD788C20B3AD3300C46D05 /* CurrencyKLineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */; };
+		C4BD789020B3AE5700C46D05 /* QuotesChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD788F20B3AE5700C46D05 /* QuotesChangeView.m */; };
+		C4BD789320B3AEDD00C46D05 /* CurrencyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789120B3AEDD00C46D05 /* CurrencyInfoView.m */; };
+		C4BD789620B3AFC800C46D05 /* CurrencyKLineMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789520B3AFC800C46D05 /* CurrencyKLineMapView.m */; };
+		C4BD789920B3B05100C46D05 /* CurrencyKLineHScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */; };
+		C4BD789C20B3B23500C46D05 /* QuotesDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789B20B3B23500C46D05 /* QuotesDataView.m */; };
+		C4BD789F20B3C26000C46D05 /* CurrencyBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */; };
+		C4BD78A920B3E7C500C46D05 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */; };
+		C4BD78AA20B3E7C500C46D05 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */; };
+		C4BD78AB20B3E7C500C46D05 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78A720B3E7C500C46D05 /* YBRectConst.m */; };
+		C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B020B3FF3600C46D05 /* WarningViewController.m */; };
+		C4BD78B420B402C000C46D05 /* WarningTirleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B320B402C000C46D05 /* WarningTirleView.m */; };
+		C4BD78B720B4166900C46D05 /* WarningCurrencyView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */; };
+		C4BD78BA20B45A7900C46D05 /* PlatformWarningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -889,13 +911,6 @@
 		B870F5CB20AF15CE00335B87 /* ArticleStateController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleStateController.m; sourceTree = "<group>"; };
 		B8839C6420B174B100024A66 /* QCInfomationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCInfomationModel.h; sourceTree = "<group>"; };
 		B8839C6520B174B100024A66 /* QCInfomationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCInfomationModel.m; sourceTree = "<group>"; };
-		B8844A8220A9E0E00058D5F3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		B8844A8320A9E0E00058D5F3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		B8844A8420A9E0E00058D5F3 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		B8844A8520A9E0E00058D5F3 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
-		B8844A8620A9E0E00058D5F3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		B8844A8B20A9E3770058D5F3 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
-		B8844A8D20A9E45D0058D5F3 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = SOURCE_ROOT; };
 		B89D423C20B271D500A99740 /* HomeQuotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesView.m; sourceTree = "<group>"; };
 		B89D423D20B271D500A99740 /* HomeQuotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesView.h; sourceTree = "<group>"; };
 		B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesSortBar.m; sourceTree = "<group>"; };
@@ -933,6 +948,57 @@
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
 		B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActivityVCr.m; sourceTree = "<group>"; };
 		BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.release.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.release.xcconfig"; sourceTree = "<group>"; };
+		C429627E20B506530011E2B2 /* WarningableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningableViewCell.h; sourceTree = "<group>"; };
+		C429627F20B506530011E2B2 /* WarningableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningableViewCell.m; sourceTree = "<group>"; };
+		C429628120B56AB40011E2B2 /* AnalysisViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisViewController.h; sourceTree = "<group>"; };
+		C429628220B56AB40011E2B2 /* AnalysisViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisViewController.m; sourceTree = "<group>"; };
+		C429628720B580F70011E2B2 /* CurrencyTrendMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyTrendMapView.h; sourceTree = "<group>"; };
+		C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyTrendMapView.m; sourceTree = "<group>"; };
+		C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoChildVC.m; sourceTree = "<group>"; };
+		C429628B20B5867C0011E2B2 /* CurrencyInfoChildVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoChildVC.h; sourceTree = "<group>"; };
+		C429628E20B587F30011E2B2 /* CurrencyInfoCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoCell1.h; sourceTree = "<group>"; };
+		C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoHeaderView.m; sourceTree = "<group>"; };
+		C429629020B587F30011E2B2 /* CurrencyInfoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoTableView.h; sourceTree = "<group>"; };
+		C429629120B587F30011E2B2 /* CurrencyInfoCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoCell2.h; sourceTree = "<group>"; };
+		C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoCell1.m; sourceTree = "<group>"; };
+		C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoCell2.m; sourceTree = "<group>"; };
+		C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoTableView.m; sourceTree = "<group>"; };
+		C429629520B587F30011E2B2 /* CurrencyInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoHeaderView.h; sourceTree = "<group>"; };
+		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		C4BD787520B2A71400C46D05 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		C4BD787620B2A71400C46D05 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		C4BD787720B2A71400C46D05 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		C4BD787820B2A71400C46D05 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
+		C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKLineVC.m; sourceTree = "<group>"; };
+		C4BD788B20B3AD3300C46D05 /* CurrencyKLineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKLineVC.h; sourceTree = "<group>"; };
+		C4BD788E20B3AE5600C46D05 /* QuotesChangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesChangeView.h; sourceTree = "<group>"; };
+		C4BD788F20B3AE5700C46D05 /* QuotesChangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesChangeView.m; sourceTree = "<group>"; };
+		C4BD789120B3AEDD00C46D05 /* CurrencyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoView.m; sourceTree = "<group>"; };
+		C4BD789220B3AEDD00C46D05 /* CurrencyInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoView.h; sourceTree = "<group>"; };
+		C4BD789420B3AFC700C46D05 /* CurrencyKLineMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKLineMapView.h; sourceTree = "<group>"; };
+		C4BD789520B3AFC800C46D05 /* CurrencyKLineMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKLineMapView.m; sourceTree = "<group>"; };
+		C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKLineHScreenVC.m; sourceTree = "<group>"; };
+		C4BD789820B3B05100C46D05 /* CurrencyKLineHScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKLineHScreenVC.h; sourceTree = "<group>"; };
+		C4BD789A20B3B23500C46D05 /* QuotesDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesDataView.h; sourceTree = "<group>"; };
+		C4BD789B20B3B23500C46D05 /* QuotesDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesDataView.m; sourceTree = "<group>"; };
+		C4BD789D20B3C26000C46D05 /* CurrencyBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrencyBottomView.h; sourceTree = "<group>"; };
+		C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyBottomView.m; sourceTree = "<group>"; };
+		C4BD78A320B3E7C400C46D05 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		C4BD78A420B3E7C400C46D05 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		C4BD78A720B3E7C500C46D05 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
+		C4BD78A820B3E7C500C46D05 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		C4BD78AF20B3FF3600C46D05 /* WarningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningViewController.h; sourceTree = "<group>"; };
+		C4BD78B020B3FF3600C46D05 /* WarningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningViewController.m; sourceTree = "<group>"; };
+		C4BD78B220B402C000C46D05 /* WarningTirleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningTirleView.h; sourceTree = "<group>"; };
+		C4BD78B320B402C000C46D05 /* WarningTirleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningTirleView.m; sourceTree = "<group>"; };
+		C4BD78B520B4166900C46D05 /* WarningCurrencyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningCurrencyView.h; sourceTree = "<group>"; };
+		C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningCurrencyView.m; sourceTree = "<group>"; };
+		C4BD78B820B45A7900C46D05 /* PlatformWarningModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformWarningModel.h; sourceTree = "<group>"; };
+		C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformWarningModel.m; sourceTree = "<group>"; };
 		E041B8AEBBDCC121169B52FB /* libPods-Base_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -946,17 +1012,17 @@
 				214593DF206A3D060006E238 /* Security.framework in Frameworks */,
 				214593DB206A3CAB0006E238 /* libiconv.tbd in Frameworks */,
 				214593DD206A3CE50006E238 /* libstdc++.tbd in Frameworks */,
-				B8844A8E20A9E45D0058D5F3 /* TencentOpenAPI.framework in Frameworks */,
 				216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */,
 				216AB7F21F189F30006C26A1 /* libc++.tbd in Frameworks */,
 				216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */,
+				C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */,
 				216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */,
 				216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */,
 				210FD1D31F6673E5001DA03D /* CFNetwork.framework in Frameworks */,
 				210FD1D11F6673D6001DA03D /* CoreGraphics.framework in Frameworks */,
 				210FD1CF1F6673CC001DA03D /* CoreText.framework in Frameworks */,
+				C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */,
 				210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */,
-				B8844A8820A9E0E00058D5F3 /* libWeChatSDK.a in Frameworks */,
 				210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */,
 				210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */,
 				21176EEA1F32FC9800C5217A /* CoreMotion.framework in Frameworks */,
@@ -976,15 +1042,6 @@
 				BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		183FFA28207F33690062FC7C /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				B8844A8D20A9E45D0058D5F3 /* TencentOpenAPI.framework */,
-				B8844A8120A9E0E00058D5F3 /* WechatSDK1.8.2 */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		186E8BBE209C0A9C00532B1C /* activity */ = {
@@ -1568,6 +1625,8 @@
 				2124BE7F2061FFDF00CB79E8 /* PlatformModel.m */,
 				21EF0B9C20677DBD008EA865 /* PlatformTitleModel.h */,
 				21EF0B9D20677DBD008EA865 /* PlatformTitleModel.m */,
+				C4BD78B820B45A7900C46D05 /* PlatformWarningModel.h */,
+				C4BD78B920B45A7900C46D05 /* PlatformWarningModel.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -1590,6 +1649,16 @@
 			children = (
 				2124BE852062393B00CB79E8 /* QuotesPlatformVC.h */,
 				2124BE862062393B00CB79E8 /* QuotesPlatformVC.m */,
+				C4BD788B20B3AD3300C46D05 /* CurrencyKLineVC.h */,
+				C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */,
+				C4BD789820B3B05100C46D05 /* CurrencyKLineHScreenVC.h */,
+				C4BD789720B3B05100C46D05 /* CurrencyKLineHScreenVC.m */,
+				C4BD78AF20B3FF3600C46D05 /* WarningViewController.h */,
+				C4BD78B020B3FF3600C46D05 /* WarningViewController.m */,
+				C429628120B56AB40011E2B2 /* AnalysisViewController.h */,
+				C429628220B56AB40011E2B2 /* AnalysisViewController.m */,
+				C429628B20B5867C0011E2B2 /* CurrencyInfoChildVC.h */,
+				C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -2168,6 +2237,8 @@
 		21CFFAF220565D3100D245ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C429628D20B587F30011E2B2 /* CurrencyInfo */,
+				C4BD788D20B3AE3C00C46D05 /* Detail */,
 				2124BEBE206296D500CB79E8 /* Search */,
 				21288244205776D800A57A5A /* Currency */,
 				21288243205776CD00A57A5A /* Platform */,
@@ -2586,7 +2657,7 @@
 		21F827D11F1742E80019B176 /* ljs */ = {
 			isa = PBXGroup;
 			children = (
-				183FFA28207F33690062FC7C /* Extension */,
+				C4BD787020B2A6D700C46D05 /* Extension */,
 				219CF539207356B100012F68 /* ljs.entitlements */,
 				21F82B7D1F17719D0019B176 /* Modules */,
 				21F82B551F17719D0019B176 /* baseClasses */,
@@ -2845,18 +2916,73 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B8844A8120A9E0E00058D5F3 /* WechatSDK1.8.2 */ = {
+		C429628D20B587F30011E2B2 /* CurrencyInfo */ = {
 			isa = PBXGroup;
 			children = (
-				B8844A8B20A9E3770058D5F3 /* read_me.txt */,
-				B8844A8220A9E0E00058D5F3 /* WXApi.h */,
-				B8844A8320A9E0E00058D5F3 /* WXApiObject.h */,
-				B8844A8420A9E0E00058D5F3 /* README.txt */,
-				B8844A8520A9E0E00058D5F3 /* WechatAuthSDK.h */,
-				B8844A8620A9E0E00058D5F3 /* libWeChatSDK.a */,
+				C429628E20B587F30011E2B2 /* CurrencyInfoCell1.h */,
+				C429628F20B587F30011E2B2 /* CurrencyInfoHeaderView.m */,
+				C429629020B587F30011E2B2 /* CurrencyInfoTableView.h */,
+				C429629120B587F30011E2B2 /* CurrencyInfoCell2.h */,
+				C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */,
+				C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */,
+				C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */,
+				C429629520B587F30011E2B2 /* CurrencyInfoHeaderView.h */,
+			);
+			path = CurrencyInfo;
+			sourceTree = "<group>";
+		};
+		C4BD787020B2A6D700C46D05 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */,
+				C4BD787220B2A71400C46D05 /* WechatSDK1.8.2 */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C4BD787220B2A71400C46D05 /* WechatSDK1.8.2 */ = {
+			isa = PBXGroup;
+			children = (
+				C4BD787320B2A71400C46D05 /* WXApi.h */,
+				C4BD787420B2A71400C46D05 /* WXApiObject.h */,
+				C4BD787520B2A71400C46D05 /* README.txt */,
+				C4BD787620B2A71400C46D05 /* WechatAuthSDK.h */,
+				C4BD787720B2A71400C46D05 /* libWeChatSDK.a */,
+				C4BD787820B2A71400C46D05 /* read_me.txt */,
 			);
 			path = WechatSDK1.8.2;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
+		};
+		C4BD788D20B3AE3C00C46D05 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C4BD789420B3AFC700C46D05 /* CurrencyKLineMapView.h */,
+				C4BD789520B3AFC800C46D05 /* CurrencyKLineMapView.m */,
+				C4BD788E20B3AE5600C46D05 /* QuotesChangeView.h */,
+				C4BD788F20B3AE5700C46D05 /* QuotesChangeView.m */,
+				C4BD789220B3AEDD00C46D05 /* CurrencyInfoView.h */,
+				C4BD789120B3AEDD00C46D05 /* CurrencyInfoView.m */,
+				C4BD789A20B3B23500C46D05 /* QuotesDataView.h */,
+				C4BD789B20B3B23500C46D05 /* QuotesDataView.m */,
+				C4BD789D20B3C26000C46D05 /* CurrencyBottomView.h */,
+				C4BD789E20B3C26000C46D05 /* CurrencyBottomView.m */,
+				C4BD78A820B3E7C500C46D05 /* YBPopupMenu.h */,
+				C4BD78A520B3E7C400C46D05 /* YBPopupMenu.m */,
+				C4BD78A320B3E7C400C46D05 /* YBPopupMenuPath.h */,
+				C4BD78A620B3E7C400C46D05 /* YBPopupMenuPath.m */,
+				C4BD78A420B3E7C400C46D05 /* YBRectConst.h */,
+				C4BD78A720B3E7C500C46D05 /* YBRectConst.m */,
+				C4BD78B220B402C000C46D05 /* WarningTirleView.h */,
+				C4BD78B320B402C000C46D05 /* WarningTirleView.m */,
+				C4BD78B520B4166900C46D05 /* WarningCurrencyView.h */,
+				C4BD78B620B4166900C46D05 /* WarningCurrencyView.m */,
+				C429627E20B506530011E2B2 /* WarningableViewCell.h */,
+				C429627F20B506530011E2B2 /* WarningableViewCell.m */,
+				C429628720B580F70011E2B2 /* CurrencyTrendMapView.h */,
+				C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -2891,7 +3017,7 @@
 				TargetAttributes = {
 					21F827CE1F1742E80019B176 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = ZKTVZ75A59;
+						DevelopmentTeam = TUV3S622PG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -2931,13 +3057,13 @@
 				21F82D1C1F17719D0019B176 /* Assets.xcassets in Resources */,
 				219CF5292072550300012F68 /* QRCodebottomLeft@2x.png in Resources */,
 				219CF5282072550300012F68 /* QRCodebottomRight@2x.png in Resources */,
+				C4BD787A20B2A71400C46D05 /* README.txt in Resources */,
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
-				B8844A8C20A9E3780058D5F3 /* read_me.txt in Resources */,
 				219CF52D2072550300012F68 /* QRCodeTopLeft@2x.png in Resources */,
 				219CF52C2072550300012F68 /* QRCodeTopRight@2x.png in Resources */,
+				C4BD787C20B2A71400C46D05 /* read_me.txt in Resources */,
 				219CF52B2072550300012F68 /* QRCodeLine@2x.png in Resources */,
 				219CF52F2072550300012F68 /* sound.caf in Resources */,
-				B8844A8720A9E0E00058D5F3 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3004,6 +3130,7 @@
 				B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */,
 				21EF0B98206749F7008EA865 /* OptionalTitleModel.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
+				C429629720B587F30011E2B2 /* CurrencyInfoCell1.m in Sources */,
 				21EF0B5E2065078B008EA865 /* InfoDetailModel.m in Sources */,
 				21CFFB1A20566BA700D245ED /* NewsFlashListTableView.m in Sources */,
 				21111B9F1F8B5F2C0021B3FE /* City.m in Sources */,
@@ -3013,6 +3140,7 @@
 				21AC58951FDE741A00F19DE8 /* CaptchaView.m in Sources */,
 				21EF0B83206681E5008EA865 /* MyCommentDetailTableView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
+				C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */,
 				21EF0B4A2064D24E008EA865 /* ForumCircleTableView.m in Sources */,
 				B8BD683820AC4BCC00DCADD0 /* ActivityNewsCommentView.m in Sources */,
 				2145940D206B36650006E238 /* HomePageCircleTableView.m in Sources */,
@@ -3032,6 +3160,7 @@
 				21EF0B8E20668F82008EA865 /* MyCollectionTableView.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
 				219CF52E2072550300012F68 /* SGAlertView.m in Sources */,
+				C4BD789620B3AFC800C46D05 /* CurrencyKLineMapView.m in Sources */,
 				2124BE6D2061227A00CB79E8 /* InputTextView.m in Sources */,
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
 				21C01A482074CBAF00587DF0 /* ForumQuotesCurrencyCell.m in Sources */,
@@ -3045,8 +3174,10 @@
 				2124BE672060FBF900CB79E8 /* LinkLabel.m in Sources */,
 				2124BED1206355E600CB79E8 /* SearchHistoryTableView.m in Sources */,
 				21AC59491FDE7A1B00F19DE8 /* TLCaptchaView.m in Sources */,
+				C4BD789020B3AE5700C46D05 /* QuotesChangeView.m in Sources */,
 				186E8BF9209C0A9D00532B1C /* detailActivityVC.m in Sources */,
 				186E8C07209C0A9D00532B1C /* initDetailActMap.m in Sources */,
+				C429628C20B5867C0011E2B2 /* CurrencyInfoChildVC.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
 				212882652057A11100A57A5A /* MineTableView.m in Sources */,
@@ -3054,6 +3185,7 @@
 				21111BB71F8B5F2C0021B3FE /* WTReTextField.m in Sources */,
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
 				B8D0D4DB20AEB3FF006B99D5 /* ActivityListModel.m in Sources */,
+				C4BD78AA20B3E7C500C46D05 /* YBPopupMenuPath.m in Sources */,
 				217BDAE62068C64000E17DEE /* ForumCommentModel.m in Sources */,
 				21EF0B3F2064CEB2008EA865 /* ForumCircleChildVC.m in Sources */,
 				219CF5382073559600012F68 /* JPushModel.m in Sources */,
@@ -3108,12 +3240,15 @@
 				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
 				B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */,
 				21CFFB2620566D9A00D245ED /* InformationListTableView.m in Sources */,
+				C4BD78B420B402C000C46D05 /* WarningTirleView.m in Sources */,
 				2124BE9A206240AC00CB79E8 /* PlatformCell.m in Sources */,
+				C4BD789320B3AEDD00C46D05 /* CurrencyInfoView.m in Sources */,
 				21288247205776F000A57A5A /* OptionalTableView.m in Sources */,
 				B8DCAC0320B03EDA009B6EE9 /* ArticleModel.m in Sources */,
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
 				2124BEEE2063B61B00CB79E8 /* ThirdLoginModel.m in Sources */,
+				C429629620B587F30011E2B2 /* CurrencyInfoHeaderView.m in Sources */,
 				21EF0B452064CEE2008EA865 /* ForumInfoChildVC.m in Sources */,
 				1875147C2098CDA10009F9DE /* localMapManager.m in Sources */,
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
@@ -3126,9 +3261,11 @@
 				186E8BFF209C0A9D00532B1C /* signUpUsersListModel.m in Sources */,
 				21CFFB2C205673D100D245ED /* NewsFlashDetailVC.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
+				C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
 				B8D0D4DE20AEB4BA006B99D5 /* ActivityDetailModel.m in Sources */,
+				C4BD78B720B4166900C46D05 /* WarningCurrencyView.m in Sources */,
 				217BDAFC2069486600E17DEE /* CircleCommentDetailTableView.m in Sources */,
 				21459413206BF5060006E238 /* TLUpdateVC.m in Sources */,
 				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
@@ -3138,6 +3275,7 @@
 				2124BE942062406900CB79E8 /* PlatformAllCell.m in Sources */,
 				21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */,
 				21AC59481FDE7A1B00F19DE8 /* TLTimeButton.m in Sources */,
+				C4BD78AB20B3E7C500C46D05 /* YBRectConst.m in Sources */,
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
 				212FEEA520688CBF0002F293 /* ForumDetailModel.m in Sources */,
@@ -3155,6 +3293,7 @@
 				186E8C06209C0A9D00532B1C /* initDetailActHead.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21CFFB0C205663A600D245ED /* HomeChildVC.m in Sources */,
+				C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */,
 				21EF0B7A20666BF7008EA865 /* MyCommentModel.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
 				B8BED33B20B54682004D5094 /* QutesChildViewController.m in Sources */,
@@ -3172,6 +3311,7 @@
 				2124BE732061451C00CB79E8 /* InfoCommentDetailTableView.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21288241205771EB00A57A5A /* QuotesManager.m in Sources */,
+				C4BD78A920B3E7C500C46D05 /* YBPopupMenu.m in Sources */,
 				2124BE782061FF6700CB79E8 /* OptionalModel.m in Sources */,
 				217BDAEC20691FC300E17DEE /* ForumCircleCommentVC.m in Sources */,
 				219CF5262072550300012F68 /* SGScanningQRCodeVC.m in Sources */,
@@ -3211,6 +3351,7 @@
 				21CFFB0920565DDD00D245ED /* MineVC.m in Sources */,
 				2128824A2057774900A57A5A /* OptionalCell.m in Sources */,
 				21B76C92206A342C00056AFB /* QQManager.m in Sources */,
+				C4BD789C20B3B23500C46D05 /* QuotesDataView.m in Sources */,
 				B8B489A120AC807F004D7BC9 /* ActivityNewSVC.m in Sources */,
 				2124BE832061FFF500CB79E8 /* CurrencyModel.m in Sources */,
 				21AC59551FDE7F1500F19DE8 /* WebVC.m in Sources */,
@@ -3223,7 +3364,9 @@
 				2124BEE5206394B900CB79E8 /* UserEditModel.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
+				C4BD788C20B3AD3300C46D05 /* CurrencyKLineVC.m in Sources */,
 				186E8BFB209C0A9D00532B1C /* signUpUsersListVC.m in Sources */,
+				C429629820B587F30011E2B2 /* CurrencyInfoCell2.m in Sources */,
 				2128825B20579D8600A57A5A /* ForumListTableView.m in Sources */,
 				2124BEBD2062907000CB79E8 /* SearchCurrencyVC.m in Sources */,
 				186E8C03209C0A9D00532B1C /* ActivityListV.m in Sources */,
@@ -3241,6 +3384,7 @@
 				2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */,
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
+				C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */,
 				21EF0B9120668FE3008EA865 /* MyCollectionCell.m in Sources */,
 				21AC59701FDE81D500F19DE8 /* UIBarButtonItem+convience.m in Sources */,
 				21F82C9E1F17719D0019B176 /* NavigationController.m in Sources */,
@@ -3248,12 +3392,14 @@
 				21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */,
 				21EB9C6A20562C9700394C3C /* KeyValueModel.m in Sources */,
 				186E8C09209C0A9D00532B1C /* signUpUsersListCell.m in Sources */,
+				C4BD78BA20B45A7900C46D05 /* PlatformWarningModel.m in Sources */,
 				21CFFB29205673C000D245ED /* InfoDetailVC.m in Sources */,
 				21F82C9F1F17719D0019B176 /* TabbarViewController.m in Sources */,
 				21EF0BA72067953D008EA865 /* CurrencyPriceModel.m in Sources */,
 				21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */,
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
 				214593EB206B23980006E238 /* HomePageHeaderView.m in Sources */,
+				C4BD789920B3B05100C46D05 /* CurrencyKLineHScreenVC.m in Sources */,
 				2124BE19205FD42D00CB79E8 /* TLWXManager.m in Sources */,
 				21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */,
 				21EF0B5B2064DAD4008EA865 /* ForumDetailHeaderView.m in Sources */,
@@ -3268,9 +3414,11 @@
 				186E8C01209C0A9D00532B1C /* ActivityCommentsListV.m in Sources */,
 				2124BE7020613E5900CB79E8 /* InfoCommentDetailVC.m in Sources */,
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
+				C4BD789F20B3C26000C46D05 /* CurrencyBottomView.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
 				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
+				C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */,
 				2124BEA92062600700CB79E8 /* CurrencyCell.m in Sources */,
 				2128826D2057A13D00A57A5A /* MineModel.m in Sources */,
 				21CFFB2020566C1C00D245ED /* NewsFlashModel.m in Sources */,
@@ -3398,7 +3546,7 @@
 				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = TUV3S622PG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3407,6 +3555,7 @@
 					"$(PROJECT_DIR)/ljs/Extension/QQ",
 					"$(PROJECT_DIR)/Extension/QQ",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ljs/Extension",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
@@ -3417,6 +3566,7 @@
 					"$(PROJECT_DIR)/ljs/Extension/WeChat",
 					"$(PROJECT_DIR)/Extension/WeChat",
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
+					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lianjieshe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3436,7 +3586,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = TUV3S622PG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3445,6 +3595,7 @@
 					"$(PROJECT_DIR)/ljs/Extension/QQ",
 					"$(PROJECT_DIR)/Extension/QQ",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ljs/Extension",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
@@ -3455,6 +3606,7 @@
 					"$(PROJECT_DIR)/ljs/Extension/WeChat",
 					"$(PROJECT_DIR)/Extension/WeChat",
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
+					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lianjieshe;
 				PRODUCT_NAME = "$(TARGET_NAME)";

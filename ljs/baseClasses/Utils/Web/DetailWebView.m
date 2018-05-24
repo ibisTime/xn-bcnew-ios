@@ -106,6 +106,13 @@ static char imgUrlArrayKey;
     [_webView loadHTMLString:html baseURL:nil];
 }
 
+- (void)loadRequestWithString:(NSString *)string {
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:string]];
+    
+    [self.webView loadRequest:request];
+}
+
 #pragma mark - Func
 
 /*

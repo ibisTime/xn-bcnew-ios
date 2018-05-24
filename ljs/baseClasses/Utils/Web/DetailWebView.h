@@ -20,4 +20,6 @@ typedef void(^WebviewBlock)(CGFloat height);
 
 - (void)loadWebWithString:(NSString *)string;
 
+//加载网页
+- (void)loadRequestWithString:(NSString *)string;
 @end

@@ -32,13 +32,15 @@
     
     if (self = [super init]) {
         
-        UIView *leftBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleWidth, frame.size.height)];
-        
-        UILabel *leftLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, titleWidth - 20, frame.size.height)];
+        UIView *leftBgView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self addSubview:leftBgView];
+
+        UILabel *leftLbl = [[UILabel alloc] initWithFrame:CGRectZero];
         leftLbl.text = leftTitle;
         leftLbl.textAlignment = NSTextAlignmentLeft;
         leftLbl.font = Font(15.0);
         leftLbl.textColor = [UIColor colorWithHexString:@"#484848"];
+//        leftLbl.textColor = [UIColor blackColor];
         [leftBgView addSubview:leftLbl];
         
         self.leftLbl = leftLbl;
@@ -48,10 +50,22 @@
         self.backgroundColor = [UIColor whiteColor];
         self.leftViewMode = UITextFieldViewModeAlways;
         self.rightViewMode = UITextFieldViewModeAlways;
-        self.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        self.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.placeholder = placeholder;
         //    [tf addAction];
         self.font = [UIFont systemFontOfSize:15];
+        
+        [leftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.mas_left);
+            make.width.mas_equalTo(titleWidth);
+            make.bottom.equalTo(self.mas_bottom);
+        }];
+        [leftLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(leftBgView.mas_left).with.offset(15);
+            make.top.equalTo(leftBgView.mas_top);
+            make.bottom.equalTo(leftBgView.mas_bottom);
+            make.width.mas_equalTo(titleWidth - 20);
+        }];
 
     }
     return self;
