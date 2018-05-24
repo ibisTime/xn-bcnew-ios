@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "EditVC.h"
 #import "TLTextField.h"
+#import "NSString+Check.h"
 
 struct TitleInfo {
     NSInteger length;
@@ -129,6 +130,12 @@ typedef struct TitleInfo TitleInfo;
 {
     if (self.nameTf.text.length>0 && self.PhoneTf.text.length>0) {
         NSLog(@"报名");
+        BOOL is = [self.PhoneTf.text isPhoneNum];
+        if (is == NO) {
+            [TLAlert alertWithInfo:@"请输入正确的手机号"];
+            return;
+        }
+
         [self startSignUp];
     }
 }
@@ -151,7 +158,7 @@ typedef struct TitleInfo TitleInfo;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SignSucess" object:nil];
         
     } failure:^(NSError *error) {
-        [TLAlert alertWithSucces:@"报名成功"];
+        [TLAlert alertWithSucces:@"报名失败"];
 
         [self.view endEditing:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SignSucess" object:nil];
@@ -160,7 +167,7 @@ typedef struct TitleInfo TitleInfo;
 
     }];
 
-
+    [self.navigationController popoverPresentationController];
     
 }
 

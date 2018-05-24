@@ -28,8 +28,14 @@
 @property (nonatomic,copy) NSString * isCollect;
 
 
-
 @property (nonatomic,copy) NSString * content;
+@property (nonatomic, copy) NSString *longitude;
+@property (nonatomic,copy) NSString * latitude;
 @property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *collectCount;
+@property (nonatomic, copy) NSString *pointCount;
+@property (nonatomic, copy) NSString *commentCount;
+
 
 @end

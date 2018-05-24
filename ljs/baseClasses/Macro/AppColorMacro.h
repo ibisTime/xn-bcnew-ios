@@ -43,6 +43,7 @@
 #define kThemeColor             [UIColor colorWithHexString:@"#f15353"]  //红色文字
 #define kPaleBlueColor          [UIColor colorWithHexString:@"#48b0fb"]    //蓝色文字
 #define kRiseColor              [UIColor colorWithHexString:@"#1FC07D"]  //涨
+#define kStateColor              [UIColor colorWithHexString:@"#F6A623"]  //活动
 
 #define kAuxiliaryTipColor      [UIColor colorWithHexString:@"#FF254C"]   //辅助提示颜色
 #define kBottomItemGrayColor    [UIColor colorWithHexString:@"#FAFAFA"]   //底栏灰色

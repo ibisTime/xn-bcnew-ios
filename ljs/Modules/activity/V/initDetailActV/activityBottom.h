@@ -15,5 +15,7 @@
 @property (nonatomic, copy) NSString *code;
 
 @property (nonatomic, copy) NSString *content;
+@property (nonatomic, strong) UIButton * collectionBut;
+@property (nonatomic, copy) void(^collectionButBlock)(NSInteger index );
 
 @end

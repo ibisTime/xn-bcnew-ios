@@ -120,7 +120,7 @@
     [self initSegmentView];
     //添加+搜索
     [self addItem];
-    [self initHeaderView];
+//    [self initHeaderView];
 //    [self initTableView];
    
     //获取平台title列表
@@ -159,7 +159,7 @@
     self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor
                                                         font:17.0];
-    self.currencyNameLbl.text = self.titles[1];
+//    self.currencyNameLbl.text = self.titles[1];
     [self.headerView addSubview:self.currencyNameLbl];
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -489,7 +489,7 @@
                 
             }];
         }];
-//        [self initHeaderView];
+        [self initHeaderView];
         [self.tableView beginRefreshing];
     }
     

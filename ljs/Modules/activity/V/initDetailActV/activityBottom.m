@@ -20,11 +20,11 @@
 @property (nonatomic, strong) UIButton *commentsBut;
 
 @property (nonatomic, strong) UIButton *phoneCallBut;
+@property (nonatomic, strong) UILabel *comentCountLab;
 
 
 @property (nonatomic, assign) int SignState;// 1已报名待通过 2 未报名 3 已通过
 
-@property (nonatomic, strong) UIButton * collectionBut;
 
 @end
 
@@ -62,8 +62,9 @@
     }];
     
     //2
-    self.commentsBut = [UIButton buttonWithImageName:@"留言2"];
+    self.commentsBut = [UIButton buttonWithImageName:@"留言"];
     [self addSubview:self.commentsBut];
+    [self.commentsBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.commentsBut addTarget:self action:@selector(openComment) forControlEvents:UIControlEventTouchUpInside];
     [self.commentsBut mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.signUpBut.mas_right).offset(32);
@@ -75,6 +76,22 @@
         make.width.equalTo(@24);
         
     }];
+    self.comentCountLab = [[UILabel alloc] init];
+    [self addSubview:self.comentCountLab];
+    self.comentCountLab.font = [UIFont systemFontOfSize:11];
+    self.comentCountLab.textColor = kHexColor(@"#FF4747");
+   
+    [self.comentCountLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.commentsBut.mas_right).offset(-5);
+        make.top.offset(5);
+        
+        
+        make.height.equalTo(@24);
+        
+        make.width.equalTo(@24);
+        
+    }];
+    
     
     //3
     self.phoneCallBut = [UIButton buttonWithImageName:@"活动详情电话"];
@@ -94,6 +111,7 @@
     //4
     self.collectionBut = [UIButton buttonWithImageName:@"未收藏" selectedImageName:@"收藏"];
     [self addSubview:self.collectionBut];
+    self.collectionBut.tag = 7352;
     [self.collectionBut addTarget:self action:@selector(openCollection:) forControlEvents:UIControlEventTouchUpInside];
     [self.collectionBut mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.phoneCallBut.mas_right).offset(32);
@@ -139,9 +157,14 @@
         [self.signUpBut setBackgroundColor:kpigColor forState:UIControlStateDisabled];
         self.signUpBut.enabled = YES;
     }
-    //    self.users.text = [NSString stringWithFormat:(@"已报名申请个数(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
-//    [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"用户名"]];
     
+    self.comentCountLab.text = detailActModel.commentCount;
+    if ([detailActModel.isCollect isEqualToString:@"1"]) {
+        self.collectionBut.selected = YES;
+    }else{
+        self.collectionBut.selected = NO;
+
+    }
    
     
     
@@ -180,11 +203,12 @@
  
 }
 -(void)openCollection: (UIButton*)btn {
-    
-  
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:btn];
+//
+//
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:btn];
+    self.collectionBut.selected = !btn.selected;
 
-    
+    self.collectionButBlock(btn.tag);
   
 }
 

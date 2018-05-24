@@ -54,7 +54,7 @@
     }];
     //2
     self.titleDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kBlackColor font:17];
-    self.titleDet.textAlignment = NSTextAlignmentCenter;
+    self.titleDet.textAlignment = NSTextAlignmentLeft;
     [self addSubview:self.titleDet];
     
     
@@ -104,7 +104,7 @@
     [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:detailActModel.advPic] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     self.titleDet.text = detailActModel.title;
     self.readCountDet.text = detailActModel.readCount;
-    self.priceDet.text = [NSString stringWithFormat:@"¥%@" ,detailActModel.price];
+    self.priceDet.text = [NSString stringWithFormat:@"¥%.2f" ,[detailActModel.price doubleValue]/1000];
 }
 
 

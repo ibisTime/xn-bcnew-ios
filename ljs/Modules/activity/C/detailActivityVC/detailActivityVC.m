@@ -26,6 +26,7 @@
 @property (nonatomic, strong) activeContent *activeCon;
 @property (nonatomic, strong) activityBottom *activityBott;
 
+@property (nonatomic, copy) NSString  *isCollent;
 
 @end
 
@@ -47,7 +48,7 @@
 -(void)addNSNotification
 {
     //接收通知监听收藏按钮的点击
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(openCollectionBut) name:@"openCollectionBut" object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(openCollectionBut) name:@"openCollectionBut" object:nil];
     //接收通知监听收藏按钮的点击
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(openPhoneCallBut) name:@"openPhoneCallBut" object:nil];
 }
@@ -75,7 +76,7 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
     [contentScrollView addSubview:self.signUpUseres];
     
     //4
-   self. activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, 570)];
+   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, 570)];
     self.activeCon.backgroundColor = kMineBackGroundColor;
 
     [contentScrollView addSubview:self.activeCon];
@@ -85,7 +86,15 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
     self.activityBott.backgroundColor =kHexColor(@"#FBFBFB");
 //    activityBott.backgroundColor =kYellowColor;
     [self.view addSubview:self.activityBott];
-
+    BaseWeakSelf;
+    self.activityBott.collectionButBlock = ^(NSInteger index) {
+        //点击收藏
+        NSLog(@"点击收藏");
+        weakSelf.detailActModel.isCollect = weakSelf.isCollent;
+//        [self collectionInfo:index];
+        UIButton * btn = [weakSelf.activityBott viewWithTag:7352];
+        [weakSelf openCollectionBut:btn];
+    };
         contentScrollView.contentSize = CGSizeMake(kScreenWidth, 280+10+146+10+570);
     
     
@@ -106,7 +115,8 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
     http.code = @"628508";
     http.showView = self.view;
     http.parameters[@"code"] = self.code;
-    
+    http.parameters[@"userId"] = [TLUser user].userId;
+
     [http postWithSuccess:^(id responseObject) {
         
         self.detailActModel = [DetailActModel mj_objectWithKeyValues:responseObject[@"data"]];
@@ -116,7 +126,7 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
          self.signUpUseres.detailActModel= self.detailActModel;
          self.activeCon.detailActModel= self.detailActModel;
          self.activityBott.detailActModel= self.detailActModel;
-        
+        self.isCollent = self.detailActModel.isCollect;
         
         
 
@@ -137,37 +147,34 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
 ///**
 // 收藏资讯
 // */
-//- (void)collectionInfo:(UIButton *)sender {
-//
-//    BaseWeakSelf;
-//
-//    [self checkLogin:^{
-//        //刷新收藏状态
-//        TLNetworking *http = [TLNetworking new];
-//
-//        http.code = @"628512";
-//        weakSelf;
-//        http.parameters[@"code"] = self.detailActModel.code;
-//        http.parameters[@"userId"] = [TLUser user].userId;
-//
-//        [http postWithSuccess:^(id responseObject) {
-//
-////            weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
-////            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
-////
-////            [weakSelf.collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
-//
-//        } failure:^(NSError *error) {
-//
-//        }];
-//    } event:^{
-//
-////        [weakSelf collectionArticle:sender];
-//    }];
-//}
+- (void)collectionInfo:(UIButton *)sender {
 
--(void)openCollectionBut
+    BaseWeakSelf;
+
+    [self checkLogin:^{
+        //刷新收藏状态
+        TLNetworking *http = [TLNetworking new];
+
+        http.code = @"628512";
+        weakSelf;
+        http.parameters[@"code"] = self.detailActModel.code;
+        http.parameters[@"userId"] = [TLUser user].userId;
+
+        [http postWithSuccess:^(id responseObject) {
+
+          
+
+        } failure:^(NSError *error) {
+
+        }];
+    } event:^{
+
+    }];
+}
+
+-(void)openCollectionBut: (UIButton *)btn
 {
+     BaseWeakSelf;
     NSLog(@"openCollectionBut");
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
@@ -175,10 +182,23 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
     http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"token"] = [TLUser user].token;
     http.parameters[@"code"] = self.detailActModel.code;
+    
     [http postWithSuccess:^(id responseObject) {
-        
-        
-        [TLAlert alertWithSucces:@"收藏成功"];
+        UIImage *image =[UIImage imageNamed: @"收藏"];
+        UIImage *imageNo =[UIImage imageNamed: @"未收藏"];
+
+        if ([weakSelf.detailActModel.isCollect isEqualToString:@"0"]) {
+            [TLAlert alertWithSucces:@"收藏成功"];
+            [btn setImage:image forState:UIControlStateNormal];
+            weakSelf.isCollent = @"1";
+
+        }else{
+            [TLAlert alertWithSucces:@"取消收藏成功"];
+            [btn setImage:imageNo forState:UIControlStateNormal];
+            weakSelf.isCollent = @"0";
+
+        }
+//        weakSelf.detailActModel
         
         [[TLUser user] updateUserInfo];
         
@@ -194,7 +214,7 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
    UIApplication * app =  [UIApplication sharedApplication];
     //传一个电话号码
     if (self.detailActModel.contactMobile.length > 0) {
-        NSString *str = [NSString stringWithFormat:@"%@",self.detailActModel.contactMobile];
+        NSString *str = [NSString stringWithFormat:@"telprompt:%@",self.detailActModel.contactMobile];
         [app openURL:[NSURL URLWithString:str]];
     }
 

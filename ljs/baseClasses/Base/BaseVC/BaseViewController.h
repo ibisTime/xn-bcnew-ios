@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "CoinHeader.h"
-
 @interface BaseViewController : UIViewController <UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSString *titleStr;

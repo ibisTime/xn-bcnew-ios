@@ -97,20 +97,17 @@
 //    helper.parameters[@"type"] = self.status;
     helper.parameters[@"status"] = @"1";
     helper.tableView = self.ActivityListTableView;
-    
+    helper.parameters[@"userId"] = [TLUser user].userId;
+
     self.flashHelper = helper;
     
     [helper modelClass:[activityModel class]];
     
     [self.ActivityListTableView addRefreshAction:^{
         //
-        if ([TLUser user].isLogin) {
+       
             
-            helper.parameters[@"userId"] = [TLUser user].userId;
-        } else {
-            
-            helper.parameters[@"userId"] = @"";
-        }
+       
         //
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {

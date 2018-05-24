@@ -318,6 +318,8 @@
         }
         
         [self.tableView reloadData];
+        //刷新资讯详情的评论列表
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCommentList" object:nil];
         
     } failure:^(NSError *error) {
         
@@ -457,6 +459,9 @@
     } event:^{
         
         InfoCommentModel *commentModel = index == 0 ? weakSelf.commentModel: weakSelf.commentModel.commentList[index - 1];
+        if (!commentModel) {
+            commentModel = weakSelf.comments[index];
+        }
         
         [weakSelf zanCommentWithComment:commentModel];
     }];

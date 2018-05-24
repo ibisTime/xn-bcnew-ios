@@ -9,7 +9,7 @@
 #import "initDetailActMap.h"
 //Category 响应者链
 #import "UIView+Responder.h"
-
+#import "NSString+Date.h"
 @import CoreLocation;
 @import MapKit;
 
@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) NSString *urlScheme;
 @property (nonatomic, strong) NSString *appName;
+@property (nonatomic, strong) CLLocationManager *_locationManager;
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @end
@@ -140,7 +141,7 @@
 -(void)setDetailActModel:(DetailActModel *)detailActModel
 {
     _detailActModel = detailActModel;
-    self.date.text = [NSString stringWithFormat:(@"%@/%@"),detailActModel.startDatetime,detailActModel.endDatetime];
+    self.date.text = [NSString stringWithFormat:(@"%@-%@"),[detailActModel.startDatetime convertDate],[detailActModel.endDatetime convertDate]];
     self.location.text = detailActModel.address;
     self.telphone.text = detailActModel.contactMobile;
 
@@ -150,9 +151,37 @@
 #pragma mark - event
 -(void)openMap
 {
+    
+    //确定用户的位置服务是否启用,位置服务在设置中是否被禁用
+    BOOL enable      =[CLLocationManager locationServicesEnabled];
+    NSInteger status =[CLLocationManager authorizationStatus];
+    if(  !enable || status< 2){
+        //尚未授权位置权限
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8)
+        {
+            //系统位置授权弹窗
+            self._locationManager =[[CLLocationManager alloc]init];
+            [ self._locationManager requestAlwaysAuthorization];
+            [ self._locationManager requestWhenInUseAuthorization];
+        }
+    }else{
+        if (status == kCLAuthorizationStatusDenied) {
+            //拒绝使用位置
+            UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:nil message:@"地点功能需要开启位置授权" delegate:self cancelButtonTitle:@"暂不设置" otherButtonTitles:@"现在去设置", nil];
+            [alterView show];
+        }else{
+            //允许使用位置
+            
+        }
+    }
+    
+
         __block NSString *urlScheme = self.urlScheme;
         __block NSString *appName = self.appName;
         __block CLLocationCoordinate2D coordinate = self.coordinate;
+        coordinate.longitude = [_detailActModel.longitude doubleValue];
+        coordinate.latitude =  [_detailActModel.latitude doubleValue];
+
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择地图" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         

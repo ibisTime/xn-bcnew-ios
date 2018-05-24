@@ -20,5 +20,7 @@
 //
 @property (nonatomic,copy) NSString * status;
 @property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *isEnroll;
+
 
 @end

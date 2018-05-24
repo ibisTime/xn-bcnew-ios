@@ -54,16 +54,16 @@
     }];
     
     //3
-    self.moreButt = [UIButton buttonWithImageName:@"更多" selectedImageName:@"更多"];
-    [self addSubview:self.moreButt];
-    [self.moreButt addTarget:self action:@selector(openMor) forControlEvents:UIControlEventTouchUpInside];
-    [self.moreButt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.userImg.mas_centerY);
-        make.right.offset(-15);
-        make.height.equalTo(@14);
-        make.width.equalTo(@14);
-        
-    }];
+//    self.moreButt = [UIButton buttonWithImageName:@"更多" selectedImageName:@"更多"];
+//    [self addSubview:self.moreButt];
+//    [self.moreButt addTarget:self action:@selector(openMor) forControlEvents:UIControlEventTouchUpInside];
+//    [self.moreButt mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.userImg.mas_centerY);
+//        make.right.offset(-15);
+//        make.height.equalTo(@14);
+//        make.width.equalTo(@14);
+//
+//    }];
     
     
     
@@ -77,8 +77,8 @@
 -(void)setDetailActModel:(DetailActModel *)detailActModel
 {
         _detailActModel = detailActModel;
-    self.users.text = [NSString stringWithFormat:(@"已报名申请个数(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"用户名"]];
+    self.users.text = [NSString stringWithFormat:(@"已报名用户(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 
 
 }

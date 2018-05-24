@@ -33,7 +33,8 @@
 @property (nonatomic, strong) UILabel *location;
 
 
-
+@property (nonatomic, strong) UIButton *stateView;
+@property (nonatomic, strong) UILabel *stateLable;
 
 //@property (nonatomic, strong) UILabel *status;
 
@@ -59,7 +60,10 @@
     self.ActivityImg = [[UIImageView alloc] init];
     [self addSubview:self.ActivityImg];
     
-    
+    UIButton *stateView = [[UIButton alloc] init];
+    self.stateView =stateView;
+    [self addSubview:stateView];
+ 
     //活动主题
     self.ActivityTitle = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:17.0];
     self.ActivityTitle.numberOfLines = 0;//行数
@@ -114,6 +118,16 @@
         make.height.equalTo(@165);
         
     }];
+    [self.stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.offset(15);
+        make.left.offset(15);
+        make.width.offset(58);
+        make.height.equalTo(@24);
+        
+    }];
+   
+
     //标题
     [self.ActivityTitle mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
@@ -133,7 +147,7 @@
     [self.dateLblImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.offset(15);
-        make.top.equalTo(self.ActivityTitle.mas_bottom).offset(5);
+        make.top.equalTo(self.ActivityTitle.mas_bottom).offset(9);
 
     }];
    
@@ -166,7 +180,7 @@
     [self.locationImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.offset(15);
-make.top.equalTo(self.dateLblImg.mas_bottom).offset(5);
+        make.top.equalTo(self.dateLblImg.mas_bottom).offset(10);
     }];
 
     
@@ -196,10 +210,20 @@ make.top.equalTo(self.dateLblImg.mas_bottom).offset(5);
     _actModel  = actModel;
     ;
     [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:actModel.advPic] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
+    NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
+    if ([state isEqualToString:@"1"] || [state isEqualToString:@"2"] ) {
+        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
+        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
+    }else{
+        [self.stateView setTitle:@"未报名" forState:UIControlStateNormal];
+        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
+        
+    }
+  
 //    self.ActivityImg.image =[UIImage imageNamed: actModel.advPic];
     self.ActivityTitle.text = actModel.title;
-    self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
-    self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",actModel.startDatetime,actModel.endDatetime];
+    self.price.text =[NSString stringWithFormat:@"￥ %.2f",[actModel.price doubleValue]/1000];
+    self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
     
     self.readCount.text = actModel.readCount;
     self.location.text = actModel.address;

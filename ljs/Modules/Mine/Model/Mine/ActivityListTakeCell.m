@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIImageView *locationImg;
 @property (nonatomic, strong) UILabel *location;
 @property (nonatomic, strong) UILabel *price;
+@property (nonatomic, strong)  UIView *stateView;
+@property (nonatomic, strong)  UILabel *stateLable;
 
 //收藏数
 @property (nonatomic, strong) UILabel *collectNumLbl;
@@ -49,6 +51,12 @@
 
 #pragma mark - Init
 - (void)initSubviews {
+    UIView *stateView = [[UIView alloc] init];
+    self.stateView =stateView;
+    [self addSubview:stateView];
+    UILabel *stateLable = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:14];
+    self.stateLable = stateLable;
+    [self addSubview:stateLable];
     
     //缩略图
     self.infoIV = [[UIImageView alloc] init];
@@ -131,6 +139,20 @@
         make.top.equalTo(@10);
         make.width.equalTo(@100);
         make.height.equalTo(@100);
+    }];
+    [self.stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@(x));
+        make.top.equalTo(@10);
+        make.width.equalTo(@58);
+        make.height.equalTo(@23);
+    }];
+    [self.stateLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@(x+23));
+        make.top.equalTo(@10);
+        make.width.equalTo(@50);
+        make.height.equalTo(@20);
     }];
     //标题
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
