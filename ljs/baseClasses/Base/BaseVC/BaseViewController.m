@@ -238,7 +238,6 @@
         return _placeholderView;
     } else {
         
-        ;
         NSLog(@"请先调用%@ 进行初始化",NSStringFromSelector(@selector(placholderViewWithTitle:opTitle:)));
         
         return nil;

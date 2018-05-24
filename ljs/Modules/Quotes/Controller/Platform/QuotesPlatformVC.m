@@ -200,7 +200,10 @@
     self.percentChangeIndex = -1;
 
     self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
-    
+    BaseWeakSelf;
+    self.tableView.selectBlock = ^(NSString *tosymbol) {
+        weakSelf.selectBlock(tosymbol);
+    };
 //    self.tableView.type = self.type;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 

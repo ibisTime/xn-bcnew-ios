@@ -17,7 +17,7 @@
 //C
 #import "ForumDetailVC.h"
 #import "TLNetworking.h"
-@interface QuotesCurrencyVC ()
+@interface QuotesCurrencyVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
 @property (nonatomic, strong) NSArray <CurrencyPriceModel *>*currencyPrices;
@@ -199,10 +199,13 @@
     self.percentChangeIndex = -1;
 
     self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
-    
+    BaseWeakSelf;
+    self.tableView.selectBlock = ^(NSString *tosymbol) {
+        weakSelf.selectBlock(tosymbol);
+    };
     self.tableView.type = self.type;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
-
+    self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //
@@ -359,6 +362,10 @@
     } failure:^(NSError *error) {
         
     }];
+}
+- (void)refreshTableView:(TLTableView*)refreshTableview didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    NSLog(@"--->%ld",indexPath.row);
 }
 
 /**

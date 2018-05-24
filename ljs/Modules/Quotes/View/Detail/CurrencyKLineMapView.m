@@ -102,5 +102,9 @@
     
     [self.kLineView loadRequestWithString:html];
 }
+- (void)reloadWeb
+{
+    [self.kLineView.webView reload];
+}
 
 @end

@@ -40,6 +40,8 @@
 @property (nonatomic, strong) CurrencyBottomView *bottomView;
 //设置预警
 //@property (nonatomic, strong) SetWarningView *warningView;
+//自选添加 删除
+@property (nonatomic, strong)UIButton *informationCardBtn;
 //币种信息
 @property (nonatomic, strong) PlatformModel *platform;
 //是否加载
@@ -71,15 +73,6 @@
     }
     return _changeView;
 }
-
-//- (SetWarningView *)warningView {
-//
-//    if (!_warningView) {
-//
-//        _warningView = [[SetWarningView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-//    }
-//    return _warningView;
-//}
 
 - (void)initSubviews {
 
@@ -123,15 +116,6 @@
         
     }];
     
-    //向下箭头
-    //    self.arrowIV = [[UIImageView alloc] initWithImage:kImage(@"下拉")];
-    //
-    //    [titleView addSubview:self.arrowIV];
-    //    [self.arrowIV mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.left.equalTo(symbolNameLbl.mas_right).offset(12);
-    //        make.centerY.equalTo(symbolNameLbl.mas_centerY);
-    //    }];
     
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPullDown:)];
     [titleView addGestureRecognizer:tapGR];
@@ -140,8 +124,67 @@
     
     [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
+    
+    self.informationCardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.informationCardBtn addTarget:self action:@selector(addchouse) forControlEvents:UIControlEventTouchUpInside];
+    [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
+    
+    [self.informationCardBtn sizeToFit];
+    UIBarButtonItem *informationCardItem = [[UIBarButtonItem alloc] initWithCustomView:self.informationCardBtn];
+    
+    
+    UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpaceBarButtonItem.width = 22;
+    
+    
+    UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingBtn addTarget:self action:@selector(reloadWebview) forControlEvents:UIControlEventTouchUpInside];
+    [settingBtn setImage:[UIImage imageNamed:@"df_刷新"] forState:UIControlStateNormal];
+    [settingBtn sizeToFit];
+    UIBarButtonItem *settingBtnItem = [[UIBarButtonItem alloc] initWithCustomView:settingBtn];
+    
+    
+    
+    self.navigationItem.rightBarButtonItems  = @[informationCardItem,fixedSpaceBarButtonItem,settingBtnItem];
+    
+}
+- (void)reloadWebview
+{
+    [self.kLineView reloadWeb];
 }
 
+/**
+ 添加或删除自选
+ */
+- (void)addchouse
+{
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628330";
+    http.showView = self.view;
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
+    http.parameters[@"symbol"] = self.platform.symbol;
+    http.parameters[@"toSymbol"] = self.platform.toSymbol;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        if ([self.platform.isChoice integerValue] == 1) {
+            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
+            self.platform.isChoice = @"0";
+            
+        }
+        else
+        {
+            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
+            self.platform.isChoice = @"1";
+        }
+
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 - (void)initInfoView {
     
     self.infoView = [[CurrencyInfoView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 95)];
@@ -235,78 +278,11 @@
             break;
     }
 }
-#pragma mark - Events
-//- (void)bottomEventType:(BottomEventType)type {
-//
-//    BaseWeakSelf;
-//
-//    switch (type) {
-//
-//        case BottomEventTypeEarlyWarning:
-//        {
-//            [self checkLogin:^{
-//
-//                weakSelf.warningView.platform = weakSelf.platform;
-//
-//                [weakSelf.warningView show];
-//            }];
-//
-//        }break;
-//
-//        case BottomEventTypeFollow:
-//        {
-//            BaseWeakSelf;
-//            [self checkLogin:^{
-//
-//                TLNetworking *http = [TLNetworking new];
-//
-//                http.code = @"628352";
-//                http.showView = self.view;
-//                http.parameters[@"id"] = self.symbolID;
-//
-//                [http postWithSuccess:^(id responseObject) {
-//                    //刷新关注状态
-//                    weakSelf.platform = [PlatformModel mj_objectWithKeyValues:responseObject[@"data"]];
-//                    weakSelf.infoView.platform = weakSelf.platform;
-//                    weakSelf.bottomView.platform = weakSelf.platform;
-//
-//                } failure:^(NSError *error) {
-//
-//                }];
-//
-//            } event:^{
-//
-//                [self followCurrency];
-//            }];
-//
-//        }break;
-//
-//        case BottomEventTypeBuy:
-//        {
-//            SimulationTradeDetailVC *detailVC = [SimulationTradeDetailVC new];
-//
-//            detailVC.direction = @"0";
-//
-//            [self.navigationController pushViewController:detailVC animated:YES];
-//        }break;
-//
-//        case BottomEventTypeSell:
-//        {
-//            SimulationTradeDetailVC *detailVC = [SimulationTradeDetailVC new];
-//
-//            detailVC.direction = @"1";
-//
-//            [self.navigationController pushViewController:detailVC animated:YES];
-//        }break;
-//
-//        default:
-//            break;
-//    }
-//}
+
 
 - (void)clickPullDown:(UITapGestureRecognizer *)tapGR {
     
-    if (!_isDown) {
+    if (!self.isDown) {
         
         [self.changeView show];
         
@@ -316,7 +292,7 @@
             
         } completion:^(BOOL finished) {
             
-            _isDown = YES;
+            self.isDown = YES;
         }];
         
     } else {
@@ -329,7 +305,7 @@
             
         } completion:^(BOOL finished) {
             
-            _isDown = NO;
+            self.isDown = NO;
         }];
     }
 }
@@ -341,7 +317,7 @@
     
     http.code = @"628352";
     http.showView = self.view;
-    http.parameters[@"id"] = /*self.symbolID*/@"1";
+    http.parameters[@"id"] = self.symbolID;
     if ([TLUser user].userId) {
         
         http.parameters[@"userId"] = [TLUser user].userId;
@@ -353,6 +329,16 @@
         
         [self initSubviews];
         
+        if ([self.platform.isChoice integerValue] == 1) {
+            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
+
+        }
+        else
+        {
+            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
+
+        }
+        
         self.infoView.platform = self.platform;
         self.kLineView.platform = self.platform;
         self.bottomView.backgroundColor = self.platform.bgColor;
@@ -362,44 +348,7 @@
     }];
 }
 
-/**
- 关注
- */
-//- (void)followCurrency {
-//    
-//    TLNetworking *http = [TLNetworking new];
-//    
-//    http.code = @"628330";
-//    http.showView = self.view;
-//    http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
-//    http.parameters[@"userId"] = [TLUser user].userId;
-//    http.parameters[@"symbol"] = self.platform.symbol;
-//    http.parameters[@"toSymbol"] = self.platform.toSymbol;
-//    
-//    [http postWithSuccess:^(id responseObject) {
-//        
-//        NSString *promptStr = [self.platform.isChoice isEqualToString:@"1"] ? @"删除自选成功": @"添加自选成功";
-//        [TLAlert alertWithSucces:promptStr];
-//        
-//        if ([self.platform.isChoice isEqualToString:@"1"]) {
-//            
-//            self.platform.isChoice = @"0";
-//            
-//        } else {
-//            
-//            self.platform.isChoice = @"1";
-//        }
-//        
-//        self.bottomView.platform = self.platform;
-//        
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"FollowOrCancelFollow" object:nil];
-//        //刷新关注人数
-//        [self followOrCancelFollow];
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
-//}
+
 
 - (void)followOrCancelFollow {
     

@@ -14,6 +14,10 @@
 /**
  币种
  */
+typedef void(^selectCurrent)(NSString *);
+
+
+
 @interface QuotesCurrencyVC : BaseViewController
 //
 @property (nonatomic, assign) CurrencyType type;
@@ -26,5 +30,6 @@
 //当前索引
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
+@property (nonatomic,copy)selectCurrent selectBlock;
 
 @end

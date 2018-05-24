@@ -13,6 +13,8 @@
 
 #import "SelectScrollView.h"
 #import "HomeChildVC.h"
+#import "ActivityVC.h"
+#import "PlatformAndOtherVC.h"
 
 @interface NewSearchViewController ()
 //搜索
@@ -85,7 +87,7 @@
     
     BaseWeakSelf;
     
-    self.titles = @[ @"币种",@"平台",@"咨询",@"快讯",@"活动"];
+    self.titles = @[@"币种",@"平台",@"资讯",@"快讯",@"活动"];
     
     self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight) itemTitles:self.titles];
     self.selectSV.selectBlock = ^(NSInteger index) {
@@ -99,9 +101,31 @@
 
 - (void)addSubViewController
 {
-    self.selectSV.currentIndex = 3;
     for (NSInteger index = 0; index < self.titles.count; index++) {
-        if (index == 3) {
+        if (index == 0) {
+            PlatformAndOtherVC *other = [[PlatformAndOtherVC alloc]init];
+            other.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:other];
+            [self.selectSV.scrollView addSubview:other.view];
+        }
+        else if (index == 1) {
+            PlatformAndOtherVC *other = [[PlatformAndOtherVC alloc]init];
+            other.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:other];
+            [self.selectSV.scrollView addSubview:other.view];
+        }
+        else if (index == 2) {
+            
+            HomeChildVC *childVC = [[HomeChildVC alloc] init];
+            childVC.status = @"1";
+            childVC.kind = @"2";
+            childVC.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
+        }
+        else if (index == 3) {
             HomeChildVC *childVC = [[HomeChildVC alloc] init];
             childVC.status = @"";
             childVC.kind = @"1";
@@ -111,6 +135,15 @@
             
             [self.selectSV.scrollView addSubview:childVC.view];
         }
+        else if (index == 4)
+        {
+            ActivityVC *activity = [[ActivityVC alloc]init];
+
+            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:activity];
+            [self.selectSV.scrollView addSubview:activity.view];
+
+        }
     }
 }
 /**
@@ -118,7 +151,7 @@
  */
 - (void)didSelectWithIndex:(NSInteger)index
 {
-    
+
 }
 - (void)back {
     

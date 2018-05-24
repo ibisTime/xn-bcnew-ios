@@ -54,7 +54,7 @@
                                   backgroundColor:kClearColor
                                         titleFont:16.0];
     [self.RMBBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [self.RMBBtn setImage:kImage(@"未选中") forState:UIControlStateNormal];
+    [self.RMBBtn setImage:kImage(@"未选中NO") forState:UIControlStateNormal];
     
     [self addSubview:self.RMBBtn];
     [self.RMBBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,7 +70,7 @@
                                   backgroundColor:kClearColor
                                         titleFont:16.0];
     [self.SCDBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [self.SCDBtn setImage:kImage(@"选中") forState:UIControlStateNormal];
+    [self.SCDBtn setImage:kImage(@"选中YE") forState:UIControlStateNormal];
 
     [self addSubview:self.SCDBtn];
     [self.SCDBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -195,8 +195,8 @@
 {
     
     if (sender == self.RMBBtn) {
-        [self.RMBBtn setImage:kImage(@"选中") forState:UIControlStateNormal];
-        [self.SCDBtn setImage:kImage(@"未选中") forState:UIControlStateNormal];
+        [self.RMBBtn setImage:kImage(@"选中YES") forState:UIControlStateNormal];
+        [self.SCDBtn setImage:kImage(@"未选中NO") forState:UIControlStateNormal];
         self.upTextFiled.leftLbl.text = @"¥";
         self.downTextFiled.leftLbl.text = @"¥";
         self.isRMB = YES;
@@ -204,8 +204,8 @@
     }
     else
     {
-        [self.SCDBtn setImage:kImage(@"选中") forState:UIControlStateNormal];
-        [self.RMBBtn setImage:kImage(@"未选中") forState:UIControlStateNormal];
+        [self.SCDBtn setImage:kImage(@"选中YES") forState:UIControlStateNormal];
+        [self.RMBBtn setImage:kImage(@"未选中NO") forState:UIControlStateNormal];
         self.upTextFiled.leftLbl.text = @"$";
         self.downTextFiled.leftLbl.text = @"$";
         self.isRMB = NO;

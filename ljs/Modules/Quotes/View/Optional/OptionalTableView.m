@@ -56,6 +56,9 @@ static NSString *identifierCell = @"OptionalCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    OptionalListModel *model = self.optionals[indexPath.row];
+    self.selectBlock(model.ID);
+    
     
 }
 

@@ -324,6 +324,8 @@
 		C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */; };
 		C432D71720B651E10022337E /* CurrentesManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71620B651E10022337E /* CurrentesManagementVC.m */; };
 		C432D71A20B65BDB0022337E /* NewSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71920B65BDB0022337E /* NewSearchViewController.m */; };
+		C490183D20B6BAD00091C11F /* PlatformAndOtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */; };
+		C490184020B6C1840091C11F /* PlatformAndOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */; };
 		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
 		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
 		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
@@ -970,6 +972,10 @@
 		C432D71620B651E10022337E /* CurrentesManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentesManagementVC.m; sourceTree = "<group>"; };
 		C432D71820B65BDB0022337E /* NewSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSearchViewController.h; sourceTree = "<group>"; };
 		C432D71920B65BDB0022337E /* NewSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSearchViewController.m; sourceTree = "<group>"; };
+		C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformAndOtherVC.h; sourceTree = "<group>"; };
+		C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherVC.m; sourceTree = "<group>"; };
+		C490183E20B6C1840091C11F /* PlatformAndOtherCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformAndOtherCell.h; sourceTree = "<group>"; };
+		C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherCell.m; sourceTree = "<group>"; };
 		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1702,6 +1708,8 @@
 				2124BED620635B9300CB79E8 /* SearchHistoryChildVC.m */,
 				C432D71820B65BDB0022337E /* NewSearchViewController.h */,
 				C432D71920B65BDB0022337E /* NewSearchViewController.m */,
+				C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */,
+				C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1717,6 +1725,8 @@
 				2124BED0206355E600CB79E8 /* SearchHistoryTableView.m */,
 				2124BED22063560200CB79E8 /* SearchHistoryCell.h */,
 				2124BED32063560200CB79E8 /* SearchHistoryCell.m */,
+				C490183E20B6C1840091C11F /* PlatformAndOtherCell.h */,
+				C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3331,6 +3341,7 @@
 				2124BEB020627FC400CB79E8 /* QuotesOptionalVC.m in Sources */,
 				21AC59471FDE7A1B00F19DE8 /* TLAlert.m in Sources */,
 				21459401206B34B30006E238 /* HomePageCircleVC.m in Sources */,
+				C490183D20B6BAD00091C11F /* PlatformAndOtherVC.m in Sources */,
 				21CFFB0320565DB900D245ED /* QuotesVC.m in Sources */,
 				21EF0B9B20677477008EA865 /* OptionalListModel.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
@@ -3425,6 +3436,7 @@
 				21EF0B522064D2CD008EA865 /* ForumQuotesTableView.m in Sources */,
 				186E8C01209C0A9D00532B1C /* ActivityCommentsListV.m in Sources */,
 				2124BE7020613E5900CB79E8 /* InfoCommentDetailVC.m in Sources */,
+				C490184020B6C1840091C11F /* PlatformAndOtherCell.m in Sources */,
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
 				C4BD789F20B3C26000C46D05 /* CurrencyBottomView.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
