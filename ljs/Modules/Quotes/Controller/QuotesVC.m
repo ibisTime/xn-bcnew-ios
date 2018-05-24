@@ -26,7 +26,7 @@
 #import "SearchCurrencyVC.h"
 #import "NavigationController.h"
 #import "HomeQuotesView.h"
-
+#import "QutesChildViewController.h"
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -43,13 +43,16 @@
 //类型
 @property (nonatomic, strong) NSMutableArray *kinds;
 //自选
-@property (nonatomic, strong) OptionalTableView *tableView;
+@property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
+
+@property (nonatomic, strong) PlatformTableView *tableView;
 //添加
 @property (nonatomic, strong) BaseView *footerView;
-//自选列表
-@property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
+
 //平台
 @property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
+@property (nonatomic, strong) PlatformTitleModel  *platformTitleModel;
+
 //币种
 @property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
 //定时器
@@ -60,11 +63,20 @@
 @property (nonatomic, assign) NSInteger platformLabelIndex;
 //当前币种索引
 @property (nonatomic, assign) NSInteger currencyLabelIndex;
+@property (nonatomic, strong) PlatformTitleModel *titleModel;
 
 @property (nonatomic, strong) NSArray *titleBars;
 @property (nonatomic, strong) HomeQuotesView *quotesView;
 @property (nonatomic, assign) CGFloat titleHeight;
+@property (nonatomic, strong) BaseView *headerView;
+@property (nonatomic, strong) UILabel *platformNameLbl;
+@property (nonatomic, assign) PlatformType type;
+@property (nonatomic, assign) NSInteger percentChangeIndex;//涨幅 跌幅
 
+@property (nonatomic, strong) UILabel *currencyNameLbl;
+
+
+@property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
 
 @end
 
@@ -74,11 +86,11 @@
     
     [super viewWillAppear:animated];
     
-    if (self.currentSegmentIndex == 2) {
+    if (self.currentSegmentIndex == 1) {
 
         [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
                                       labelIndex:self.platformLabelIndex];
-    } else if (self.currentSegmentIndex == 3) {
+    } else if (self.currentSegmentIndex == 2) {
 
         [self startCurrencyTimerWithSegmentIndex:self.currentSegmentIndex
                                       labelIndex:self.currencyLabelIndex];
@@ -96,8 +108,8 @@
         return ;
     }
     
-    [self startCurrencyTimerWithSegmentIndex:1
-                                  labelIndex:0];
+//    [self startCurrencyTimerWithSegmentIndex:1
+//                                  labelIndex:0];
 }
 
 - (void)viewDidLoad {
@@ -108,12 +120,18 @@
     [self initSegmentView];
     //添加+搜索
     [self addItem];
-    //获取自选列表
-    [self requestOptionalList];
+    [self initHeaderView];
+//    [self initTableView];
+   
     //获取平台title列表
-    [self requestPlatformTitleList];
+//    [self requestPlatformTitleList];
     //获取币种title列表
     [self requestCurrencyTitleList];
+    //自选
+//    [self requestOptionalList];
+
+//    [self requestPlatform];
+    [self.tableView beginRefreshing];
     //添加通知
     [self addNotification];
 }
@@ -124,13 +142,55 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kUserLoginNotification object:nil];
     //退出登录刷新列表
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:kUserLoginOutNotification object:nil];
+    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
+    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+    
+    
+}
+- (void)initHeaderView {
+    
+    self.headerView = [[BaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 34)];
+    
+    self.headerView.backgroundColor = kWhiteColor;
+    [self.switchSV addSubview:self.headerView];
+
+    //币种名称
+    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                   textColor:kTextColor
+                                                        font:17.0];
+    self.currencyNameLbl.text = self.titles[1];
+    [self.headerView addSubview:self.currencyNameLbl];
+    [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@10);
+        make.top.equalTo(@10);
+    }];
+    //阴影
+    UIView *shadowView = [[UIView alloc] init];
+    
+    shadowView.backgroundColor = kWhiteColor;
+    shadowView.layer.shadowColor = kAppCustomMainColor.CGColor;
+    shadowView.layer.shadowOpacity = 0.8;
+    shadowView.layer.shadowRadius = 2;
+    shadowView.layer.shadowOffset = CGSizeMake(0, 0);
+    shadowView.layer.cornerRadius = 4;
+    
+    [self.headerView addSubview:shadowView];
+    [shadowView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(@0);
+        make.right.equalTo(@(-kWidth(25)));
+        make.width.equalTo(@87);
+        make.height.equalTo(@40);
+    }];
     
 }
 
 - (void)userLogin {
     
     //刷新自选列表
-    self.tableView.hiddenHeader = NO;
+//    self.tableView.hiddenHeader = NO;
     [self.tableView beginRefreshing];
 }
 
@@ -138,19 +198,12 @@
     //关闭定时器
     [self stopTimer];
     //清空数据
-    self.tableView.optionals = nil;
     [self.tableView reloadData_tl];
-    self.tableView.hiddenHeader = YES;
+//    self.tableView.hiddenHeader = YES;
     self.tableView.tableFooterView = self.footerView;
 }
 
 #pragma mark - Init
-- (void)addItem {
-    //添加选择
-    [UIBarButtonItem addLeftItemWithImageName:@"添加" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(addCurrency)];
-    //搜索
-    [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
-}
 
 - (void)initFooterView {
     
@@ -177,9 +230,9 @@
     self.currencyLabelIndex = 0;
     
     NSArray *titleArr = @[
-                          @"自选",
                           @"平台",
-                          @"币种"];
+                          @"币种",
+                          @"自选"];
     
     CGFloat h = 34-4;
     
@@ -205,32 +258,61 @@
     self.switchSV.scrollEnabled = NO;
     //2.添加自选
     self.titleBars = @[@"涨幅榜", @"跌幅榜",@"预警中"];
-   
-    self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 46) itemTitles:self.titleBars];
+    self.percentChangeIndex = -1;
+    self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, 46) itemTitles:self.titleBars];
     [self.view addSubview:self.quotesView];
     self.quotesView.selectBlock = ^(NSInteger index) {
       // index 0 涨幅榜 1 跌幅榜 3预警中
         NSLog(@"点击了%ld",index);
         //点击标签
-    };
-    
-    [self initOptionalTableView];
-}
-
-- (void)initOptionalTableView {
-    
-    BaseWeakSelf;
-    
-    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) style:UITableViewStylePlain];
-    
-    self.tableView.refreshBlock = ^{
+//        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"index"];
+        switch (index) {
+            case 0:
+                index = 1;
+                break;
+            case  1 :
+                index = 0;
+            default:
+                break;
+        }
         
-        [weakSelf.tableView beginRefreshing];
+        NSDictionary *dic = @{@"titleBarindex": @(index)};
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
+                                                            object:nil
+                                                          userInfo:dic];
     };
-    
-    [self.switchSV addSubview:self.tableView];
-    
+   
+    int i = 0;
+//    [self.selectSV setCurrentIndex:1];
+    [self.switchSV setContentOffset:CGPointMake((0) * self.switchSV.width, 0)];
+//    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(i+1)*kScreenWidth];
+    if (i ==1 || i == 2 || i == 0) {
+        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 46)];
+    }else{
+        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 46)];
+    }
+//    NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
+//    [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
+//
+//    [self initOptionalTableView];
 }
+#pragma mark - Init
+
+- (void)initTableView {
+        
+        self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 88, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+        
+        self.tableView.type = PlatformTypePlatform;
+        self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+    
+       [self.selectSV addSubview:self.tableView];
+//       self.tableView.tableHeaderView = self.headerView;
+    [self requestPlatform];
+
+
+    
+    }
 
 - (void)initSelectScrollViewWithIdx:(NSInteger)idx {
     
@@ -239,13 +321,12 @@
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
     selectSV.selectBlock = ^(NSInteger index) {
-        
         if (idx == 1) {
             
-            weakSelf.platformLabelIndex = index;
+            weakSelf.currencyLabelIndex = index;
         } else if (idx == 2) {
             
-            weakSelf.currencyLabelIndex = index;
+            weakSelf.platformLabelIndex = index;
         }
         //点击标签
         [weakSelf startCurrencyTimerWithSegmentIndex:weakSelf.currentSegmentIndex
@@ -263,32 +344,11 @@
     
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
-        //平台
-        if ([self.kind isEqualToString:kPlatform]) {
-            
-            QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
-            
-    
-            
-//            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
-            
-            childVC.currentIndex = i;
-            childVC.type = PlatformTypePlatform;
-            childVC.titleModel = self.platformTitleList[i];
-            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
-            
-            [self addChildViewController:childVC];
-            
-            [self.selectSV.scrollView addSubview:childVC.view];
-        } else {
-            
-
-            [self.view addSubview:self.quotesView];
-           
+        if ([self.kind isEqualToString:kCurrency]) {
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
-            
-//            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
+            childVC.currencyTitleList = self.currencyTitleList;
+            //            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
             childVC.currentIndex = i;
             childVC.type = i == 0 ? CurrencyTypePrice:  CurrencyTypeCurrency;
             if (i != 0) {
@@ -300,56 +360,211 @@
             [self addChildViewController:childVC];
             
             [self.selectSV.scrollView addSubview:childVC.view];
+           
+        }
+        else{
+            
+            
+            //自选
+            QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
+            
+            
+            
+            //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
+            childVC.optionals = self.optionals;
+            childVC.currentIndex = i;
+            childVC.type = PlatformTypePlatform;
+            //            childVC.titleModel = self.platformTitleList[i];
+            //            childVC.optionals = self.platformTitleList;
+            //            self.kind =
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
         }
     }
+    
 }
 
 - (void)startTimer {
+        
+        //开启定时器,实时刷新
+        self.timer = [NSTimer timerWithTimeInterval:10
+                                             target:self
+                                           selector:@selector(refreshPlatformList)
+                                           userInfo:nil
+                                            repeats:YES];
+        
+        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+        NSLog(@"平台定时器开启, index = %ld", self.currentSegmentIndex);
+        
+    }
     
-    //开启定时器,实时刷新
-    self.timer = [NSTimer timerWithTimeInterval:10
-                                         target:self
-                                       selector:@selector(refreshOptionalList)
-                                       userInfo:nil
-                                        repeats:YES];
+- (void)refreshPlatformList {
+        NSLog(@"平台定时器刷新中, index = %ld", self.currentSegmentIndex);
+        
+        BaseWeakSelf;
+        //刷新平台列表
+        [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.platforms = objs;
+            
+            weakSelf.tableView.platforms = objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
     
-    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-    NSLog(@"自选定时器开启");
-
-}
-
-//定时器停止
+    //定时器停止
 - (void)stopTimer {
+        
+        [self.timer invalidate];
+        self.timer = nil;
+        NSLog(@"平台定时器停止, index = %ld", self.currentSegmentIndex);
+    }
+//平台列表
+- (void)requestPlatform {
+        BaseWeakSelf;
     
-    [self.timer invalidate];
-    self.timer = nil;
-    NSLog(@"自选定时器停止");
-
-}
-
-- (void)refreshOptionalList {
+        TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+        
+        helper.code = @"628350";
     
-    NSLog(@"自选定时器刷新中");
+        if (self.titleModel) {
+            helper.parameters[@"exchangeEname"] = self.titleModel.ename;
+            
+        }
+        helper.parameters[@"start"] = @"0";
+        helper.parameters[@"limit"] = @"10";
+        
+        
+        helper.parameters[@"userId"] = [TLUser user].userId;
+        
+        helper.tableView = self.tableView;
+        [helper modelClass:[PlatformModel class]];
+        
+        self.helper = helper;
+        
+        [self.tableView addRefreshAction:^{
+            if (weakSelf.percentChangeIndex >= 0) {
+                helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+                
+            }
+            
+            [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+                if (objs.count == 0) {
+                    
+                    weakSelf.tableView.tableFooterView = weakSelf.footerView;
 
-    BaseWeakSelf;
+                    return ;
+                }
+//                weakSelf.tableView.tableFooterView = nil;
+
+                weakSelf.platforms = objs;
+                
+                weakSelf.tableView.platforms = objs;
+                
+                [weakSelf.tableView reloadData_tl];
+
+            } failure:^(NSError *error) {
+                
+            }];
+        }];
+        
+        [self.tableView addLoadMoreAction:^{
+            
+            [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+                
+                weakSelf.platforms = objs;
+                
+                weakSelf.tableView.platforms = objs;
+                
+                [weakSelf.tableView reloadData_tl];
+
+            } failure:^(NSError *error) {
+                
+            }];
+        }];
+//        [self initHeaderView];
+        [self.tableView beginRefreshing];
+    }
     
-    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
-        weakSelf.optionals = objs;
-
-        weakSelf.tableView.optionals = objs;
-        
-        [weakSelf.tableView reloadData_tl];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-}
 
 #pragma mark - Events
+- (void)addItem {
+    //添加选择
+    [UIBarButtonItem addLeftItemWithImageName:@"添加" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(addCurrency)];
+    //搜索
+    [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
+    NSLog(@"%@",NSStringFromCGRect(self.tableView.superview.frame));
+    
+}
+
 /**
  添加币种
  */
+
+/**
+ 点击标签
+ */
+- (void)didSelectIndex:(NSInteger)index {
+    
+    
+}
+
+/**
+ 开启当前显示页面的定时器
+ */
+- (void)startCurrencyTimerWithSegmentIndex:(NSInteger)segmentIndex
+                                labelIndex:(NSInteger)labelIndex {
+    
+    NSDictionary *dic = @{
+                          @"segmentIndex": @(segmentIndex),
+                          @"labelIndex": @(labelIndex),
+                          };
+    if (segmentIndex == 1) {
+        //当前控制器 不需要通知
+        [self segmenChildLableClick:segmentIndex :labelIndex];
+        
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSwitchLabel"
+                                                        object:nil
+                                                      userInfo:dic];
+}
+
+- (void)segmenChildLableClick: (NSInteger)segment : (NSInteger)labIndex
+{
+    
+    NSLog(@"%@",self.titles);
+    if (labIndex > self.platformTitleList.count) {
+        labIndex = 0;
+        
+    }
+    if (self.platformTitleList >= 0) {
+        self.platformTitleModel = self.platformTitleList[labIndex];
+        [self.tableView beginRefreshing];
+    }
+      
+}
+
+#pragma mark - Data
+
+- (void)titleBarClick:(NSNotification *)notification {
+    
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    self.percentChangeIndex = index;
+    [self requestPlatform];
+}
+
+/**
+ 添加币种
+ */
+
+
 - (void)addCurrency {
     
     BaseWeakSelf;
@@ -383,112 +598,6 @@
     
     [self presentViewController:nav animated:YES completion:nil];
 }
-
-/**
- 点击标签
- */
-- (void)didSelectIndex:(NSInteger)index {
-    
-    
-}
-
-/**
- 开启当前显示页面的定时器
- */
-- (void)startCurrencyTimerWithSegmentIndex:(NSInteger)segmentIndex
-                                labelIndex:(NSInteger)labelIndex {
-    
-    NSDictionary *dic = @{
-                          @"segmentIndex": @(segmentIndex),
-                          @"labelIndex": @(labelIndex),
-                          };
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSwitchLabel"
-                                                        object:nil
-                                                      userInfo:dic];
-}
-
-#pragma mark - Data
-/**
- 获取自选列表
- */
-- (void)requestOptionalList {
-    
-    BaseWeakSelf;
-//    return;
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
-    helper.code = @"628336";
-    helper.parameters[@"start"] = @"0";
-    helper.parameters[@"limit"] = @"10";
-
-
-    helper.tableView = self.tableView;
-
-    [helper modelClass:[OptionalListModel class]];
-    self.helper = helper;
-    
-    [self.tableView addRefreshAction:^{
-        helper.parameters[@"userId"] = @"U201805160952110342835";
-
-        
-//        helper.parameters[@"userId"] = [TLUser user].userId;
-
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            if (objs.count == 0) {
-                
-                weakSelf.tableView.tableFooterView = weakSelf.footerView;
-                return ;
-            }
-            
-            weakSelf.tableView.tableFooterView = nil;
-            
-            weakSelf.optionals = objs;
-            
-            weakSelf.tableView.optionals = objs;
-            
-            [weakSelf.tableView reloadData_tl];
-            
-            if (weakSelf.currentSegmentIndex == 1) {
-                //定时器开启
-//                [weakSelf startTimer];
-            }
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
-    //判断是否登录，没有登录就不能下拉刷新
-    self.tableView.hiddenHeader = ![TLUser user].isLogin;
-
-    [self.tableView addLoadMoreAction:^{
-        
-        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.optionals = objs;
-            
-            weakSelf.tableView.optionals = objs;
-            
-            [weakSelf.tableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
-    
-    [self.tableView endRefreshingWithNoMoreData_tl];
-    //添加数据
-    if ([TLUser user].isLogin) {
-        
-        //刷新自选列表
-        [self.tableView beginRefreshing];
-    } else {
-        
-        self.tableView.tableFooterView = self.footerView;
-    }
-}
-
 /**
  获取平台title列表
  */
@@ -506,6 +615,7 @@
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
         
         weakSelf.platformTitleList = objs;
+        
         //遍历标题
         weakSelf.titles = [NSMutableArray array];
         
@@ -514,15 +624,15 @@
             if (obj.cname) {
                 
                 [weakSelf.titles addObject:obj.cname];
+                
             }
         }];
         
-        weakSelf.kind = kPlatform;
-
+        [self initSelectScrollViewWithIdx:0];
+        [self initTableView];
         //添加滚动
-        [weakSelf initSelectScrollViewWithIdx:1];
-        //
-        [weakSelf addSubViewController];
+       
+       
         
     } failure:^(NSError *error) {
         
@@ -547,7 +657,7 @@
         
         weakSelf.currencyTitleList = objs;
         //遍历标题
-        weakSelf.titles = [NSMutableArray arrayWithObject:@"币价"];
+        weakSelf.titles = [NSMutableArray arrayWithObject:@"全部"];
         
         [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -560,10 +670,11 @@
         weakSelf.kind = kCurrency;
         
         //添加滚动
-        [weakSelf initSelectScrollViewWithIdx:2];
+        [weakSelf initSelectScrollViewWithIdx:1];
         //
+
         [weakSelf addSubViewController];
-        
+        [self requestOptionalList];
     } failure:^(NSError *error) {
         
     }];
@@ -571,15 +682,20 @@
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
-    
+    [self.tableView beginRefreshing];
+
     self.currentSegmentIndex = index;
-    
-    [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
+//    if (index == 1) {
+//        index = 0;
+//    }
+//
+//    [self.selectSV.scrollView setContentOffset:CGPointMake((index-1) * kScreenWidth, 0)];
+    [self.switchSV setContentOffset:CGPointMake((index-1) * self.switchSV.width, 0)];
     [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
-    if (index ==2 || index == 3) {
-        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 90)];
+    if (index ==1 || index == 2 || index == 0) {
+        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 46)];
     }else{
-        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 90)];
+        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 46)];
 
         
     }
@@ -589,15 +705,71 @@
         //开启自选定时器
 //        [self startTimer];
         
-        return ;
+//        return ;
     }
     
     NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
     [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
     //自选定时器停止
     [self stopTimer];
+    
+    NSLog(@"点击了%ld",labelIndex);
 }
+/*
+获取自选列表
+*/
+- (void)requestOptionalList {
+    
+    BaseWeakSelf;
+    //    return;
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    weakSelf.kind = kOptional;
+    self.titles = [NSMutableArray arrayWithObjects:@"自选", nil];
 
+    helper.code = @"628351";
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"100";
+    helper.parameters[@"userId"] = [TLUser user].userId;
+
+    if (weakSelf.percentChangeIndex >= 0) {
+        helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+        
+    }
+    helper.tableView = self.tableView;
+    
+//    helper.isList = YES;
+
+
+    [helper modelClass:[OptionalListModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        if (objs.count == 0) {
+            
+            return ;
+        }
+        
+        weakSelf.optionals = objs;
+        //遍历标题
+        weakSelf.titles = [NSMutableArray array];
+        weakSelf.kind = kOptional;
+        [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.symbol) {
+                
+                [weakSelf.titles addObject:obj.symbol];
+            }
+        }];
+        [weakSelf initSelectScrollViewWithIdx:2];
+        [weakSelf addSubViewController];
+        [self requestPlatformTitleList];
+        //添加滚动
+       
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
+}
 /**
  VC被释放时移除通知
  */

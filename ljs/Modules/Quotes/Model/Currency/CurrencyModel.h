@@ -24,7 +24,7 @@
 ///24小时RMB数
 @property (nonatomic, copy) NSString *volume;
 //相对于某币种的价格
-@property (nonatomic, copy) NSString *lastPrice;
+@property (nonatomic, strong) NSNumber *lastPrice;
 //24小时某币种数
 @property (nonatomic, copy) NSString *one_day_volume_usd;
 //涨幅

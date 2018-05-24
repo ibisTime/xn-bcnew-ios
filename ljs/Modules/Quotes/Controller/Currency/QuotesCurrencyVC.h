@@ -25,5 +25,6 @@
 @property (nonatomic, strong) CurrencyTitleModel *titleModel;
 //当前索引
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
 
 @end

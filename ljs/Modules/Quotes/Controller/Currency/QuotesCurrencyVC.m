@@ -11,6 +11,7 @@
 //M
 #import "CurrencyModel.h"
 #import "CurrencyPriceModel.h"
+#import "CurrencyTitleModel.h"
 //V
 #import "BaseView.h"
 //C
@@ -34,6 +35,9 @@
 @property (nonatomic, strong) TLPageDataHelper *helper;
 @property (nonatomic, strong) TLNetworking *help;
 
+@property (nonatomic, assign) NSInteger percentChangeIndex;
+
+
 
 @end
 
@@ -50,11 +54,11 @@
     
     if (self.type == CurrencyTypePrice) {
         //获取币价
-//        [self requestCurrencyPriceList];
+        [self requestCurrencyPriceList];
         //
         [self.tableView beginRefreshing];
         
-        return ;
+//        return ;
     }
     //获取币种列表
     [self requestCurrencyList];
@@ -68,6 +72,14 @@
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
+}
+
+- (void)titleBarClick:(NSNotification *)notification {
+    
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    self.percentChangeIndex = index;
+    [self.tableView beginRefreshing];
 }
 
 - (void)didSwitchLabel:(NSNotification *)notification {
@@ -88,8 +100,17 @@
 //        [self startTimer];
         return ;
     }
+    CurrencyTitleModel *titleModel;
+    if (labelIndex == 0) {
+    titleModel = self.currencyTitleList[labelIndex];
+    }else{
+    titleModel = self.currencyTitleList[labelIndex-1];
+    }
+    self.titleModel = titleModel;
+    [self.tableView beginRefreshing];
+    
     //定时器停止
-    [self stopTimer];
+//    [self stopTimer];
 }
 
 #pragma mark - 定时器
@@ -171,41 +192,12 @@
         make.width.equalTo(@87);
         make.height.equalTo(@40);
     }];
-    //进吧
-//    UIButton *forumBtn = [UIButton buttonWithTitle:@"进吧"
-//                                        titleColor:kWhiteColor
-//                                   backgroundColor:kAppCustomMainColor
-//                                         titleFont:15.0
-//                                      cornerRadius:4];
-//
-//    [forumBtn addTarget:self action:@selector(clickForum) forControlEvents:UIControlEventTouchUpInside];
-//
-//    [self.headerView addSubview:forumBtn];
-//    [forumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.centerY.equalTo(@0);
-//        make.right.equalTo(@(-kWidth(25)));
-//        make.width.equalTo(@87);
-//        make.height.equalTo(@40);
-//    }];
-//    //帖子数
-//    self.postNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-//                                              textColor:kTextColor
-//                                                   font:14.0];
-//    self.postNumLbl.numberOfLines = 0;
-//
-//    [self.headerView addSubview:self.postNumLbl];
-//    [self.postNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self.currencyNameLbl.mas_left);
-//        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
-//        make.right.equalTo(forumBtn.mas_left).offset(-15);
-//    }];
-//
+
 }
 
 - (void)initTableView {
-    
+    self.percentChangeIndex = -1;
+
     self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
     
     self.tableView.type = self.type;
@@ -291,24 +283,27 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     helper.code = @"628350";
-    
-    helper.parameters[@"percentPeriod"] = @"24h";
-    helper.parameters[@"Symbol"] = @"BTC";
-    helper.parameters[@"keywords"] = @"huobiPro";
-    
-    helper.parameters[@"exchangeEname"] = @"huobiPro";
-    helper.parameters[@"direction"] = @"0";
-    helper.parameters[@"start"] = @"0";
-    helper.parameters[@"limit"] = @"10";
+    if (self.titleModel) {
+        helper.parameters[@"symbol"] = self.titleModel.symbol;
 
-//    helper.parameters[@"userId"] = [TLUser user].userId;
+    }
+
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"100";
+
+    helper.parameters[@"userId"] = [TLUser user].userId;
     
     helper.tableView = self.tableView;
     
     [helper modelClass:[CurrencyPriceModel class]];
     
     [self.tableView addRefreshAction:^{
-        
+        if (weakSelf.percentChangeIndex >= 0) {
+            
+            helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+            
+        }
+
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.currencyPrices = objs;
