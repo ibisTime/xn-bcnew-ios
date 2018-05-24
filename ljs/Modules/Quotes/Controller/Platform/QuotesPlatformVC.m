@@ -58,8 +58,10 @@
     //获取自选列表
     [self addNotification];
 
-    [self requestOptionalList];
-    
+    if ([TLUser user].userId) {
+        [self requestOptionalList];
+
+    }
     [self.tableView beginRefreshing];
     //获取贴吧信息
 //    [self requestForumInfo];
@@ -83,7 +85,26 @@
         make.width.height.equalTo(@72);
     }];
 }
+/**
+ 添加币种
+ */
 
+
+- (void)addCurrency {
+    
+    BaseWeakSelf;
+    [self checkLogin:^{
+        
+        QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
+        
+        optionalVC.addSuccess = ^{
+            
+            [weakSelf.tableView beginRefreshing];
+        };
+        
+        [weakSelf.navigationController pushViewController:optionalVC animated:YES];
+    }];
+}
 #pragma mark - 通知
 - (void)addNotification {
     

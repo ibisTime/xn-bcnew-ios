@@ -141,6 +141,12 @@ typedef struct TitleInfo TitleInfo;
 }
 - (void)startSignUp
 {
+    [self checkLogin:^{
+        
+    }];
+    if (![TLUser user].userId) {
+        return;
+    }
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
     http.code = @"628520";

@@ -29,7 +29,8 @@
 #import "QutesChildViewController.h"
 #import "CurrencyKLineVC.h"
 #import "NewSearchViewController.h"
-
+#import "TLUserLoginVC.h"
+#import "NavigationController.h"
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -127,7 +128,7 @@
 //    [self initTableView];
    
     //获取平台title列表
-//    [self requestPlatformTitleList];
+    [self requestPlatformTitleList];
     //获取币种title列表
     [self requestCurrencyTitleList];
     //自选
@@ -264,11 +265,18 @@
     self.percentChangeIndex = -1;
     self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, 46) itemTitles:self.titleBars];
     [self.view addSubview:self.quotesView];
+    BaseWeakSelf;
     self.quotesView.selectBlock = ^(NSInteger index) {
+       
       // index 0 涨幅榜 1 跌幅榜 3预警中
         NSLog(@"点击了%ld",index);
         //点击标签
-//        [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"index"];
+        [weakSelf checkLogin:^{
+            
+        }];
+        if (![TLUser user].isLogin) {
+            return ;
+        }
         switch (index) {
             case 0:
                 index = 1;
@@ -278,12 +286,13 @@
             default:
                 break;
         }
-        
         NSDictionary *dic = @{@"titleBarindex": @(index)};
-        
+       
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
                                                             object:nil
                                                           userInfo:dic];
+        
+        
     };
    
     int i = 0;
@@ -447,26 +456,31 @@
         
         helper.code = @"628350";
     
-        if (self.titleModel) {
-            helper.parameters[@"exchangeEname"] = self.titleModel.ename;
+        if (self.platformTitleModel) {
+            helper.parameters[@"exchangeEname"] = self.platformTitleModel.ename;
             
         }
         helper.parameters[@"start"] = @"0";
-        helper.parameters[@"limit"] = @"10";
+        helper.parameters[@"limit"] = @"200";
         
         
-        helper.parameters[@"userId"] = [TLUser user].userId;
-        
+    
         helper.tableView = self.tableView;
         [helper modelClass:[PlatformModel class]];
         
         self.helper = helper;
         
         [self.tableView addRefreshAction:^{
-            if (weakSelf.percentChangeIndex >= 0) {
-                helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
-                
-            }
+            if ([TLUser user].userId) {
+                helper.parameters[@"userId"] = [TLUser user].userId;
+                if (weakSelf.titleModel) {
+                    helper.parameters[@"exchangeEname"] = weakSelf.platformTitleModel.ename;
+                    
+                }
+                if (weakSelf.percentChangeIndex >= 0) {
+                    helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+                    }
+                }
             
             [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
                 if (objs.count == 0) {
@@ -502,7 +516,7 @@
                 
             }];
         }];
-        [self initHeaderView];
+//        [self initHeaderView];
         [self.tableView beginRefreshing];
     }
     
@@ -559,7 +573,7 @@
     }
     if (self.platformTitleList >= 0) {
         self.platformTitleModel = self.platformTitleList[labIndex];
-        [self.tableView beginRefreshing];
+        [self requestPlatform];
     }
       
 }
@@ -692,6 +706,27 @@
         
     }];
 }
+/**
+ 判断用户是否登录
+ */
+- (void)checkLogin:(void(^)(void))loginSuccess {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (loginSuccess) {
+        
+        loginSuccess();
+    }
+}
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
@@ -742,8 +777,13 @@
     helper.code = @"628351";
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"100";
+    [weakSelf initSelectScrollViewWithIdx:2];
+    [weakSelf addSubViewController];
+    [self requestPlatformTitleList];
     helper.parameters[@"userId"] = [TLUser user].userId;
-
+    if (![TLUser user].userId) {
+        return;
+    }
     if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
         
@@ -772,9 +812,7 @@
                 [weakSelf.titles addObject:obj.symbol];
             }
         }];
-        [weakSelf initSelectScrollViewWithIdx:2];
-        [weakSelf addSubViewController];
-        [self requestPlatformTitleList];
+        
         //添加滚动
        
         

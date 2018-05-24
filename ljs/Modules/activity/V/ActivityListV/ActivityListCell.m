@@ -180,7 +180,7 @@
     [self.locationImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.offset(15);
-        make.top.equalTo(self.dateLblImg.mas_bottom).offset(10);
+        make.top.equalTo(self.dateLblImg.mas_bottom).offset(9);
     }];
 
     
@@ -209,7 +209,7 @@
 {
     _actModel  = actModel;
     ;
-    [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:actModel.advPic] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
+    [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
     if ([state isEqualToString:@"1"] || [state isEqualToString:@"2"] ) {
         [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];

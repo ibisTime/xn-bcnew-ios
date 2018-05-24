@@ -9,6 +9,8 @@
 
 #import "AppColorMacro.h"
 #import "ActivityVC.h"
+#import "TLUserLoginVC.h"
+#import "NavigationController.h"
 //V
 #import "ActivityListV.h"
 //M
@@ -38,6 +40,7 @@
     //活动
     [self initActivityListTableView];
     //获取活动列表
+    
     [self requestActivityList];
     //刷新
     
@@ -82,12 +85,31 @@
         
         make.edges.mas_equalTo(0);
     }];
-}
 
+}
+- (void)checkLogin:(void(^)(void))loginSuccess {
+    
+    if(![TLUser user].isLogin) {
+        
+        TLUserLoginVC *loginVC = [TLUserLoginVC new];
+        
+        loginVC.loginSuccess = loginSuccess;
+        
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+        return ;
+    }
+    
+    if (loginSuccess) {
+        
+        loginSuccess();
+    }
+}
 
 #pragma mark - Data
 - (void)requestActivityList {
     
+
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];

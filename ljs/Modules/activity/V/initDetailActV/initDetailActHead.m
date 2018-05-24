@@ -7,7 +7,7 @@
 //
 
 #import "initDetailActHead.h"
-
+#import "NSString+Extension.h"
 
 
 //Macro
@@ -101,7 +101,7 @@
 -(void)setDetailActModel:(DetailActModel *)detailActModel
 {
     _detailActModel = detailActModel;
-    [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:detailActModel.advPic] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
+    [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:[detailActModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     self.titleDet.text = detailActModel.title;
     self.readCountDet.text = detailActModel.readCount;
     self.priceDet.text = [NSString stringWithFormat:@"¥%.2f" ,[detailActModel.price doubleValue]/1000];

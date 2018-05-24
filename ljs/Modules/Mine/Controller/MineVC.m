@@ -168,8 +168,11 @@
 //    cache.isHiddenArrow = YES;
     cache.action = ^{
         
-        MyArticleViewController *myArticle = [[MyArticleViewController alloc] init];
-        [self.navigationController pushViewController:myArticle animated:YES];
+        [self checkLogin:^{
+            MyArticleViewController *myArticle = [[MyArticleViewController alloc] init];
+            [self.navigationController pushViewController:myArticle animated:YES];
+        }];
+      
     };
     
     //关于
@@ -453,8 +456,11 @@
         }break;
         case MineHeaderSeletedTypeDefault:
         {
+            [self checkLogin:^{
+                [self goUserDetail];
+
+            }];
             NSLog(@"点击了头像");
-            [self goUserDetail];
         }break;
             
         default:

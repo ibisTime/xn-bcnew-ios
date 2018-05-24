@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.title = @"活动详情";
     self.view.backgroundColor =kHexColor(@"#FAFCFF");
-
+ 
     [self initDetailAct];
     
     [self requestDetailAct];
@@ -174,6 +174,12 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
 
 -(void)openCollectionBut: (UIButton *)btn
 {
+    [self checkLogin:^{
+        
+    }];
+    if (![TLUser user].userId) {
+        return;
+    }
      BaseWeakSelf;
     NSLog(@"openCollectionBut");
     TLNetworking *http = [TLNetworking new];
