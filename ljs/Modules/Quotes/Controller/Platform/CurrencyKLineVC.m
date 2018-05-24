@@ -52,6 +52,12 @@
 @end
 
 @implementation CurrencyKLineVC
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
