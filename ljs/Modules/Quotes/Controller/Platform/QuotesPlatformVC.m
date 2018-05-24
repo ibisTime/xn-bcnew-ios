@@ -13,14 +13,19 @@
 #import "OptionalModel.h"
 //V
 #import "BaseView.h"
+#import "OptionalTableView.h"
 //C
 #import "ForumDetailVC.h"
+#import "QuotesOptionalVC.h"
+#import "NavigationController.h"
+#import "SearchCurrencyVC.h"
+#import "UIBarButtonItem+convience.h"
 
 @interface QuotesPlatformVC ()
 //
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
 //平台
-@property (nonatomic, strong) PlatformTableView *tableView;
+//@property (nonatomic, strong) PlatformTableView *tableView;
 //
 @property (nonatomic, strong) BaseView *headerView;
 //平台名称
@@ -31,6 +36,12 @@
 @property (nonatomic, strong) NSTimer *timer;
 //
 @property (nonatomic, strong) TLPageDataHelper *helper;
+//自选
+@property (nonatomic, strong) OptionalTableView *tableView;
+//添加
+@property (nonatomic, strong) BaseView *footerView;
+
+@property (nonatomic, assign) NSInteger percentChangeIndex;
 
 @end
 
@@ -39,38 +50,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //头部
-    [self initHeaderView];
+//    [self initHeaderView];
     //
+    [self initFooterView];
     [self initTableView];
-    //获取平台列表
-    [self requestPlatformList];
-    //刷新平台列表
+    self.tableView.optionals = self.optionals;
+    //获取自选列表
+    [self addNotification];
+
+    [self requestOptionalList];
+    
     [self.tableView beginRefreshing];
     //获取贴吧信息
 //    [self requestForumInfo];
     //添加通知
-    [self addNotification];
+}
+
+- (void)initFooterView {
+    
+    self.footerView = [[BaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight)];
+    
+    self.footerView.backgroundColor = kWhiteColor;
+    //添加按钮
+    UIButton *addBtn = [UIButton buttonWithImageName:@"大加"];
+    
+    [addBtn addTarget:self action:@selector(addCurrency) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.footerView addSubview:addBtn];
+    [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.center.equalTo(@0);
+        make.width.height.equalTo(@72);
+    }];
 }
 
 #pragma mark - 通知
 - (void)addNotification {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
 }
+- (void)titleBarClick:(NSNotification *)notification {
+    
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    self.percentChangeIndex = index;
+    [self.tableView beginRefreshing];
+}
+
 
 - (void)didSwitchLabel:(NSNotification *)notification {
     
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
-
+    [self requestOptionalList];
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
         //刷新列表
-        [self.tableView beginRefreshing];
+//        [self requestOptionalList];
         //刷新贴吧信息
 //        [self requestForumInfo];
         //定时器刷起来
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     //定时器停止
@@ -78,45 +118,6 @@
 }
 
 #pragma mark - 定时器
-- (void)startTimer {
-    
-    //开启定时器,实时刷新
-    self.timer = [NSTimer timerWithTimeInterval:10
-                                         target:self
-                                       selector:@selector(refreshPlatformList)
-                                       userInfo:nil
-                                        repeats:YES];
-    
-    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-    NSLog(@"平台定时器开启, index = %ld", self.currentIndex);
-
-}
-
-- (void)refreshPlatformList {
-    NSLog(@"平台定时器刷新中, index = %ld", self.currentIndex);
-
-    BaseWeakSelf;
-    //刷新平台列表
-    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
-        weakSelf.platforms = objs;
-        
-        weakSelf.tableView.platforms = objs;
-        
-        [weakSelf.tableView reloadData_tl];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
-//定时器停止
-- (void)stopTimer {
-    
-    [self.timer invalidate];
-    self.timer = nil;
-    NSLog(@"平台定时器停止, index = %ld", self.currentIndex);
-}
 
 #pragma mark - Init
 - (void)initHeaderView {
@@ -185,13 +186,23 @@
 //    }];
 //
 }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.tableView.optionals = self.optionals;
+    [self.tableView reloadData_tl];
+    
+    
+}
 
 - (void)initTableView {
+    self.percentChangeIndex = -1;
+
+    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
     
-    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
-    
-    self.tableView.type = self.type;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+//    self.tableView.type = self.type;
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
     [self.view addSubview:self.tableView];
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,8 +228,11 @@
 
 - (void)clickPlatformWithIndex:(NSInteger)index {
 
+    self.titleModel = self.platformTitleList[index];
     //刷新平台列表
-    [self.tableView beginRefreshing];
+//    [self.tableView beginRefreshing];
+    [self requestOptionalList];
+
     //判断是否当前子控制器,是则开启定时器。否则关闭
     if (index == self.currentIndex) {
         
@@ -231,57 +245,121 @@
 }
 
 #pragma mark - Data
+
+
+
 /**
  获取平台列表
  */
-- (void)requestPlatformList {
+
+/**
+ VC被释放时移除通知
+ */
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)startTimer {
+    
+    //开启定时器,实时刷新
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(refreshOptionalList)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    NSLog(@"自选定时器开启");
+    
+}
+
+//定时器停止
+- (void)stopTimer {
+    
+    [self.timer invalidate];
+    self.timer = nil;
+    NSLog(@"自选定时器停止");
+    
+}
+
+- (void)refreshOptionalList {
+    
+    NSLog(@"自选定时器刷新中");
     
     BaseWeakSelf;
     
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.optionals = objs;
+        
+        weakSelf.tableView.optionals = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+/**
+ 获取自选列表
+ */
+- (void)requestOptionalList {
+    
+    BaseWeakSelf;
+    //    return;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628350";
-    
-    helper.parameters[@"percentPeriod"] = @"24h";
-    helper.parameters[@"toSymbol"] = @"BTC";
-    helper.parameters[@"keywords"] = @"huobiPro";
-
-    helper.parameters[@"exchangeEname"] = @"huobiPro";
-    helper.parameters[@"direction"] = @"0";
+    helper.code = @"628351";
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
-
-
-    helper.parameters[@"userId"] = [TLUser user].userId;
-    
+    helper.parameters[@"userId"] = @"U201805160952110342835";
     helper.tableView = self.tableView;
     
-    [helper modelClass:[PlatformModel class]];
-    
+    [helper modelClass:[OptionalListModel class]];
     self.helper = helper;
     
     [self.tableView addRefreshAction:^{
         
+        if (weakSelf.percentChangeIndex >= 0) {
+        helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+            
+        }
+        helper.parameters[@"userId"] = [TLUser user].userId;
+        
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.platforms = objs;
+            if (objs.count == 0) {
+                
+                weakSelf.tableView.tableFooterView = weakSelf.footerView;
+                return ;
+            }
             
-            weakSelf.tableView.platforms = objs;
+            weakSelf.tableView.tableFooterView = nil;
+            
+            weakSelf.optionals = objs;
+            
+            weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
+            
+           
             
         } failure:^(NSError *error) {
             
         }];
     }];
+    //判断是否登录，没有登录就不能下拉刷新
+//    self.tableView.hiddenHeader = ![TLUser user].isLogin;
     
     [self.tableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             
-            weakSelf.platforms = objs;
+            weakSelf.optionals = objs;
             
-            weakSelf.tableView.platforms = objs;
+            weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
             
@@ -291,39 +369,15 @@
     }];
     
     [self.tableView endRefreshingWithNoMoreData_tl];
-}
-
-- (void)requestForumInfo {
-    
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = @"628850";
-    http.parameters[@"toCoin"] = self.titleModel.ename;
-    
-    [http postWithSuccess:^(id responseObject) {
+    //添加数据
+    if ([TLUser user].isLogin) {
         
-        self.postNumLbl.text = [NSString stringWithFormat:@"现在有%@个贴在讨论,你也一起来吧!", responseObject[@"data"][@"totalCount"]];
-        //判断贴吧是否存在并且是具体平台
-        NSString *isExist = responseObject[@"data"][@"isExistPlate"];
+        //刷新自选列表
+//        [self.tableView beginRefreshing];
+    } else {
         
-        if ([isExist isEqualToString:@"1"] && (self.type == PlatformTypePlatform)) {
-            
-            self.tableView.tableHeaderView = self.headerView;
-            return ;
-        }
-        self.tableView.tableHeaderView = nil;
-        
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
-/**
- VC被释放时移除通知
- */
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+        self.tableView.tableFooterView = self.footerView;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

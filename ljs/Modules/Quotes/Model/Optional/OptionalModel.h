@@ -48,10 +48,34 @@
 @property (nonatomic, copy) NSString *askAmount;
 @property (nonatomic, copy) NSString *lastUsdPrice;
 @property (nonatomic, copy) NSString *marketCapUsd;
-@property (nonatomic, copy) NSString *percentChange;
+@property (nonatomic, strong) NSNumber *percentChange;
 @property (nonatomic, copy) NSString *percentChange24h;
 @property (nonatomic, copy) NSString *percentChange1m;
 @property (nonatomic, copy) NSString *symbolPic;
 @property (nonatomic, copy) NSString *percentChange7d;
+//排名
+@property (nonatomic, assign) NSInteger rank;
+
+//类型
+@property (nonatomic, copy) NSString *type;
+//币种名称
+
+
+//
+@property (nonatomic, copy) NSString *tradeVolume;
+//相对于某币种的价格
+
+//涨跌颜色
+//排名颜色
+@property (nonatomic, strong) UIColor *rankColor;
+
+//市值
+@property (nonatomic, strong) NSNumber *maxMarketCapCny;
+//总市值
+@property (nonatomic, strong) NSNumber *totalMarketCapCny;
+//关注人数
+@property (nonatomic, assign) NSInteger choiceCount;
+//交易成交数量
+@property (nonatomic, assign) NSInteger count;
 
 @end

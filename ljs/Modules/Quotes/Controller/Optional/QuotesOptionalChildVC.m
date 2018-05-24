@@ -11,12 +11,14 @@
 #import "OptionalModel.h"
 //V
 #import "AddOptionalTableView.h"
-
+#import "PlatformModel.h"
 @interface QuotesOptionalChildVC ()<RefreshDelegate>
 //自选
 @property (nonatomic, strong) AddOptionalTableView *tableView;
 //
 @property (nonatomic, strong) NSMutableArray <OptionalModel *>*optionals;
+@property (nonatomic, strong) NSMutableArray <PlatformModel *>*platformoptionals;
+
 //定时器
 @property (nonatomic, strong) NSTimer *timer;
 //
@@ -112,9 +114,8 @@
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    helper.code = @"628340";
-    helper.parameters[@"type"] = @"E";
-
+    helper.code = @"628350";
+    
     if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
         
         helper.parameters[@"coinSymbol"] = self.titleModel.ename;
@@ -122,8 +123,20 @@
         
         helper.parameters[@"exchangeEname"] = self.titleModel.ename;
     }
-    
+    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"limit"] = @"20";
+//    helper.parameters[@"direction"] = @"1";
     helper.parameters[@"userId"] = [TLUser user].userId;
+//    helper.parameters[@"type"] = @"E";
+//
+//    if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
+//
+//        helper.parameters[@"coinSymbol"] = self.titleModel.ename;
+//    }else {
+//
+//        helper.parameters[@"exchangeEname"] = self.titleModel.ename;
+//    }
+//
     
     helper.tableView = self.tableView;
     
@@ -176,8 +189,8 @@
     http.showView = self.view;
     http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"exchangeEname"] = optional.exchangeEname;
-    http.parameters[@"coin"] = optional.coinSymbol;
-    http.parameters[@"toCoin"] = optional.toCoinSymbol;
+    http.parameters[@"symbol"] = optional.symbol;
+    http.parameters[@"toSymbol"] = optional.toSymbol;
     
     [http postWithSuccess:^(id responseObject) {
         
@@ -228,12 +241,13 @@
     
     OptionalModel *optional = self.optionals[indexPath.row];
 
-    if ([optional.isChoice isEqualToString:@"0"]) {
+    if ([optional.isChoice isEqualToString:@"0"] || ! optional.isChoice) {
         
         //添加币种
         [self addOptional:indexPath.row];
         return ;
     }
+    
 //    //删除币种
 //    [self deleteOptional:indexPath.row];
 //    return ;

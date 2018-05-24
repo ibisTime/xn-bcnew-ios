@@ -11,7 +11,7 @@
 #import "UILabel+Extension.h"
 #import "NSString+CGSize.h"
 #import "NSString+Extension.h"
-
+#import "NSNumber+Extension.h"
 @interface OptionalCell()
 
 //币种名称
@@ -137,25 +137,25 @@
     
     
     //币种名称
-    self.currencyNameLbl.text = optional.marketFxh.coinSymbol;
+    self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
-    self.platformNameLbl.text = optional.marketFxh.exchangeCname;
+    self.platformNameLbl.text = optional.exchangeEname;
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     
-    NSString *volumeStr = optional.marketFxh.volume;
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", optional.marketFxh.toCoinSymbol,volumeStr];
+    NSString *volumeStr = [NSString stringWithFormat:@"%d",optional.volume.intValue];
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [optional.toSymbol uppercaseString],volumeStr];
 
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", optional.marketFxh.lastPrice];
-    
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@",[optional.lastPrice convertToRealMoneyWithNum:8]];
 //    self.usdPriceLbl.textColor = optional.bgColor;
     //人民币价格
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%@", optional.marketFxh.lastCnyPrice];
-    self.rmbPriceLbl.textColor = optional.marketFxh.bgColor;
+    self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf",[optional.lastCnyPrice doubleValue]];
+     UIColor *fluctColor  = [optional getPercentColorWithPercent:optional.percentChange];;
+    self.rmbPriceLbl.textColor = fluctColor;
     
     //涨跌情况
-    NSString *priceFluctStr = optional.marketFxh.changeRate;
+    NSString *priceFluctStr = optional.changeRate;
     CGFloat fluct = [priceFluctStr doubleValue];
     
     if (fluct > 0) {
@@ -168,7 +168,7 @@
     }
     
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
-    [self.priceFluctBtn setBackgroundColor:optional.marketFxh.bgColor forState:UIControlStateNormal];
+    [self.priceFluctBtn setBackgroundColor:optional.bgColor forState:UIControlStateNormal];
     
     CGFloat btnW = [NSString getWidthWithString:priceFluctStr font:16.0] + 15;
     [self.priceFluctBtn mas_updateConstraints:^(MASConstraintMaker *make) {

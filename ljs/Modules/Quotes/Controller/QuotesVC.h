@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+#import "PlatformTitleModel.h"
 /**
  行情
  */

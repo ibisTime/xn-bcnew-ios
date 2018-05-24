@@ -73,7 +73,7 @@
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
-    _scrollView.scrollEnabled = NO;
+    _scrollView.scrollEnabled = YES;
     
     [_scrollView adjustsContentInsets];
     

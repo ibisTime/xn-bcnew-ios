@@ -11,6 +11,7 @@
 #import "PlatformTableView.h"
 //M
 #import "PlatformTitleModel.h"
+#import "OptionalListModel.h"
 /**
  平台
  */
@@ -25,6 +26,9 @@
 @property (nonatomic, strong) PlatformTitleModel *titleModel;
 //当前索引
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
+//自选列表
+@property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
 //点击刷新
 - (void)clickPlatformWithIndex:(NSInteger)index;
 
