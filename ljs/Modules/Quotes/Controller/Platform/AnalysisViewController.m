@@ -158,7 +158,6 @@
 }
 - (void)initSelectScrollView {
     
-    BaseWeakSelf;
     
     NSArray *titles = @[ @"项目信息"];
     

@@ -15,6 +15,8 @@
 /**
  平台
  */
+typedef void(^selectCurrent)(NSString *);
+
 @interface QuotesPlatformVC : BaseViewController
 //
 @property (nonatomic, assign) PlatformType type;
@@ -31,5 +33,10 @@
 @property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
 //点击刷新
 - (void)clickPlatformWithIndex:(NSInteger)index;
+
+/**
+ 点击cell返回ID
+ */
+@property (nonatomic,copy)selectCurrent selectBlock;
 
 @end

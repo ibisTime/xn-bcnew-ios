@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, CurrencyType) {
     CurrencyTypeNewCurrency,        //新币
     CurrencyTypeCurrency,           //具体币种
 };
+typedef void(^selectCurrent)(NSString *);
+
 
 @interface CurrencyTableVIew : TLTableView
 //
@@ -26,5 +28,6 @@ typedef NS_ENUM(NSInteger, CurrencyType) {
 
 //类型
 @property (nonatomic, assign) CurrencyType type;
+@property (nonatomic,copy)selectCurrent selectBlock;
 
 @end

@@ -17,10 +17,15 @@ typedef NS_ENUM(NSInteger, PlatformType) {
     PlatformTypePlatform,       //具体平台
 };
 
+typedef void(^selectCurrent)(NSString *);
+
 @interface PlatformTableView : TLTableView
 //
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
 //类型
 @property (nonatomic, assign) PlatformType type;
+
+@property (nonatomic,copy)selectCurrent selectBlock;
+
 
 @end

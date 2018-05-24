@@ -92,6 +92,8 @@ static NSString *currencyCell = @"CurrencyCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CurrencyPriceModel *currency = self.currencyPrices[indexPath.row];
+    self.selectBlock(currency.ID);
     
 }
 

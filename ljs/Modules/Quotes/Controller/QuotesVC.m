@@ -27,6 +27,9 @@
 #import "NavigationController.h"
 #import "HomeQuotesView.h"
 #import "QutesChildViewController.h"
+#import "CurrencyKLineVC.h"
+#import "NewSearchViewController.h"
+
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -301,18 +304,22 @@
 
 - (void)initTableView {
         
-        self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 88, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
-        
-        self.tableView.type = PlatformTypePlatform;
-        self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
-    
-       [self.selectSV addSubview:self.tableView];
+    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 88, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    BaseWeakSelf;
+    self.tableView.selectBlock = ^(NSString *idear) {
+        [weakSelf pushCurrencyKLineVCWith:idear];
+    };
+    self.tableView.type = PlatformTypePlatform;
+    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+
+   [self.selectSV addSubview:self.tableView];
 //       self.tableView.tableHeaderView = self.headerView;
     [self requestPlatform];
 
 
     
-    }
+  
+}
 
 - (void)initSelectScrollViewWithIdx:(NSInteger)idx {
     
@@ -342,11 +349,15 @@
     
   
     
-    
+    BaseWeakSelf;
+
     for (NSInteger i = 0; i < self.titles.count; i++) {
         if ([self.kind isEqualToString:kCurrency]) {
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
+            childVC.selectBlock = ^(NSString *symobel) {
+                [weakSelf pushCurrencyKLineVCWith:symobel];
+            };
             childVC.currencyTitleList = self.currencyTitleList;
             //            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
             childVC.currentIndex = i;
@@ -369,7 +380,9 @@
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
             
             
-            
+            childVC.selectBlock = ^(NSString *idsar) {
+                [weakSelf pushCurrencyKLineVCWith:idsar];
+            };
             //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             childVC.optionals = self.optionals;
             childVC.currentIndex = i;
@@ -587,12 +600,12 @@
     
     BaseWeakSelf;
     
-    SearchCurrencyVC *searchVC = [SearchCurrencyVC new];
+    NewSearchViewController *searchVC = [NewSearchViewController new];
     
-    searchVC.currencyBlock = ^{
-        
-        [weakSelf.tableView beginRefreshing];
-    };
+//    searchVC.currencyBlock = ^{
+//
+//        [weakSelf.tableView beginRefreshing];
+//    };
     
     NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
     
@@ -627,7 +640,7 @@
                 
             }
         }];
-        
+        [self initHeaderView];
         [self initSelectScrollViewWithIdx:0];
         [self initTableView];
         //添加滚动
@@ -783,5 +796,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)pushCurrencyKLineVCWith:(NSString *)idear
+{
+    CurrencyKLineVC *kineVC = [[CurrencyKLineVC alloc]init];
+    kineVC.symbolID = idear;
+    [self.navigationController pushViewController:kineVC animated:YES];
+}
 
 @end

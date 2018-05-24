@@ -9,10 +9,12 @@
 #import "TLTableView.h"
 //M
 #import "OptionalListModel.h"
+typedef void(^selectCurrent)(NSString *);
 
 @interface OptionalTableView : TLTableView
 //
 @property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
 @property (nonatomic, copy) void (^refreshBlock)();
+@property (nonatomic,copy)selectCurrent selectBlock;
 
 @end

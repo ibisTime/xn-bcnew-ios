@@ -69,9 +69,9 @@
     
     
 //***********设置顶部条**************************
-    NSArray *titleArr = @[
-                          @"快讯",
-                          @"资讯"];
+    NSArray *titleArr = @[@"资讯",
+                          @"快讯"
+                          ];
     
     self.statusList = @[kAllNewsFlash, kHotNewsFlash];
     self.titles = [NSMutableArray array];
@@ -98,23 +98,30 @@
     [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
     //2.订单列表
-    NSArray *kindArr = @[kNewsFlash, kInformation];
+    NSArray *kindArr = @[kInformation ,kNewsFlash];
     
-    for (int i = 0; i < titleArr.count; i++) {
-        
-        self.kind = kindArr[i];
-        
-        if ([self.kind isEqualToString:kNewsFlash]) {
-            
-            self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
-            
-            [self initSelectScrollView:i];
-            
-        } else {
-            //查询资讯类型
-            [self requestInfoTypeList];
-        }
-    }
+    self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
+    [self initSelectScrollView:1];
+    self.kind = kNewsFlash;
+    
+    [self requestInfoTypeList];
+
+    
+//    for (int i = 0; i < titleArr.count; i++) {
+//
+//        self.kind = kindArr[i];
+//
+//        if ([self.kind isEqualToString:kNewsFlash]) {
+//
+//            self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
+//
+//            [self initSelectScrollView:i];
+//
+//        } else {
+//            //查询资讯类型
+//            [self requestInfoTypeList];
+//        }
+//    }
 }
 
 - (void)initSelectScrollView:(NSInteger)index {
@@ -136,16 +143,18 @@
         
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
         
-        if ([self.kind isEqualToString:kNewsFlash]) {
+        if (index == 1) {
         
             childVC.status = self.statusList[i];
-            
+            childVC.kind = @"1";
+
         } else {
             
             childVC.code = self.infoTypeList[i].code;
             childVC.titleStr = self.titles[i];
+            childVC.kind = @"2";
+
         }
-        childVC.kind = self.kind;
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         
         [self addChildViewController:childVC];
@@ -177,7 +186,7 @@
         }];
         
         
-        [self initSelectScrollView:1];
+        [self initSelectScrollView:0];
       
         
     } failure:^(NSError *error) {

@@ -19,4 +19,6 @@
 //屏幕横屏
 @property (nonatomic, copy) void(^horizontalScreenBlock)(void);
 
+- (void)reloadWeb;
+
 @end

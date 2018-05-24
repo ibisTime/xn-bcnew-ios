@@ -237,17 +237,17 @@
     self.lowPriceLbl.text = [NSString stringWithFormat:@"低:%@", [platform.low convertToRealMoneyWithNum:8]];
     self.lowPriceLbl.textColor = [UIColor whiteColor];
     //开盘
-    self.startPriceLbl.text = [NSString stringWithFormat:@"开:%@", [platform.open convertToRealMoneyWithNum:8]];
+    self.startPriceLbl.text = [NSString stringWithFormat:@"开:%.2f", [platform.open floatValue]];
     self.startPriceLbl.textColor = [UIColor whiteColor];
     //额
 //    NSString *volumeStr = platform.tradeVolume;
-    self.tradeVolumeLbl.text = /*[NSString stringWithFormat:@"额:%@", volumeStr];*/[NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];
+    self.tradeVolumeLbl.text = /*[NSString stringWithFormat:@"额:%@", volumeStr];*/[NSString stringWithFormat:@"收:%.2f", [platform.close floatValue]];
     self.tradeVolumeLbl.textColor = [UIColor whiteColor];
     //收
-    self.endPriceLbl.text = /*[NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];*/[NSString stringWithFormat:@"买:%@", platform.bidPrice];
+    self.endPriceLbl.text = /*[NSString stringWithFormat:@"收:%@", [platform.close convertToRealMoneyWithNum:8]];*/[NSString stringWithFormat:@"买:%.2f", [platform.bidPrice floatValue]];
     self.endPriceLbl.textColor = [UIColor whiteColor];
     //市值
-    self.marketVolumeLbl.text = /*[NSString stringWithFormat:@"市值:%@", [platform getNumWithVolume:platform.totalMarketCapCny]];*/[NSString stringWithFormat:@"卖:%@", platform.askPrice];
+    self.marketVolumeLbl.text = /*[NSString stringWithFormat:@"市值:%@", [platform getNumWithVolume:platform.totalMarketCapCny]];*/[NSString stringWithFormat:@"卖:%.2f", [platform.askPrice floatValue]];
     self.marketVolumeLbl.textColor = [UIColor whiteColor];
 }
 - (void)changeMoney:(NSString *)str

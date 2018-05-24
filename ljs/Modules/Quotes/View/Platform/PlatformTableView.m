@@ -82,6 +82,8 @@ static NSString *platformCell = @"PlatformCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PlatformModel *platform = self.platforms[indexPath.row];
+    self.selectBlock(platform.ID);
     
 }
 
