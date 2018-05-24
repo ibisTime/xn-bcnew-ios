@@ -1,0 +1,145 @@
+//
+//  NewSearchViewController.m
+//  ljs
+//
+//  Created by zhangfuyu on 2018/5/24.
+//  Copyright © 2018年 caizhuoyue. All rights reserved.
+//
+
+#import "NewSearchViewController.h"
+//Category
+#import "UIBarButtonItem+convience.h"
+#import "TLTextField.h"
+
+#import "SelectScrollView.h"
+#import "HomeChildVC.h"
+
+@interface NewSearchViewController ()
+//搜索
+@property (nonatomic, strong) TLTextField *searchTF;
+//项目信息
+@property (nonatomic, strong) SelectScrollView *selectSV;
+//标题
+@property (nonatomic, strong) NSArray *titles;
+@end
+
+@implementation NewSearchViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    //取消
+    [self addCancelItem];
+    //搜索
+    [self initSearchBar];
+    
+    //添加子控制器
+    [self initSelectScrollView];
+    //
+    [self addSubViewController];
+}
+#pragma mark - Init
+- (void)addCancelItem {
+    
+    [UIBarButtonItem addRightItemWithTitle:@"取消" titleColor:kWhiteColor frame:CGRectMake(0, 0, 35, 44) vc:self action:@selector(back)];
+}
+
+- (void)initSearchBar {
+    
+    [UINavigationBar appearance].barTintColor = kAppCustomMainColor;
+    CGFloat height = 35;
+    //搜索
+    UIView *searchBgView = [[UIView alloc] init];
+    //    UIView *searchBgView = [[UIView alloc] init];
+    
+    searchBgView.backgroundColor = kWhiteColor;
+    searchBgView.userInteractionEnabled = YES;
+    searchBgView.layer.cornerRadius = height/2.0;
+    searchBgView.clipsToBounds = YES;
+    
+    self.navigationItem.titleView = searchBgView;
+    
+    [searchBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(height);
+    }];
+    //搜索输入框
+    self.searchTF = [[TLTextField alloc] initWithFrame:CGRectZero
+                                             leftTitle:@""
+                                            titleWidth:0
+                                           placeholder:@"请输入平台/币种"];
+    self.searchTF.delegate = self;
+    self.searchTF.returnKeyType = UIReturnKeySearch;
+    
+    [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [searchBgView addSubview:self.searchTF];
+    [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 13, 0, 0));
+        
+        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15 - 13);
+    }];
+    
+}
+
+- (void)initSelectScrollView {
+    
+    BaseWeakSelf;
+    
+    self.titles = @[ @"币种",@"平台",@"咨询",@"快讯",@"活动"];
+    
+    self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight) itemTitles:self.titles];
+    self.selectSV.selectBlock = ^(NSInteger index) {
+        
+        [weakSelf didSelectWithIndex:index];
+        
+    };
+    [self.view addSubview:self.selectSV];
+    
+}
+
+- (void)addSubViewController
+{
+    self.selectSV.currentIndex = 3;
+    for (NSInteger index = 0; index < self.titles.count; index++) {
+        if (index == 3) {
+            HomeChildVC *childVC = [[HomeChildVC alloc] init];
+            childVC.status = @"";
+            childVC.kind = @"1";
+            childVC.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
+        }
+    }
+}
+/**
+ 切换标签
+ */
+- (void)didSelectWithIndex:(NSInteger)index
+{
+    
+}
+- (void)back {
+    
+    [self.searchTF resignFirstResponder];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

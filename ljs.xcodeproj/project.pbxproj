@@ -321,6 +321,8 @@
 		C429629720B587F30011E2B2 /* CurrencyInfoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629220B587F30011E2B2 /* CurrencyInfoCell1.m */; };
 		C429629820B587F30011E2B2 /* CurrencyInfoCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */; };
 		C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */; };
+		C432D71720B651E10022337E /* CurrentesManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71620B651E10022337E /* CurrentesManagementVC.m */; };
+		C432D71A20B65BDB0022337E /* NewSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71920B65BDB0022337E /* NewSearchViewController.m */; };
 		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
 		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
 		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
@@ -961,6 +963,10 @@
 		C429629320B587F30011E2B2 /* CurrencyInfoCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoCell2.m; sourceTree = "<group>"; };
 		C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyInfoTableView.m; sourceTree = "<group>"; };
 		C429629520B587F30011E2B2 /* CurrencyInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyInfoHeaderView.h; sourceTree = "<group>"; };
+		C432D71520B651E10022337E /* CurrentesManagementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentesManagementVC.h; sourceTree = "<group>"; };
+		C432D71620B651E10022337E /* CurrentesManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentesManagementVC.m; sourceTree = "<group>"; };
+		C432D71820B65BDB0022337E /* NewSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSearchViewController.h; sourceTree = "<group>"; };
+		C432D71920B65BDB0022337E /* NewSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSearchViewController.m; sourceTree = "<group>"; };
 		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1665,6 +1671,8 @@
 			children = (
 				2124BE892062395F00CB79E8 /* QuotesCurrencyVC.h */,
 				2124BE8A2062395F00CB79E8 /* QuotesCurrencyVC.m */,
+				C432D71520B651E10022337E /* CurrentesManagementVC.h */,
+				C432D71620B651E10022337E /* CurrentesManagementVC.m */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -1689,6 +1697,8 @@
 				2124BEC32062983700CB79E8 /* SearchCurrcneyChildVC.m */,
 				2124BED520635B9300CB79E8 /* SearchHistoryChildVC.h */,
 				2124BED620635B9300CB79E8 /* SearchHistoryChildVC.m */,
+				C432D71820B65BDB0022337E /* NewSearchViewController.h */,
+				C432D71920B65BDB0022337E /* NewSearchViewController.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3187,6 +3197,7 @@
 				2124BEC1206296F800CB79E8 /* SearchCurrencyTableView.m in Sources */,
 				B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
+				C432D71A20B65BDB0022337E /* NewSearchViewController.m in Sources */,
 				2124BE0A205FB57E00CB79E8 /* InformationListCell2.m in Sources */,
 				21EF0B6F20664936008EA865 /* InfoCommentChildVC.m in Sources */,
 				212882642057A11100A57A5A /* MineHeaderView.m in Sources */,
@@ -3205,6 +3216,7 @@
 				B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */,
 				21EF0BA120678BE6008EA865 /* CurrencyTitleModel.m in Sources */,
 				2124BED720635B9300CB79E8 /* SearchHistoryChildVC.m in Sources */,
+				C432D71720B651E10022337E /* CurrentesManagementVC.m in Sources */,
 				2124BE29205FE40F00CB79E8 /* NewsFlashDetailView.m in Sources */,
 				B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
