@@ -52,16 +52,20 @@
     BaseWeakSelf;
     
     _headView = [[HomeQuotesSortBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kHeadBarHeight) sortNames:_itemTitles sortBlock:^(NSInteger index) {
-        
         weakSelf.selectIndex = index;
         
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(kScreenWidth*index, 0, kScreenWidth, weakSelf.scrollView.height) animated:YES];
-        if (weakSelf.selectBlock) {
+        if (weakSelf.selectBlock) {//点击不同label涨幅
             
             weakSelf.selectBlock(index);
         }
+        
+    } sameBlock:^(NSInteger ind) {//相同lable
+        if (weakSelf.selectSameBlock) {
+            
+            weakSelf.selectSameBlock(ind);
+        }
     }];
-    
     [self addSubview:_headView];
     
 }

@@ -11,6 +11,8 @@
 #import "HomeQuotesSortBar.h"
 
 typedef void(^SelectBlock)(NSInteger index);
+typedef void(^SelectSameBlock)(NSInteger ind);
+
 
 @interface HomeQuotesView : BaseView
 
@@ -23,6 +25,8 @@ typedef void(^SelectBlock)(NSInteger index);
 @property (nonatomic, assign) NSInteger selectIndex;
 
 @property (nonatomic, copy) SelectBlock selectBlock;
+@property (nonatomic, copy) SelectSameBlock selectSameBlock;
+
 
 - (instancetype)initWithFrame:(CGRect)frame itemTitles:(NSArray *)itemTitles;
 

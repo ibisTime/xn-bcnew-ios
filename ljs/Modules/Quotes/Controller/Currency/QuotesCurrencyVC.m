@@ -36,7 +36,10 @@
 @property (nonatomic, strong) TLNetworking *help;
 
 @property (nonatomic, assign) NSInteger percentChangeIndex;
+@property (nonatomic, assign) NSInteger percentTempIndex;
+@property (nonatomic, assign) NSInteger CurrentLableIndex;
 
+@property (nonatomic, assign) BOOL IsFirst;
 
 
 @end
@@ -47,7 +50,7 @@
     [super viewDidLoad];
     //头部
 //    [self initHeaderView];
-    //
+     self.IsFirst = YES;
     [self initTableView];
     //添加通知
     [self addNotification];
@@ -73,21 +76,50 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
-}
-
-- (void)titleBarClick:(NSNotification *)notification {
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSamesBarClick:) name:@"titleSameBarindex" object:nil];
     
+}
+- (void)titleSamesBarClick:(NSNotification *)notification {
+    if (self.IsFirst == YES) {
+        //第二次点击同一个跌幅榜
+        self.percentChangeIndex = -1;
+    }
+    CurrencyTitleModel *titleModel;
+    if (self.CurrentLableIndex == 0) {
+        titleModel = nil;
+    }else{
+        titleModel = self.currencyTitleList[self.CurrentLableIndex-1];
+    }
+    self.titleModel = titleModel;
+    NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
+    [self requestCurrencyList];
+}
+- (void)titleBarClick:(NSNotification *)notification {
+   
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
-    self.percentChangeIndex = index;
-    [self.tableView beginRefreshing];
+
+    if (self.percentTempIndex == !index) {
+       
+            self.percentTempIndex = index;
+            self.percentChangeIndex = index;
+            [self.tableView beginRefreshing];
+    }
+   else if(self.IsFirst == YES) {
+        
+       self.percentTempIndex = index;
+       self.percentChangeIndex = index;
+       [self.tableView beginRefreshing];
+    }
+    
+
 }
 
 - (void)didSwitchLabel:(NSNotification *)notification {
     
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
-    
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
-    
+    self.CurrentLableIndex = labelIndex;
+
     if (labelIndex == self.currentIndex && segmentIndex == 3) {
         //刷新列表
         [self.tableView beginRefreshing];
@@ -293,7 +325,11 @@
 
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"100";
-
+    if (weakSelf.percentChangeIndex >= 0) {
+        
+        helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+        
+    }
     helper.parameters[@"userId"] = [TLUser user].userId;
     
     helper.tableView = self.tableView;
@@ -335,7 +371,7 @@
         }];
     }];
     
-    [self.tableView endRefreshingWithNoMoreData_tl];
+    [self.tableView beginRefreshing];
 }
 
 - (void)requestForumInfo {

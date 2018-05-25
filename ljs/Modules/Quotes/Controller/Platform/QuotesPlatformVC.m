@@ -129,6 +129,9 @@
     if (![TLUser user].userId) {
         return;
     }
+    if (segmentIndex == 2 || segmentIndex == 1) {
+        return;
+    }
     [self.tableView beginRefreshing];
 
     [self refreshOptionalList];

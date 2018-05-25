@@ -24,6 +24,9 @@
 //收藏数
 @property (nonatomic, strong) UILabel *collectNumLbl;
 
+@property (nonatomic, strong) UIImageView *isTopView;
+
+
 @end
 
 @implementation InformationListCell
@@ -62,6 +65,11 @@
                                            textColor:kTextColor2
                                                 font:13.0];
     [self addSubview:self.timeLbl];
+    //时间
+    self.isTopView = [[UIImageView alloc] init];
+    [self.isTopView setImage:[UIImage imageNamed:@"top"]];
+    
+    [self addSubview:self.isTopView];
     //收藏数
     self.collectNumLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                  textColor:kTextColor2
@@ -106,10 +114,19 @@
         make.right.equalTo(self.infoIV.mas_left).offset(-10);
         make.height.lessThanOrEqualTo(@60);
     }];
+    [self.isTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(x));
+        make.bottom.equalTo(self.infoIV.mas_bottom).offset(0);
+        make.width.equalTo(@(25));
+        make.height.equalTo(@(15));
+
+
+    }];
+    
     //时间
     [self.timeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(x));
+        make.left.equalTo(@(x+25+10));
         make.bottom.equalTo(self.infoIV.mas_bottom).offset(0);
     }];
     //收藏数
@@ -129,6 +146,14 @@
     [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
     self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];
     self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
+    self.isTopView.hidden = [infoModel.isTop isEqualToString:@"0"];
+    if ([infoModel.isTop isEqualToString:@"0"]) {
+        [self.timeLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@(15));
+            make.bottom.equalTo(self.infoIV.mas_bottom).offset(0);
+        }];
+    }
+    
 }
 
 @end
