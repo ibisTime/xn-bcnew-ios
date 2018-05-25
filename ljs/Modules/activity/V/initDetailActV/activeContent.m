@@ -45,6 +45,7 @@
     }];
     //2
     self.userImg = [[UILabel alloc] init];
+    self.userImg.font = [UIFont systemFontOfSize:16];
     [self addSubview:self.userImg];
     self.userImg.textAlignment = NSTextAlignmentLeft;
     self.userImg.numberOfLines = 0;
@@ -53,7 +54,7 @@
         make.right.offset(-15);
 
         make.left.offset(15);
-        make.height.offset(kScreenHeight/2);
+//        make.height.offset(kScreenHeight/2);
 
         
     }];
@@ -85,6 +86,7 @@
     self.users.text =@"活动详情";
    NSString *str = [NSString filterHTML:detailActModel.content];
     self.userImg.text = str;
+    [self.userImg sizeToFit];
     
 }
 

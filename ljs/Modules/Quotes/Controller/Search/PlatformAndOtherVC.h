@@ -10,5 +10,5 @@
 #import "BaseViewController.h"
 
 @interface PlatformAndOtherVC : UIViewController
-
+@property (nonatomic , copy)NSString *searchText;
 @end

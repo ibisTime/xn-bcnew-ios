@@ -56,11 +56,12 @@
 #pragma mark - init
 -(void)initDetailAct{
     UIScrollView * contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight-44)];
+    contentScrollView.tag = 100086;
   
     [self.view addSubview:contentScrollView];
     
     //头部
-self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, kScreenWidth, 280)];
+    self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, kScreenWidth, 280)];
    self. detailActHead.backgroundColor = kMineBackGroundColor;
     [contentScrollView  addSubview:self.detailActHead];
    //2
@@ -125,6 +126,16 @@ self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, 
          self.detailActMap.detailActModel= self.detailActModel;
          self.signUpUseres.detailActModel= self.detailActModel;
          self.activeCon.detailActModel= self.detailActModel;
+        
+        CGSize size = CGSizeMake(kScreenWidth - 30, MAXFLOAT);//设置高度宽度的最大限度
+        
+        CGRect rect = [[NSString filterHTML:self.detailActModel.content] boundingRectWithSize:size options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
+        
+        self.activeCon.height =rect.size.height +50;
+        UIScrollView *contentScrollView = (UIScrollView *)[self.view viewWithTag:100086];
+        contentScrollView.contentSize = CGSizeMake(kScreenWidth, 280+10+146+10+rect.size.height + 160);
+
+        
          self.activityBott.detailActModel= self.detailActModel;
         self.isCollent = self.detailActModel.isCollect;
         
