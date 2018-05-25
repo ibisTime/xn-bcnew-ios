@@ -124,14 +124,14 @@
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
-//    [self.tableView beginRefreshing];
     [self requestOptionalList];
 
     if (![TLUser user].userId) {
         return;
     }
-   
-        [self refreshOptionalList];
+    [self.tableView beginRefreshing];
+
+    [self refreshOptionalList];
 
  
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
