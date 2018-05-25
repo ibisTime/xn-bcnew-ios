@@ -13,8 +13,10 @@
 #import "NavigationController.h"
 //V
 #import "ActivityListV.h"
+#import "TLBannerView.h"
 //M
 #import "activityModel.h"
+#import "BannerModel.h"
 @interface ActivityVC ()
 
 //V
@@ -26,6 +28,12 @@
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 
 @property (nonatomic,copy)NSString *searchText;
+
+@property (nonatomic,strong) NSMutableArray <BannerModel *>*bannerRoom;
+
+
+//轮播图
+@property (nonatomic, strong) TLBannerView *bannerView;
 @end
 
 @implementation ActivityVC
@@ -50,6 +58,12 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoadHomeVC"
                                                         object:nil];
+    if (!self.isSearch) {
+        self.ActivityListTableView.tableHeaderView = self.bannerView;
+        //获取轮番图
+        [self requestBannerList];
+
+    }
     
     
 }
@@ -176,8 +190,42 @@
 }
 //
 
-
-
+- (TLBannerView *)bannerView {
+    
+    if (!_bannerView) {
+        
+        _bannerView = [[TLBannerView alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, kWidth(150))];
+        
+    }
+    return _bannerView;
+}
+- (void)requestBannerList {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"805806";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.bannerRoom = [BannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        NSMutableArray *imgUrls = [NSMutableArray array];
+        
+        [self.bannerRoom enumerateObjectsUsingBlock:^(BannerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.pic) {
+                
+                [imgUrls addObject:obj.pic];
+            }
+        }];
+        self.bannerView.imgUrls = imgUrls;
+        
+        //        self.infoTableView.tableHeaderView = self.headerView;
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
