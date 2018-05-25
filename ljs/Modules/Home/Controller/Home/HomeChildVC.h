@@ -16,4 +16,7 @@
 //编号
 @property (nonatomic, copy) NSString *code;
 
+- (void)searchRequestWith:(NSString *)search;
+
+
 @end

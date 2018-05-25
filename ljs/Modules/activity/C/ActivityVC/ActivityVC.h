@@ -11,4 +11,7 @@
 @interface ActivityVC : BaseViewController
 //类型
 @property (nonatomic, copy) NSString *kind;
+
+- (void)searchRequestWith:(NSString *)search;
+
 @end

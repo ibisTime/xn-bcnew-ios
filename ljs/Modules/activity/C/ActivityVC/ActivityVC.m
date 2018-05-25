@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSArray <activityModel *>*activities;
 //
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
+
+@property (nonatomic,copy)NSString *searchText;
 @end
 
 @implementation ActivityVC
@@ -51,7 +53,16 @@
     
     
 }
+- (void)searchRequestWith:(NSString *)search
+{
+    self.searchText = search;
+    if (self.searchText.length != 0) {
+        self.flashHelper.parameters[@"keywords"] = self.searchText;
+        [self.ActivityListTableView beginRefreshing];
 
+    }
+
+}
 #pragma mark - Init
 - (void)addNotification {
     //用户登录刷新
