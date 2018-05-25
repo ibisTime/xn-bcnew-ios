@@ -88,6 +88,7 @@
     self.userImg.text = str;
     [self.userImg sizeToFit];
     
+    
 }
 
 

@@ -118,7 +118,7 @@
     
     if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
         
-        helper.parameters[@"coinSymbol"] = self.titleModel.ename;
+        helper.parameters[@"symbol"] = self.titleModel.ename;
     }else {
         
         helper.parameters[@"exchangeEname"] = self.titleModel.ename;

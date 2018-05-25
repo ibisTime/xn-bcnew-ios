@@ -124,6 +124,8 @@
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
+//    [self.tableView beginRefreshing];
+
     [self requestOptionalList];
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
         //刷新列表
@@ -135,6 +137,7 @@
         return ;
     }
     //定时器停止
+    [self refreshOptionalList];
     [self stopTimer];
 }
 
@@ -254,7 +257,6 @@
 
     self.titleModel = self.platformTitleList[index];
     //刷新平台列表
-//    [self.tableView beginRefreshing];
     [self requestOptionalList];
 
     //判断是否当前子控制器,是则开启定时器。否则关闭

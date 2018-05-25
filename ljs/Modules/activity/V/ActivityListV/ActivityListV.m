@@ -79,22 +79,22 @@ static NSString *identifierCell = @"activityListCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     detailActivityVC* detOfActVC = [[detailActivityVC alloc ] init ];
     self.detOfActVC = detOfActVC;
-    detOfActVC.code = self.cell.actModel.code;
+//    detOfActVC.code = self.cell.actModel.code;
 
-    if (0 == indexPath.section) {
+//    if (0 == indexPath.section) {
         activityModel *model = self.activities[indexPath.section];
         detOfActVC.code = model.code;
 
         
-    }else if (1 == indexPath.section)
-    {
-        activityModel *model = self.activities[indexPath.section];
+//    }else if (1 == indexPath.section)
+////    {
+//        activityModel *model = self.activities[indexPath.section];
+//
+//       detOfActVC.code = model.code;
 
-       detOfActVC.code = model.code;
-
-        
-    }
-    
+//
+//    }
+//
     //
 //    localMapManager *detOfActVC = [[localMapManager alloc] init];
     [self.viewController.navigationController pushViewController:detOfActVC animated:YES];
