@@ -22,7 +22,11 @@
 @end
 
 @implementation CurrencyKLineHScreenVC
-
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+}
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];

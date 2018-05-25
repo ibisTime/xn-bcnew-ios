@@ -117,5 +117,11 @@
     
     
 }
+#pragma mark - 横屏
+- (BOOL)shouldAutorotate{
+    
+    return self.selectedViewController.shouldAutorotate;
+}
+
 
 @end

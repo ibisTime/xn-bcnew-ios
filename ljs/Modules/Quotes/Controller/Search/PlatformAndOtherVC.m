@@ -33,32 +33,65 @@
 }
 - (void)getLists
 {
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    helper.showView = self.view;
-    helper.code = @"628350";
-    helper.parameters[@"symbol"] = @"EOS";
-        
     
-    helper.parameters[@"start"] = @(self.page);
-    helper.parameters[@"limit"] = @"20";
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+
     
-    helper.parameters[@"userId"] = [TLUser user].userId;
+    http.code = @"628350";;
+    http.parameters[@"symbol"] = @"EOS";
+    http.parameters[@"start"] = @(self.page);
+    http.parameters[@"limit"] = @"20";
+    
+    [http postWithSuccess:^(id responseObject) {
         
-    [helper modelClass:[CurrencyPriceModel class]];
-    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        NSArray *newObjs = responseObject[@"data"][@"list"];
         if (self.page == 1) {
             [self.platformArry removeAllObjects];
         }
-        NSLog(@"--->%@",objs);
-        [self.platformArry addObjectsFromArray:objs];
+        if (newObjs.count != 0) {
+            NSMutableArray *objs = [[CurrencyPriceModel class] mj_objectArrayWithKeyValuesArray:newObjs];
+            [self.platformArry addObjectsFromArray:objs];
+        }
+        else
+        {
+            self.page --;
+        }
         [self.platformTable reloadData];
         [self.platformTable.mj_footer endRefreshing];
         [self.platformTable.mj_header endRefreshing];
 
         
     } failure:^(NSError *error) {
-        
+    
     }];
+    
+//    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+//    helper.showView = self.view;
+//    helper.code = @"628350";
+//    helper.parameters[@"symbol"] = @"EOS";
+//
+//
+//    helper.parameters[@"start"] = @(self.page);
+//    helper.parameters[@"limit"] = @"20";
+//
+//    helper.parameters[@"userId"] = [TLUser user].userId;
+//
+//    [helper modelClass:[CurrencyPriceModel class]];
+//    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//        if (self.page == 1) {
+//            [self.platformArry removeAllObjects];
+//        }
+//        NSLog(@"--->%@",objs);
+//        [self.platformArry addObjectsFromArray:objs];
+//        [self.platformTable reloadData];
+//        [self.platformTable.mj_footer endRefreshing];
+//        [self.platformTable.mj_header endRefreshing];
+//
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
     
 }
 - (void)didReceiveMemoryWarning {

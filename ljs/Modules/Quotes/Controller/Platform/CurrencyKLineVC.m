@@ -164,32 +164,35 @@
  */
 - (void)addchouse
 {
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = @"628330";
-    http.showView = self.view;
-    http.parameters[@"userId"] = [TLUser user].userId;
-    http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
-    http.parameters[@"symbol"] = self.platform.symbol;
-    http.parameters[@"toSymbol"] = self.platform.toSymbol;
-    
-    [http postWithSuccess:^(id responseObject) {
+    [self checkLogin:^{
+        TLNetworking *http = [TLNetworking new];
         
-        if ([self.platform.isChoice integerValue] == 1) {
-            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
-            self.platform.isChoice = @"0";
+        http.code = @"628330";
+        http.showView = self.view;
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
+        http.parameters[@"symbol"] = self.platform.symbol;
+        http.parameters[@"toSymbol"] = self.platform.toSymbol;
+        
+        [http postWithSuccess:^(id responseObject) {
             
-        }
-        else
-        {
-            [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
-            self.platform.isChoice = @"1";
-        }
-
-        
-    } failure:^(NSError *error) {
-        
+            if ([self.platform.isChoice integerValue] == 1) {
+                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
+                self.platform.isChoice = @"0";
+                
+            }
+            else
+            {
+                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
+                self.platform.isChoice = @"1";
+            }
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }];
+    
 }
 - (void)initInfoView {
     

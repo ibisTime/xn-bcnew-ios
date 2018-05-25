@@ -266,7 +266,11 @@
     
     return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
 }
-
+#pragma mark - 横屏
+- (BOOL)shouldAutorotate {
+    
+    return NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     NSLog(@"%@类内存大爆炸",[self class]);
