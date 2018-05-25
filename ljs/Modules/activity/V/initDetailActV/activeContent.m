@@ -86,6 +86,7 @@
    NSString *str = [NSString filterHTML:detailActModel.content];
     self.userImg.text = str;
     
+    
 }
 
 

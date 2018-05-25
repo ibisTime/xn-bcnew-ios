@@ -730,7 +730,7 @@
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
-    [self.tableView beginRefreshing];
+//    [self.tableView beginRefreshing];
 
     self.currentSegmentIndex = index;
 //    if (index == 1) {

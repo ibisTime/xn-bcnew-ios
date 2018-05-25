@@ -214,7 +214,8 @@
     if ([state isEqualToString:@"1"] || [state isEqualToString:@"2"] ) {
         [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
         [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
-    }else{
+    }else if([state isEqualToString:@"9"])
+    {
         [self.stateView setTitle:@"未报名" forState:UIControlStateNormal];
         [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
         
