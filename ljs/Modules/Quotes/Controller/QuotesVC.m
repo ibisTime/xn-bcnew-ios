@@ -271,9 +271,7 @@
       // index 0 涨幅榜 1 跌幅榜 3预警中
         NSLog(@"点击了%ld",index);
         //点击标签
-        [weakSelf checkLogin:^{
-            
-        }];
+       
         if (![TLUser user].isLogin) {
             return ;
         }

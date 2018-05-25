@@ -63,7 +63,7 @@
     //获取币种列表
     [self requestCurrencyList];
     //
-    [self.tableView beginRefreshing];
+//    [self.tableView beginRefreshing];
     //获取贴吧信息
 //    [self requestForumInfo];
 }

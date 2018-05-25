@@ -6,17 +6,23 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 #import "AppColorMacro.h"
-
+#import "TLWXManager.h"
+#import "QQManager.h"
+#import <TFHpple.h>
+#import "TLProgressHUD.h"
 #import "detailActivityVC.h"
-//v
+#import "APICodeMacro.h"
+#//v
 #import "initDetailActMap.h"
 #import "initDetailActHead.h"
 #import "signUpUser.h"
 #import "activeContent.h"
 #import "activityBottom.h"
+#import "UIBarButtonItem+convience.h"
 //m
 #import "DetailActModel.h"
-
+#import "InfoDetailShareView.h"
+#import "NSString+Extension.h"
 @interface detailActivityVC ()
 @property (nonatomic, strong) DetailActModel *detailActModel;
 //v
@@ -27,6 +33,9 @@
 @property (nonatomic, strong) activityBottom *activityBott;
 
 @property (nonatomic, copy) NSString  *isCollent;
+@property (nonatomic, strong) InfoDetailShareView *shareView;
+@property (nonatomic, copy) NSString  *url;
+
 
 @end
 
@@ -40,7 +49,7 @@
     [self initDetailAct];
     
     [self requestDetailAct];
-    
+    [self requestAppUrl];
   //
     [self addNSNotification];
     
@@ -59,6 +68,8 @@
     contentScrollView.tag = 100086;
   
     [self.view addSubview:contentScrollView];
+     [UIBarButtonItem addRightItemWithImageName:@"分享白色" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(shareInfo)];
+  
     
     //头部
     self. detailActHead = [[initDetailActHead alloc ]initWithFrame:CGRectMake(0, 0, kScreenWidth, 280)];
@@ -104,9 +115,151 @@
     
     
 }
+- (void)requestAppUrl {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    http.parameters[@"ckey"] = @"h5Url";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        [TLProgressHUD dismiss];
+        self.url = responseObject[@"data"][@"cvalue"];
+        
+    } failure:^(NSError *error) {
+        
+        [TLProgressHUD dismiss];
+    }];
+}
 
+- (void)shareInfo {
+    
+    [self.shareView show];
+}
+- (InfoDetailShareView *)shareView {
+    
+    if (!_shareView) {
+        
+        BaseWeakSelf;
+        
+        _shareView = [[InfoDetailShareView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        
+        _shareView.shareBlock = ^(ThirdType type) {
+            
+            [weakSelf shareEventsWithType:type];
+        };
+    }
+    return _shareView;
+}
+#pragma mark - 分享
+- (void)shareEventsWithType:(ThirdType)type {
+    
+    NSString *previewImage;
+    
+    
+        previewImage = [self.detailActModel.advPic convertImageUrl];
+        previewImage = [NSString filterHTML:previewImage];
+    NSString *desc = [self substringFromArticleContent:self.detailActModel.content];
+    
+    switch (type) {
+        case ThirdTypeWeChat:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+                                           title:self.detailActModel.title
+                                            desc:desc
+                                             url:self.url];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
+        }break;
+            
+        case ThirdTypeTimeLine:
+        {
+            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
+                                           title:self.detailActModel.title
+                                            desc:desc
+                                             url:self.url];
+            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                } else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
+        }break;
+            
+        case ThirdTypeQQ:
+        {
+            [QQManager manager].qqShare = ^(BOOL isSuccess, int errorCode) {
+                
+                if (isSuccess) {
+                    
+                    [TLAlert alertWithSucces:@"分享成功"];
+                }else {
+                    
+                    [TLAlert alertWithError:@"分享失败"];
+                }
+            };
+            
+            [QQManager qqShareWebPageWithScene:0
+                                         title:self.detailActModel.title
+                                          desc:desc
+                                           url:self.url
+                                  previewImage:previewImage ];
+            
+        }break;
+            
+        case ThirdTypeWeiBo:
+        {
+            
+        }break;
+            
+        default:
+            break;
+    }
+}
 
-
+/**
+ 截取文章内容
+ @param content 文章内容
+ @return 截取后的内容
+ */
+- (NSString *)substringFromArticleContent:(NSString *)content {
+    
+    //截取富文本的内容
+    NSData *htmlData = [self.detailActModel.content dataUsingEncoding:NSUTF8StringEncoding];
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:htmlData];
+    
+    NSArray *classArr = [hpple searchWithXPathQuery:@"//div"];
+    
+    NSMutableString *string = [NSMutableString string];
+    
+    for (TFHppleElement *element in classArr) {
+        
+        if (element.content) {
+            
+            [string add:element.content];
+        }
+    }
+    //文章描述
+    //    NSString *desc = [string substringToIndex:50];
+    
+    return @"";
+}
 - (void)requestDetailAct {
     
     

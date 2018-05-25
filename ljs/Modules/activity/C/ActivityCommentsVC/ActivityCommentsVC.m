@@ -93,7 +93,7 @@
 //    [shareBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
 //
 //    shareBtn.contentMode = UIViewContentModeScaleAspectFit;
-//
+
 //    [self.bottomView addSubview:shareBtn];
 //    [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //
@@ -101,7 +101,7 @@
 //        make.centerY.equalTo(@0);
 //        make.width.height.equalTo(@20);
 //    }];
-//    //收藏
+    //收藏
     //点击评论
     UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
                                           titleColor:kHexColor(@"#9E9E9E")
@@ -119,6 +119,7 @@
         make.right.equalTo(@(-15));
     }];
 }
+
 //- (void)initCommentTableView1 {
 //
 //    self.tableView1 = [[InfoCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

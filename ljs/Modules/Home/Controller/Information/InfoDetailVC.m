@@ -223,19 +223,15 @@
         
     }];
     //分享
-    UIButton *shareBtn = [UIButton buttonWithImageName:@"分享"];
+//    UIButton *shareBtn = [UIButton buttonWithImageName:@"分享"];
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
+//    self.navigationController.navigationItem.rightBarButtonItem = item;
+//
+//    [shareBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
+//
+//    shareBtn.contentMode = UIViewContentModeScaleAspectFit;
     
-    [shareBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
     
-    shareBtn.contentMode = UIViewContentModeScaleAspectFit;
-    
-    [self.bottomView addSubview:shareBtn];
-    [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(@(-15));
-        make.centerY.equalTo(@0);
-        make.width.height.equalTo(@20);
-    }];
     //收藏
     UIButton *collectionBtn = [UIButton buttonWithImageName:@"未收藏"];
     
@@ -249,7 +245,7 @@
     [self.bottomView addSubview:collectionBtn];
     [collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(shareBtn.mas_left).offset(-15);
+        make.right.equalTo(self.bottomView.mas_right).offset(-15);
         make.centerY.equalTo(@0);
         make.width.height.equalTo(@20);
     }];
@@ -330,7 +326,7 @@
  分享资讯
  */
 - (void)shareInfo {
-    
+    NSLog(@"shareInfo");
     [self.shareView show];
 }
 /**
