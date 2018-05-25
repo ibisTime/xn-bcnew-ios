@@ -42,6 +42,7 @@
     http.parameters[@"symbol"] = @"EOS";
     http.parameters[@"start"] = @(self.page);
     http.parameters[@"limit"] = @"20";
+    http.parameters[@"keywords"] = @"BTC";
     
     [http postWithSuccess:^(id responseObject) {
         
