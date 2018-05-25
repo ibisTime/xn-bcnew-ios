@@ -11,7 +11,15 @@
 #import "CurrencyModel.h"
 #import "CurrencyPriceModel.h"
 
+@protocol PlatformAndOtherCellDelegate <NSObject>
+
+- (void)selectAddBtn:(NSIndexPath *)indexpath;
+
+@end
+
 @interface PlatformAndOtherCell : BaseTableViewCell
 @property (nonatomic, strong) CurrencyPriceModel *currency;
+@property (nonatomic)NSIndexPath *index;
+@property (nonatomic ,weak)id<PlatformAndOtherCellDelegate>delegate;
 
 @end

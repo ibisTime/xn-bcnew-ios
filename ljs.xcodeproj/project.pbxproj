@@ -326,6 +326,7 @@
 		C432D71A20B65BDB0022337E /* NewSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71920B65BDB0022337E /* NewSearchViewController.m */; };
 		C490183D20B6BAD00091C11F /* PlatformAndOtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */; };
 		C490184020B6C1840091C11F /* PlatformAndOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */; };
+		C490184320B80F560091C11F /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C490184220B80F560091C11F /* BannerModel.m */; };
 		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
 		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
 		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
@@ -976,6 +977,8 @@
 		C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherVC.m; sourceTree = "<group>"; };
 		C490183E20B6C1840091C11F /* PlatformAndOtherCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformAndOtherCell.h; sourceTree = "<group>"; };
 		C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherCell.m; sourceTree = "<group>"; };
+		C490184120B80F560091C11F /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
+		C490184220B80F560091C11F /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
 		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1126,6 +1129,8 @@
 		186E8BCF209C0A9C00532B1C /* M */ = {
 			isa = PBXGroup;
 			children = (
+				C490184120B80F560091C11F /* BannerModel.h */,
+				C490184220B80F560091C11F /* BannerModel.m */,
 				186E8BD0209C0A9C00532B1C /* ActivityCommentsM */,
 				186E8BD3209C0A9C00532B1C /* activityModel */,
 				186E8BD6209C0A9C00532B1C /* detailActM */,
@@ -3379,6 +3384,7 @@
 				2124BE832061FFF500CB79E8 /* CurrencyModel.m in Sources */,
 				21AC59551FDE7F1500F19DE8 /* WebVC.m in Sources */,
 				21AC58901FDE73FE00F19DE8 /* TLUser.m in Sources */,
+				C490184320B80F560091C11F /* BannerModel.m in Sources */,
 				2121E18B2067DA9C005D6868 /* SearchForumVC.m in Sources */,
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21CFFB1D20566BC500D245ED /* NewsFlashListCell.m in Sources */,

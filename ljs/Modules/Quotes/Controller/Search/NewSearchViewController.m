@@ -149,7 +149,7 @@
         else if (index == 4)
         {
             self.activity = [[ActivityVC alloc]init];
-
+            self.activity.isSearch = YES;
             self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
             [self addChildViewController:self.activity];
             [self.selectSV.scrollView addSubview:self.activity.view];
