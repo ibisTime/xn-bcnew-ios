@@ -63,11 +63,11 @@ static NSString *identifierCell = @"activityListCell";
     
     
     activityModel *new = self.activities[indexPath.section];
-    
+    self.activitiesTemp = [NSMutableArray array];
     //    new.isShowDate = [self isShowDateWithIndexPath:indexPath];
     
     self.cell.actModel = new;
-    
+   
     return self.cell;
 }
 
@@ -106,9 +106,36 @@ static NSString *identifierCell = @"activityListCell";
     
 }
 
+#pragma mark - 编辑模式
+
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    NSMutableArray *actionArr = @[].mutableCopy;
+//
+//    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//
+////        [self deleteCurrencyWithIndex:indexPath.row];
+//    }];
+//
+//    deleteAction.backgroundColor = kHexColor(@"#FF4545");
+//
+//    [actionArr addObject:deleteAction];
+//
+//    UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"置顶" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//
+////        [self topCurrencyWithIndex:indexPath.row];
+//    }];
+//
+//    editAction.backgroundColor = kHexColor(@"#C3C3C3");
+//
+//    [actionArr addObject:editAction];
+//
+//    return actionArr;
+//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //    return self.news[indexPath.section].cellHeight;
+//        return [self.cell cellRowHeight];
     
 #warning 变化
     return  307;

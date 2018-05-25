@@ -11,7 +11,8 @@
 #import "activityModel.h"
 @interface ActivityListV : TLTableView
 //activities
-@property (nonatomic, strong) NSArray <activityModel *>*activities;
+@property (nonatomic, strong) NSMutableArray <activityModel *>*activities;
 @property (nonatomic, assign) BOOL IsTakeActivity;
+@property (nonatomic, strong) NSMutableArray <activityModel *>*activitiesTemp;
 
 @end

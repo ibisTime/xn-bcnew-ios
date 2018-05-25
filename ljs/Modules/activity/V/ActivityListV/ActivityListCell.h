@@ -11,5 +11,7 @@
 @interface ActivityListCell : BaseTableViewCell
 //
 @property (nonatomic, strong) activityModel *actModel;
+@property (nonatomic, assign) CGFloat cellRowHeight;
+
 
 @end

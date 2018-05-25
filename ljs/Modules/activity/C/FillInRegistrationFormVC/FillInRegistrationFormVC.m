@@ -163,6 +163,8 @@ typedef struct TitleInfo TitleInfo;
         [TLAlert alertWithSucces:@"报名成功"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SignSucess" object:nil];
         
+        [self.navigationController popViewControllerAnimated:YES];
+        
     } failure:^(NSError *error) {
         [TLAlert alertWithSucces:@"报名失败"];
 

@@ -21,7 +21,7 @@
 //list
 @property (nonatomic, strong) ActivityListV *ActivityListTableView;
 //activities
-@property (nonatomic, strong) NSArray <activityModel *>*activities;
+@property (nonatomic, strong) NSMutableArray <activityModel *>*activities;
 //
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 
@@ -146,8 +146,20 @@
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.activities = objs;
-            
             weakSelf.ActivityListTableView.activities = objs;
+            for (int i = 0; i < weakSelf.activities.count; i++) {
+                activityModel *model = weakSelf.activities[i];
+                
+                if ([model.isTop isEqualToString:@"1"]) {
+                    //需要置顶
+                    [weakSelf.activities removeObjectAtIndex:i];
+                    [weakSelf.activities insertObject:model atIndex:0];
+                    [weakSelf.ActivityListTableView.activities removeObjectAtIndex:i];
+                    [weakSelf.ActivityListTableView.activities insertObject:model atIndex:0];
+                }
+                
+            }
+            
             
             
             [weakSelf.ActivityListTableView reloadData_tl];

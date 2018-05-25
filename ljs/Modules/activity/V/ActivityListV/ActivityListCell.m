@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *ActivityTitle;
 //价格
 @property (nonatomic, strong) UILabel *price;
+@property (nonatomic, strong) UIImageView *isTopView;
 
 //日期
 @property (nonatomic, strong) UIImageView *dateLblImg;
@@ -66,7 +67,7 @@
  
     //活动主题
     self.ActivityTitle = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:17.0];
-    self.ActivityTitle.numberOfLines = 0;//行数
+    self.ActivityTitle.numberOfLines = 2;//行数
     
     [self addSubview:self.ActivityTitle];
     
@@ -82,7 +83,8 @@
 
     [self addSubview:self.dateLbl];
     
-    
+    self.isTopView = [[UIImageView alloc] initWithImage:kImage(@"top")];
+    [self addSubview:self.isTopView];
     //已阅
     self.readCountImg = [[UIImageView alloc] initWithImage:kImage(@"已报名浏览")];
     [self addSubview:self.readCountImg];
@@ -131,9 +133,10 @@
     //标题
     [self.ActivityTitle mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
-         make.left.offset(15);
+         make.left.offset(10);
         make.width.equalTo(@280);
-        
+        make.height.equalTo(@44);
+
         }];
     
     //价格
@@ -142,7 +145,11 @@
                 make.right.offset(-15);
               make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
     }];
-
+    [self.isTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.offset(-15);
+        make.top.equalTo(self.price.mas_bottom).offset(10);
+    }];
     //日期图
     [self.dateLblImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -216,7 +223,7 @@
         [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
     }else if([state isEqualToString:@"9"])
     {
-        [self.stateView setTitle:@"未报名" forState:UIControlStateNormal];
+        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
         [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
         
     }
@@ -225,12 +232,12 @@
     self.ActivityTitle.text = actModel.title;
     self.price.text =[NSString stringWithFormat:@"￥ %.2f",[actModel.price doubleValue]/1000];
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
-    
+    self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];
     self.readCount.text = actModel.readCount;
     self.location.text = actModel.address;
-
-    
-    
+    [self layoutIfNeeded];
+    self.cellRowHeight =   CGRectGetMaxY(self.location.frame);
+    NSLog(@"cellRowHeight%f",self.cellRowHeight);
 }
 
 
