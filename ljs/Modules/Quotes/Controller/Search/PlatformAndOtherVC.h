@@ -11,4 +11,5 @@
 
 @interface PlatformAndOtherVC : UIViewController
 @property (nonatomic , copy)NSString *searchText;
+- (void)searchRequestWith:(NSString *)search;
 @end

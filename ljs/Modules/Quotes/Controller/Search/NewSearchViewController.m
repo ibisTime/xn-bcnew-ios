@@ -16,13 +16,24 @@
 #import "ActivityVC.h"
 #import "PlatformAndOtherVC.h"
 
-@interface NewSearchViewController ()
+@interface NewSearchViewController ()<UITextFieldDelegate>
 //搜索
 @property (nonatomic, strong) TLTextField *searchTF;
 //项目信息
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //标题
 @property (nonatomic, strong) NSArray *titles;
+//币种
+@property (nonatomic , strong)PlatformAndOtherVC *currencyvc;
+//平台
+@property (nonatomic , strong)PlatformAndOtherVC *platformvc;
+//资讯
+@property (nonatomic , strong)HomeChildVC *information;
+//快讯
+@property (nonatomic , strong)HomeChildVC *alerts;
+//活动
+@property (nonatomic , strong)ActivityVC *activity;
+
 @end
 
 @implementation NewSearchViewController
@@ -72,7 +83,7 @@
     self.searchTF.delegate = self;
     self.searchTF.returnKeyType = UIReturnKeySearch;
     
-    [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
+//    [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
     [searchBgView addSubview:self.searchTF];
     [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -103,45 +114,45 @@
 {
     for (NSInteger index = 0; index < self.titles.count; index++) {
         if (index == 0) {
-            PlatformAndOtherVC *other = [[PlatformAndOtherVC alloc]init];
-            other.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            [self addChildViewController:other];
-            [self.selectSV.scrollView addSubview:other.view];
+            self.currencyvc = [[PlatformAndOtherVC alloc]init];
+            self.currencyvc.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:self.currencyvc];
+            [self.selectSV.scrollView addSubview:self.currencyvc.view];
         }
         else if (index == 1) {
-            PlatformAndOtherVC *other = [[PlatformAndOtherVC alloc]init];
-            other.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            [self addChildViewController:other];
-            [self.selectSV.scrollView addSubview:other.view];
+            self.platformvc = [[PlatformAndOtherVC alloc]init];
+            self.platformvc.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:self.platformvc];
+            [self.selectSV.scrollView addSubview:self.platformvc.view];
         }
         else if (index == 2) {
             
-            HomeChildVC *childVC = [[HomeChildVC alloc] init];
-            childVC.status = @"1";
-            childVC.kind = @"2";
-            childVC.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            self.information = [[HomeChildVC alloc] init];
+            self.information.status = @"1";
+            self.information.kind = @"2";
+            self.information.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
             
-            [self addChildViewController:childVC];
+            [self addChildViewController:self.information];
             
-            [self.selectSV.scrollView addSubview:childVC.view];
+            [self.selectSV.scrollView addSubview:self.information.view];
         }
         else if (index == 3) {
-            HomeChildVC *childVC = [[HomeChildVC alloc] init];
-            childVC.status = @"";
-            childVC.kind = @"1";
-            childVC.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            self.alerts = [[HomeChildVC alloc] init];
+            self.alerts.status = @"";
+            self.alerts.kind = @"1";
+            self.alerts.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
             
-            [self addChildViewController:childVC];
+            [self addChildViewController:self.alerts];
             
-            [self.selectSV.scrollView addSubview:childVC.view];
+            [self.selectSV.scrollView addSubview:self.alerts.view];
         }
         else if (index == 4)
         {
-            ActivityVC *activity = [[ActivityVC alloc]init];
+            self.activity = [[ActivityVC alloc]init];
 
-            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            [self addChildViewController:activity];
-            [self.selectSV.scrollView addSubview:activity.view];
+            self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            [self addChildViewController:self.activity];
+            [self.selectSV.scrollView addSubview:self.activity.view];
 
         }
     }
@@ -150,6 +161,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [self.platformvc searchRequestWith:textField.text];
+    [self.currencyvc searchRequestWith:textField.text];
+    [self.activity searchRequestWith:textField.text];
+    [self.information searchRequestWith:textField.text];
+    [self.alerts searchRequestWith:textField.text];
+    
     return YES;
 }
 /**

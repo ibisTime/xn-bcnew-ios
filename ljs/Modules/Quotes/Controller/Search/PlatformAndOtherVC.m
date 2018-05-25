@@ -31,6 +31,11 @@
     }];
     [self getLists];
 }
+- (void)searchRequestWith:(NSString *)search
+{
+    self.searchText = search;
+    [self getLists];
+}
 - (void)getLists
 {
     
@@ -41,8 +46,9 @@
     http.code = @"628350";;
     http.parameters[@"symbol"] = @"EOS";
     http.parameters[@"start"] = @(self.page);
+//    http.parameters[@"pageNO"] = ;
     http.parameters[@"limit"] = @"20";
-    http.parameters[@"keywords"] = @"BTC";
+    http.parameters[@"keywords"] = self.searchText;
     
     [http postWithSuccess:^(id responseObject) {
         

@@ -81,6 +81,24 @@
                                                  name:@"DidReceivePushNotification"
                                                object:nil];
 }
+- (void)searchRequestWith:(NSString *)search
+{
+    if (search.length != 0) {
+        self.flashHelper.parameters[@"keywords"] = search;
+        [self refreshNewsFlash];
+        
+        if ([self.kind isEqualToString:kNewsFlash]) {
+            //刷新
+            [self.flashTableView beginRefreshing];
+            
+        } else {
+            
+            //刷新
+            [self.infoTableView beginRefreshing];
+        }
+        
+    }
+}
 
 - (void)refreshNewsFlash {
     
