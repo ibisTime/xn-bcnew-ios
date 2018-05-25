@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "OptionalTitleModel.h"
 
-@interface PlatformAndOtherVC : UIViewController
+@interface PlatformAndOtherVC : BaseViewController
+@property (nonatomic , assign)BOOL isCurrency;
 @property (nonatomic , copy)NSString *searchText;
 - (void)searchRequestWith:(NSString *)search;
 @end

@@ -39,6 +39,8 @@
 @property (nonatomic, strong) NSNumber *rank;
 //
 @property (nonatomic, copy) NSString *availableSupply;
+//是否添加自选 0 no 1 yes
+@property (nonatomic, copy)NSString *isChoice;
 
 @property (nonatomic, copy) NSString *lastUpdated;
 @property (nonatomic, copy) NSString *totalMarketCapCny;

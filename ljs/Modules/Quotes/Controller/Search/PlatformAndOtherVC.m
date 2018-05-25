@@ -8,8 +8,9 @@
 
 #import "PlatformAndOtherVC.h"
 #import "PlatformAndOtherCell.h"
+#import "CurrencyPriceModel.h"
 
-@interface PlatformAndOtherVC ()<UITableViewDelegate , UITableViewDataSource>
+@interface PlatformAndOtherVC ()<UITableViewDelegate , UITableViewDataSource,PlatformAndOtherCellDelegate>
 @property (nonatomic , strong)UITableView *platformTable;
 @property (nonatomic , strong)NSMutableArray *platformArry;
 @property (nonatomic)NSInteger page;
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLists) name:kUserLoginNotification object:nil];
     self.page = 1;
     self.platformArry = [NSMutableArray arrayWithCapacity:0];
     [self.platformTable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -39,14 +41,22 @@
 - (void)getLists
 {
     
+    
+    
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
 
     
     http.code = @"628350";;
-    http.parameters[@"symbol"] = @"EOS";
+//    if (self.isCurrency) {
+//        
+//        http.parameters[@"symbol"] = self.searchText;
+//    }else {
+//        
+//        http.parameters[@"exchangeEname"] = self.searchText;
+//    }
+    http.parameters[@"userid"] = [TLUser user].userId;
     http.parameters[@"start"] = @(self.page);
-//    http.parameters[@"pageNO"] = ;
     http.parameters[@"limit"] = @"20";
     http.parameters[@"keywords"] = self.searchText;
     
@@ -147,6 +157,8 @@
         cell = [[PlatformAndOtherCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellidear];
     }
     cell.currency = (CurrencyPriceModel *)[self.platformArry objectAtIndex:indexPath.row];
+    cell.index = indexPath;
+    cell.delegate = self;
     return cell;
     
 }
@@ -154,6 +166,57 @@
 {
     return 68;
 }
+- (void)selectAddBtn:(NSIndexPath *)indexpath
+{
+    BaseWeakSelf;
+    [self checkLogin:^{
+        CurrencyPriceModel *model = [self.platformArry objectAtIndex:indexpath.row];
+        TLNetworking *http = [TLNetworking new];
+        
+        if ([model.isChoice boolValue]) {
+            http.code = @"628332";
+            http.showView = self.view;
+            http.parameters[@"id"] = model.ID;
+
+            
+            [http postWithSuccess:^(id responseObject) {
+                
+                [TLAlert alertWithSucces:@"移除成功"];
+                
+                model.isChoice = @"0";
+                [weakSelf.platformArry replaceObjectAtIndex:indexpath.row withObject:model];
+                [weakSelf.platformTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+                
+            } failure:^(NSError *error) {
+                
+            }];
+        }
+        else
+        {
+            http.code = @"628330";
+            http.showView = self.view;
+            http.parameters[@"userId"] = [TLUser user].userId;
+            http.parameters[@"exchangeEname"] = model.exchangeEname;
+            http.parameters[@"symbol"] = model.symbol;
+            http.parameters[@"toSymbol"] = model.toSymbol;
+            
+            [http postWithSuccess:^(id responseObject) {
+                
+                [TLAlert alertWithSucces:@"添加成功"];
+                
+                model.isChoice = @"1";
+                [weakSelf.platformArry replaceObjectAtIndex:indexpath.row withObject:model];
+                [weakSelf.platformTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+                
+            } failure:^(NSError *error) {
+                
+            }];
+        }
+        
+        
+    }];
+}
+
 /*
 #pragma mark - Navigation
 

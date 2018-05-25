@@ -73,6 +73,7 @@
                                         titleColor:kClearColor
                                    backgroundColor:kClearColor
                                          titleFont:17.0 cornerRadius:5];
+    [self.addBtn addTarget:self action:@selector(addzixuan) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.addBtn];
     
     [self addSubview:self.priceFluctBtn];
@@ -122,7 +123,15 @@
 - (void)setCurrency:(CurrencyPriceModel *)currency {
     
     _currency = currency;
-    [self.addBtn setImage:[UIImage imageNamed:@"optional_添加"] forState:UIControlStateNormal];
+    if ([currency.isChoice boolValue]) {
+        [self.addBtn setImage:[UIImage imageNamed:@"df_选择"] forState:UIControlStateNormal];
+
+    }
+    else
+    {
+        [self.addBtn setImage:[UIImage imageNamed:@"optional_添加"] forState:UIControlStateNormal];
+
+    }
     //平台名称
     self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
     
@@ -154,6 +163,13 @@
         
         make.width.equalTo(@(btnW > 75 ? btnW: 75));
     }];
+    
+}
+- (void)addzixuan
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectAddBtn:)]) {
+        [self.delegate selectAddBtn:self.index];
+    }
     
 }
 - (void)awakeFromNib {
