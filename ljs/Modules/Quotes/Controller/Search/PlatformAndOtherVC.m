@@ -55,7 +55,7 @@
 //        
 //        http.parameters[@"exchangeEname"] = self.searchText;
 //    }
-    http.parameters[@"userid"] = [TLUser user].userId;
+    http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"start"] = @(self.page);
     http.parameters[@"limit"] = @"20";
     http.parameters[@"keywords"] = self.searchText;

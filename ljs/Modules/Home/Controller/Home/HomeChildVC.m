@@ -11,13 +11,18 @@
 #import "NewsFlashModel.h"
 #import "InformationModel.h"
 #import "InfoManager.h"
+#import "BannerModel.h"
+
 //V
 #import "NewsFlashListTableView.h"
 #import "InformationListTableView.h"
 #import "TLPlaceholderView.h"
+#import "TLBannerView.h"
+
 //C
 #import "NewsFlashDetailVC.h"
 #import "InfoDetailVC.h"
+#import "WebVC.h"
 
 @interface HomeChildVC ()<RefreshDelegate>
 
@@ -33,7 +38,11 @@
 //infoList
 @property (nonatomic, strong) NSArray <InformationModel *>*infos;
 //**********************************
+@property (nonatomic,strong) NSMutableArray <BannerModel *>*bannerRoom;
 
+
+//轮播图
+@property (nonatomic, strong) TLBannerView *bannerView;
 
 //
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
@@ -64,6 +73,9 @@
         [self initInfoTableView];
         //获取资讯列表
         [self requestInfoList];
+        
+        //获取轮番图
+        [self requestBannerList];
         //刷新
         [self.infoTableView beginRefreshing];
     }
@@ -83,6 +95,7 @@
 }
 - (void)searchRequestWith:(NSString *)search
 {
+    self.isSearch = NO;
     if (search.length != 0) {
         self.flashHelper.parameters[@"keywords"] = search;
         [self refreshNewsFlash];
@@ -133,6 +146,9 @@
         
         make.edges.mas_equalTo(0);
     }];
+    if (self.isActivity) {
+        self.infoTableView.tableHeaderView = self.bannerView;
+    }
 }
 
 #pragma mark - Data
@@ -169,8 +185,10 @@
             
             weakSelf.flashTableView.news = objs;
             NSLog(@"....???%@",weakSelf.flashTableView.news);
+            if (!weakSelf.isSearch) {
+                [weakSelf.flashTableView reloadData_tl];
 
-            [weakSelf.flashTableView reloadData_tl];
+            }
             
         } failure:^(NSError *error) {
             
@@ -184,7 +202,10 @@
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
-            [weakSelf.flashTableView reloadData_tl];
+            if (!weakSelf.isSearch) {
+                [weakSelf.flashTableView reloadData_tl];
+            }
+            
             
         } failure:^(NSError *error) {
             
@@ -218,7 +239,11 @@
             //数据转给tableview
             weakSelf.infoTableView.infos = objs;
             
-            [weakSelf.infoTableView reloadData_tl];
+            if (!weakSelf.isSearch) {
+                [weakSelf.infoTableView reloadData_tl];
+
+            }
+            
             
         } failure:^(NSError *error) {
             
@@ -233,7 +258,10 @@
             
             weakSelf.infoTableView.infos = objs;
             
-            [weakSelf.infoTableView reloadData_tl];
+            if (!weakSelf.isSearch) {
+                [weakSelf.infoTableView reloadData_tl];
+            }
+            
 
         } failure:^(NSError *error) {
             
@@ -313,6 +341,54 @@
 //     [self.refreshDelegate refreshTableViewButtonClick:self button:sender selectRowAtIndex:index];
 }
 
+- (TLBannerView *)bannerView {
+    
+    if (!_bannerView) {
+        
+        _bannerView = [[TLBannerView alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, kWidth(150))];
+        BaseWeakSelf;
+        _bannerView.selected = ^(NSInteger index) {
+            BannerModel *model = [weakSelf.bannerRoom objectAtIndex:index];
+            
+            if (model.url.length!= 0) {
+                WebVC *webv = [[WebVC alloc]init];
+                webv.url = model.url;
+                [weakSelf.navigationController pushViewController:webv animated:YES];
+            }
+            
+        };
+        
+    }
+    return _bannerView;
+}
+
+- (void)requestBannerList {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"805806";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.bannerRoom = [BannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        NSMutableArray *imgUrls = [NSMutableArray array];
+        
+        [self.bannerRoom enumerateObjectsUsingBlock:^(BannerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.pic) {
+                
+                [imgUrls addObject:obj.pic];
+            }
+        }];
+        self.bannerView.imgUrls = imgUrls;
+        
+        //        self.infoTableView.tableHeaderView = self.headerView;
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

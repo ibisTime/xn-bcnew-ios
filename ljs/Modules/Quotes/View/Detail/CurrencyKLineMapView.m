@@ -14,6 +14,8 @@
 #import "UILabel+Extension.h"
 //V
 #import "DetailWebView.h"
+#import "TLNetworking.h"
+#import "APICodeMacro.h"
 
 @interface CurrencyKLineMapView()
 
@@ -95,12 +97,27 @@
     
     _platform = platform;
     
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    http.parameters[@"ckey"] = @"h5Url";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
+        NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
+        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@",shareUrl, symbol, platform.exchangeEname];
+        
+        [self.kLineView loadRequestWithString:html];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+    }];
+    
     //k线图
     //交易对
-    NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
-    NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
     
-    [self.kLineView loadRequestWithString:html];
 }
 - (void)reloadWeb
 {

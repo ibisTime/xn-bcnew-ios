@@ -48,6 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     //头部
 //    [self initHeaderView];
     self.percentTempIndex = -1;
@@ -288,7 +289,7 @@
     helper.code = @"628341";
     helper.parameters[@"symbol"] = @"BTC";
     helper.tableView = self.tableView;
-    
+    helper.showView = self.view;
     [helper modelClass:[CurrencyPriceModel class]];
     self.helper = helper;
     

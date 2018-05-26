@@ -13,11 +13,7 @@
 #import "NavigationController.h"
 //V
 #import "ActivityListV.h"
-#import "TLBannerView.h"
-#import "WebVC.h"
-//M
-#import "activityModel.h"
-#import "BannerModel.h"
+
 @interface ActivityVC ()
 
 //V
@@ -30,11 +26,6 @@
 
 @property (nonatomic,copy)NSString *searchText;
 
-@property (nonatomic,strong) NSMutableArray <BannerModel *>*bannerRoom;
-
-
-//轮播图
-@property (nonatomic, strong) TLBannerView *bannerView;
 @end
 
 @implementation ActivityVC
@@ -59,17 +50,13 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoadHomeVC"
                                                         object:nil];
-    if (!self.isSearch) {
-        self.ActivityListTableView.tableHeaderView = self.bannerView;
-        //获取轮番图
-        [self requestBannerList];
-
-    }
+    
     
     
 }
 - (void)searchRequestWith:(NSString *)search
 {
+    self.isSearch = NO;
     self.searchText = search;
     if (self.searchText.length != 0) {
         self.flashHelper.parameters[@"keywords"] = self.searchText;
@@ -176,8 +163,10 @@
             }
             
             
+            if (!weakSelf.isSearch) {
+                [weakSelf.ActivityListTableView reloadData_tl];
+            }
             
-            [weakSelf.ActivityListTableView reloadData_tl];
             
         } failure:^(NSError *error) {
             
@@ -191,8 +180,9 @@
             weakSelf.activities = objs;
             
             weakSelf.ActivityListTableView.activities = objs;
-            [weakSelf.ActivityListTableView reloadData_tl];
-            
+            if (!weakSelf.isSearch) {
+                [weakSelf.ActivityListTableView reloadData_tl];
+            }
         } failure:^(NSError *error) {
             
         }];
@@ -203,53 +193,6 @@
 }
 //
 
-- (TLBannerView *)bannerView {
-    
-    if (!_bannerView) {
-        
-        _bannerView = [[TLBannerView alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, kWidth(150))];
-        BaseWeakSelf;
-        _bannerView.selected = ^(NSInteger index) {
-            BannerModel *model = [weakSelf.bannerRoom objectAtIndex:index];
-
-            if (model.url.length!= 0) {
-                WebVC *webv = [[WebVC alloc]init];
-                webv.url = model.url;
-                [weakSelf.navigationController pushViewController:webv animated:YES];
-            }
-           
-        };
-        
-    }
-    return _bannerView;
-}
-- (void)requestBannerList {
-    
-    TLNetworking *http = [TLNetworking new];
-    
-    http.code = @"805806";
-    
-    [http postWithSuccess:^(id responseObject) {
-        
-        self.bannerRoom = [BannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        
-        NSMutableArray *imgUrls = [NSMutableArray array];
-        
-        [self.bannerRoom enumerateObjectsUsingBlock:^(BannerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (obj.pic) {
-                
-                [imgUrls addObject:obj.pic];
-            }
-        }];
-        self.bannerView.imgUrls = imgUrls;
-        
-        //        self.infoTableView.tableHeaderView = self.headerView;
-        
-    } failure:^(NSError *error) {
-        
-    }];
-}
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

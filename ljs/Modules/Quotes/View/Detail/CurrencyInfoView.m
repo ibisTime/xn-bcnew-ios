@@ -217,7 +217,7 @@
     
     _platform = platform;
     //币种名称
-    self.currencyNameLbl.text = [NSString stringWithFormat:@"%.2f", [platform.priceChange doubleValue]];
+    self.currencyNameLbl.text = [NSString stringWithFormat:@"%.6f", [platform.priceChange doubleValue]];
     self.currencyNameLbl.textColor = [UIColor whiteColor];
     //当前人民币价格
     self.rmbPriceLbl.textColor = [UIColor whiteColor];
