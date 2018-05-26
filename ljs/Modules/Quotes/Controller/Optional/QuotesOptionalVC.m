@@ -64,7 +64,7 @@
 
 - (void)addSubViewController {
     
-    for (NSInteger i = 0; i < self.titles.count; i++) {
+    for (NSInteger i = 0; i < self.titleList.count; i++) {
         //可选
         QuotesOptionalChildVC *childVC = [[QuotesOptionalChildVC alloc] init];
         

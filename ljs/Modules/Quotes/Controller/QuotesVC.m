@@ -80,6 +80,7 @@
 @property (nonatomic, assign) BOOL percentLabStatus;//涨幅 跌幅
 
 @property (nonatomic, strong) UILabel *currencyNameLbl;
+@property (nonatomic, assign) BOOL IsFirst;
 
 
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
@@ -151,6 +152,7 @@
     NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
     NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSameHomeBarClick:) name:@"titleSameBarindex" object:nil];
     
     
 }
@@ -273,15 +275,14 @@
        
       // index 0 涨幅榜 1 跌幅榜 3预警中
         NSLog(@"点击了%ld",index);
-        if (weakSelf.percentTempIndex == index) {
-            return ;
-        }
+       
         weakSelf.percentTempIndex = -1;
         //点击标签
        
         if (![TLUser user].isLogin) {
             return ;
         }
+        
         switch (index) {
             case 0:
                 index = 1;
@@ -291,6 +292,9 @@
             default:
                 break;
         }
+        if (weakSelf.percentTempIndex == index) {
+            return ;
+        }
         NSDictionary *dic = @{@"titleBarindex": @(index)};
        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
@@ -298,11 +302,20 @@
                                                           userInfo:dic];
     };
     self.quotesView.selectSameBlock = ^(NSInteger ind) {
+        switch (ind) {
+            case 0:
+                ind = 1;
+                break;
+            case  1 :
+                ind = 0;
+            default:
+                break;
+        }
         weakSelf.percentLabStatus = NO;
         weakSelf.percentTempIndex = ind;
         NSLog(@"点击了相同的lable%ld",ind);
         weakSelf.percentChangeIndex =-1;
-        NSDictionary *dic = @{@"titleBarindex": @(ind)};
+        NSDictionary *dic = @{@"titleSameBarindex": @(ind)};
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleSameBarindex"
                                                             object:nil
@@ -310,7 +323,7 @@
         if (weakSelf.currentSegmentIndex == 2 || weakSelf.currentSegmentIndex == 3) {
             return ;
         }
-        [weakSelf requestPlatform];
+//        [weakSelf requestPlatform];
     };
     int i = 0;
 //    [self.selectSV setCurrentIndex:1];
@@ -605,16 +618,47 @@
 }
 
 #pragma mark - Data
-
+- (void)titleSameHomeBarClick:(NSNotification *)notification {
+    if (self.IsFirst == YES) {
+        //第二次点击同一个跌幅榜
+        self.percentChangeIndex = -1;
+        [self requestPlatform];
+        self.IsFirst = NO;
+        
+    }else{
+        NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
+        
+        self.percentChangeIndex = index;
+        [self requestPlatform];
+        self.IsFirst = YES;
+        
+    }
+    
+}
 - (void)titleBarClick:(NSNotification *)notification {
     
-    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
     if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
         return;
     }
-    self.percentChangeIndex = index;
-
-    [self requestPlatform];
+    self.IsFirst = YES;
+    
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    
+    NSLog(@"点击了自选的第%ld个",index);
+    if (self.percentTempIndex != index) {
+        
+        self.percentTempIndex = index;
+        self.percentChangeIndex = index;
+        [self requestPlatform];
+    }
+    else {
+        if(self.IsFirst == YES) {
+            
+            self.percentTempIndex = index;
+            self.percentChangeIndex = index;
+            [self requestPlatform];
+        }
+    }
 
 }
 

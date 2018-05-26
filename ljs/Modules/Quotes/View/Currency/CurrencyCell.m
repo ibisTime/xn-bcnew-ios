@@ -16,12 +16,15 @@
 
 //平台名称
 @property (nonatomic, strong) UILabel *platformNameLbl;
+@property (nonatomic, strong) UILabel *syomblName;
+
 //当前对应币种
 @property (nonatomic, strong) UILabel *opppsitePriceLbl;
 //当前人民币价格
 @property (nonatomic, strong) UILabel *rmbPriceLbl;
 //涨跌情况
 @property (nonatomic, strong) UIButton *priceFluctBtn;
+@property (nonatomic, strong) UIImageView *IsWarnImage;
 
 @end
 
@@ -44,8 +47,17 @@
     self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor
                                                         font:17.0];
+    //平台名称
+    self.syomblName = [UILabel labelWithBackgroundColor:kClearColor
+                                                   textColor:kTextColor
+                                                        font:14.0];
     
     [self addSubview:self.platformNameLbl];
+    [self addSubview:self.syomblName];
+    self.IsWarnImage = [[UIImageView alloc] init];
+    self.IsWarnImage.image = [UIImage imageNamed:@"闹钟"];
+    [self addSubview:self.IsWarnImage];
+
     //涨跌情况
     self.priceFluctBtn = [UIButton buttonWithTitle:@""
                                         titleColor:kWhiteColor
@@ -72,12 +84,28 @@
 
 - (void)setSubviewLayout {
     
+    [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@10);
+
+        make.left.equalTo(@15);
+        make.width.equalTo(@15);
+        make.height.equalTo(@15);
+
+    }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@15);
+        make.left.equalTo(self.IsWarnImage.mas_right).offset(10);
+        make.width.equalTo(@70);
         make.centerY.equalTo(@0);
     }];
+    
+    [self.syomblName mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(self.platformNameLbl.mas_right).offset(10);
+        make.centerY.equalTo(@0);
+    }];
+    
     //涨幅
     [self.priceFluctBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -106,7 +134,17 @@
     _currency = currency;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@ %@",currency.exchangeCname,[currency.toSymbol uppercaseString]];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
+    [self.platformNameLbl sizeToFit];
+     self.syomblName.text = [NSString stringWithFormat:@"%@/%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
+    self.IsWarnImage.hidden = [currency.isWarn isEqualToString:@"0"];
+    if ([currency.isWarn isEqualToString:@"0"]) {
+        [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@15);
+            make.width.equalTo(@70);
+            make.centerY.equalTo(@0);
+        }];
+    }
     
     //对应币种价格
     self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", [currency.lastPrice convertToRealMoneyWithNum:8]];

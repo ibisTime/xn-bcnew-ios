@@ -50,7 +50,7 @@
     [super viewDidLoad];
     //头部
 //    [self initHeaderView];
-     self.IsFirst = YES;
+    self.percentTempIndex = -1;
     [self initTableView];
     //添加通知
     [self addNotification];
@@ -83,32 +83,49 @@
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
-    }
-    CurrencyTitleModel *titleModel;
-    if (self.CurrentLableIndex == 0) {
-        titleModel = nil;
+        [self requestCurrencyList];
+        self.IsFirst = NO;
+        
     }else{
-        titleModel = self.currencyTitleList[self.CurrentLableIndex-1];
+        NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
+        
+        self.percentChangeIndex = index;
+        [self requestCurrencyList];
+        self.IsFirst = YES;
+        
     }
-    self.titleModel = titleModel;
-    NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
-    [self requestCurrencyList];
+
+    
+    
 }
 - (void)titleBarClick:(NSNotification *)notification {
-   
-    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    self.IsFirst = YES;
 
-    if (self.percentTempIndex == !index) {
-       
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    CurrencyTitleModel *titleModel;
+
+    if (self.CurrentLableIndex == 0) {
+        titleModel = nil;
+        self.titleModel = titleModel;
+
+    }else{
+        titleModel = self.currencyTitleList[self.CurrentLableIndex-1];
+        self.titleModel = titleModel;
+    }
+    
+    if (self.percentTempIndex != index) {
+        
+        self.percentTempIndex = index;
+        self.percentChangeIndex = index;
+        [self requestCurrencyList];
+    }
+    else {
+        if(self.IsFirst == YES) {
+            
             self.percentTempIndex = index;
             self.percentChangeIndex = index;
-            [self.tableView beginRefreshing];
-    }
-   else if(self.IsFirst == YES) {
-        
-       self.percentTempIndex = index;
-       self.percentChangeIndex = index;
-       [self.tableView beginRefreshing];
+            [self requestCurrencyList];
+        }
     }
     
 

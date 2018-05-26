@@ -42,6 +42,8 @@
 @property (nonatomic, strong) BaseView *footerView;
 
 @property (nonatomic, assign) NSInteger percentChangeIndex;
+@property (nonatomic, assign) BOOL IsFirst;
+@property (nonatomic, assign) NSInteger percentTempIndex;
 
 @end
 
@@ -55,6 +57,7 @@
     [self initFooterView];
     [self initTableView];
     self.tableView.optionals = self.optionals;
+    self.percentTempIndex = -1;
     //获取自选列表
     [self addNotification];
 
@@ -110,12 +113,48 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSameMyBarClick:) name:@"titleSameBarindex" object:nil];
 }
-- (void)titleBarClick:(NSNotification *)notification {
-    
-    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+- (void)titleSameMyBarClick:(NSNotification *)notification {
+    if (self.IsFirst == YES) {
+        //第二次点击同一个跌幅榜
+        self.percentChangeIndex = -1;
+        [self requestOptionalList];
+        self.IsFirst = NO;
+
+    }else{
+    NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
+
     self.percentChangeIndex = index;
-    [self.tableView beginRefreshing];
+    [self requestOptionalList];
+        self.IsFirst = YES;
+
+    }
+
+}
+
+- (void)titleBarClick:(NSNotification *)notification {
+    self.IsFirst = YES;
+//    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+//    self.percentChangeIndex = index;
+//    [self.tableView beginRefreshing];
+    NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    
+    NSLog(@"点击了自选的第%ld个",index);
+    if (self.percentTempIndex != index) {
+        
+        self.percentTempIndex = index;
+        self.percentChangeIndex = index;
+        [self requestOptionalList];
+    }
+    else {
+        if(self.IsFirst == YES) {
+        
+        self.percentTempIndex = index;
+        self.percentChangeIndex = index;
+        [self requestOptionalList];
+    }
+    }
 }
 
 
@@ -134,7 +173,7 @@
     }
     [self.tableView beginRefreshing];
 
-    [self refreshOptionalList];
+//    [self refreshOptionalList];
 
  
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
@@ -355,6 +394,11 @@
     helper.parameters[@"userId"] = @"U201805160952110342835";
     helper.tableView = self.tableView;
     
+    if (weakSelf.percentChangeIndex >= 0) {
+        helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+        
+    }
+    helper.parameters[@"userId"] = [TLUser user].userId;
     [helper modelClass:[OptionalListModel class]];
     self.helper = helper;
     
@@ -406,7 +450,7 @@
         }];
     }];
     
-    [self.tableView endRefreshingWithNoMoreData_tl];
+    [self.tableView beginRefreshing];
     //添加数据
     if ([TLUser user].isLogin) {
         

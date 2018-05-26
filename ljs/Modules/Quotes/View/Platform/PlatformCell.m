@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UILabel *rmbPriceLbl;
 //涨跌情况
 @property (nonatomic, strong) UIButton *priceFluctBtn;
+@property (nonatomic, strong) UIImageView *presentImage;
 
 @end
 
@@ -42,49 +43,62 @@
 - (void)initSubviews {
     
     //币种名称
-    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                   textColor:kTextColor
-                                                        font:17.0];
+    self.presentImage = [[UIImageView alloc] init];
+    self.presentImage.image =[UIImage imageNamed:@"闹钟"];
+    [self.contentView addSubview:self.presentImage];
     
-    [self addSubview:self.currencyNameLbl];
+    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                  textColor:kTextColor2
+                                                       font:17.0];
+    [self.contentView addSubview:self.currencyNameLbl];
     //24H交易量
     self.tradeVolumeLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                   textColor:kTextColor2
                                                        font:15.0];
     
-    [self addSubview:self.tradeVolumeLbl];
+    [self.contentView addSubview:self.tradeVolumeLbl];
     //涨跌情况
     self.priceFluctBtn = [UIButton buttonWithTitle:@""
                                         titleColor:kWhiteColor
                                    backgroundColor:kClearColor
                                          titleFont:17.0 cornerRadius:5];
     
-    [self addSubview:self.priceFluctBtn];
+    [self.contentView addSubview:self.priceFluctBtn];
     
     //当前对应币种价格
     self.opppsitePriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                     textColor:kHexColor(@"#595A6E")
                                                          font:12.0];
     
-    [self addSubview:self.opppsitePriceLbl];
+    [self.contentView addSubview:self.opppsitePriceLbl];
     
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
                                                     font:14.0];
     
-    [self addSubview:self.rmbPriceLbl];
+    [self.contentView addSubview:self.rmbPriceLbl];
     //布局
     [self setSubviewLayout];
 }
 
 - (void)setSubviewLayout {
     
+    [self.presentImage mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.top.equalTo(@100);
+        make.left.equalTo(@10);
+        make.width.equalTo(@15);
+        make.height.equalTo(@15);
+
+    }];
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(@10);
-        make.left.equalTo(@15);
+        make.left.equalTo(self.presentImage.mas_right).offset(10);
+//        make.left.equalTo(@30);
+
     }];
     //一日交易量
     [self.tradeVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,6 +137,15 @@
 //    platform.bgColor = kThemeColor;
     //币种名称
     self.currencyNameLbl.text = [platform.symbol uppercaseString];
+    self.presentImage.hidden = [platform.isWarn isEqualToString:@"0"];
+    if ([platform.isWarn isEqualToString:@"0"]) {
+        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(@10);
+            make.left.equalTo(@10);
+        }];
+    }
+
     //一日交易量
     NSString *volumeStr = [NSString stringWithFormat:@"%d",platform.volume.intValue];
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [platform.toSymbol uppercaseString] ,volumeStr];

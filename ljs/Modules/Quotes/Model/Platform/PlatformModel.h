@@ -88,6 +88,8 @@
 
 //卖一价
 @property (nonatomic , strong)NSNumber *askPrice;
+@property (nonatomic , copy)NSString *isWarn;
+
 
 /**
  获取涨跌颜色

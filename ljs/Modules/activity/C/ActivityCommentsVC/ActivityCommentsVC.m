@@ -299,7 +299,7 @@
     http.code = @"628201";
     http.showView = self.view;
     http.parameters[@"type"] = @"2";
-    http.parameters[@"objectCode"] = self.objectCode;
+    http.parameters[@"objectCode"] = commentModel.code;
     http.parameters[@"userId"] = [TLUser user].userId;
     
     [http postWithSuccess:^(id responseObject) {

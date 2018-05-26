@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel *rmbPriceLbl;
 //涨跌情况
 @property (nonatomic, strong) UIButton *priceFluctBtn;
+@property (nonatomic, strong) UIImageView *isWarnView;
 
 @end
 
@@ -45,11 +46,16 @@
 - (void)initSubviews {
     
     //币种名称
-    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                   textColor:kTextColor
-                                                        font:17.0];
     
+    self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                   textColor:kTextColor font:17.0];
+     
     [self addSubview:self.currencyNameLbl];
+                            
+    self.isWarnView =[[UIImageView alloc] init];
+    self.isWarnView.image = [UIImage imageNamed:@"闹钟"];
+    [self addSubview:self.isWarnView];
+
     //平台名称
     self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor2
@@ -89,11 +95,17 @@
 
 - (void)setSubviewLayout {
     
+    [self.isWarnView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(@10);
+        make.left.equalTo(@15);
+    }];
+    
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(@10);
-        make.left.equalTo(@15);
+        make.left.equalTo(self.isWarnView.mas_right).offset(5);
     }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,6 +152,13 @@
     self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
     self.platformNameLbl.text = optional.exchangeEname;
+    self.isWarnView.hidden = [optional.isWarn isEqualToString:@"0"];
+    if ([optional.isWarn isEqualToString:@"0"]) {
+        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(@10);
+                make.left.equalTo(@15);
+        }];
+    }
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     

@@ -92,6 +92,7 @@
 @property (nonatomic, strong) NSNumber *close;
 //市值
 @property (nonatomic, assign) NSInteger count;
+@property (nonatomic, copy)   NSString   *isWarn;
 
 //流入
 @property (nonatomic, copy) NSString *in_flow_volume_cny;
