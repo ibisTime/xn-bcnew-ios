@@ -153,6 +153,10 @@
             childVC.code = self.infoTypeList[i].code;
             childVC.titleStr = self.titles[i];
             childVC.kind = @"2";
+            
+            if (i == 0) {
+                childVC.isActivity = YES;
+            }
 
         }
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);

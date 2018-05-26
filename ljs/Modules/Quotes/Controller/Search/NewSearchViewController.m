@@ -130,6 +130,7 @@
             self.information = [[HomeChildVC alloc] init];
             self.information.status = @"1";
             self.information.kind = @"2";
+            self.information.isSearch = YES;
             self.information.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
             
             [self addChildViewController:self.information];
@@ -141,7 +142,7 @@
             self.alerts.status = @"";
             self.alerts.kind = @"1";
             self.alerts.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            
+            self.alerts.isSearch = YES;
             [self addChildViewController:self.alerts];
             
             [self.selectSV.scrollView addSubview:self.alerts.view];
@@ -149,8 +150,8 @@
         else if (index == 4)
         {
             self.activity = [[ActivityVC alloc]init];
-            self.activity.isSearch = YES;
             self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+            self.activity.isSearch = YES;
             [self addChildViewController:self.activity];
             [self.selectSV.scrollView addSubview:self.activity.view];
 

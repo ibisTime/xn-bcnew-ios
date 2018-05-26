@@ -16,6 +16,10 @@
 //编号
 @property (nonatomic, copy) NSString *code;
 
+@property (nonatomic) BOOL isActivity;
+
+@property (nonatomic) BOOL isSearch;
+
 - (void)searchRequestWith:(NSString *)search;
 
 

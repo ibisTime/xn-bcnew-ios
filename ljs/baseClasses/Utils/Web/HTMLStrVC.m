@@ -53,15 +53,36 @@
         
         ownerId = @"";
     }
-    NSString *strurl=[NSString stringWithFormat:@"%@/news/addNews.html?ownerId=%@",self.ckey,ownerId];
     
     UIWebView *web = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     web.delegate = self;
     self.web =web;
-    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strurl]]];
     
     [self.view addSubview:web];
+    
+//    return;
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+    http.code = USER_CKEY_CVALUE;
+    http.parameters[@"ckey"] = @"h5url";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
+        
+        NSString *strurl=[NSString stringWithFormat:@"%@/news/addNews.html?ownerId=%@",shareUrl,ownerId];
+        [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strurl]]];
+
+//        NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
+//        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@",shareUrl, symbol, platform.exchangeEname];
+//
+//        [self.kLineView loadRequestWithString:html];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+    }];
     
     // Do any additional setup after loading the view.
 
@@ -71,9 +92,13 @@
 {
     
     NSLog(@"发布资讯");
+    
     NSString *result = [self.web stringByEvaluatingJavaScriptFromString:@"doSubmit();"];
     
     NSLog(@"%@",result);
+    [TLAlert alertWithSucces:@"发布成功，请耐心等待"];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 

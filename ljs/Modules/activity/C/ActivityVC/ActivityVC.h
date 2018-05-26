@@ -9,9 +9,10 @@
 #import "BaseViewController.h"
 
 @interface ActivityVC : BaseViewController
-@property (nonatomic , assign)BOOL isSearch;
 //类型
 @property (nonatomic, copy) NSString *kind;
+
+@property (nonatomic)BOOL isSearch;
 
 - (void)searchRequestWith:(NSString *)search;
 
