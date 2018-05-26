@@ -88,8 +88,8 @@
         make.top.equalTo(@10);
 
         make.left.equalTo(@15);
-        make.width.equalTo(@15);
-        make.height.equalTo(@15);
+        make.centerY.equalTo(@0);
+
 
     }];
     //平台

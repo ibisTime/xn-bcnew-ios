@@ -117,7 +117,7 @@
     [self.tradeVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
-        make.left.equalTo(self.currencyNameLbl.mas_left);
+        make.left.equalTo(@15);
         
     }];
     //涨幅
