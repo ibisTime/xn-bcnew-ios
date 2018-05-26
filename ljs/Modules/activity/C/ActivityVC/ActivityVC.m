@@ -14,6 +14,7 @@
 //V
 #import "ActivityListV.h"
 #import "TLBannerView.h"
+#import "WebVC.h"
 //M
 #import "activityModel.h"
 #import "BannerModel.h"
@@ -195,6 +196,17 @@
     if (!_bannerView) {
         
         _bannerView = [[TLBannerView alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, kWidth(150))];
+        BaseWeakSelf;
+        _bannerView.selected = ^(NSInteger index) {
+            BannerModel *model = [weakSelf.bannerRoom objectAtIndex:index];
+
+            if (model.url.length!= 0) {
+                WebVC *webv = [[WebVC alloc]init];
+                webv.url = model.url;
+                [weakSelf.navigationController pushViewController:webv animated:YES];
+            }
+           
+        };
         
     }
     return _bannerView;

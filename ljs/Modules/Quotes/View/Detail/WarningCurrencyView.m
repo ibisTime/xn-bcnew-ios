@@ -70,7 +70,7 @@
                                   backgroundColor:kClearColor
                                         titleFont:16.0];
     [self.SCDBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [self.SCDBtn setImage:kImage(@"选中YE") forState:UIControlStateNormal];
+    [self.SCDBtn setImage:kImage(@"选中YES") forState:UIControlStateNormal];
 
     [self addSubview:self.SCDBtn];
     [self.SCDBtn mas_makeConstraints:^(MASConstraintMaker *make) {

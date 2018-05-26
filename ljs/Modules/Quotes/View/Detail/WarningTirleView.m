@@ -119,11 +119,33 @@
         make.height.mas_equalTo(17);
         
     }];
+    
+    UIView *line3 = [[UIView alloc]init];
+    line3.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    [self addSubview:line3];
+    
+    [line3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.toSymbol.mas_top);
+        make.left.equalTo(self.toSymbol.mas_right);
+        make.height.mas_equalTo(17);
+        make.width.mas_equalTo(1);
+    }];
+    
+    UIView *line4 = [[UIView alloc]init];
+    line4.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    [self addSubview:line4];
+    
+    [line4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.USDLabel.mas_top);
+        make.left.equalTo(self.USDLabel.mas_right);
+        make.height.mas_equalTo(17);
+        make.width.mas_equalTo(1);
+    }];
 }
 - (void)setPlatform:(PlatformModel *)platform
 {
     _platform = platform;
-    NSString *toSymbol = [_platform.toSymbol uppercaseString];
+    NSString *toSymbol = [_platform.symbol uppercaseString];
     
     
     self.currencyNameLbl.text = _platform.exchangeCname;

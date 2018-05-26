@@ -75,13 +75,13 @@
     }
     
     if ([dataModel.warnCurrency isEqualToString:@"USD"]) {
-        NSString *subtext = [NSString stringWithFormat:@"$%@",dataModel.warnPrice];
+        NSString *subtext = [NSString stringWithFormat:@"$%.2f",[dataModel.warnPrice floatValue]];
         titleText = [titleText stringByAppendingString:@"  "];
         titleText = [titleText stringByAppendingString:subtext];
     }
     else
     {
-        NSString *subtext = [NSString stringWithFormat:@"¥%@",dataModel.warnPrice];
+        NSString *subtext = [NSString stringWithFormat:@"¥%.2f",[dataModel.warnPrice floatValue]];
         titleText = [titleText stringByAppendingString:@"  "];
         titleText = [titleText stringByAppendingString:subtext];
     }

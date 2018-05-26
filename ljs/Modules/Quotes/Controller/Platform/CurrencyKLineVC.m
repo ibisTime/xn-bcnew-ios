@@ -104,9 +104,9 @@
     symbolNameLbl.textAlignment = NSTextAlignmentCenter;
     symbolNameLbl.numberOfLines = 0;
     
-    NSString *toSymbol = [self.platform.toSymbol uppercaseString];
+    NSString *toSymbol = [NSString stringWithFormat:@"%@/%@",[self.platform.symbol uppercaseString],[self.platform.toSymbol uppercaseString]];
     
-    NSString *text = [NSString stringWithFormat:@"%@\n%@", self.platform.exchangeCname, toSymbol];
+    NSString *text = [NSString stringWithFormat:@"%@\n%@", self.platform.exchangeCname,toSymbol];
     
     [symbolNameLbl labelWithString:text
                              title:toSymbol

@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分析";
+    self.title = @"项目分析";
     self.vcCanScroll = NO;
     [self initSubviews];
     
@@ -53,7 +53,7 @@
 - (void)initSubviews {
     
     //导航栏title
-    [self initTitleView];
+//    [self initTitleView];
     //滚动视图
     [self initScrollView];
     
