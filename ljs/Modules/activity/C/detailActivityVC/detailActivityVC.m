@@ -134,8 +134,11 @@
 }
 
 - (void)shareInfo {
+    [self checkLogin:^{
+        [self.shareView show];
+
+    }];
     
-    [self.shareView show];
 }
 - (InfoDetailShareView *)shareView {
     

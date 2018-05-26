@@ -77,7 +77,7 @@
 -(void)setDetailActModel:(DetailActModel *)detailActModel
 {
         _detailActModel = detailActModel;
-    self.users.text = [NSString stringWithFormat:(@"已报名用户(%ld)/已通过(%ld)"),detailActModel.toApproveCount,detailActModel.approveCount];
+    self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 
 

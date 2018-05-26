@@ -347,7 +347,10 @@
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
         
     }
-    helper.parameters[@"userId"] = [TLUser user].userId;
+    if ([TLUser user].isLogin == YES) {
+        helper.parameters[@"userId"] = [TLUser user].userId;
+
+    }
     
     helper.tableView = self.tableView;
     

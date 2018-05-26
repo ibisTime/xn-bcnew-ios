@@ -301,6 +301,7 @@
 		B8B489A120AC807F004D7BC9 /* ActivityNewSVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */; };
 		B8BD683820AC4BCC00DCADD0 /* ActivityNewsCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD683720AC4BCC00DCADD0 /* ActivityNewsCommentView.m */; };
 		B8BED33B20B54682004D5094 /* QutesChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BED33A20B54682004D5094 /* QutesChildViewController.m */; };
+		B8CBC17F20B976CB002E8AC0 /* MaskShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CBC17E20B976CB002E8AC0 /* MaskShowView.m */; };
 		B8D0D4D820AEB36E006B99D5 /* ActivityLimitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4D720AEB36E006B99D5 /* ActivityLimitModel.m */; };
 		B8D0D4DB20AEB3FF006B99D5 /* ActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4DA20AEB3FF006B99D5 /* ActivityListModel.m */; };
 		B8D0D4DE20AEB4BA006B99D5 /* ActivityDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0D4DD20AEB4BA006B99D5 /* ActivityDetailModel.m */; };
@@ -927,6 +928,8 @@
 		B8BD683720AC4BCC00DCADD0 /* ActivityNewsCommentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityNewsCommentView.m; sourceTree = "<group>"; };
 		B8BED33920B54682004D5094 /* QutesChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QutesChildViewController.h; sourceTree = "<group>"; };
 		B8BED33A20B54682004D5094 /* QutesChildViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QutesChildViewController.m; sourceTree = "<group>"; };
+		B8CBC17D20B976CB002E8AC0 /* MaskShowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MaskShowView.h; path = ljs/Modules/Quotes/View/Platform/MaskShowView.h; sourceTree = SOURCE_ROOT; };
+		B8CBC17E20B976CB002E8AC0 /* MaskShowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MaskShowView.m; path = ljs/Modules/Quotes/View/Platform/MaskShowView.m; sourceTree = SOURCE_ROOT; };
 		B8D0D4D620AEB36E006B99D5 /* ActivityLimitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityLimitModel.h; sourceTree = "<group>"; };
 		B8D0D4D720AEB36E006B99D5 /* ActivityLimitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityLimitModel.m; sourceTree = "<group>"; };
 		B8D0D4D920AEB3FF006B99D5 /* ActivityListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListModel.h; sourceTree = "<group>"; };
@@ -2240,6 +2243,8 @@
 				B89D423C20B271D500A99740 /* HomeQuotesView.m */,
 				21CFFB0120565DB900D245ED /* QuotesVC.h */,
 				21CFFB0220565DB900D245ED /* QuotesVC.m */,
+				B8CBC17D20B976CB002E8AC0 /* MaskShowView.h */,
+				B8CBC17E20B976CB002E8AC0 /* MaskShowView.m */,
 				2124BEBA2062904100CB79E8 /* Search */,
 				2124BEAA20627E6D00CB79E8 /* Optional */,
 				2124BE882062394500CB79E8 /* Currency */,
@@ -3268,6 +3273,7 @@
 				186E8BFD209C0A9D00532B1C /* activityModel.m in Sources */,
 				21F0F17C2073C97200E39A55 /* InfoAllCommentListVC.m in Sources */,
 				186E8BF7209C0A9D00532B1C /* ActivityCommentsVC.m in Sources */,
+				B8CBC17F20B976CB002E8AC0 /* MaskShowView.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
 				2124BE572060A91500CB79E8 /* InformationDetailTableView.m in Sources */,
 				B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */,

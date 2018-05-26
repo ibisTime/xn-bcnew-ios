@@ -30,7 +30,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         //
-        self.backgroundColor = kWhiteColor;
+        self.backgroundColor = [UIColor clearColor];
         
         [self initSubviews];
     }
@@ -41,7 +41,7 @@
 - (void)initSubviews {
     //1
     self.titleImg = [[UIImageView alloc] init];
-    self.titleImg.backgroundColor = [UIColor redColor];
+    self.titleImg.backgroundColor = kAppCustomMainColor;
     [self addSubview:self.titleImg];
     
     [self.titleImg mas_makeConstraints:^(MASConstraintMaker *make) {

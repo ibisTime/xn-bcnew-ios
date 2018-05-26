@@ -13,7 +13,6 @@
 @interface TLPageDataHelper()
 
 @property (nonatomic,strong) NSMutableArray *objs;
-@property (nonatomic,assign) BOOL refreshed;
 
 @end
 
@@ -37,6 +36,7 @@
 }
 
 - (void)refresh:(void(^)(NSMutableArray *objs,BOOL stillHave))refresh failure:(void(^)(NSError *error))failure{
+    
     
     self.start = 1;
     

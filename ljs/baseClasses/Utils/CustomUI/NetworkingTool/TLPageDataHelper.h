@@ -24,6 +24,8 @@
 @property (nonatomic, assign) BOOL isList;
 //账户
 @property (nonatomic, assign) BOOL isCurrency;
+@property (nonatomic,assign) BOOL refreshed;
+
 
 //设置改值后外界只需要 调用reloadData
 @property (nonatomic,weak) TLTableView *tableView;

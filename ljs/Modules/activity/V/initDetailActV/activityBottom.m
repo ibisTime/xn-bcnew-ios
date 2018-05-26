@@ -8,6 +8,8 @@
 
 #import "activityBottom.h"
 //VC
+#import "TLUserLoginVC.h"
+
 #import "FillInRegistrationFormVC.h"
 #import "ActivityCommentsVC.h"
 @interface activityBottom ()
@@ -174,6 +176,10 @@
 
 #pragma mark - event
 -(void)openSignUp{
+    if ([TLUser user].isLogin == NO) {
+        [TLAlert alertWithMsg:@"请登录"];
+        return;
+    }
     NSLog(@"openSignUp");
     FillInRegistrationFormVC * fillInRegistrationFormVC = [[FillInRegistrationFormVC alloc] init];
     fillInRegistrationFormVC.code = self.code;
@@ -189,6 +195,11 @@
     [self.viewController.navigationController pushViewController:fillInRegistrationFormVC animated:YES];
 }
 -(void)openComment{
+    if ([TLUser user].isLogin == NO) {
+        [TLAlert alertWithMsg:@"请登录"];
+
+        return;
+    }
      NSLog(@"openComment");
     ActivityCommentsVC *commentListVC = [ActivityCommentsVC new];
     
@@ -204,6 +215,12 @@
 }
 -(void)openCollection: (UIButton*)btn {
 //
+    if ([TLUser user].isLogin == NO) {
+        [TLAlert alertWithMsg:@"请登录"];
+        
+        return;
+    }
+
 //
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"openCollectionBut" object:btn];
     self.collectionBut.selected = !btn.selected;

@@ -9,6 +9,7 @@
 #import "QuotesVC.h"
 //Category
 #import "UIBarButtonItem+convience.h"
+#import <MBProgressHUD.h>
 //M
 #import "QuotesManager.h"
 #import "OptionalListModel.h"
@@ -19,6 +20,7 @@
 #import "SelectScrollView.h"
 #import "TopLabelUtil.h"
 #import "OptionalTableView.h"
+#import "MaskShowView.h"
 //C
 #import "QuotesPlatformVC.h"
 #import "QuotesCurrencyVC.h"
@@ -82,12 +84,15 @@
 @property (nonatomic, strong) UILabel *currencyNameLbl;
 @property (nonatomic, assign) BOOL IsFirst;
 
+@property (nonatomic, strong) MBProgressHUD *MbHud;
+
 
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
 
 @end
 
 @implementation QuotesVC
+
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -114,7 +119,7 @@
         [self stopTimer];
         return ;
     }
-    
+   
 //    [self startCurrencyTimerWithSegmentIndex:1
 //                                  labelIndex:0];
 }
@@ -131,14 +136,18 @@
 //    [self initTableView];
    
     //获取平台title列表
-    [self requestPlatformTitleList];
-    //获取币种title列表
-    [self requestCurrencyTitleList];
+
+    if (1) {
+        [self.MbHud show:YES];
+
+        [self requestPlatformTitleList];
+        //获取币种title列表
+        [self requestCurrencyTitleList];
+    }
     //自选
 //    [self requestOptionalList];
 
 //    [self requestPlatform];
-    [self.tableView beginRefreshing];
     //添加通知
     [self addNotification];
 }
@@ -214,7 +223,9 @@
 #pragma mark - Init
 
 - (void)initFooterView {
-    
+    MBProgressHUD *hud =[[MBProgressHUD alloc] init];
+    [self.view addSubview:hud];
+    self.MbHud = hud;
     self.footerView = [[BaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight)];
     
     self.footerView.backgroundColor = kWhiteColor;
@@ -457,6 +468,7 @@
         NSLog(@"平台定时器刷新中, index = %ld", self.currentSegmentIndex);
         
         BaseWeakSelf;
+    self.helper.showView =self.view;
         //刷新平台列表
         [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
@@ -481,7 +493,7 @@
 //平台列表
 - (void)requestPlatform {
         BaseWeakSelf;
-    
+    [self.MbHud show:YES];
         TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
         
         helper.code = @"628350";
@@ -529,7 +541,7 @@
                     return ;
                 }
 //                weakSelf.tableView.tableFooterView = nil;
-
+//                [weakSelf.MbHud hide:YES];
                 weakSelf.platforms = objs;
                 
                 weakSelf.tableView.platforms = objs;
@@ -537,7 +549,8 @@
                 [weakSelf.tableView reloadData_tl];
 
             } failure:^(NSError *error) {
-                
+//                [weakSelf.MbHud hide:YES];
+
             }];
         }];
         
@@ -552,7 +565,8 @@
                 [weakSelf.tableView reloadData_tl];
 
             } failure:^(NSError *error) {
-                
+                [weakSelf.MbHud hide:YES];
+
             }];
         }];
 //        [self initHeaderView];
@@ -619,10 +633,14 @@
 
 #pragma mark - Data
 - (void)titleSameHomeBarClick:(NSNotification *)notification {
+    [self.MbHud show:YES];
+
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
         [self requestPlatform];
+        [self.MbHud hide:YES];
+
         self.IsFirst = NO;
         
     }else{
@@ -630,13 +648,16 @@
         
         self.percentChangeIndex = index;
         [self requestPlatform];
+        [self.MbHud hide:YES];
+
         self.IsFirst = YES;
         
     }
     
 }
 - (void)titleBarClick:(NSNotification *)notification {
-    
+    [self.MbHud show:YES];
+
     if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
         return;
     }
@@ -657,6 +678,8 @@
             self.percentTempIndex = index;
             self.percentChangeIndex = index;
             [self requestPlatform];
+            [self.MbHud hide:YES];
+
         }
     }
 
@@ -704,7 +727,8 @@
  获取平台title列表
  */
 - (void)requestPlatformTitleList {
-    
+    [self.MbHud show:YES];
+
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -717,7 +741,6 @@
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
         
         weakSelf.platformTitleList = objs;
-        
         //遍历标题
         weakSelf.titles = [NSMutableArray array];
         
@@ -737,7 +760,7 @@
        
         
     } failure:^(NSError *error) {
-        
+
     }];
 }
 
@@ -745,7 +768,8 @@
  获取币种title列表
  */
 - (void)requestCurrencyTitleList {
-    
+    [self.MbHud show:YES];
+
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -756,7 +780,6 @@
     [helper modelClass:[CurrencyTitleModel class]];
     
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
         weakSelf.currencyTitleList = objs;
         //遍历标题
         weakSelf.titles = [NSMutableArray arrayWithObject:@"全部"];
@@ -778,7 +801,6 @@
         [weakSelf addSubViewController];
         [self requestOptionalList];
     } failure:^(NSError *error) {
-        
     }];
 }
 /**
@@ -842,9 +864,11 @@
 获取自选列表
 */
 - (void)requestOptionalList {
-    
+   
+   
     BaseWeakSelf;
     //    return;
+   
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     weakSelf.kind = kOptional;
     self.titles = [NSMutableArray arrayWithObjects:@"自选", nil];
@@ -855,6 +879,9 @@
     [weakSelf initSelectScrollViewWithIdx:2];
     [weakSelf addSubViewController];
     [self requestPlatformTitleList];
+    if ([TLUser user].isLogin == NO) {
+        return;
+    }
     helper.parameters[@"userId"] = [TLUser user].userId;
     if (![TLUser user].userId) {
         return;
@@ -875,7 +902,8 @@
             
             return ;
         }
-        
+        [self.MbHud hide:YES];
+
         weakSelf.optionals = objs;
         //遍历标题
         weakSelf.titles = [NSMutableArray array];
@@ -894,7 +922,7 @@
     } failure:^(NSError *error) {
         
     }];
-
+ 
 }
 /**
  VC被释放时移除通知

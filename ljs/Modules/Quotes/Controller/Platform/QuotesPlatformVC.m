@@ -65,7 +65,7 @@
         [self requestOptionalList];
 
     }
-    [self.tableView beginRefreshing];
+//    [self.tableView beginRefreshing];
     //获取贴吧信息
 //    [self requestForumInfo];
     //添加通知
@@ -384,6 +384,11 @@
  */
 - (void)requestOptionalList {
     
+    if ([TLUser user].isLogin == NO) {
+        self.tableView.tableFooterView = self.footerView;
+
+        return;
+    }
     BaseWeakSelf;
     //    return;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];

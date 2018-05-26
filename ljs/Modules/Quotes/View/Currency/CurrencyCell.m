@@ -85,17 +85,17 @@
 - (void)setSubviewLayout {
     
     [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@10);
+        make.top.equalTo(@25);
 
-        make.left.equalTo(@15);
-        make.centerY.equalTo(@0);
+        make.left.equalTo(@5);
+        make.width.height.equalTo(@15);
 
 
     }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.IsWarnImage.mas_right).offset(10);
+        make.left.equalTo(self.IsWarnImage.mas_right).offset(15);
         make.width.equalTo(@70);
         make.centerY.equalTo(@0);
     }];

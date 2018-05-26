@@ -89,9 +89,10 @@
     _optional = optional;
     
     //名称
-    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.coinSymbol: optional.exchangeCname;
+    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.toSymbol: optional.exchangeCname;
     //单位
-    self.unitLbl.text = [NSString stringWithFormat:@"%@",[optional.toSymbol uppercaseString]];
+   
+    self.unitLbl.text =[self.type isEqualToString:kOptionalTypePlatform] ? [optional.toSymbol uppercaseString] :optional.symbol;
     //添加按钮
     self.addBtn.selected = [optional.isChoice boolValue];
     

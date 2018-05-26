@@ -36,6 +36,8 @@
 @property (nonatomic, copy) NSString *collectCount;
 @property (nonatomic, copy) NSString *pointCount;
 @property (nonatomic, copy) NSString *commentCount;
+@property (nonatomic, copy) NSString *enrollCount;
+
 
 
 @end

@@ -167,10 +167,10 @@
                 
                 if ([model.isTop isEqualToString:@"1"]) {
                     //需要置顶
-                    [weakSelf.activities removeObjectAtIndex:i];
-                    [weakSelf.activities insertObject:model atIndex:0];
-                    [weakSelf.ActivityListTableView.activities removeObjectAtIndex:i];
-                    [weakSelf.ActivityListTableView.activities insertObject:model atIndex:0];
+//                    [weakSelf.activities removeObjectAtIndex:i];
+//                    [weakSelf.activities insertObject:model atIndex:0];
+//                    [weakSelf.ActivityListTableView.activities removeObjectAtIndex:i];
+//                    [weakSelf.ActivityListTableView.activities insertObject:model atIndex:0];
                 }
                 
             }
