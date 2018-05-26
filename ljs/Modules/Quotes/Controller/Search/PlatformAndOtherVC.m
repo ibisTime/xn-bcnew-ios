@@ -31,7 +31,7 @@
         make.bottom.equalTo(self.view.mas_bottom);
         make.right.equalTo(self.view.mas_right);
     }];
-    [self getLists];
+//    [self getLists];
 }
 - (void)searchRequestWith:(NSString *)search
 {
@@ -72,7 +72,10 @@
         }
         else
         {
-            self.page --;
+            if (self.page != 1) {
+                self.page --;
+
+            }
         }
         [self.platformTable reloadData];
         [self.platformTable.mj_footer endRefreshing];

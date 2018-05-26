@@ -324,6 +324,7 @@
 		C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429629420B587F30011E2B2 /* CurrencyInfoTableView.m */; };
 		C432D71720B651E10022337E /* CurrentesManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71620B651E10022337E /* CurrentesManagementVC.m */; };
 		C432D71A20B65BDB0022337E /* NewSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C432D71920B65BDB0022337E /* NewSearchViewController.m */; };
+		C433700620B946A800778FE6 /* CollectionActivityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C433700520B946A800778FE6 /* CollectionActivityVC.m */; };
 		C490183D20B6BAD00091C11F /* PlatformAndOtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */; };
 		C490184020B6C1840091C11F /* PlatformAndOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */; };
 		C490184320B80F560091C11F /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C490184220B80F560091C11F /* BannerModel.m */; };
@@ -973,6 +974,8 @@
 		C432D71620B651E10022337E /* CurrentesManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentesManagementVC.m; sourceTree = "<group>"; };
 		C432D71820B65BDB0022337E /* NewSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSearchViewController.h; sourceTree = "<group>"; };
 		C432D71920B65BDB0022337E /* NewSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSearchViewController.m; sourceTree = "<group>"; };
+		C433700420B946A800778FE6 /* CollectionActivityVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionActivityVC.h; sourceTree = "<group>"; };
+		C433700520B946A800778FE6 /* CollectionActivityVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionActivityVC.m; sourceTree = "<group>"; };
 		C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformAndOtherVC.h; sourceTree = "<group>"; };
 		C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherVC.m; sourceTree = "<group>"; };
 		C490183E20B6C1840091C11F /* PlatformAndOtherCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformAndOtherCell.h; sourceTree = "<group>"; };
@@ -2347,9 +2350,9 @@
 				B8DCAC0420B0458D009B6EE9 /* ArticleCommentModel.h */,
 				B8DCAC0520B0458D009B6EE9 /* ArticleCommentModel.m */,
 				B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */,
+				B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */,
 				B8DCAC0D20B06FE4009B6EE9 /* Html5Vc.h */,
 				B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */,
-				B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */,
 				21CFFB0720565DDD00D245ED /* MineVC.h */,
 				21CFFB0820565DDD00D245ED /* MineVC.m */,
 				214593E4206B22EF0006E238 /* HomePage */,
@@ -2637,6 +2640,8 @@
 			children = (
 				21EF0B8820668F0A008EA865 /* MyCollectionListVC.h */,
 				21EF0B8920668F0A008EA865 /* MyCollectionListVC.m */,
+				C433700420B946A800778FE6 /* CollectionActivityVC.h */,
+				C433700520B946A800778FE6 /* CollectionActivityVC.m */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -3333,6 +3338,7 @@
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
 				21EF0B7320664D5F008EA865 /* InfoCommentTableView.m in Sources */,
 				21EB9C7020562D3E00394C3C /* BaseTableViewCell.m in Sources */,
+				C433700620B946A800778FE6 /* CollectionActivityVC.m in Sources */,
 				219CF52A2072550300012F68 /* SGScanningQRCodeView.m in Sources */,
 				21EF0B7620664D73008EA865 /* MyCommentCell.m in Sources */,
 				2124BE732061451C00CB79E8 /* InfoCommentDetailTableView.m in Sources */,

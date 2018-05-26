@@ -27,6 +27,7 @@
 @property (nonatomic, copy) NSString *exchangeEname;
 //交易所中文
 @property (nonatomic, copy) NSString *exchangeCname;
+@property (nonatomic, copy) NSString *priceChange;
 //rmb价格
 @property (nonatomic, strong) NSNumber *lastCnyPrice;
 //最新usd价格

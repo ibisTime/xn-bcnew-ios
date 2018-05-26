@@ -11,12 +11,16 @@
 //C
 #import "MyCollectionListVC.h"
 #import "InfoDetailVC.h"
+#import "SelectScrollView.h"
+#import "CollectionActivityVC.h"
 
 @interface MyCollectionListVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) MyCollectionTableView *tableView;
 //收藏列表
 @property (nonatomic, strong) NSArray <MyCollectionModel *>*collections;
+
+@property (nonatomic , strong)SelectScrollView *selectSV;
 
 @end
 
@@ -26,29 +30,50 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"收藏";
-    //
-    [self initTableView];
-    //获取收藏列表
+    
+    self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:@[@"资讯",@"活动"]];
+    
+    [self.view addSubview:self.selectSV];
+    
+    [self addsubview];
+    
     [self requestCollectionList];
-    //
+
     [self.tableView beginRefreshing];
+
     
 }
+- (void)addsubview
+{
+    for (NSInteger index = 0; index < 2; index ++) {
+        if (index == 1) {
+            CollectionActivityVC *activity = [[CollectionActivityVC alloc]init];
+            [self addChildViewController:activity];
+            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+            [self.selectSV.scrollView addSubview:activity.view];
+        }
+        else
+        {
+            [self initTableView];
+        }
+    }
+}
+
+
 
 #pragma mark - Init
 - (void)initTableView {
     
-    self.tableView = [[MyCollectionTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[MyCollectionTableView alloc] initWithFrame:CGRectMake(0, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight) style:UITableViewStylePlain];
+    
+//    self.tableView.frame = CGRectMake(0, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
     
     self.tableView.refreshDelegate = self;
     
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无收藏"];
 
-    [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.edges.mas_equalTo(0);
-    }];
+    [self.selectSV.scrollView addSubview:self.tableView];
+    
 }
 
 #pragma mark - Data

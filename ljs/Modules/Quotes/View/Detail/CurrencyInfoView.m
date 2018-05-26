@@ -124,15 +124,16 @@
     
     UIButton *quotesDataBtn = [UIButton buttonWithImageName:@""];
     
-    [quotesDataBtn addTarget:self action:@selector(lookQuotesData) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:quotesDataBtn];
-    [quotesDataBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(@(btnW));
-        make.top.equalTo(@0);
-        make.width.equalTo(@(btnW));
-        make.height.equalTo(@(self.height));
-    }];
+#warning 禁止点击详情数据
+//    [quotesDataBtn addTarget:self action:@selector(lookQuotesData) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:quotesDataBtn];
+//    [quotesDataBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(@(btnW));
+//        make.top.equalTo(@0);
+//        make.width.equalTo(@(btnW));
+//        make.height.equalTo(@(self.height));
+//    }];
     //布局
     [self setSubviewLayout];
 }
@@ -140,29 +141,38 @@
 - (void)setSubviewLayout {
     
     CGFloat lblW = kScreenWidth/2.0;
-    //币种名称
-    [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(@12);
-        make.left.equalTo(@15);
-    }];
+    
     //rmb价格
     [self.rmbPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.currencyNameLbl.mas_left).offset(-5);
-        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(5);
+        make.top.equalTo(@12);
+        make.left.equalTo(@15);
+        
+//        make.left.equalTo(self.currencyNameLbl.mas_left).offset(-5);
+//        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(5);
     }];
+    
+    //币种名称
+    [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.rmbPriceLbl.mas_left);
+        make.top.equalTo(self.rmbPriceLbl.mas_bottom).offset(5);
+        
+//        make.top.equalTo(@12);
+//        make.left.equalTo(@15);
+    }];
+   
     //涨跌情况
     [self.priceFluctBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.rmbPriceLbl.mas_right).offset(10);
-        make.centerY.equalTo(self.rmbPriceLbl.mas_centerY);
+        make.left.equalTo(self.currencyNameLbl.mas_right).offset(10);
+        make.centerY.equalTo(self.currencyNameLbl.mas_centerY);
     }];
     //关注
     [self.followNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.currencyNameLbl.mas_left);
-        make.top.equalTo(self.rmbPriceLbl.mas_bottom).offset(5);
+        make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(5);
     }];
     //高
     [self.highPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -207,7 +217,7 @@
     
     _platform = platform;
     //币种名称
-    self.currencyNameLbl.text = [platform.symbol uppercaseString];
+    self.currencyNameLbl.text = [NSString stringWithFormat:@"%.2f", [platform.priceChange doubleValue]];
     self.currencyNameLbl.textColor = [UIColor whiteColor];
     //当前人民币价格
     self.rmbPriceLbl.textColor = [UIColor whiteColor];
@@ -228,7 +238,7 @@
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
     [self.priceFluctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //关注量
-    self.followNumLbl.text = [NSString stringWithFormat:@"量:%@", [platform.amount convertToRealMoneyWithNum:8]];
+    self.followNumLbl.text = [NSString stringWithFormat:@"量:%@", [platform.volume convertToRealMoneyWithNum:8]];
     self.followNumLbl.textColor = [UIColor whiteColor];
     //最高价
     self.highPriceLbl.text = [NSString stringWithFormat:@"高:%@", [platform.high convertToRealMoneyWithNum:8]];
