@@ -36,6 +36,8 @@
 @property (nonatomic, copy) NSString *toCoin;
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic, copy) NSString *isTop;
+
 
 @end
 

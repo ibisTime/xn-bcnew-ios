@@ -183,11 +183,11 @@
     
     if ([flashModel.type isEqualToString:@"1"]) {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kAppCustomMainColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor3: kAppCustomMainColor;
 
     } else {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor2: kTextColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor4: kTextColor;
     }
     //
     [self layoutSubviews];

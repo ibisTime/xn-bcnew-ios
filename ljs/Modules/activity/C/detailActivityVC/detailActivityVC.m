@@ -125,7 +125,7 @@
     [http postWithSuccess:^(id responseObject) {
         
         [TLProgressHUD dismiss];
-        self.url = responseObject[@"data"][@"cvalue"];
+        self.url = [NSString stringWithFormat:@"%@/activity/activityDetail.html?code=%@", responseObject[@"data"][@"cvalue"], self.code];
         
     } failure:^(NSError *error) {
         

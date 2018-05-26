@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^SortSelectBlock) (NSInteger index);
+typedef void (^SameSelectBlock) (NSInteger ind);
 
 @interface HomeQuotesSortBar : UIScrollView
 
@@ -29,6 +30,6 @@ typedef void (^SortSelectBlock) (NSInteger index);
 
 - (void)selectSortBarWithIndex:(NSInteger)index;
 
-- (instancetype)initWithFrame:(CGRect)frame sortNames:(NSArray*)sortNames sortBlock:(SortSelectBlock)sortBlock;
+- (instancetype)initWithFrame:(CGRect)frame sortNames:(NSArray*)sortNames sortBlock:(SortSelectBlock)sortBlock sameBlock:(SameSelectBlock)sameBlock ;
 
 @end

@@ -36,16 +36,19 @@ static const float kAnimationdDuration = 0.3;
 @property (nonatomic, assign) CGFloat allBtnWidth;
 //
 @property (nonatomic, strong) NSMutableArray *btnArr;
+@property (nonatomic, copy) SameSelectBlock sameBlock;
+@property (nonatomic, assign) NSInteger IsSelect;
 
 @end
 
 @implementation HomeQuotesSortBar
 
-- (instancetype)initWithFrame:(CGRect)frame sortNames:(NSArray*)sortNames sortBlock:(SortSelectBlock)sortBlock {
+- (instancetype)initWithFrame:(CGRect)frame sortNames:(NSArray*)sortNames sortBlock:(SortSelectBlock)sortBlock sameBlock:(SameSelectBlock)sameBlock
+{
     if (self = [super initWithFrame:frame]) {
         
         _sortBlock = [sortBlock copy];
-        
+        _sameBlock = [sameBlock copy];
         _sortNames = [NSArray arrayWithArray:sortNames];
         _btnArr = [NSMutableArray array];
         
@@ -64,10 +67,11 @@ static const float kAnimationdDuration = 0.3;
         
         return ;
     }
-    
+    self.IsSelect = 0;
+    self.selectIndex = -1;
     [self createItems];
     
-    [self changeItemTitleColorWithIndex:0];
+//    [self changeItemTitleColorWithIndex:0];
     
     [self createSelectLine];
 }
@@ -106,7 +110,7 @@ static const float kAnimationdDuration = 0.3;
                                      backgroundColor:kWhiteColor
                                            titleFont:btnFont];
         
-        button.selected = i == 0 ? YES: NO;
+//        button.selected = i == 0 ? YES: NO;
         [button setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"TriangleNomall"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"TriangleSelect"] forState:UIControlStateSelected];
@@ -245,10 +249,25 @@ static const float kAnimationdDuration = 0.3;
 #pragma mark - Events
 - (void)sortBtnOnClicked:(UIButton*)button {
     // 相同按钮则不触发事件
+    BaseWeakSelf;
     if (_selectIndex == button.tag - 100) {
+        _sameBlock(_selectIndex);
+        if (weakSelf.IsSelect == 0) {
+            button.selected = NO;
+            
+            [button setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
+            button.titleLabel.font = Font(MIN(kWidth(15.0), 15));
+            weakSelf.IsSelect = 1;
+        }else{
+            
+            button.selected = YES;
+            [button setTitleColor:kAppCustomMainColor forState:UIControlStateNormal];
+            button.titleLabel.font = Font(MIN(kWidth(16.0), 16));
+            weakSelf.IsSelect = 0;
+        }
+       
         return;
     }
-    
     _sortBlock(button.tag - 100);
     
     [self selectSortBarWithIndex:button.tag - 100];

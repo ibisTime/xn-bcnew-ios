@@ -76,6 +76,8 @@
 @property (nonatomic, strong) UILabel *platformNameLbl;
 @property (nonatomic, assign) PlatformType type;
 @property (nonatomic, assign) NSInteger percentChangeIndex;//涨幅 跌幅
+@property (nonatomic, assign) NSInteger percentTempIndex;//涨幅 跌幅
+@property (nonatomic, assign) BOOL percentLabStatus;//涨幅 跌幅
 
 @property (nonatomic, strong) UILabel *currencyNameLbl;
 
@@ -254,6 +256,7 @@
     self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
     
     self.navigationItem.titleView = self.labelUnil;
+    self.percentTempIndex = -1;
     
     //1.切换背景
     self.switchSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight)];
@@ -270,6 +273,10 @@
        
       // index 0 涨幅榜 1 跌幅榜 3预警中
         NSLog(@"点击了%ld",index);
+        if (weakSelf.percentTempIndex == index) {
+            return ;
+        }
+        weakSelf.percentTempIndex = -1;
         //点击标签
        
         if (![TLUser user].isLogin) {
@@ -289,10 +296,22 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
                                                             object:nil
                                                           userInfo:dic];
-        
-        
     };
-   
+    self.quotesView.selectSameBlock = ^(NSInteger ind) {
+        weakSelf.percentLabStatus = NO;
+        weakSelf.percentTempIndex = ind;
+        NSLog(@"点击了相同的lable%ld",ind);
+        weakSelf.percentChangeIndex =-1;
+        NSDictionary *dic = @{@"titleBarindex": @(ind)};
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"titleSameBarindex"
+                                                            object:nil
+                                                          userInfo:dic];
+        if (weakSelf.currentSegmentIndex == 2 || weakSelf.currentSegmentIndex == 3) {
+            return ;
+        }
+        [weakSelf requestPlatform];
+    };
     int i = 0;
 //    [self.selectSV setCurrentIndex:1];
     [self.switchSV setContentOffset:CGPointMake((0) * self.switchSV.width, 0)];
@@ -459,8 +478,17 @@
             
         }
         helper.parameters[@"start"] = @"0";
-        helper.parameters[@"limit"] = @"200";
-        
+        helper.parameters[@"limit"] = @"100";
+    if ([TLUser user].userId) {
+        helper.parameters[@"userId"] = [TLUser user].userId;
+        if (weakSelf.titleModel) {
+            helper.parameters[@"exchangeEname"] = weakSelf.platformTitleModel.ename;
+            
+        }
+        if (weakSelf.percentChangeIndex >= 0) {
+            helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
+        }
+    }
         
     
         helper.tableView = self.tableView;
@@ -581,8 +609,13 @@
 - (void)titleBarClick:(NSNotification *)notification {
     
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
+        return;
+    }
     self.percentChangeIndex = index;
+
     [self requestPlatform];
+
 }
 
 /**
