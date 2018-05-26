@@ -43,13 +43,19 @@ static NSString *informationListCell2 = @"InformationListCell2";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ActivityListModel *info = (ActivityListModel *)self.infos[indexPath.row];
+    ActivityDetailModel *detalModel;
     
-    ActivityDetailModel *detalModel = [ActivityDetailModel mj_objectWithKeyValues:info.activity];
-    
-        ActivityListTakeCell *cell = [tableView dequeueReusableCellWithIdentifier:informationListCell forIndexPath:indexPath];
-        //shuju
-        cell.infoModel = detalModel;
+    if (self.siCollection) {
+        detalModel = self.infos[indexPath.row];
+    }
+    else{
+        ActivityListModel *info = (ActivityListModel *)self.infos[indexPath.row];
+        detalModel = [ActivityDetailModel mj_objectWithKeyValues:info.activity];
+
+    }
+    ActivityListTakeCell *cell = [tableView dequeueReusableCellWithIdentifier:informationListCell forIndexPath:indexPath];
+    //shuju
+    cell.infoModel = detalModel;
     return cell;
 }
 

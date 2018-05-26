@@ -13,5 +13,6 @@
 @interface InformationListCell2 : BaseTableViewCell
 //
 @property (nonatomic, strong) InformationModel *infoModel;
-
+//1 资讯  2 热点
+@property (nonatomic, copy)NSString *kind;
 @end

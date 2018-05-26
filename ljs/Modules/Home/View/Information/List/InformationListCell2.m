@@ -22,6 +22,9 @@
 @property (nonatomic, strong) UILabel *timeLbl;
 //收藏数
 @property (nonatomic, strong) UILabel *collectNumLbl;
+
+@property (nonatomic, strong) UIButton *seeNumber;
+
 //图片数组
 @property (nonatomic, strong) NSMutableArray <UIImageView *>*picIVArr;
 
@@ -70,14 +73,21 @@
                                            textColor:kTextColor2
                                                 font:13.0];
     [self addSubview:self.timeLbl];
-    //收藏数
-    self.collectNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                 textColor:kTextColor2
-                                                      font:13.0];
     
-    self.collectNumLbl.textAlignment = NSTextAlignmentRight;
-    
-    [self addSubview:self.collectNumLbl];
+    self.seeNumber = [UIButton buttonWithTitle:@"0"
+                                 titleColor:[UIColor blackColor]
+                            backgroundColor:kClearColor
+                                  titleFont:16.0];
+    [self.seeNumber setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
+    [self addSubview:self.seeNumber];
+//    //收藏数
+//    self.collectNumLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                                 textColor:kTextColor2
+//                                                      font:13.0];
+//
+//    self.collectNumLbl.textAlignment = NSTextAlignmentRight;
+//
+//    [self addSubview:self.collectNumLbl];
     
     //bottomLine
     UIView *bottomLine = [[UIView alloc] init];
@@ -128,7 +138,7 @@
     [self.timeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(x));
-        if (_infoModel.pics.count == 0) {
+        if (self.infoModel.pics.count == 0) {
             
             make.top.equalTo(self.titleLbl.mas_bottom).offset(10);
 
@@ -137,12 +147,17 @@
             make.top.equalTo(iv.mas_bottom).offset(10);
         }
     }];
-    //收藏数
-    [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+    
+    [self.seeNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-x);
         make.centerY.equalTo(self.timeLbl.mas_centerY);
     }];
+    //收藏数
+//    [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(self.mas_right).offset(-x);
+//        make.centerY.equalTo(self.timeLbl.mas_centerY);
+//    }];
 }
 
 #pragma mark - Setting
@@ -159,13 +174,20 @@
     }];
     
     self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];
-    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
+//    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
+    [self.seeNumber setTitle:@"10" forState:UIControlStateNormal];
     //布局
     [self setSubviewLayout];
     //
     [self layoutSubviews];
     
     infoModel.cellHeight = self.timeLbl.yy + 15;
+}
+- (void)setKind:(NSString *)kind
+{
+    if ([kind integerValue] == 2) {
+        self.timeLbl.textColor = [UIColor colorWithHexString:@"#F6A623"];
+    }
 }
 
 @end

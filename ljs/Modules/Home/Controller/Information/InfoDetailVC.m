@@ -172,7 +172,7 @@
 //
 //    }];
     if (self.IsNeed == YES) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"投稿" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
         [item setTintColor:[UIColor whiteColor]];
         self.item = item;
         self.navigationItem.rightBarButtonItem = item;
@@ -196,10 +196,13 @@
 - (void)clickBack
 {
     
-    NSLog(@"clickBack");
-    HTMLStrVC *vc = [[HTMLStrVC alloc] init];
-    vc.ckey = self.shareUrl;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self checkLogin:^{
+        NSLog(@"clickBack");
+        HTMLStrVC *vc = [[HTMLStrVC alloc] init];
+        vc.ckey = self.shareUrl;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+    
     
 }
 

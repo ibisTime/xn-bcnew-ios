@@ -38,6 +38,7 @@
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, copy) NSString *isTop;
 
+@property (nonatomic ,copy)NSString *readCount;
 
 @end
 

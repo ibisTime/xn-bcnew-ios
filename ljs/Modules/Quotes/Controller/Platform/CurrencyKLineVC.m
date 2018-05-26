@@ -187,6 +187,7 @@
                 self.platform.isChoice = @"1";
             }
             
+            [TLAlert alertWithMsg:@"操作成功"];
             
         } failure:^(NSError *error) {
             

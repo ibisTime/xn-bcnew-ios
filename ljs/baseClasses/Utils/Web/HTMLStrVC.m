@@ -24,20 +24,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *Submit = [UIButton buttonWithType:UIButtonTypeCustom];
-    [Submit setTitle:@"发布" forState:UIControlStateNormal];
+//    UIButton *Submit = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [Submit setTitle:@"发布" forState:UIControlStateNormal];
+//
+//    [Submit addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self.view addSubview:Submit];
+//    [Submit mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.left.equalTo(@0);
+//        make.width.height.equalTo(@(100));
+//
+//    }];
+//    self.Submit =Submit;
+//    self.navigationItem.titleView = Submit;
     
-    [Submit addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
+    [item setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = item;
     
-    [self.view addSubview:Submit];
-    [Submit mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.left.equalTo(@0);
-        make.width.height.equalTo(@(100));
-
-    }];
-    self.Submit =Submit;
-    self.navigationItem.titleView = Submit;
     NSLog(@"%@",[AppConfig config].qiniuDomain);
     NSArray *arr =   [self.ckey componentsSeparatedByString:@"?"];
     self.ckey = arr[0];

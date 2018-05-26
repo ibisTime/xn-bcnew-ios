@@ -217,7 +217,7 @@
     
     _platform = platform;
     //币种名称
-    self.currencyNameLbl.text = [NSString stringWithFormat:@"%@", [platform.amount convertToRealMoneyWithNum:8]];
+    self.currencyNameLbl.text = [NSString stringWithFormat:@"%.2f", [platform.priceChange doubleValue]];
     self.currencyNameLbl.textColor = [UIColor whiteColor];
     //当前人民币价格
     self.rmbPriceLbl.textColor = [UIColor whiteColor];
@@ -238,7 +238,7 @@
     [self.priceFluctBtn setTitle:priceFluctStr forState:UIControlStateNormal];
     [self.priceFluctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //关注量
-    self.followNumLbl.text = [NSString stringWithFormat:@"量:%ld", platform.count];
+    self.followNumLbl.text = [NSString stringWithFormat:@"量:%@", [platform.volume convertToRealMoneyWithNum:8]];
     self.followNumLbl.textColor = [UIColor whiteColor];
     //最高价
     self.highPriceLbl.text = [NSString stringWithFormat:@"高:%@", [platform.high convertToRealMoneyWithNum:8]];

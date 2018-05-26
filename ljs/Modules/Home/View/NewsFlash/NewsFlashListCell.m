@@ -183,7 +183,7 @@
     
     if ([flashModel.type isEqualToString:@"1"]) {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor3: kAppCustomMainColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor3: [UIColor colorWithHexString:@"#F6A623"];
 
     } else {
         
