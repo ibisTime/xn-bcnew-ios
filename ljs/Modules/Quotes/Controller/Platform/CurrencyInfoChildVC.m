@@ -61,20 +61,20 @@
 
 - (void)initTableView {
     
-    self.tableView = [[CurrencyInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight) style:UITableViewStylePlain];
+    self.tableView = [[CurrencyInfoTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.platform = self.platform;
-//    self.tableView.tag = 1802;
+    self.tableView.tag = 1802;
 
     [self.view addSubview:self.tableView];
-//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        
-////        make.edges.mas_equalTo(0);
-//        make.left.equalTo(self.view.mas_left);
-//        make.top.equalTo(self.view.mas_top);
-//        make.right.equalTo(self.view.mas_right);
-//        make.bottom.equalTo(self.view.mas_bottom);
-//    }];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+//        make.edges.mas_equalTo(0);
+        make.left.equalTo(self.view.mas_left);
+        make.top.equalTo(self.view.mas_top);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
     
     self.tableView.tableHeaderView = self.introduceView;
 }
