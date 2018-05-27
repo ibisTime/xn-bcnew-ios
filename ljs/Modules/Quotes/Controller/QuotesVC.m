@@ -547,6 +547,8 @@
                 weakSelf.tableView.platforms = objs;
                 
                 [weakSelf.tableView reloadData_tl];
+                CGFloat y = weakSelf.tableView.frame.origin.y;
+                NSLog(@"TableViewFrameY%f",y);
 
             } failure:^(NSError *error) {
 //                [weakSelf.MbHud hide:YES];
@@ -571,6 +573,7 @@
         }];
 //        [self initHeaderView];
         [self.tableView beginRefreshing];
+ 
     }
     
 

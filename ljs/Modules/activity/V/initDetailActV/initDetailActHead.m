@@ -41,7 +41,7 @@
 - (void)initSubviews {
     //1
     self.titleImg = [[UIImageView alloc] init];
-    self.titleImg.backgroundColor = kAppCustomMainColor;
+    self.titleImg.backgroundColor = kClearColor;
     [self addSubview:self.titleImg];
     
     [self.titleImg mas_makeConstraints:^(MASConstraintMaker *make) {

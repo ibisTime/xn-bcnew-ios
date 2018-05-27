@@ -168,7 +168,7 @@
 }
 - (void)addSubViewController {
     
-    BaseWeakSelf;
+//    BaseWeakSelf;
     
     
     CurrencyInfoChildVC *childVC = [[CurrencyInfoChildVC alloc] init];
