@@ -492,6 +492,7 @@
     }
 //平台列表
 - (void)requestPlatform {
+    
         BaseWeakSelf;
     [self.MbHud show:YES];
         TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -548,8 +549,8 @@
                 
                 [weakSelf.tableView reloadData_tl];
                 CGFloat y = weakSelf.tableView.frame.origin.y;
-                NSLog(@"TableViewFrameY%f",y);
-
+                NSLog(@"contenOffSet%@contenSize%@",NSStringFromCGPoint(weakSelf.tableView.contentOffset),NSStringFromCGSize(weakSelf.tableView.contentSize));
+                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
             } failure:^(NSError *error) {
 //                [weakSelf.MbHud hide:YES];
 
@@ -565,6 +566,7 @@
                 weakSelf.tableView.platforms = objs;
                 
                 [weakSelf.tableView reloadData_tl];
+                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
 
             } failure:^(NSError *error) {
                 [weakSelf.MbHud hide:YES];

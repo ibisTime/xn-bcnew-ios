@@ -43,6 +43,8 @@
 //分享
 @property (nonatomic, strong) BaseView *shareView;
 
+@property (nonatomic, strong) UIButton *seeNumber;
+
 @end
 
 @implementation InformationDetailHeaderView
@@ -132,6 +134,18 @@
         
         make.left.equalTo(self.authorLbl.mas_left);
         make.top.equalTo(self.authorLbl.mas_bottom).offset(10);
+    }];
+    self.seeNumber = [UIButton buttonWithTitle:@"0"
+                                    titleColor:kTextColor2
+                               backgroundColor:kClearColor
+                                     titleFont:13.0];
+    [self.seeNumber setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
+    [self.sourceView addSubview:self.seeNumber];
+    [self.seeNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(@-10);
+        make.top.equalTo(self.sourceLbl.mas_top).offset(0);
+        make.height.equalTo(@20);
     }];
     //时间
     self.timeLbl = [UILabel labelWithBackgroundColor:kClearColor
@@ -242,6 +256,7 @@
         make.width.equalTo(@(kScreenWidth - 20));
         make.height.equalTo(@70);
     }];
+    
     //内容
     [self.detailView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -362,6 +377,7 @@
     NSString *auther = [detailModel.auther valid] ? detailModel.auther: @"- -";
     self.authorLbl.text = [NSString stringWithFormat:@"作者: %@", auther];
     self.sourceLbl.text = [NSString stringWithFormat:@"来自: %@", detailModel.source];
+    [self.seeNumber setTitle:detailModel.readCount forState:UIControlStateNormal];
     self.timeLbl.text = [detailModel.showDatetime convertToDetailDate];
     NSString *image = [detailModel.isPoint isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
     [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];

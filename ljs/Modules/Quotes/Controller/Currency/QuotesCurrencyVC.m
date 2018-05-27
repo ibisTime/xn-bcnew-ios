@@ -358,7 +358,13 @@
     [helper modelClass:[CurrencyPriceModel class]];
     
     [self.tableView addRefreshAction:^{
+        
         if (weakSelf.percentChangeIndex >= 0) {
+            if (weakSelf.titleModel) {
+                helper.parameters[@"symbol"] = weakSelf.titleModel.symbol;
+                
+            }
+
             
             helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
             

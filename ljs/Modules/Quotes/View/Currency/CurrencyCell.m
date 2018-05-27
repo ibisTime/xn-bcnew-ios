@@ -85,18 +85,18 @@
 - (void)setSubviewLayout {
     
     [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@25);
 
-        make.left.equalTo(@5);
-        make.width.height.equalTo(@15);
+        make.left.equalTo(@10);
+        make.width.height.equalTo(@13);
+        make.centerY.equalTo(@0);
 
 
     }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.IsWarnImage.mas_right).offset(15);
-        make.width.equalTo(@70);
+        make.left.mas_equalTo(self.IsWarnImage.mas_right).offset(10);
+//        make.width.equalTo(@70);
         make.centerY.equalTo(@0);
     }];
     
@@ -135,15 +135,33 @@
     
     //平台名称
     self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
-    [self.platformNameLbl sizeToFit];
+//    [self.platformNameLbl sizeToFit];
      self.syomblName.text = [NSString stringWithFormat:@"%@/%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
     self.IsWarnImage.hidden = [currency.isWarn isEqualToString:@"0"];
-    if ([currency.isWarn isEqualToString:@"0"]) {
-        [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@15);
-            make.width.equalTo(@70);
-            make.centerY.equalTo(@0);
-        }];
+    if (self.platformNameLbl.frame.origin.x <= self.IsWarnImage.frame.origin.x) {
+        
+        if ([currency.isWarn isEqualToString:@"0"]) {
+            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@10);
+                make.width.equalTo(@70);
+                make.centerY.equalTo(@0);
+            }];
+        }else{
+            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.IsWarnImage.mas_right).offset(10);
+//                make.width.equalTo(@70);
+                make.centerY.equalTo(@0);
+            }];
+        }
+    }else
+    {
+        if ([currency.isWarn isEqualToString:@"0"]) {
+            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@10);
+                make.width.equalTo(@70);
+                make.centerY.equalTo(@0);
+            }];
+        }
     }
     
     //对应币种价格

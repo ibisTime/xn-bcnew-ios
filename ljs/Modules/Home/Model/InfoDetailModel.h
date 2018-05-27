@@ -48,5 +48,7 @@
 @property (nonatomic, strong) NSArray <InformationModel *>*refNewList;
 //热门评论
 @property (nonatomic, strong) NSArray <InfoCommentModel *>*hotCommentList;
+@property (nonatomic, copy) NSString *readCount;
+
 
 @end

@@ -218,7 +218,7 @@
     ;
     [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
-    if ([state isEqualToString:@"1"]) {
+    if ([state isEqualToString:@"2"]) {
         [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
         [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
     }else if([state isEqualToString:@"9"])

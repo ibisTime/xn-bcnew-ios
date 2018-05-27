@@ -153,11 +153,27 @@
     //平台名称
     self.platformNameLbl.text = optional.exchangeEname;
     self.isWarnView.hidden = [optional.isWarn isEqualToString:@"0"];
+    if (self.currencyNameLbl.frame.origin.x <= self.isWarnView.frame.origin.x) {
+        
+        if ([optional.isWarn isEqualToString:@"0"]) {
+            [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(@10);
+                make.left.equalTo(@15);
+            }];
+        }else{
+        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@10);
+            make.left.mas_equalTo(self.isWarnView.mas_right).offset(5);
+        }];
+        }
+    }else
+    {
     if ([optional.isWarn isEqualToString:@"0"]) {
         [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(@10);
                 make.left.equalTo(@15);
         }];
+    }
     }
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];

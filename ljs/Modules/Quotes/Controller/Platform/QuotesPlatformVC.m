@@ -119,6 +119,9 @@
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
+        self.tableView.optionals = nil;
+        [self.tableView.optionals removeAllObjects];
+        [self.tableView reloadData];
         [self requestOptionalList];
         self.IsFirst = NO;
 
@@ -126,6 +129,9 @@
     NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
 
     self.percentChangeIndex = index;
+    self.tableView.optionals = nil;
+        [self.tableView.optionals removeAllObjects];
+        [self.tableView reloadData];
     [self requestOptionalList];
         self.IsFirst = YES;
 
@@ -145,6 +151,9 @@
         
         self.percentTempIndex = index;
         self.percentChangeIndex = index;
+        self.tableView.optionals = nil;
+        [self.tableView.optionals removeAllObjects];
+        [self.tableView reloadData];
         [self requestOptionalList];
     }
     else {
@@ -152,7 +161,11 @@
         
         self.percentTempIndex = index;
         self.percentChangeIndex = index;
+        self.tableView.optionals = nil;
+            [self.tableView.optionals removeAllObjects];
+            [self.tableView reloadData];
         [self requestOptionalList];
+            
     }
     }
 }
