@@ -8,10 +8,11 @@
 
 #import "CollectionActivityVC.h"
 #import "AcvitityInformationListTableView.h"
-
+#import "detailActivityVC.h"
 @interface CollectionActivityVC ()<RefreshDelegate>
 @property (nonatomic , strong)AcvitityInformationListTableView *ActivityListTableView;
 @property (nonatomic , strong)NSMutableArray <ActivityDetailModel *>*infos;
+@property (nonatomic , strong) detailActivityVC * detOfActVC;
 @end
 
 @implementation CollectionActivityVC
@@ -98,6 +99,14 @@
 - (void)refreshTableView:(TLTableView*)refreshTableview didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     
+    [self.ActivityListTableView deselectRowAtIndexPath:indexPath animated:YES];
+    detailActivityVC * detOfActVC = [[detailActivityVC alloc ] init ];
+    self.detOfActVC = detOfActVC;
+    
+    ActivityDetailModel *model = self.infos[indexPath.row];
+    
+    detOfActVC.code = model.code;
+    [self.navigationController pushViewController:detOfActVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

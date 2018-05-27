@@ -3610,7 +3610,7 @@
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
 					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianjieshe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3650,7 +3650,7 @@
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
 					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianjieshe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -81,6 +81,8 @@
 - (void)refreshActivityListTableView {
     
     //
+//    [TLUser user].userId = nil;
+    
     [self.ActivityListTableView beginRefreshing];
 }
 //
@@ -132,36 +134,29 @@
 //    helper.parameters[@"type"] = self.status;
     helper.parameters[@"status"] = @"1";
     helper.tableView = self.ActivityListTableView;
-    helper.parameters[@"userId"] = [TLUser user].userId;
 
     self.flashHelper = helper;
-    
+    if ([TLUser user].isLogin == YES) {
+        helper.parameters[@"userId"] = [TLUser user].userId;
+        
+    }
     [helper modelClass:[activityModel class]];
     
     [self.ActivityListTableView addRefreshAction:^{
         //
-       
+        if ([TLUser user].isLogin == YES) {
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        }else{
+            helper.parameters[@"userId"] = nil;
+
             
-       
-        //
-        
+        }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.activities = objs;
+            [weakSelf.ActivityListTableView.activities removeAllObjects];
+            [weakSelf.ActivityListTableView reloadData];
             weakSelf.ActivityListTableView.activities = objs;
-            for (int i = 0; i < weakSelf.activities.count; i++) {
-                activityModel *model = weakSelf.activities[i];
-                
-                if ([model.isTop isEqualToString:@"1"]) {
-                    //需要置顶
-//                    [weakSelf.activities removeObjectAtIndex:i];
-//                    [weakSelf.activities insertObject:model atIndex:0];
-//                    [weakSelf.ActivityListTableView.activities removeObjectAtIndex:i];
-//                    [weakSelf.ActivityListTableView.activities insertObject:model atIndex:0];
-                }
-                
-            }
-            
             
             if (!weakSelf.isSearch) {
                 [weakSelf.ActivityListTableView reloadData_tl];
@@ -174,11 +169,13 @@
     }];
     // 拉加载更多
     [self.ActivityListTableView  addLoadMoreAction:^{
-        
+        if ([TLUser user].isLogin == YES) {
+            helper.parameters[@"userId"] = [TLUser user].userId;
+        }
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            //中转
             weakSelf.activities = objs;
-            
+            [weakSelf.ActivityListTableView.activities removeAllObjects];
+            [weakSelf.ActivityListTableView reloadData];
             weakSelf.ActivityListTableView.activities = objs;
             if (!weakSelf.isSearch) {
                 [weakSelf.ActivityListTableView reloadData_tl];

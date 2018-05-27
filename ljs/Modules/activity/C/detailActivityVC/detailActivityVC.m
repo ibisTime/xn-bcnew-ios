@@ -93,11 +93,17 @@
 
     [contentScrollView addSubview:self.activeCon];
     
-    
-   self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44)];
+    if (kDevice_Is_iPhoneX == YES) {
+        self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavigationBarHeight-kBottomInsetHeight-20, kScreenWidth, 44)];
+    }else{
+        
+         self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44)];
+    }
+   
     self.activityBott.backgroundColor =kHexColor(@"#FBFBFB");
 //    activityBott.backgroundColor =kYellowColor;
     [self.view addSubview:self.activityBott];
+    self.activityBott.detailVc = self;
     BaseWeakSelf;
     self.activityBott.collectionButBlock = ^(NSInteger index) {
         //点击收藏

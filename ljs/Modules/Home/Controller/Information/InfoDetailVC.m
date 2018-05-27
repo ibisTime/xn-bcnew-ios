@@ -236,13 +236,13 @@
     
     
     //收藏
-    UIButton *collectionBtn = [UIButton buttonWithImageName:@"未收藏"];
+    UIButton *collectionBtn = [UIButton buttonWithImageName:@"分享"];
     
-    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+//    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
     
-    [collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
+//    [collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
     
-    [collectionBtn addTarget:self action:@selector(collectionInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
     collectionBtn.contentMode = UIViewContentModeScaleAspectFit;
 
     [self.bottomView addSubview:collectionBtn];
@@ -362,9 +362,14 @@
 }
 
 /**
- 收藏资讯
+ 分享资讯
  */
 - (void)collectionInfo:(UIButton *)sender {
+    
+    [self checkLogin:^{
+        [self.shareView show];
+        
+    }];
     
     BaseWeakSelf;
     
@@ -648,7 +653,7 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        self.shareUrl = [NSString stringWithFormat:@"%@?code=%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
+        self.shareUrl = [NSString stringWithFormat:@"%@/index.html?code=%@", responseObject[@"data"][@"cvalue"], self.detailModel.code];
         
     } failure:^(NSError *error) {
         NSLog(@"error");

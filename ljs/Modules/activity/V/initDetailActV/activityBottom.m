@@ -176,8 +176,10 @@
 
 #pragma mark - event
 -(void)openSignUp{
+    [self.detailVc checkLogin:^{
+        
+    }];
     if ([TLUser user].isLogin == NO) {
-        [TLAlert alertWithMsg:@"请登录"];
         return;
     }
     NSLog(@"openSignUp");
@@ -195,9 +197,10 @@
     [self.viewController.navigationController pushViewController:fillInRegistrationFormVC animated:YES];
 }
 -(void)openComment{
+    [self.detailVc checkLogin:^{
+        
+    }];
     if ([TLUser user].isLogin == NO) {
-        [TLAlert alertWithMsg:@"请登录"];
-
         return;
     }
      NSLog(@"openComment");
@@ -215,9 +218,11 @@
 }
 -(void)openCollection: (UIButton*)btn {
 //
-    if ([TLUser user].isLogin == NO) {
-        [TLAlert alertWithMsg:@"请登录"];
+    [self.detailVc checkLogin:^{
         
+    }];
+    if ([TLUser user].isLogin == NO) {
+    
         return;
     }
 

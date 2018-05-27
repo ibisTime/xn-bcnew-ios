@@ -14,5 +14,7 @@
 @property (nonatomic,  copy) NSString *code;
 @property (nonatomic, copy) void(^signUpSucessClock)(BOOL index);
 
+@property (nonatomic,  assign) BOOL isLogin;
+
 
 @end

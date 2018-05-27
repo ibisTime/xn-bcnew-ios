@@ -133,7 +133,7 @@
 }
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-    
+//    self.percentChangeIndex = -1;
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     self.CurrentLableIndex = labelIndex;
@@ -336,9 +336,9 @@
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     helper.code = @"628350";
+    
     if (self.titleModel) {
         helper.parameters[@"symbol"] = self.titleModel.symbol;
-
     }
 
     helper.parameters[@"start"] = @"0";

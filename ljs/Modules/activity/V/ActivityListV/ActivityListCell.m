@@ -226,11 +226,20 @@
         [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
         [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
         
+    }else{
+        [self.stateView setTitle:@"" forState:UIControlStateNormal];
+
+        [self.stateView setBackgroundColor:kClearColor forState:UIControlStateNormal];
+
     }
   
 //    self.ActivityImg.image =[UIImage imageNamed: actModel.advPic];
     self.ActivityTitle.text = actModel.title;
+    if ([actModel.price isEqualToString:@"0"]) {
+        self.price.text =[NSString stringWithFormat:@"免费"];
+    }else{
     self.price.text =[NSString stringWithFormat:@"￥ %.2f",[actModel.price doubleValue]/1000];
+    }
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
     self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];
     self.readCount.text = actModel.readCount;

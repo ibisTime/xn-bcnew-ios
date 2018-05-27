@@ -289,10 +289,13 @@
        
         weakSelf.percentTempIndex = -1;
         //点击标签
-       
-        if (![TLUser user].isLogin) {
-            return ;
+        if (index == 2) {
+            [weakSelf checkLogin:nil];
+            if (![TLUser user].isLogin) {
+                return ;
+            }
         }
+        
         
         switch (index) {
             case 0:
@@ -306,13 +309,20 @@
         if (weakSelf.percentTempIndex == index) {
             return ;
         }
-        NSDictionary *dic = @{@"titleBarindex": @(index)};
+        NSDictionary *dic = @{@"titleBarindex": @(index),@"segment": @(weakSelf.currentSegmentIndex)};
        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
                                                             object:nil
                                                           userInfo:dic];
     };
     self.quotesView.selectSameBlock = ^(NSInteger ind) {
+        if (ind == 2) {
+            if (![TLUser user].isLogin) {
+                [weakSelf checkLogin:nil];
+
+                return ;
+            }
+        }
         switch (ind) {
             case 0:
                 ind = 1;
@@ -326,7 +336,7 @@
         weakSelf.percentTempIndex = ind;
         NSLog(@"点击了相同的lable%ld",ind);
         weakSelf.percentChangeIndex =-1;
-        NSDictionary *dic = @{@"titleSameBarindex": @(ind)};
+        NSDictionary *dic = @{@"titleSameBarindex": @(ind),@"segment": @(weakSelf.currentSegmentIndex)};
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleSameBarindex"
                                                             object:nil
@@ -491,8 +501,24 @@
         NSLog(@"平台定时器停止, index = %ld", self.currentSegmentIndex);
     }
 //平台列表
-- (void)requestPlatform {
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentSize"])
+    {
+        NSValue *oldvalue = change[NSKeyValueChangeOldKey];
+        NSValue *newvalue = change[NSKeyValueChangeNewKey];
+        CGFloat oldoffset_y = oldvalue.UIOffsetValue.vertical;
+        CGFloat newoffset_y = newvalue.UIOffsetValue.vertical;
+        
+        NSLog(@"self.tableView.contentSize%fself.tableView.contentSize%f",oldoffset_y,newoffset_y);
+
+    }
     
+    
+}
+- (void)requestPlatform {
+//    [self.tableView addObserver: self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
         BaseWeakSelf;
     [self.MbHud show:YES];
         TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -507,6 +533,8 @@
         helper.parameters[@"limit"] = @"100";
     if ([TLUser user].userId) {
         helper.parameters[@"userId"] = [TLUser user].userId;
+        
+    }
         if (weakSelf.titleModel) {
             helper.parameters[@"exchangeEname"] = weakSelf.platformTitleModel.ename;
             
@@ -514,7 +542,7 @@
         if (weakSelf.percentChangeIndex >= 0) {
             helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
         }
-    }
+    
         
     
         helper.tableView = self.tableView;
@@ -550,7 +578,7 @@
                 [weakSelf.tableView reloadData_tl];
                 CGFloat y = weakSelf.tableView.frame.origin.y;
                 NSLog(@"contenOffSet%@contenSize%@",NSStringFromCGPoint(weakSelf.tableView.contentOffset),NSStringFromCGSize(weakSelf.tableView.contentSize));
-                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
+//                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
             } failure:^(NSError *error) {
 //                [weakSelf.MbHud hide:YES];
 
@@ -631,7 +659,7 @@
     }
     if (self.platformTitleList >= 0) {
         self.platformTitleModel = self.platformTitleList[labIndex];
-        [self requestPlatform];
+        [self.tableView beginRefreshing];
     }
       
 }
@@ -834,6 +862,7 @@
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
 //    [self.tableView beginRefreshing];
 
+    
     self.currentSegmentIndex = index;
 //    if (index == 1) {
 //        index = 0;

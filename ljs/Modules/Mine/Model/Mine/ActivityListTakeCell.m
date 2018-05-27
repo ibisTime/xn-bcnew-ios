@@ -227,6 +227,6 @@
         self.price.text = @"免费";
         return;
     }
-    self.price.text= [NSString stringWithFormat:@"¥%@", infoModel.price];;
+    self.price.text= [NSString stringWithFormat:@"¥%.2f", [infoModel.price doubleValue]/1000];;
 }
 @end

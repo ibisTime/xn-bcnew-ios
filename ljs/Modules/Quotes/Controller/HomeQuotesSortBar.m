@@ -269,7 +269,8 @@ static const float kAnimationdDuration = 0.3;
         return;
     }
     _sortBlock(button.tag - 100);
-    
+    weakSelf.IsSelect = 0;
+
     [self selectSortBarWithIndex:button.tag - 100];
 }
 

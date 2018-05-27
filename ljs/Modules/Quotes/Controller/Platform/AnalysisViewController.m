@@ -26,7 +26,7 @@
 //趋势图
 @property (nonatomic, strong) CurrencyTrendMapView *trendView;
 //项目信息
-@property (nonatomic, strong) SelectScrollView *selectSV;
+@property (nonatomic, strong) UIScrollView *selectSV;
 
 @property (nonatomic, assign) BOOL vcCanScroll;
 
@@ -58,10 +58,10 @@
     [self initScrollView];
     
     //头部数据
-    [self initInfoView];
+//    [self initInfoView];
     
     //趋势图
-    [self initTrendView];
+//    [self initTrendView];
     
     //添加子控制器
     [self initSelectScrollView];
@@ -159,9 +159,9 @@
 - (void)initSelectScrollView {
     
     
-    NSArray *titles = @[ @"项目信息"];
+    NSArray *titles = @[ @""];
     
-    self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, self.trendView.yy + 10, kScreenWidth, kSuperViewHeight - kBottomInsetHeight) itemTitles:titles];
+    self.selectSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0 + 10, kScreenWidth, kSuperViewHeight - kBottomInsetHeight)];
     
     [self.bgSV addSubview:self.selectSV];
     
@@ -183,7 +183,7 @@
     childVC.vcCanScroll = NO;
     [self addChildViewController:childVC];
     
-    [_selectSV.scrollView addSubview:childVC.view];
+    [_selectSV addSubview:childVC.view];
     
     
     self.bgSV.contentSize = CGSizeMake(kScreenWidth,CGRectGetMaxY(self.trendView.frame) + self.selectSV.yy);

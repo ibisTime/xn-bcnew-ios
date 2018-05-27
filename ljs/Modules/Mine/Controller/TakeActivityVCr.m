@@ -169,26 +169,14 @@
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    [self.ActivityListTableView deselectRowAtIndexPath:indexPath animated:YES];
-    detailActivityVC * detOfActVC = [[detailActivityVC alloc ] init ];
-    self.detOfActVC = detOfActVC;
-    
-    
-        
+        [self.ActivityListTableView deselectRowAtIndexPath:indexPath animated:YES];
+        detailActivityVC * detOfActVC = [[detailActivityVC alloc ] init ];
+        self.detOfActVC = detOfActVC;
     
         ActivityListModel *model = self.activities[indexPath.row];
         
         detOfActVC.code = model.actCode;
-        
-   
-    
-    //
-    //    localMapManager *detOfActVC = [[localMapManager alloc] init];
-    [self.navigationController pushViewController:detOfActVC animated:YES];
-    //    [self.viewController presentViewController:detOfActVC animated:YES completion:^{
-    //
-    //    } ];
-
+        [self.navigationController pushViewController:detOfActVC animated:YES];
     
 }
 

@@ -116,6 +116,7 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSameMyBarClick:) name:@"titleSameBarindex" object:nil];
 }
 - (void)titleSameMyBarClick:(NSNotification *)notification {
+  
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;

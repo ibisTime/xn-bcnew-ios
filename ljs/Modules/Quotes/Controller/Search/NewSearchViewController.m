@@ -33,6 +33,7 @@
 @property (nonatomic , strong)HomeChildVC *alerts;
 //活动
 @property (nonatomic , strong)ActivityVC *activity;
+@property (nonatomic , strong)NSString *searchText;
 
 @end
 
@@ -161,12 +162,34 @@
 //UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    int index = self.selectSV.scrollView.contentOffset.x / kScreenWidth;
     [textField resignFirstResponder];
-    [self.platformvc searchRequestWith:textField.text];
-    [self.currencyvc searchRequestWith:textField.text];
-    [self.activity searchRequestWith:textField.text];
-    [self.information searchRequestWith:textField.text];
-    [self.alerts searchRequestWith:textField.text];
+
+    switch (index) {
+        case 0:
+            [self.platformvc searchRequestWith:textField.text];
+
+            break;
+        case 1:
+            [self.currencyvc searchRequestWith:textField.text];
+
+            break;
+        case 2:
+            [self.information searchRequestWith:textField.text];
+
+            break;
+        case 3:
+            [self.alerts searchRequestWith:textField.text];
+
+            break;
+        case 4:
+            [self.activity searchRequestWith:textField.text];
+
+            break;
+            
+        default:
+            break;
+    }
     
     return YES;
 }
@@ -175,6 +198,7 @@
  */
 - (void)didSelectWithIndex:(NSInteger)index
 {
+ 
 
 }
 - (void)back {
