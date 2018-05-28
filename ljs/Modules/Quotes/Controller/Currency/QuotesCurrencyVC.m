@@ -82,9 +82,7 @@
     
 }
 - (void)titleSamesBarClick:(NSNotification *)notification {
-    if (!self.view.userInteractionEnabled) {
-        return;
-    }
+   
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
@@ -104,9 +102,6 @@
     
 }
 - (void)titleBarClick:(NSNotification *)notification {
-    if (!self.view.userInteractionEnabled) {
-        return;
-    }
     self.IsFirst = YES;
     self.view.userInteractionEnabled = NO;
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
