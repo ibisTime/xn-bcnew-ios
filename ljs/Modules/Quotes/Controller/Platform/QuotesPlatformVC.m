@@ -124,7 +124,7 @@
     
     //刷新自选列表
     self.tableView.hiddenHeader = NO;
-    [self.tableView beginRefreshing];
+    [self requestOptionalList];
 }
 
 - (void)userOut {
@@ -143,9 +143,10 @@
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
-        self.tableView.optionals = nil;
-        [self.tableView.optionals removeAllObjects];
-        [self.tableView reloadData];
+//        self.tableView.optionals = nil;
+//        [self.tableView.optionals removeAllObjects];
+//        [self.tableView reloadData];
+        self.view.userInteractionEnabled = NO;
         [self requestOptionalList];
         self.IsFirst = NO;
 
@@ -153,10 +154,12 @@
     NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
 
     self.percentChangeIndex = index;
-    self.tableView.optionals = nil;
-        [self.tableView.optionals removeAllObjects];
-        [self.tableView reloadData];
-    [self requestOptionalList];
+//    self.tableView.optionals = nil;
+//        [self.tableView.optionals removeAllObjects];
+//        [self.tableView reloadData];
+        self.view.userInteractionEnabled = NO;
+
+        [self requestOptionalList];
         self.IsFirst = YES;
 
     }
@@ -175,9 +178,10 @@
         
         self.percentTempIndex = index;
         self.percentChangeIndex = index;
-        self.tableView.optionals = nil;
-        [self.tableView.optionals removeAllObjects];
-        [self.tableView reloadData];
+//        self.tableView.optionals = nil;
+//        [self.tableView.optionals removeAllObjects];
+//        [self.tableView reloadData];
+        self.view.userInteractionEnabled = NO;
         [self requestOptionalList];
     }
     else {
@@ -185,9 +189,11 @@
         
         self.percentTempIndex = index;
         self.percentChangeIndex = index;
-        self.tableView.optionals = nil;
-            [self.tableView.optionals removeAllObjects];
-            [self.tableView reloadData];
+//        self.tableView.optionals = nil;
+//            [self.tableView.optionals removeAllObjects];
+//            [self.tableView reloadData];
+        self.view.userInteractionEnabled = NO;
+
         [self requestOptionalList];
             
     }
@@ -399,7 +405,9 @@
     BaseWeakSelf;
     
     if ([TLUser user].isLogin) {
-        [self requestOptionalList];
+        self.view.userInteractionEnabled = NO;
+
+        [self.tableView beginRefreshing];
     }
 
 //    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
@@ -433,7 +441,10 @@
     helper.code = @"628351";
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
-    helper.parameters[@"userId"] = @"U201805160952110342835";
+    if ([TLUser user].isLogin == YES) {
+        helper.parameters[@"userId"] = @"U201805160952110342835";
+
+    }
     helper.tableView = self.tableView;
     helper.showView = self.view;
     
@@ -451,8 +462,10 @@
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
             
         }
-        helper.parameters[@"userId"] = [TLUser user].userId;
-        
+        if ([TLUser user].isLogin == YES) {
+            helper.parameters[@"userId"] = @"U201805160952110342835";
+            
+        }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             if (objs.count == 0) {
@@ -468,9 +481,9 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
-            if (weakSelf.optionals.count > 0) {
-                [weakSelf startTimer];
-            }
+//            if (weakSelf.optionals.count > 0) {
+//                [weakSelf startTimer];
+//            }
             weakSelf.view.userInteractionEnabled = YES;
            
             
