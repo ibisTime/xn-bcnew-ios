@@ -236,7 +236,7 @@
         //刷新贴吧信息
 //        [self requestForumInfo];
         //定时器刷起来
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     //定时器停止
