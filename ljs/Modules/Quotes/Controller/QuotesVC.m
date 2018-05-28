@@ -415,6 +415,7 @@
         if ([self.kind isEqualToString:kCurrency]) {
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
+            childVC.currentSegmentIndex = 2;
             childVC.selectBlock = ^(NSString *symobel) {
                 [weakSelf pushCurrencyKLineVCWith:symobel];
             };
@@ -438,7 +439,8 @@
             
             //自选
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
-            
+            childVC.currentSegmentIndex = 3;
+
             
             childVC.selectBlock = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
@@ -478,19 +480,20 @@
         NSLog(@"平台定时器刷新中, index = %ld", self.currentSegmentIndex);
         
         BaseWeakSelf;
-    self.helper.showView =self.view;
+        self.helper.showView =self.view;
+        [self.tableView beginRefreshing];
         //刷新平台列表
-        [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.platforms = objs;
-            
-            weakSelf.tableView.platforms = objs;
-            
-            [weakSelf.tableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
+//        [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//            weakSelf.platforms = objs;
+//
+//            weakSelf.tableView.platforms = objs;
+//
+//            [weakSelf.tableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
     }
     
     //定时器停止
@@ -652,6 +655,7 @@
 - (void)segmenChildLableClick: (NSInteger)segment : (NSInteger)labIndex
 {
     
+    
     NSLog(@"%@",self.titles);
     if (labIndex > self.platformTitleList.count) {
         labIndex = 0;
@@ -660,7 +664,17 @@
     if (self.platformTitleList >= 0) {
         self.platformTitleModel = self.platformTitleList[labIndex];
         [self.tableView beginRefreshing];
+    }else{
+        [self startCurrencyTimerWithSegmentIndex:segment labelIndex:labIndex];
+
     }
+    if (segment == 1) {
+        //开启自选定时器
+        [self startTimer];
+        
+        return ;
+    }
+    [self stopTimer];
       
 }
 
@@ -725,9 +739,9 @@
 
 - (void)addCurrency {
     
+    
     BaseWeakSelf;
     [self checkLogin:^{
-        
         QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
         
         optionalVC.addSuccess = ^{
@@ -879,12 +893,12 @@
         
     }
     
-    //1:自选, 不是自选就停止定时器
+    //1:平台, 不是平台就停止定时器
     if (index == 1) {
         //开启自选定时器
-//        [self startTimer];
+        [self startTimer];
         
-//        return ;
+        return ;
     }
     
     NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;

@@ -137,19 +137,19 @@
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     self.CurrentLableIndex = labelIndex;
+    self.currentSegmentIndex = segmentIndex;
 
-    if (labelIndex == self.currentIndex && segmentIndex == 3) {
+    if (labelIndex == self.currentIndex && segmentIndex == 2) {
         //刷新列表
         [self.tableView beginRefreshing];
         //币价没有贴吧
-        if (self.currentIndex != 0) {
-            //刷新贴吧信息
-//            [self requestForumInfo];
-        }
+        
         //定时器刷起来
-//        [self startTimer];
+        [self startTimer];
         return ;
     }
+    [self stopTimer];
+
     CurrencyTitleModel *titleModel;
     if (labelIndex == 0) {
     titleModel = self.currencyTitleList[labelIndex];
@@ -160,7 +160,6 @@
     [self.tableView beginRefreshing];
     
     //定时器停止
-//    [self stopTimer];
 }
 
 #pragma mark - 定时器
@@ -182,19 +181,19 @@
     NSLog(@"币种定时器刷新中, index = %ld", self.currentIndex);
 
     BaseWeakSelf;
-    
+    [self.tableView beginRefreshing];
     //刷新币种列表
-    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
-        weakSelf.currencyPrices = objs;
-        
-        weakSelf.tableView.currencyPrices = objs;
-        
-        [weakSelf.tableView reloadData_tl];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+//    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//        weakSelf.currencyPrices = objs;
+//
+//        weakSelf.tableView.currencyPrices = objs;
+//
+//        [weakSelf.tableView reloadData_tl];
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
 }
 
 //定时器停止

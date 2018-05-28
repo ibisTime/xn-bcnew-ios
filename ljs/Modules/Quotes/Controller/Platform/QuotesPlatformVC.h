@@ -31,6 +31,8 @@ typedef void(^selectCurrent)(NSString *);
 @property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
 //自选列表
 @property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
+@property (nonatomic, assign) NSInteger currentSegmentIndex;
+
 //点击刷新
 - (void)clickPlatformWithIndex:(NSInteger)index;
 
