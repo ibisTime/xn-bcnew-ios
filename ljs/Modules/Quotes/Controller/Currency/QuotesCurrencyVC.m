@@ -59,8 +59,7 @@
     if (self.type == CurrencyTypePrice) {
         //获取币价
         [self requestCurrencyPriceList];
-        //
-        [self.tableView beginRefreshing];
+;
         
 //        return ;
     }
@@ -142,8 +141,18 @@
     self.currentSegmentIndex = segmentIndex;
 
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
+        CurrencyTitleModel *titleModel;
+        if (labelIndex == 0) {
+            titleModel = self.currencyTitleList[labelIndex];
+            NSLog(@"index0");
+        }else{
+            titleModel = self.currencyTitleList[labelIndex-1];
+            NSLog(@"indexNot0");
+
+        }
+        self.titleModel = titleModel;
         //刷新列表
-        [self.tableView beginRefreshing];
+        [self requestCurrencyList];
         //币价没有贴吧
         
         //定时器刷起来
@@ -159,7 +168,7 @@
     titleModel = self.currencyTitleList[labelIndex-1];
     }
     self.titleModel = titleModel;
-    [self.tableView beginRefreshing];
+    [self requestCurrencyList];
     
     //定时器停止
 }
@@ -183,7 +192,7 @@
     NSLog(@"币种定时器刷新中, index = %ld", self.currentIndex);
 
     BaseWeakSelf;
-    [self.tableView beginRefreshing];
+    [self requestCurrencyList];
     //刷新币种列表
 //    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
 //

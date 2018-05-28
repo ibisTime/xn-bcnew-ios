@@ -671,14 +671,19 @@
     }
     if (self.platformTitleList >= 0) {
         self.platformTitleModel = self.platformTitleList[labIndex];
-        [self.tableView beginRefreshing];
+                [self.tableView beginRefreshing];
     }else{
-        [self startCurrencyTimerWithSegmentIndex:segment labelIndex:labIndex];
+//        [self startCurrencyTimerWithSegmentIndex:segment labelIndex:labIndex];
+        
+        [self requestPlatform];
 
     }
     if (segment == 1) {
         //开启自选定时器
         [self startTimer];
+        [self.tableView beginRefreshing];
+        [self requestPlatform];
+
         
         return ;
     }
@@ -688,6 +693,9 @@
 
 #pragma mark - Data
 - (void)titleSameHomeBarClick:(NSNotification *)notification {
+    if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
+        return;
+    }
     [self.MbHud show:YES];
 
     if (self.IsFirst == YES) {
@@ -711,6 +719,9 @@
     
 }
 - (void)titleBarClick:(NSNotification *)notification {
+    if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
+        return;
+    }
     [self.MbHud show:YES];
 
     if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
@@ -904,6 +915,7 @@
     //1:平台, 不是平台就停止定时器
     if (index == 1) {
         //开启自选定时器
+        [self requestPlatform];
         [self startTimer];
         
         return ;
