@@ -85,6 +85,9 @@
     if (!self.view.userInteractionEnabled) {
         return;
     }
+    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 3) {
+        return;
+    }
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
@@ -107,7 +110,9 @@
     if (!self.view.userInteractionEnabled) {
         return;
     }
-    
+    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 3) {
+        return;
+    }
     self.IsFirst = YES;
     self.view.userInteractionEnabled = NO;
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
@@ -141,7 +146,15 @@
 }
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-//    self.percentChangeIndex = -1;
+    self.percentChangeIndex = -1;
+
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
+//    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 3) {
+//        return;
+//    }
+
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     self.CurrentLableIndex = labelIndex;

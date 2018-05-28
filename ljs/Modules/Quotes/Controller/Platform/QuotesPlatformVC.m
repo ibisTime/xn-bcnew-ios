@@ -142,6 +142,9 @@
     if (!self.view.userInteractionEnabled) {
         return;
     }
+    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 2) {
+        return;
+    }
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
@@ -170,6 +173,9 @@
 
 - (void)titleBarClick:(NSNotification *)notification {
     if (!self.view.userInteractionEnabled) {
+        return;
+    }
+    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 2) {
         return;
     }
     self.IsFirst = YES;
@@ -213,6 +219,9 @@
     self.currentSegmentIndex = segmentIndex;
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     if (segmentIndex == 2 || segmentIndex == 1) {
+        return;
+    }
+    if (!self.view.userInteractionEnabled) {
         return;
     }
     [self requestOptionalList];

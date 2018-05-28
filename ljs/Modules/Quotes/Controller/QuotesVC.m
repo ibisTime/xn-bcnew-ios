@@ -665,8 +665,12 @@
 
 - (void)segmenChildLableClick: (NSInteger)segment : (NSInteger)labIndex
 {
-    
-    
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
+    if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
+        return;
+    }
     NSLog(@"%@",self.titles);
     if (labIndex > self.platformTitleList.count) {
         labIndex = 0;
@@ -696,6 +700,9 @@
 
 #pragma mark - Data
 - (void)titleSameHomeBarClick:(NSNotification *)notification {
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
     if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
         return;
     }
@@ -722,6 +729,9 @@
     
 }
 - (void)titleBarClick:(NSNotification *)notification {
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
     if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
         return;
     }
@@ -913,15 +923,6 @@
         [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 46)];
 
         
-    }
-    
-    //1:平台, 不是平台就停止定时器
-    if (index == 1) {
-        //开启自选定时器
-        [self requestPlatform];
-        [self startTimer];
-        
-        return ;
     }
     
     NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
