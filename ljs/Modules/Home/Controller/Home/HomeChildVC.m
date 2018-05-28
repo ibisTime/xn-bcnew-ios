@@ -373,16 +373,19 @@
         self.bannerRoom = [BannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
         NSMutableArray *imgUrls = [NSMutableArray array];
+        NSMutableArray *nameArry = [NSMutableArray array];
+
         
         [self.bannerRoom enumerateObjectsUsingBlock:^(BannerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             if (obj.pic) {
                 
                 [imgUrls addObject:obj.pic];
+                [nameArry addObject:obj.name];
             }
         }];
         self.bannerView.imgUrls = imgUrls;
-        
+        self.bannerView.nameArry = nameArry;
         //        self.infoTableView.tableHeaderView = self.headerView;
         
     } failure:^(NSError *error) {
