@@ -163,7 +163,8 @@
     if (labelIndex == self.currentIndex && segmentIndex == 2) {
         CurrencyTitleModel *titleModel;
         if (labelIndex == 0) {
-            titleModel = self.currencyTitleList[labelIndex];
+            titleModel.symbol = @"全部";
+         
             NSLog(@"index0");
         }else{
             titleModel = self.currencyTitleList[labelIndex-1];
