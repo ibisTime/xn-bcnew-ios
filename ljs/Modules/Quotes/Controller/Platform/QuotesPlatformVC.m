@@ -97,14 +97,12 @@
     
     BaseWeakSelf;
     [self checkLogin:^{
-        NSLog(@"添加币种");
-        [weakSelf requestOptionalList];
-
+        
         QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
         
         optionalVC.addSuccess = ^{
             
-            [weakSelf requestOptionalList];
+            [weakSelf.tableView beginRefreshing];
         };
         
         [weakSelf.navigationController pushViewController:optionalVC animated:YES];
@@ -112,10 +110,7 @@
 }
 #pragma mark - 通知
 - (void)addNotification {
-    //登录后刷新列表
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userIn) name:kUserLoginNotification object:nil];
-    //退出登录刷新列表
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userOut) name:kUserLoginOutNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSameMyBarClick:) name:@"titleSameBarindex" object:nil];
@@ -178,58 +173,34 @@
 
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-  
+    
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
-    self.currentSegmentIndex = segmentIndex;
-    
-//    if (![TLUser user].isLogin) {
-//        return;
-//    }
     [self requestOptionalList];
 
+    if (![TLUser user].userId) {
+        return;
+    }
     if (segmentIndex == 2 || segmentIndex == 1) {
         return;
     }
-//    [self.tableView beginRefreshing];
+    [self.tableView beginRefreshing];
 
 //    [self refreshOptionalList];
 
  
-    if (segmentIndex == self.currentSegmentIndex && segmentIndex == 3) {
-//        刷新列表
+    if (labelIndex == self.currentIndex && segmentIndex == 2) {
+        //刷新列表
+//        [self requestOptionalList];
         //刷新贴吧信息
 //        [self requestForumInfo];
         //定时器刷起来
-        if (![TLUser user].isLogin) {
-            return;
-        }
-        [self requestOptionalList];
-
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     //定时器停止
-    
     [self stopTimer];
-}
-
-- (void)userIn {
-    
-    //刷新自选列表
-    self.tableView.hiddenHeader = NO;
-    [self.tableView beginRefreshing];
-}
-
-- (void)userOut {
-    //关闭定时器
-    [self stopTimer];
-    //清空数据
-    [self.tableView.optionals removeAllObjects];
-    [self.tableView reloadData_tl];
-    self.tableView.hiddenHeader = YES;
-    self.tableView.tableFooterView = self.footerView;
 }
 
 #pragma mark - 定时器
@@ -347,7 +318,7 @@
 - (void)clickPlatformWithIndex:(NSInteger)index {
 
     self.titleModel = self.platformTitleList[index];
-    //刷新自选列表
+    //刷新平台列表
     [self checkLogin:^{
         [self requestOptionalList];
 
@@ -385,7 +356,7 @@
     //开启定时器,实时刷新
     self.timer = [NSTimer timerWithTimeInterval:10
                                          target:self
-                                       selector:@selector(refreshList)
+                                       selector:@selector(refreshOptionalList)
                                        userInfo:nil
                                         repeats:YES];
     
@@ -403,14 +374,23 @@
     
 }
 
-- (void)refreshList {
+- (void)refreshOptionalList {
     
     NSLog(@"自选定时器刷新中");
     
-    if ([TLUser user].isLogin) {
-        [self.tableView beginRefreshing];
-    }
+    BaseWeakSelf;
     
+    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        weakSelf.optionals = objs;
+        
+        weakSelf.tableView.optionals = objs;
+        
+        [weakSelf.tableView reloadData_tl];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 /**
@@ -418,9 +398,10 @@
  */
 - (void)requestOptionalList {
     
+    self.view.userInteractionEnabled = NO;
     if ([TLUser user].isLogin == NO) {
         self.tableView.tableFooterView = self.footerView;
-
+        self.view.userInteractionEnabled = YES;
         return;
     }
     BaseWeakSelf;
@@ -432,6 +413,7 @@
     helper.parameters[@"limit"] = @"10";
     helper.parameters[@"userId"] = @"U201805160952110342835";
     helper.tableView = self.tableView;
+    helper.showView = self.view;
     
     if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
@@ -464,14 +446,11 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
-            
-            if (weakSelf.currentSegmentIndex == 3) {
-                //定时器开启
-                [weakSelf startTimer];
-            }
+            weakSelf.view.userInteractionEnabled = YES;
+           
             
         } failure:^(NSError *error) {
-            
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     //判断是否登录，没有登录就不能下拉刷新
@@ -486,9 +465,10 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
+            weakSelf.view.userInteractionEnabled = YES;
             
         } failure:^(NSError *error) {
-            
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     
