@@ -311,7 +311,7 @@
         }
         NSDictionary *dic = @{@"titleBarindex": @(index),@"segment": @(weakSelf.currentSegmentIndex)};
        
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"titleBarindex" object:nil];
+//        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"titleBarindex" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleBarindex"
                                                             object:nil
                                                           userInfo:dic];
@@ -339,7 +339,7 @@
         weakSelf.percentChangeIndex =-1;
         NSDictionary *dic = @{@"titleSameBarindex": @(ind),@"segment": @(weakSelf.currentSegmentIndex)};
 
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"titleSameBarindex" object:nil];
+//        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"titleSameBarindex" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"titleSameBarindex"
                                                             object:nil
                                                           userInfo:dic];
@@ -727,9 +727,9 @@
     }
     [self.MbHud show:YES];
 
-    if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
-        return;
-    }
+//    if (self.currentSegmentIndex == 3 || self.currentSegmentIndex == 2) {
+//        return;
+//    }
     self.IsFirst = YES;
     
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
