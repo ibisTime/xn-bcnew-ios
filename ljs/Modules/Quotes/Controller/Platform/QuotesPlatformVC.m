@@ -398,9 +398,10 @@
  */
 - (void)requestOptionalList {
     
+    self.view.userInteractionEnabled = NO;
     if ([TLUser user].isLogin == NO) {
         self.tableView.tableFooterView = self.footerView;
-
+        self.view.userInteractionEnabled = YES;
         return;
     }
     BaseWeakSelf;
@@ -412,6 +413,7 @@
     helper.parameters[@"limit"] = @"10";
     helper.parameters[@"userId"] = @"U201805160952110342835";
     helper.tableView = self.tableView;
+    helper.showView = self.view;
     
     if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
@@ -444,11 +446,11 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
-            
+            weakSelf.view.userInteractionEnabled = YES;
            
             
         } failure:^(NSError *error) {
-            
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     //判断是否登录，没有登录就不能下拉刷新
@@ -463,9 +465,10 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
+            weakSelf.view.userInteractionEnabled = YES;
             
         } failure:^(NSError *error) {
-            
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     

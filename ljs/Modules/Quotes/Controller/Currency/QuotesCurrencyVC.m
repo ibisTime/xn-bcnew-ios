@@ -75,6 +75,8 @@
 #pragma mark - 通知
 - (void)addNotification {
     
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"DidSwitchLabel" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSamesBarClick:) name:@"titleSameBarindex" object:nil];
@@ -295,6 +297,8 @@
     
     [self.tableView addRefreshAction:^{
         
+        weakSelf.view.userInteractionEnabled = NO;
+
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.currencyPrices = objs;
@@ -333,14 +337,14 @@
     
     BaseWeakSelf;
     
-    
+    self.view.userInteractionEnabled = NO;
+
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     helper.code = @"628350";
-    
+    helper.showView = self.view;
     if (self.titleModel) {
         helper.parameters[@"symbol"] = self.titleModel.symbol;
     }
-
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"100";
     if (weakSelf.percentChangeIndex >= 0) {
@@ -359,6 +363,8 @@
     
     [self.tableView addRefreshAction:^{
         
+        weakSelf.view.userInteractionEnabled = NO;
+
         if (weakSelf.percentChangeIndex >= 0) {
             if (weakSelf.titleModel) {
                 helper.parameters[@"symbol"] = weakSelf.titleModel.symbol;
@@ -377,9 +383,11 @@
             weakSelf.tableView.currencyPrices = objs;
             
             [weakSelf.tableView reloadData_tl];
+            weakSelf.view.userInteractionEnabled = YES;
             
         } failure:^(NSError *error) {
             
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     
@@ -392,9 +400,10 @@
             weakSelf.tableView.currencyPrices = objs;
             
             [weakSelf.tableView reloadData_tl];
+            weakSelf.view.userInteractionEnabled = YES;
             
         } failure:^(NSError *error) {
-            
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     }];
     

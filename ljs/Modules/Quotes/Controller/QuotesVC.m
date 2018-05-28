@@ -521,9 +521,13 @@
 //    [self.tableView addObserver: self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
         BaseWeakSelf;
     [self.MbHud show:YES];
+    self.view.userInteractionEnabled = NO;
         TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
         
         helper.code = @"628350";
+    for (SelectScrollView *selectview in self.view.subviews) {
+        helper.showView = selectview;
+    }
     
         if (self.platformTitleModel) {
             helper.parameters[@"exchangeEname"] = self.platformTitleModel.ename;
@@ -577,10 +581,12 @@
                 
                 [weakSelf.tableView reloadData_tl];
                 CGFloat y = weakSelf.tableView.frame.origin.y;
+                weakSelf.view.userInteractionEnabled = YES;
                 NSLog(@"contenOffSet%@contenSize%@",NSStringFromCGPoint(weakSelf.tableView.contentOffset),NSStringFromCGSize(weakSelf.tableView.contentSize));
 //                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
             } failure:^(NSError *error) {
 //                [weakSelf.MbHud hide:YES];
+                weakSelf.view.userInteractionEnabled = YES;
 
             }];
         }];
@@ -595,9 +601,11 @@
                 
                 [weakSelf.tableView reloadData_tl];
                 [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
+                weakSelf.view.userInteractionEnabled = YES;
 
             } failure:^(NSError *error) {
                 [weakSelf.MbHud hide:YES];
+                weakSelf.view.userInteractionEnabled = YES;
 
             }];
         }];
