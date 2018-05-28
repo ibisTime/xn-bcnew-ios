@@ -687,7 +687,7 @@
     }
     if (segment == 1) {
         //开启自选定时器
-        [self startTimer];
+//        [self startTimer];
         [self.tableView beginRefreshing];
         [self requestPlatform];
 

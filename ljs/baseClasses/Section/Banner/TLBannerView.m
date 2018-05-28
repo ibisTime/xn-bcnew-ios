@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *urls;
 @property (nonatomic, assign) NSUInteger currentPage;
 @property (nonatomic, strong) UICollectionView *bannerCollectionView;
+@property (nonatomic, strong) NSMutableArray *nameS;
 
 
 @property (nonatomic, strong) UIPageControl *pageControl;
@@ -165,12 +166,29 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
         }
         
         
-        [self.bannerCollectionView reloadData];
+//        [self.bannerCollectionView reloadData];
         
     }
     
 }
+- (void)setNameArry:(NSArray *)nameArry
+{
+    _nameArry = nameArry;
+    if (nameArry.count > 1) {
+        
+        _nameS = [NSMutableArray arrayWithArray:nameArry];
+        [_nameS insertObject:[nameArry lastObject] atIndex:0];
+        [_nameS insertObject:[nameArry firstObject] atIndex:_nameS.count];
+        
+    } else {
+        
+        _nameS = [NSMutableArray arrayWithArray:nameArry];
+        
+    }
+    
+    [self.bannerCollectionView reloadData];
 
+}
 //- (void)setIsAuto:(BOOL)isAuto
 //{
 //    _isAuto = isAuto;
@@ -289,6 +307,7 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
     //    cell.backgroundColor = [UIColor grayColor];
     
     cell.urlString = self.urls[indexPath.row];
+    cell.nameText = self.nameS[indexPath.row];
     
     return cell;
 }
