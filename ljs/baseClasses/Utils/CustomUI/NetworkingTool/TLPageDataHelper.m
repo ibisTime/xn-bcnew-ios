@@ -52,20 +52,21 @@
     http.parameters[@"start"] = [NSString stringWithFormat:@"%ld",self.start];
     http.parameters[@"limit"] = [NSString stringWithFormat:@"%ld",self.limit];
     
+    BaseWeakSelf;
     [http postWithSuccess:^(id responseObject) {
         
         NSArray *newObjs;
         
-        if (!_isList) {
+        if (!weakSelf.isList) {
             
             newObjs = responseObject[@"data"][@"list"];
             
         } else {
             
-            newObjs = _isCurrency == YES ? responseObject[@"data"][@"accountList"]: responseObject[@"data"];
+            newObjs = weakSelf.isCurrency == YES ? responseObject[@"data"][@"accountList"]: responseObject[@"data"];
         }
         
-        NSMutableArray *objs = [_className mj_objectArrayWithKeyValuesArray:newObjs];
+        NSMutableArray *objs = [self->_className mj_objectArrayWithKeyValuesArray:newObjs];
         
         if (self.dealWithPerModel) {
             

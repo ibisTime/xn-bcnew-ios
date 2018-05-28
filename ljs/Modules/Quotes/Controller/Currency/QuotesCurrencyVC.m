@@ -82,6 +82,9 @@
     
 }
 - (void)titleSamesBarClick:(NSNotification *)notification {
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
@@ -101,8 +104,11 @@
     
 }
 - (void)titleBarClick:(NSNotification *)notification {
+    if (!self.view.userInteractionEnabled) {
+        return;
+    }
     self.IsFirst = YES;
-
+    self.view.userInteractionEnabled = NO;
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
     CurrencyTitleModel *titleModel;
 
@@ -192,7 +198,10 @@
     NSLog(@"币种定时器刷新中, index = %ld", self.currentIndex);
 
     BaseWeakSelf;
-    [self requestCurrencyList];
+    if (self.view.userInteractionEnabled) {
+        [self requestCurrencyList];
+
+    }
     //刷新币种列表
 //    [self.helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
 //
@@ -400,6 +409,9 @@
     }];
     
     [self.tableView addLoadMoreAction:^{
+        
+        weakSelf.view.userInteractionEnabled = NO;
+
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             
