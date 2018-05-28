@@ -78,7 +78,7 @@
 {
         _detailActModel = detailActModel;
     self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:detailActModel.photo] placeholderImage:[UIImage imageNamed:@"默认头像"]];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:[detailActModel.photo convertImageUrl]] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 
 
 }
