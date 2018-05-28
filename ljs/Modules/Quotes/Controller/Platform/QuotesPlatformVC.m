@@ -98,7 +98,7 @@
     BaseWeakSelf;
     [self checkLogin:^{
         [weakSelf requestOptionalList];
-        [weakSelf startTimer];
+//        [weakSelf startTimer];
 
         QuotesOptionalVC *optionalVC = [QuotesOptionalVC new];
         

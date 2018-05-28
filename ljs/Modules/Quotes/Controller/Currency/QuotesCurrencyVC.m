@@ -177,7 +177,7 @@
         //币价没有贴吧
         
         //定时器刷起来
-        [self startTimer];
+//        [self startTimer];
         return ;
     }
     [self stopTimer];
