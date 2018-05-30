@@ -313,8 +313,15 @@
 		B8DCAC0C20B04AF2009B6EE9 /* ArticleCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0B20B04AF2009B6EE9 /* ArticleCommentCell.m */; };
 		B8DCAC0F20B06FE4009B6EE9 /* Html5Vc.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */; };
 		B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */; };
+		B8DEF9AA20BD26CD00E3D7C5 /* AddSearchCurreneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9A920BD26CD00E3D7C5 /* AddSearchCurreneyVC.m */; };
+		B8DEF9AD20BD2E0600E3D7C5 /* AddSearchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9AC20BD2E0600E3D7C5 /* AddSearchHeadView.m */; };
+		B8DEF9B020BD2E3600E3D7C5 /* AddSearchBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9AF20BD2E3600E3D7C5 /* AddSearchBottomView.m */; };
+		B8DEF9B320BD2EA000E3D7C5 /* AddNumberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B220BD2EA000E3D7C5 /* AddNumberModel.m */; };
+		B8DEF9B620BD3A6600E3D7C5 /* QHCollectionViewNine.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */; };
+		B8DEF9B920BD448000E3D7C5 /* AddSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
+		B8F513B420BE3E0C00AC7FAD /* AddSearchBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */; };
 		C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C429627F20B506530011E2B2 /* WarningableViewCell.m */; };
 		C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628220B56AB40011E2B2 /* AnalysisViewController.m */; };
 		C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */; };
@@ -952,10 +959,24 @@
 		B8DCAC0E20B06FE4009B6EE9 /* Html5Vc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Html5Vc.m; sourceTree = "<group>"; };
 		B8DCAC1020B08140009B6EE9 /* MineCenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCenterViewController.h; sourceTree = "<group>"; };
 		B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCenterViewController.m; sourceTree = "<group>"; };
+		B8DEF9A820BD26CD00E3D7C5 /* AddSearchCurreneyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchCurreneyVC.h; sourceTree = "<group>"; };
+		B8DEF9A920BD26CD00E3D7C5 /* AddSearchCurreneyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchCurreneyVC.m; sourceTree = "<group>"; };
+		B8DEF9AB20BD2E0600E3D7C5 /* AddSearchHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchHeadView.h; sourceTree = "<group>"; };
+		B8DEF9AC20BD2E0600E3D7C5 /* AddSearchHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchHeadView.m; sourceTree = "<group>"; };
+		B8DEF9AE20BD2E3600E3D7C5 /* AddSearchBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchBottomView.h; sourceTree = "<group>"; };
+		B8DEF9AF20BD2E3600E3D7C5 /* AddSearchBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchBottomView.m; sourceTree = "<group>"; };
+		B8DEF9B120BD2EA000E3D7C5 /* AddNumberModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumberModel.h; sourceTree = "<group>"; };
+		B8DEF9B220BD2EA000E3D7C5 /* AddNumberModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumberModel.m; sourceTree = "<group>"; };
+		B8DEF9B420BD3A6500E3D7C5 /* QHCollectionViewNine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHCollectionViewNine.h; sourceTree = "<group>"; };
+		B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHCollectionViewNine.m; sourceTree = "<group>"; };
+		B8DEF9B720BD447F00E3D7C5 /* AddSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchCell.h; sourceTree = "<group>"; };
+		B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchCell.m; sourceTree = "<group>"; };
 		B8F37F2D20AD44F0005EBB09 /* ActiveCommentsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActiveCommentsListViewController.h; sourceTree = "<group>"; };
 		B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActiveCommentsListViewController.m; sourceTree = "<group>"; };
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
 		B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActivityVCr.m; sourceTree = "<group>"; };
+		B8F513B220BE3E0C00AC7FAD /* AddSearchBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchBottomCell.h; sourceTree = "<group>"; };
+		B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchBottomCell.m; sourceTree = "<group>"; };
 		BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.release.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.release.xcconfig"; sourceTree = "<group>"; };
 		C429627E20B506530011E2B2 /* WarningableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningableViewCell.h; sourceTree = "<group>"; };
 		C429627F20B506530011E2B2 /* WarningableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningableViewCell.m; sourceTree = "<group>"; };
@@ -1663,6 +1684,8 @@
 				21EF0BA020678BE6008EA865 /* CurrencyTitleModel.m */,
 				21EF0BA52067953D008EA865 /* CurrencyPriceModel.h */,
 				21EF0BA62067953D008EA865 /* CurrencyPriceModel.m */,
+				B8DEF9B120BD2EA000E3D7C5 /* AddNumberModel.h */,
+				B8DEF9B220BD2EA000E3D7C5 /* AddNumberModel.m */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -1711,6 +1734,8 @@
 		2124BEBA2062904100CB79E8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				B8DEF9B420BD3A6500E3D7C5 /* QHCollectionViewNine.h */,
+				B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */,
 				2124BEBB2062907000CB79E8 /* SearchCurrencyVC.h */,
 				2124BEBC2062907000CB79E8 /* SearchCurrencyVC.m */,
 				2124BEC22062983700CB79E8 /* SearchCurrcneyChildVC.h */,
@@ -1721,6 +1746,8 @@
 				C432D71920B65BDB0022337E /* NewSearchViewController.m */,
 				C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */,
 				C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */,
+				B8DEF9A820BD26CD00E3D7C5 /* AddSearchCurreneyVC.h */,
+				B8DEF9A920BD26CD00E3D7C5 /* AddSearchCurreneyVC.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1738,6 +1765,14 @@
 				2124BED32063560200CB79E8 /* SearchHistoryCell.m */,
 				C490183E20B6C1840091C11F /* PlatformAndOtherCell.h */,
 				C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */,
+				B8DEF9AB20BD2E0600E3D7C5 /* AddSearchHeadView.h */,
+				B8DEF9AC20BD2E0600E3D7C5 /* AddSearchHeadView.m */,
+				B8DEF9AE20BD2E3600E3D7C5 /* AddSearchBottomView.h */,
+				B8DEF9AF20BD2E3600E3D7C5 /* AddSearchBottomView.m */,
+				B8DEF9B720BD447F00E3D7C5 /* AddSearchCell.h */,
+				B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */,
+				B8F513B220BE3E0C00AC7FAD /* AddSearchBottomCell.h */,
+				B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3195,6 +3230,7 @@
 				21EF0B8E20668F82008EA865 /* MyCollectionTableView.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
 				219CF52E2072550300012F68 /* SGAlertView.m in Sources */,
+				B8DEF9B320BD2EA000E3D7C5 /* AddNumberModel.m in Sources */,
 				C4BD789620B3AFC800C46D05 /* CurrencyKLineMapView.m in Sources */,
 				2124BE6D2061227A00CB79E8 /* InputTextView.m in Sources */,
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
@@ -3235,6 +3271,7 @@
 				21111BBA1F8B5F2C0021B3FE /* TLImagePickerController.m in Sources */,
 				B8D0D4E120AEC3DD006B99D5 /* AcvitityInformationListTableView.m in Sources */,
 				2128825820579D6900A57A5A /* ForumListCell.m in Sources */,
+				B8DEF9B020BD2E3600E3D7C5 /* AddSearchBottomView.m in Sources */,
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
 				2124BED42063560200CB79E8 /* SearchHistoryCell.m in Sources */,
@@ -3243,6 +3280,7 @@
 				2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */,
 				2124BEB920628A3300CB79E8 /* AddOptionalCell.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
+				B8DEF9B620BD3A6600E3D7C5 /* QHCollectionViewNine.m in Sources */,
 				B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */,
 				21EF0BA120678BE6008EA865 /* CurrencyTitleModel.m in Sources */,
 				2124BED720635B9300CB79E8 /* SearchHistoryChildVC.m in Sources */,
@@ -3363,6 +3401,7 @@
 				21EF0B9B20677477008EA865 /* OptionalListModel.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
 				B8DCAC0C20B04AF2009B6EE9 /* ArticleCommentCell.m in Sources */,
+				B8DEF9AA20BD26CD00E3D7C5 /* AddSearchCurreneyVC.m in Sources */,
 				2124BEB62062885A00CB79E8 /* AddOptionalTableView.m in Sources */,
 				21EF0B6C206643D3008EA865 /* CircleCommentVC.m in Sources */,
 				21EF0B9520669035008EA865 /* MyCollectionModel.m in Sources */,
@@ -3372,9 +3411,11 @@
 				186E8C05209C0A9D00532B1C /* activityBottom.m in Sources */,
 				21AC59671FDE80FB00F19DE8 /* UIColor+theme.m in Sources */,
 				B870F5C620AED06400335B87 /* ActivityListTakeCell.m in Sources */,
+				B8F513B420BE3E0C00AC7FAD /* AddSearchBottomCell.m in Sources */,
 				21EB9C6520561AF700394C3C /* UIViewController+Extension.m in Sources */,
 				2124BEB3206285CE00CB79E8 /* QuotesOptionalChildVC.m in Sources */,
 				212FEEAB20688FF90002F293 /* ForumDetailCell.m in Sources */,
+				B8DEF9AD20BD2E0600E3D7C5 /* AddSearchHeadView.m in Sources */,
 				B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */,
 				217BDAF62069483A00E17DEE /* CircleCommentTableView.m in Sources */,
 				21CFFB1720566B7800D245ED /* InformationListCell.m in Sources */,
@@ -3426,6 +3467,7 @@
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
 				C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */,
+				B8DEF9B920BD448000E3D7C5 /* AddSearchCell.m in Sources */,
 				21EF0B9120668FE3008EA865 /* MyCollectionCell.m in Sources */,
 				21AC59701FDE81D500F19DE8 /* UIBarButtonItem+convience.m in Sources */,
 				21F82C9E1F17719D0019B176 /* NavigationController.m in Sources */,

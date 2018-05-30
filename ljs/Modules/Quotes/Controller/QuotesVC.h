@@ -12,5 +12,6 @@
  行情
  */
 @interface QuotesVC : BaseViewController
+@property (nonatomic, strong) UIButton *smallBtn;
 
 @end

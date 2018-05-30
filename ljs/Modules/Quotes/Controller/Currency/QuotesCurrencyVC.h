@@ -32,5 +32,6 @@ typedef void(^selectCurrent)(NSString *);
 @property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
 @property (nonatomic,copy)selectCurrent selectBlock;
 @property (nonatomic, assign) NSInteger currentSegmentIndex;
+@property (nonatomic, strong) UIButton *smallBtn;
 
 @end

@@ -60,7 +60,7 @@
 @property (nonatomic, strong) PlatformTitleModel  *platformTitleModel;
 
 //币种
-@property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
+@property (nonatomic, strong) NSMutableArray <CurrencyTitleModel *>*currencyTitleList;
 //定时器
 @property (nonatomic, strong) NSTimer *timer;
 //
@@ -88,6 +88,8 @@
 
 
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
+@property (nonatomic, strong) QuotesCurrencyVC *CurrencyVC;
+@property (nonatomic, strong) QuotesPlatformVC *PlatformVC;
 
 @end
 
@@ -162,8 +164,50 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
     NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSameHomeBarClick:) name:@"titleSameBarindex" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choseOptionList:) name:@"choseOptionList" object:nil];
     
     
+}
+- (void)choseOptionList : (NSNotification *)notification
+{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    self.currencyTitleList  =[NSMutableArray array];
+    NSData *data = [user objectForKey:@"choseOptionList"];
+    self.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//    self.currencyTitleList = notification.userInfo[@"choseOptionList"];
+    CurrencyTitleModel *title = [CurrencyTitleModel new];
+    title.symbol = @"";
+    [self.currencyTitleList addObject:title];
+
+    NSLog(@"currencyTitleList%@",self.currencyTitleList);
+    
+    self.titles = [NSMutableArray arrayWithObject:@"全部"];
+    
+    [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj.symbol) {
+            
+            [self.titles addObject:obj.symbol];
+        }
+    }];
+    [self initFooterView];
+    //顶部切换
+    [self initSegmentView];
+    [self.MbHud show:YES];
+    [self addItem];
+    [self requestPlatformTitleList];
+    self.kind = kCurrency;
+
+    [self initSelectScrollViewIdx:1];
+    //
+    
+    [self addSubViewController];
+    [self requestOptionalList];
+    [self addNotification];
+    
+    //添加滚动
+//    [self segment:self.labelUnil didSelectIndex:2];
+
 }
 - (void)initHeaderView {
     
@@ -386,7 +430,30 @@
 - (void)initSelectScrollViewWithIdx:(NSInteger)idx {
     
     BaseWeakSelf;
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+
+    selectSV.selectBlock = ^(NSInteger index) {
+        if (idx == 1) {
+            
+            weakSelf.currencyLabelIndex = index;
+        } else if (idx == 2) {
+            
+            weakSelf.platformLabelIndex = index;
+        }
+        //点击标签
+        [weakSelf startCurrencyTimerWithSegmentIndex:weakSelf.currentSegmentIndex
+                                          labelIndex:index];
+    };
     
+    [self.switchSV addSubview:selectSV];
+    
+    self.selectSV = selectSV;
+}
+
+- (void)initSelectScrollViewIdx:(NSInteger)idx {
+    
+    BaseWeakSelf;
+   
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
     selectSV.selectBlock = ^(NSInteger index) {
@@ -417,6 +484,7 @@
         if ([self.kind isEqualToString:kCurrency]) {
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
+            self.CurrencyVC = childVC;
             childVC.currentSegmentIndex = 2;
             childVC.selectBlock = ^(NSString *symobel) {
                 [weakSelf pushCurrencyKLineVCWith:symobel];
@@ -424,6 +492,7 @@
             childVC.currencyTitleList = self.currencyTitleList;
             //            childVC.type = i == 0 ? CurrencyTypePrice: (i == 1 ? CurrencyTypeNewCurrency: CurrencyTypeCurrency);
             childVC.currentIndex = i;
+           
             childVC.type = i == 0 ? CurrencyTypePrice:  CurrencyTypeCurrency;
             if (i != 0) {
                 
@@ -442,8 +511,10 @@
             //自选
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
             childVC.currentSegmentIndex = 3;
+            self.PlatformVC = childVC;
+            childVC.smallBtn = self.smallBtn;
+            childVC.smallBtn.hidden = YES;
 
-            
             childVC.selectBlock = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
             };
@@ -908,7 +979,12 @@
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
 //    [self.tableView beginRefreshing];
 
-    
+    if (index == 1) {
+        [self.CurrencyVC.smallBtn removeFromSuperview];
+        self.CurrencyVC.smallBtn.hidden = YES;
+        [self.PlatformVC.smallBtn removeFromSuperview];
+        self.PlatformVC.smallBtn.hidden = YES;
+    }
     self.currentSegmentIndex = index;
 //    if (index == 1) {
 //        index = 0;

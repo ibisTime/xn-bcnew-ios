@@ -17,6 +17,9 @@
 //C
 #import "ForumDetailVC.h"
 #import "TLNetworking.h"
+#import "SearchCurrencyVC.h"
+#import "NavigationController.h"
+#import "AddSearchCurreneyVC.h"
 @interface QuotesCurrencyVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
@@ -38,7 +41,7 @@
 @property (nonatomic, assign) NSInteger percentChangeIndex;
 @property (nonatomic, assign) NSInteger percentTempIndex;
 @property (nonatomic, assign) NSInteger CurrentLableIndex;
-
+@property (nonatomic, strong) UIViewController *currentVC;
 @property (nonatomic, assign) BOOL IsFirst;
 
 
@@ -69,6 +72,40 @@
 //    [self.tableView beginRefreshing];
     //获取贴吧信息
 //    [self requestForumInfo];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+  
+    [super viewDidAppear:animated];
+    
+}
+- (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC
+{
+    UIViewController *currentVC;
+    
+    if ([rootVC presentedViewController]) {
+        // 视图是被presented出来的
+        
+        rootVC = [rootVC presentedViewController];
+    }
+    
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        // 根视图为UITabBarController
+        
+        currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
+        
+    } else if ([rootVC isKindOfClass:[UINavigationController class]]){
+        // 根视图为UINavigationController
+        
+        currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
+        
+    } else {
+        // 根视图为非导航类
+        
+        currentVC = rootVC;
+    }
+    
+    return currentVC;
 }
 
 #pragma mark - 通知
@@ -147,7 +184,26 @@
 
 - (void)didSwitchLabel:(NSNotification *)notification {
     self.percentChangeIndex = -1;
-
+    NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
+   
+    if (segmentIndex == 2) {
+        UIButton *smallBtn = [UIButton buttonWithImageName:@"添加蓝色"];
+        [smallBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.smallBtn = smallBtn;
+        smallBtn.backgroundColor = [UIColor whiteColor];
+        smallBtn.frame = CGRectMake(kScreenWidth - 60, 15, 60, 15);
+        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+        self.currentVC = currentVC;
+        [currentVC.view addSubview:smallBtn];
+        
+    }
+    else{
+        [self.smallBtn removeFromSuperview];
+        self.smallBtn.hidden = YES;
+    }
     if (!self.view.userInteractionEnabled) {
         return;
     }
@@ -155,7 +211,6 @@
 //        return;
 //    }
 
-    NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     self.CurrentLableIndex = labelIndex;
     self.currentSegmentIndex = segmentIndex;
@@ -193,7 +248,46 @@
     
     //定时器停止
 }
-
+- (void)addBtnClick
+{
+    //添加币种
+    
+    BaseWeakSelf;
+    
+    AddSearchCurreneyVC *searchVC = [AddSearchCurreneyVC new];
+    searchVC.currencyTitleList = self.currencyTitleList;
+    searchVC.titles = [NSMutableArray array];
+    CurrencyTitleModel * titleModel = [CurrencyTitleModel new];
+    titleModel.symbol = @"全部";
+  
+    [self checkLogin:^{
+        [searchVC.titles addObject:titleModel];
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        self.currencyTitleList  =[NSMutableArray array];
+        NSData *data = [user objectForKey:@"choseOptionList"];
+        self.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }];
+    
+        
+   
+    [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj) {
+            
+            [searchVC.titles addObject:obj];
+        }
+    }];
+    
+        searchVC.currencyBlock = ^{
+    
+            [weakSelf.tableView beginRefreshing];
+        };
+    
+//    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
+    
+    [self.navigationController pushViewController:searchVC animated:YES];
+    
+}
 #pragma mark - 定时器
 - (void)startTimer {
     

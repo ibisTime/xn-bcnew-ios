@@ -35,5 +35,6 @@
 @property (nonatomic, copy) NSString *status;
 
 @property (nonatomic, copy) NSString *marketCap;
+@property (nonatomic, assign) BOOL  IsSelect;
 
 @end

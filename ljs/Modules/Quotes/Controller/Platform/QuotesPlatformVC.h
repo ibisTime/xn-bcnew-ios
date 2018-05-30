@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 //V
+#import "QuotesVC.h"
 #import "PlatformTableView.h"
 //M
 #import "PlatformTitleModel.h"
@@ -32,7 +33,8 @@ typedef void(^selectCurrent)(NSString *);
 //自选列表
 @property (nonatomic, strong) NSMutableArray <OptionalListModel *>*optionals;
 @property (nonatomic, assign) NSInteger currentSegmentIndex;
-
+@property (nonatomic, strong) UIButton *smallBtn;
+@property (nonatomic, strong)  QuotesVC *quotesVc;
 //点击刷新
 - (void)clickPlatformWithIndex:(NSInteger)index;
 

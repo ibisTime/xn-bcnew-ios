@@ -24,6 +24,8 @@ typedef void(^SelectBlock)(NSInteger index);
 
 @property (nonatomic, copy) SelectBlock selectBlock;
 
+@property (nonatomic, assign) BOOL IsCurrency;
+
 - (instancetype)initWithFrame:(CGRect)frame itemTitles:(NSArray *)itemTitles;
 
 @end
