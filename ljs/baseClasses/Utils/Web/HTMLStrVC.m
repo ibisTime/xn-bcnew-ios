@@ -54,12 +54,16 @@
         ownerId = @"";
     }
     
-    UIWebView *web = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIWebView *web = [[UIWebView alloc] init];
     
     web.delegate = self;
     self.web =web;
     
     [self.view addSubview:web];
+    
+    [web mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
     
 //    return;
     TLNetworking *http = [TLNetworking new];

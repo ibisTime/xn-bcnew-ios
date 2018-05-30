@@ -1691,6 +1691,7 @@
 			children = (
 				2124BE892062395F00CB79E8 /* QuotesCurrencyVC.h */,
 				2124BE8A2062395F00CB79E8 /* QuotesCurrencyVC.m */,
+				C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */,
 				C432D71520B651E10022337E /* CurrentesManagementVC.h */,
 				C432D71620B651E10022337E /* CurrentesManagementVC.m */,
 			);
@@ -1720,7 +1721,6 @@
 				C432D71820B65BDB0022337E /* NewSearchViewController.h */,
 				C432D71920B65BDB0022337E /* NewSearchViewController.m */,
 				C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */,
-				C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";

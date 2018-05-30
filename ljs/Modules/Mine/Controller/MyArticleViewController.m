@@ -150,7 +150,7 @@
             childVC.titleStr = self.titles[i];
 //        }
         childVC.kind = self.kind;
-        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight);
         
         [self addChildViewController:childVC];
         

@@ -179,7 +179,7 @@
     //            };
     childVC.index = 0;
     childVC.platform = self.platform;
-    childVC.view.frame = CGRectMake(0, 1, kScreenWidth, kSuperViewHeight - 40 - kBottomInsetHeight);
+    childVC.view.frame = CGRectMake(0, 1, kScreenWidth, kSuperViewHeight  - kBottomInsetHeight);
     childVC.vcCanScroll = NO;
     [self addChildViewController:childVC];
     

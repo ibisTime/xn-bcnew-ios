@@ -325,12 +325,22 @@
 - (void)initTableView {
     self.percentChangeIndex = -1;
 
-    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+
+    }];
     BaseWeakSelf;
     self.tableView.selectBlock = ^(NSString *tosymbol) {
         weakSelf.selectBlock(tosymbol);
     };
 //    self.tableView.type = self.type;
+    self.tableView.refreshBlock = ^{
+        weakSelf.tableView.tableFooterView = self.footerView;
+        weakSelf.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
+
+    };
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
     [self.view addSubview:self.tableView];

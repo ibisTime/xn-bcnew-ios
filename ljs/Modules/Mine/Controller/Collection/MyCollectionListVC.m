@@ -49,7 +49,7 @@
         if (index == 1) {
             CollectionActivityVC *activity = [[CollectionActivityVC alloc]init];
             [self addChildViewController:activity];
-            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight);
             [self.selectSV.scrollView addSubview:activity.view];
         }
         else

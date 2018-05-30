@@ -282,7 +282,13 @@
 - (void)initTableView {
     self.percentChangeIndex = -1;
 
-    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
+
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@46);
+        make.edges.mas_equalTo(UIEdgeInsetsMake(44, 0, 0, 0));
+    }];
     BaseWeakSelf;
     self.tableView.selectBlock = ^(NSString *tosymbol) {
         weakSelf.selectBlock(tosymbol);

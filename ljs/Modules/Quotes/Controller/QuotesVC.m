@@ -366,8 +366,13 @@
 
 - (void)initTableView {
         
-    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectMake(0, 88, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    self.tableView = [[PlatformTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     BaseWeakSelf;
+    [self.selectSV addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(88, 0, 0, 0));
+    }];
+
     self.tableView.selectBlock = ^(NSString *idear) {
         [weakSelf pushCurrencyKLineVCWith:idear];
     };
@@ -676,26 +681,20 @@
         labIndex = 0;
         
     }
-    if (self.platformTitleList >= 0) {
+    if (self.platformTitleList >= 0 && self.platformTitleList) {
         self.platformTitleModel = self.platformTitleList[labIndex];
-                [self.tableView beginRefreshing];
+//                [self.tableView beginRefreshing];
+                [self requestPlatform];
+
     }else{
-//        [self startCurrencyTimerWithSegmentIndex:segment labelIndex:labIndex];
-        
-        [self requestPlatform];
+//        [self.tableView beginRefreshing];
 
+        return;
     }
-    if (segment == 1) {
-        //开启自选定时器
-//        [self startTimer];
-        [self.tableView beginRefreshing];
-        [self requestPlatform];
-
-        
-        return ;
-    }
-    [self stopTimer];
-      
+ 
+    
+//    [self stopTimer];
+    
 }
 
 #pragma mark - Data
@@ -831,6 +830,7 @@
                 
             }
         }];
+        self.platformTitleModel = self.platformTitleList[0];
         [self initHeaderView];
         [self initSelectScrollViewWithIdx:0];
         [self initTableView];
