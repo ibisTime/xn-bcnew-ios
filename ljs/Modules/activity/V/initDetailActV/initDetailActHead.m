@@ -104,7 +104,7 @@
     [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:[detailActModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     self.titleDet.text = detailActModel.title;
     self.readCountDet.text = detailActModel.readCount;
-    self.priceDet.text = [NSString stringWithFormat:@"¥%.2f" ,[detailActModel.price doubleValue]/1000];
+    self.priceDet.text = [NSString stringWithFormat:@"¥%@" ,detailActModel.price];
 }
 
 

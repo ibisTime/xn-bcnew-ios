@@ -238,7 +238,7 @@
     if ([actModel.price isEqualToString:@"0"]) {
         self.price.text =[NSString stringWithFormat:@"免费"];
     }else{
-    self.price.text =[NSString stringWithFormat:@"￥ %.2f",[actModel.price doubleValue]/1000];
+        self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
     }
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
     self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];

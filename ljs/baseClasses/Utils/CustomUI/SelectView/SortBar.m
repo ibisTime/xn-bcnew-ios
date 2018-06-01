@@ -190,6 +190,7 @@ static const float kAnimationdDuration = 0.3;
         [self layoutIfNeeded];
     }];
     
+    
 }
 
 - (void)changeSortBarWithNames:(NSArray *)sortNames {

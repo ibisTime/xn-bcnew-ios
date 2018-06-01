@@ -1,15 +1,15 @@
 //
-//  signUpUsersListModel.h
+//  signUserModel.h
 //  ljs
 //
-//  Created by apple on 2018/5/2.
+//  Created by shaojianfei on 2018/5/31.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
 #import "BaseModel.h"
 
-@interface signUpUsersListModel : BaseModel
-@property (nonatomic, copy) NSString * id;
+@interface signUserModel : BaseModel
+@property (nonatomic, copy) NSString * userId;
 @property (nonatomic,copy) NSString * mobile;
 @property (nonatomic,copy) NSString * realName;
 @property (nonatomic,copy) NSString * status;
@@ -20,6 +20,4 @@
 @property (nonatomic,copy) NSString * actCode;
 @property (nonatomic,copy) NSString * applyDatetime;
 @property (nonatomic,copy) NSString * photo;
-@property (nonatomic,copy) NSArray * activitys;
-
 @end

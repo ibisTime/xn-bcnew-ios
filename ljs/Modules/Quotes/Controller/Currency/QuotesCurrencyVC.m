@@ -297,6 +297,7 @@
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
+    self.tableView.pagingEnabled = false;
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //
 //        make.edges.mas_equalTo(0);

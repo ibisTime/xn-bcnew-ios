@@ -40,29 +40,24 @@ static NSString *identifierCell = @"signUpUsersListCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.approvedList.count;
+    return 1;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return self.signUpUsersListM.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
    signUpUsersListCell* cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
-#warning 有问题
-    for (int i=0; i<self.signUpUsersListM.count; i++) {
-//        self.approvedList = self.signUpUsersListM[i].approvedList;
-        [self.approvedList arrayByAddingObjectsFromArray:self.signUpUsersListM[i].approvedList];
-    }
-    
+
 
     
     //    new.isShowDate = [self isShowDateWithIndexPath:indexPath];
     
-    cell.approvedList = self.approvedList[indexPath.section];
+    cell.approvedList = self.signUpUsersListM[indexPath.row];
     
     return cell;
 }

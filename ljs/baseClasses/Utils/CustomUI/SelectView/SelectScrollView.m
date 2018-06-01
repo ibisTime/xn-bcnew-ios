@@ -94,4 +94,28 @@
 
 }
 
+-(void)scrollViewDidScroll:(UIScrollView*)scrollView
+ {
+        CGFloat pageWith = scrollView.frame.size.width;
+     NSLog(@"scrollViewcontentSize%@",NSStringFromCGSize(scrollView.contentSize));
+     NSLog(@"scrollViewcontentOffset%@",NSStringFromCGPoint(scrollView.contentOffset));
+     CGFloat floa = scrollView.contentOffset.x;
+     NSInteger index = floa / kScreenWidth;
+     
+     if (index >= 0) {
+         [_headView selectSortBarWithIndex:index];
+         NSLog(@"scrollViewDidScroll%ld",index);
+         if (self.IsUserList == YES) {
+             return;
+         }else{
+         if (self.selectBlock) {
+
+             self.selectBlock(index);
+         }
+         }
+     }
+    
+
+     }
+
 @end

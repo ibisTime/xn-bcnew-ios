@@ -292,6 +292,8 @@
 		21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB30621F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m */; };
 		21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB30641F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m */; };
 		8398C9C8D74D76AAB5C43B0E /* libPods-ljs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6112F4224BC647F41D7339DA /* libPods-ljs.a */; };
+		B82EAB1020C035F0002F2EC5 /* SignUpVc.m in Sources */ = {isa = PBXBuildFile; fileRef = B82EAB0F20C035F0002F2EC5 /* SignUpVc.m */; };
+		B82EAB1320C04023002F2EC5 /* signUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B82EAB1220C04023002F2EC5 /* signUserModel.m */; };
 		B870F5C620AED06400335B87 /* ActivityListTakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C520AED06400335B87 /* ActivityListTakeCell.m */; };
 		B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */; };
 		B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5CB20AF15CE00335B87 /* ArticleStateController.m */; };
@@ -910,6 +912,10 @@
 		50B0EE645A65EEBBBFF65918 /* Pods-ljs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.debug.xcconfig"; sourceTree = "<group>"; };
 		6112F4224BC647F41D7339DA /* libPods-ljs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ljs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F0FF5CA6D8C7CAF539F595 /* Pods-Base_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base_iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B82EAB0E20C035F0002F2EC5 /* SignUpVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVc.h; sourceTree = "<group>"; };
+		B82EAB0F20C035F0002F2EC5 /* SignUpVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpVc.m; sourceTree = "<group>"; };
+		B82EAB1120C04023002F2EC5 /* signUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = signUserModel.h; sourceTree = "<group>"; };
+		B82EAB1220C04023002F2EC5 /* signUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = signUserModel.m; sourceTree = "<group>"; };
 		B870F5C420AED06400335B87 /* ActivityListTakeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListTakeCell.h; sourceTree = "<group>"; };
 		B870F5C520AED06400335B87 /* ActivityListTakeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityListTakeCell.m; sourceTree = "<group>"; };
 		B870F5C720AF0ADA00335B87 /* MyArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyArticleViewController.h; sourceTree = "<group>"; };
@@ -1128,6 +1134,10 @@
 			children = (
 				186E8BCD209C0A9C00532B1C /* signUpUsersListVC.h */,
 				186E8BCE209C0A9C00532B1C /* signUpUsersListVC.m */,
+				B82EAB0E20C035F0002F2EC5 /* SignUpVc.h */,
+				B82EAB0F20C035F0002F2EC5 /* SignUpVc.m */,
+				B82EAB1120C04023002F2EC5 /* signUserModel.h */,
+				B82EAB1220C04023002F2EC5 /* signUserModel.m */,
 			);
 			path = signUpUsersListVC;
 			sourceTree = "<group>";
@@ -3053,6 +3063,7 @@
 					21F827CE1F1742E80019B176 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = ZKTVZ75A59;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -3191,6 +3202,7 @@
 				2124BE15205FD40700CB79E8 /* CustomShareView.m in Sources */,
 				217BDB032069DE3A00E17DEE /* CircleCommentModel.m in Sources */,
 				217BDAE92068C89A00E17DEE /* ForumCircleCell.m in Sources */,
+				B82EAB1320C04023002F2EC5 /* signUserModel.m in Sources */,
 				21AC58AD1FDE75AA00F19DE8 /* HttpRequestService.m in Sources */,
 				21EF0B8E20668F82008EA865 /* MyCollectionTableView.m in Sources */,
 				21CFFB0620565DCC00D245ED /* ForumVC.m in Sources */,
@@ -3298,6 +3310,7 @@
 				214593F8206B2B3D0006E238 /* HomePageCircleCell.m in Sources */,
 				186E8BFF209C0A9D00532B1C /* signUpUsersListModel.m in Sources */,
 				21CFFB2C205673D100D245ED /* NewsFlashDetailVC.m in Sources */,
+				B82EAB1020C035F0002F2EC5 /* SignUpVc.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
 				C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
@@ -3585,6 +3598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -3614,6 +3628,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3624,6 +3640,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3654,6 +3671,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -173,7 +173,10 @@
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
-    
+    NSString * str = [NSString stringWithFormat:@"%ld",index];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"indexChange" object:@{@"str":str}];
+
     [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
 //    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
     

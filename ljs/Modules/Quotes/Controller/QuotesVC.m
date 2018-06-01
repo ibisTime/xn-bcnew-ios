@@ -348,15 +348,13 @@
         }
 //        [weakSelf requestPlatform];
     };
-    int i = 0;
-//    [self.selectSV setCurrentIndex:1];
-    [self.switchSV setContentOffset:CGPointMake((0) * self.switchSV.width, 0)];
-//    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(i+1)*kScreenWidth];
-    if (i ==1 || i == 2 || i == 0) {
-        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 46)];
-    }else{
-        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 46)];
-    }
+//    int i = 0;
+//    [self.switchSV setContentOffset:CGPointMake((0) * self.switchSV.width, 0)];
+//    if (i ==1 || i == 2 || i == 0) {
+//        [self.quotesView setFrame:CGRectMake(0, 44, kScreenWidth, 46)];
+//    }else{
+//        [self.quotesView setFrame:CGRectMake(0, 0, kScreenWidth, 46)];
+//    }
 //    NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
 //    [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
 //
@@ -376,6 +374,7 @@
     self.tableView.selectBlock = ^(NSString *idear) {
         [weakSelf pushCurrencyKLineVCWith:idear];
     };
+    self.tableView.pagingEnabled = false;
     self.tableView.type = PlatformTypePlatform;
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
 
@@ -410,6 +409,7 @@
     [self.switchSV addSubview:selectSV];
     
     self.selectSV = selectSV;
+//    self.selectSV.scrollView.pagingEnabled = false;
 }
 
 - (void)addSubViewController {
@@ -677,10 +677,11 @@
         return;
     }
     NSLog(@"%@",self.titles);
-    if (labIndex > self.platformTitleList.count) {
+    if (labIndex >= self.platformTitleList.count) {
         labIndex = 0;
         
     }
+    
     if (self.platformTitleList >= 0 && self.platformTitleList) {
         self.platformTitleModel = self.platformTitleList[labIndex];
 //                [self.tableView beginRefreshing];
