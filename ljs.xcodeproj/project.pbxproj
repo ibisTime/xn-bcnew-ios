@@ -317,6 +317,7 @@
 		B8DCAC1220B08140009B6EE9 /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC1120B08140009B6EE9 /* MineCenterViewController.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
+		B8FD3F1E20C145C4005CF5DD /* QuotesPlatForm.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3F1D20C145C4005CF5DD /* QuotesPlatForm.m */; };
 		C429628020B506530011E2B2 /* WarningableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C429627F20B506530011E2B2 /* WarningableViewCell.m */; };
 		C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628220B56AB40011E2B2 /* AnalysisViewController.m */; };
 		C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C429628820B580F70011E2B2 /* CurrencyTrendMapView.m */; };
@@ -962,6 +963,8 @@
 		B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActiveCommentsListViewController.m; sourceTree = "<group>"; };
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
 		B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActivityVCr.m; sourceTree = "<group>"; };
+		B8FD3F1C20C145C4005CF5DD /* QuotesPlatForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuotesPlatForm.h; sourceTree = "<group>"; };
+		B8FD3F1D20C145C4005CF5DD /* QuotesPlatForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuotesPlatForm.m; sourceTree = "<group>"; };
 		BCA2AEAD5CC0CF5ABB401977 /* Pods-ljs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ljs.release.xcconfig"; path = "Pods/Target Support Files/Pods-ljs/Pods-ljs.release.xcconfig"; sourceTree = "<group>"; };
 		C429627E20B506530011E2B2 /* WarningableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningableViewCell.h; sourceTree = "<group>"; };
 		C429627F20B506530011E2B2 /* WarningableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningableViewCell.m; sourceTree = "<group>"; };
@@ -1692,6 +1695,8 @@
 				C429628220B56AB40011E2B2 /* AnalysisViewController.m */,
 				C429628B20B5867C0011E2B2 /* CurrencyInfoChildVC.h */,
 				C429628A20B5867C0011E2B2 /* CurrencyInfoChildVC.m */,
+				B8FD3F1C20C145C4005CF5DD /* QuotesPlatForm.h */,
+				B8FD3F1D20C145C4005CF5DD /* QuotesPlatForm.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -3312,6 +3317,7 @@
 				21CFFB2C205673D100D245ED /* NewsFlashDetailVC.m in Sources */,
 				B82EAB1020C035F0002F2EC5 /* SignUpVc.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
+				B8FD3F1E20C145C4005CF5DD /* QuotesPlatForm.m in Sources */,
 				C4BD78B120B3FF3600C46D05 /* WarningViewController.m in Sources */,
 				21EF0B8A20668F0A008EA865 /* MyCollectionListVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,

@@ -48,10 +48,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //头部
 //    [self initHeaderView];
     self.percentTempIndex = -1;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self initTableView];
     //添加通知
     [self addNotification];

@@ -33,6 +33,7 @@
 #import "NewSearchViewController.h"
 #import "TLUserLoginVC.h"
 #import "NavigationController.h"
+#import "QuotesPlatForm.h"
 @interface QuotesVC ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -380,7 +381,7 @@
 
    [self.selectSV addSubview:self.tableView];
 //       self.tableView.tableHeaderView = self.headerView;
-    [self requestPlatform];
+//    [self requestPlatform];
 
 
     
@@ -392,12 +393,12 @@
     BaseWeakSelf;
     
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(idx*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
-    
+//    selectSV.IsUserList = YES;
     selectSV.selectBlock = ^(NSInteger index) {
-        if (idx == 1) {
+        if (index == 1) {
             
             weakSelf.currencyLabelIndex = index;
-        } else if (idx == 2) {
+        } else if (index == 2) {
             
             weakSelf.platformLabelIndex = index;
         }
@@ -440,14 +441,13 @@
             
             [self.selectSV.scrollView addSubview:childVC.view];
            
-        }
-        else{
-            
+        }else if ([self.kind isEqualToString:kOptional])
+        {
             
             //自选
             QuotesPlatformVC *childVC = [[QuotesPlatformVC alloc] init];
             childVC.currentSegmentIndex = 3;
-
+            
             
             childVC.selectBlock = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
@@ -456,6 +456,30 @@
             childVC.optionals = self.optionals;
             childVC.currentIndex = i;
             childVC.type = PlatformTypePlatform;
+            //            childVC.titleModel = self.platformTitleList[i];
+            //            childVC.optionals = self.platformTitleList;
+            //            self.kind =
+            childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+            
+            [self addChildViewController:childVC];
+            
+            [self.selectSV.scrollView addSubview:childVC.view];
+        }
+        else{
+            
+            
+            //平台
+            QuotesPlatForm *childVC = [[QuotesPlatForm alloc] init];
+            childVC.currentSegmentIndex = 1;
+            
+            
+            childVC.seleBlock  = ^(NSString *idsar) {
+                [weakSelf pushCurrencyKLineVCWith:idsar];
+            };
+            //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
+            childVC.platformTitleList = self.platformTitleList;
+            childVC.currentIndex = i;
+//            childVC.type = PlatformTypePlatform;
             //            childVC.titleModel = self.platformTitleList[i];
             //            childVC.optionals = self.platformTitleList;
             //            self.kind =
@@ -659,7 +683,7 @@
                           };
     if (segmentIndex == 1) {
         //当前控制器 不需要通知
-        [self segmenChildLableClick:segmentIndex :labelIndex];
+//        [self segmenChildLableClick:segmentIndex :labelIndex];
         
     }
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"DidSwitchLabel" object:nil];
@@ -685,7 +709,7 @@
     if (self.platformTitleList >= 0 && self.platformTitleList) {
         self.platformTitleModel = self.platformTitleList[labIndex];
 //                [self.tableView beginRefreshing];
-                [self requestPlatform];
+//                [self requestPlatform];
 
     }else{
 //        [self.tableView beginRefreshing];
@@ -711,7 +735,7 @@
     if (self.IsFirst == YES) {
         //第二次点击同一个跌幅榜
         self.percentChangeIndex = -1;
-        [self requestPlatform];
+//        [self requestPlatform];
         [self.MbHud hide:YES];
 
         self.IsFirst = NO;
@@ -720,7 +744,7 @@
         NSInteger index = [notification.userInfo[@"titleSameBarindex"] integerValue];
         
         self.percentChangeIndex = index;
-        [self requestPlatform];
+//        [self requestPlatform];
         [self.MbHud hide:YES];
 
         self.IsFirst = YES;
@@ -749,14 +773,14 @@
         
         self.percentTempIndex = index;
         self.percentChangeIndex = index;
-        [self requestPlatform];
+//        [self requestPlatform];
     }
     else {
         if(self.IsFirst == YES) {
             
             self.percentTempIndex = index;
             self.percentChangeIndex = index;
-            [self requestPlatform];
+//            [self requestPlatform];
             [self.MbHud hide:YES];
 
         }
@@ -832,9 +856,11 @@
             }
         }];
         self.platformTitleModel = self.platformTitleList[0];
-        [self initHeaderView];
+        self.kind = kPlatform;
+//        [self initHeaderView];
         [self initSelectScrollViewWithIdx:0];
-        [self initTableView];
+        [self addSubViewController];
+//        [self initTableView];
         //添加滚动
        
        
@@ -926,7 +952,7 @@
         
     }
     
-    NSInteger labelIndex = index == 2 ? self.platformLabelIndex: self.currencyLabelIndex;
+    NSInteger labelIndex = 0;
     [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
     //自选定时器停止
     [self stopTimer];

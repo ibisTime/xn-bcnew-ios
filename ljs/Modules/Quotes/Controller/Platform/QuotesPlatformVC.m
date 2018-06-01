@@ -58,6 +58,8 @@
     [self initTableView];
     self.tableView.optionals = self.optionals;
     self.percentTempIndex = -1;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     //获取自选列表
     [self addNotification];
 
@@ -215,7 +217,7 @@
 
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-    
+
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     self.currentSegmentIndex = segmentIndex;
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
@@ -225,6 +227,8 @@
     if (!self.view.userInteractionEnabled) {
         return;
     }
+    self.percentChangeIndex = -1;
+
     [self requestOptionalList];
 
     if (segmentIndex == self.currentSegmentIndex && segmentIndex == 3) {
