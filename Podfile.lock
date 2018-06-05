@@ -46,6 +46,7 @@ PODS:
   - SVProgressHUD (2.2)
   - TFHpple (2.0.0)
   - TZImagePickerController (1.8.0)
+  - UMengAnalytics-NO-IDFA (4.2.5)
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - SVProgressHUD (= 2.2)
   - TFHpple (= 2.0.0)
   - TZImagePickerController (= 1.8.0)
+  - UMengAnalytics-NO-IDFA
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -85,6 +87,7 @@ SPEC REPOS:
     - SVProgressHUD
     - TFHpple
     - TZImagePickerController
+    - UMengAnalytics-NO-IDFA
   https://github.com/tianleios/CDSpecs.git:
     - CDCommon
 
@@ -108,7 +111,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: 3f37f3409ddb15f35c99315ae7dc33c474aa3256
   TFHpple: a916fe0799eb30aa29b2670d14d5868cdd3a5b81
   TZImagePickerController: 2a74f34f116e8229264e2afc122b0d8d4683c626
+  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
 
-PODFILE CHECKSUM: f1b470f900203f82bc2b9dcebffd9a7056998e82
+PODFILE CHECKSUM: fbe81bdde0122537e2eb88dcc3b3720c562b126d
 
 COCOAPODS: 1.5.2

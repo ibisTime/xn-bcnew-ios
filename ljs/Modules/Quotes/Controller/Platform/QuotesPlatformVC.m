@@ -136,6 +136,7 @@
     //清空数据
     [self.tableView.optionals removeAllObjects];
     [self.tableView reloadData_tl];
+    [self requestOptionalList];
     self.tableView.hiddenHeader = YES;
     self.tableView.tableFooterView = self.footerView;
 }
@@ -224,9 +225,7 @@
     if (segmentIndex == 2 || segmentIndex == 1) {
         return;
     }
-    if (!self.view.userInteractionEnabled) {
-        return;
-    }
+   
     self.percentChangeIndex = -1;
 
     [self requestOptionalList];
@@ -316,6 +315,13 @@
 //    }];
 //
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView beginRefreshing];
+    
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -341,7 +347,7 @@
     };
 //    self.tableView.type = self.type;
     self.tableView.refreshBlock = ^{
-        weakSelf.tableView.tableFooterView = self.footerView;
+        weakSelf.tableView.tableFooterView = weakSelf.footerView;
         weakSelf.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
     };
@@ -473,7 +479,7 @@
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
     if ([TLUser user].isLogin == YES) {
-        helper.parameters[@"userId"] = @"U201805160952110342835";
+        helper.parameters[@"userId"] = [TLUser user].userId;
 
     }
     helper.tableView = self.tableView;
@@ -481,7 +487,7 @@
     
     if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
-        
+    
     }
     helper.parameters[@"userId"] = [TLUser user].userId;
     [helper modelClass:[OptionalListModel class]];
@@ -491,16 +497,20 @@
         
         if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
-            
         }
         if ([TLUser user].isLogin == YES) {
-            helper.parameters[@"userId"] = @"U201805160952110342835";
+            helper.parameters[@"userId"] = [TLUser user].userId;
             
         }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             if (objs.count == 0) {
+                weakSelf.view.userInteractionEnabled = YES;
+                weakSelf.optionals = objs;
                 
+                weakSelf.tableView.optionals = objs;
+                
+                [weakSelf.tableView reloadData_tl];
                 weakSelf.tableView.tableFooterView = weakSelf.footerView;
                 return ;
             }
@@ -553,6 +563,8 @@
     } else {
         
         self.tableView.tableFooterView = self.footerView;
+        weakSelf.view.userInteractionEnabled = YES;
+
         [weakSelf stopTimer];
 
     }

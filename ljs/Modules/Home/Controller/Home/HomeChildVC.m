@@ -23,6 +23,7 @@
 #import "NewsFlashDetailVC.h"
 #import "InfoDetailVC.h"
 #import "WebVC.h"
+#import "detailActivityVC.h"
 
 @interface HomeChildVC ()<RefreshDelegate>
 
@@ -349,12 +350,43 @@
         BaseWeakSelf;
         _bannerView.selected = ^(NSInteger index) {
             BannerModel *model = [weakSelf.bannerRoom objectAtIndex:index];
-            
-            if (model.url.length!= 0) {
-                WebVC *webv = [[WebVC alloc]init];
-                webv.url = model.url;
-                [weakSelf.navigationController pushViewController:webv animated:YES];
+            NSInteger  type = [model.contentType integerValue];
+            switch (type) {
+                case 1:
+                    if (model.url.length!= 0) {
+                        WebVC *webv = [[WebVC alloc]init];
+                        webv.url = model.url;
+                        [weakSelf.navigationController pushViewController:webv animated:YES];
+                    }
+                    break;
+                    
+                case 2:
+                    
+                    if (model.url.length!= 0) {
+                        InfoDetailVC *detailVC = [InfoDetailVC new];
+                        detailVC.IsNeed = YES;
+                        detailVC.code = model.code;
+                        detailVC.title = model.name;
+                        
+                        [weakSelf.navigationController pushViewController:detailVC animated:YES];
+                    }
+                   
+                    break;
+                case 3:
+                    if (model.url.length !=0) {
+                        detailActivityVC* detOfActVC = [[detailActivityVC alloc ] init ];
+                        
+                        detOfActVC.code = model.code;
+                        [weakSelf.navigationController pushViewController:detOfActVC animated:YES];
+
+                    }
+                    break;
+                    
+                default:
+                    break;
             }
+            
+          
             
         };
         

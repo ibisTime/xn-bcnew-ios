@@ -74,7 +74,7 @@
         self.userText.text = @"已通过";
 
     }
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:[approvedList.photo convertImageUrl ]] placeholderImage:[UIImage imageNamed:@"用户名"]];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:[approvedList.photo convertImageUrl ]] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 }
 
 

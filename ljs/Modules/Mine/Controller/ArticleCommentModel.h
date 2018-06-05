@@ -32,5 +32,6 @@
 ;
 //评论人
 @property (nonatomic, copy) NSString *collectCount;
+@property (nonatomic ,copy) NSString *readCount;
 
 @end

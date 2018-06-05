@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     self.title = @"我的资讯";
-    self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+    self.titles = [NSMutableArray arrayWithObjects:@"待审核",@"已通过", nil];
     [super viewDidLoad];
     [self addPushNotification];
     //顶部切换
@@ -107,7 +107,7 @@
         
         if ([self.kind isEqualToString:kInformation]) {
             
-            self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+            self.titles = [NSMutableArray arrayWithObjects:@"待审核",@"已通过", nil];
             
             [self initSelectScrollView:i];
             

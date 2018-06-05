@@ -179,7 +179,7 @@
         if ([model.isChoice boolValue]) {
             http.code = @"628332";
             http.showView = self.view;
-            http.parameters[@"id"] = model.ID;
+            http.parameters[@"id"] = model.choiceId;
 
             
             [http postWithSuccess:^(id responseObject) {

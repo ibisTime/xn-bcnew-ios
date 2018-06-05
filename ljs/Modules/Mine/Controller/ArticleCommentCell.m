@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *timeLbl;
 //收藏数
 @property (nonatomic, strong) UILabel *collectNumLbl;
+@property (nonatomic, strong) UIButton *seeNumber;
 
 @end
 @implementation ArticleCommentCell
@@ -59,6 +60,13 @@
                                            textColor:kTextColor2
                                                 font:13.0];
     [self addSubview:self.timeLbl];
+    self.seeNumber = [UIButton buttonWithTitle:@"0"
+                                    titleColor:kTextColor2
+                               backgroundColor:kClearColor
+                                     titleFont:13.0];
+    [self.seeNumber setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
+    [self addSubview:self.seeNumber];
+   
     //收藏数
     self.collectNumLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                  textColor:kTextColor2
@@ -109,12 +117,18 @@
         make.left.equalTo(@(x));
         make.bottom.equalTo(self.infoIV.mas_bottom).offset(0);
     }];
-    //收藏数
-    [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.seeNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.infoIV.mas_left).offset(-x);
-        make.centerY.equalTo(self.timeLbl.mas_centerY);
+        make.right.equalTo(self.infoIV.mas_left).offset(-20);
+        make.top.equalTo(self.timeLbl.mas_top).offset(0);
+        make.height.equalTo(@20);
     }];
+    //收藏数
+//    [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(self.infoIV.mas_left).offset(0);
+//        make.centerY.equalTo(self.timeLbl.mas_centerY);
+//    }];
 }
 
 #pragma mark - Setting
@@ -127,9 +141,10 @@
     NSString *str = [infoModel.updateDatetime convertDate];
 
     self.timeLbl.text = [str formateDateStr];
+    [self.seeNumber setTitle:infoModel.readCount forState:UIControlStateNormal];
+
     
-    
-    self.collectNumLbl.text = [NSString stringWithFormat:@"%@ 收藏", infoModel.collectCount];
+//    self.collectNumLbl.text = [NSString stringWithFormat:@"%@", infoModel.readCount];
 }
 
 

@@ -64,7 +64,7 @@
     UIButton *stateView = [[UIButton alloc] init];
     self.stateView =stateView;
     [self addSubview:stateView];
- 
+    stateView.titleLabel.font = [UIFont systemFontOfSize:14];
     //活动主题
     self.ActivityTitle = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:17.0];
     self.ActivityTitle.numberOfLines = 2;//行数
@@ -220,11 +220,14 @@
     NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
     if ([state isEqualToString:@"2"]) {
         [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
-        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
+//        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
     }else if([state isEqualToString:@"9"])
     {
         [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
-        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
+
+//        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
         
     }else{
         [self.stateView setTitle:@"" forState:UIControlStateNormal];

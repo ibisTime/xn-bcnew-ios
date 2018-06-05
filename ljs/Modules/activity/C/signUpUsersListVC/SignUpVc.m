@@ -140,6 +140,8 @@
 
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
+    helper.parameters[@"orderColumn"] = @"id";
+    helper.parameters[@"orderDir"] = @"asc";
 
 //    if ([TLUser user].isLogin) {
 //        

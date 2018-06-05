@@ -134,7 +134,7 @@
     
     SelectScrollView *selectSV = (SelectScrollView *)[self.view viewWithTag:25000+index];
     
-    selectSV.IsUserList = YES;
+//    selectSV.IsUserList = YES;
     
     for (NSInteger i = 0; i < self.titles.count; i++) {
         

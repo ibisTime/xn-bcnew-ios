@@ -95,6 +95,7 @@
 - (void)clickBack
 {
     
+
     NSLog(@"发布资讯");
     
     NSString *result = [self.web stringByEvaluatingJavaScriptFromString:@"doSubmit();"];

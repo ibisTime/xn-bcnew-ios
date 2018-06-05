@@ -451,6 +451,8 @@
             
             childVC.selectBlock = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
+                
+                
             };
             //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             childVC.optionals = self.optionals;
