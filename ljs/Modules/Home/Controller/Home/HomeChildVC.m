@@ -365,7 +365,7 @@
                     if (model.url.length!= 0) {
                         InfoDetailVC *detailVC = [InfoDetailVC new];
                         detailVC.IsNeed = YES;
-                        detailVC.code = model.code;
+                        detailVC.code = model.url;
                         detailVC.title = model.name;
                         
                         [weakSelf.navigationController pushViewController:detailVC animated:YES];
@@ -376,7 +376,7 @@
                     if (model.url.length !=0) {
                         detailActivityVC* detOfActVC = [[detailActivityVC alloc ] init ];
                         
-                        detOfActVC.code = model.code;
+                        detOfActVC.code = model.url;
                         [weakSelf.navigationController pushViewController:detOfActVC animated:YES];
 
                     }
