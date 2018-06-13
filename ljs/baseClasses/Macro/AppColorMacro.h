@@ -17,7 +17,9 @@
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
 // 主色
-#define kAppCustomMainColor [UIColor colorWithHexString:@"#2f93ed"]
+//#define kAppCustomMainColor [UIColor colorWithHexString:@"#2f93ed"]
+#define kAppCustomMainColor [UIColor colorWithHexString:@"#022454"]
+
 #define kMineBackGroundColor      [UIColor colorWithHexString:@"#f7f7f7"]
 // 颜色配置
 #define kNavBarMainColor  [UIColor appNavBarMainColor]

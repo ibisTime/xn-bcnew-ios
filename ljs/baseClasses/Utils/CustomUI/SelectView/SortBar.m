@@ -74,7 +74,7 @@ static const float kAnimationdDuration = 0.3;
     _selectLine = [[UIView alloc] init];
     
     _selectLine.backgroundColor = kAppCustomMainColor;
-//    _selectLine.layer.cornerRadius = lineH/2.0;
+    _selectLine.layer.cornerRadius = lineH/2.0;
 //    _selectLine.clipsToBounds = YES;
 
     [self addSubview:_selectLine];
@@ -82,7 +82,7 @@ static const float kAnimationdDuration = 0.3;
     [_selectLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(leftM));
-        make.bottom.equalTo(@(self.frame.size.height -1));
+        make.bottom.equalTo(@(self.frame.size.height -3));
         make.width.equalTo(@(lineW));
         make.height.equalTo(@(lineH));
     }];

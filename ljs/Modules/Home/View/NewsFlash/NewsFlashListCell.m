@@ -46,19 +46,21 @@
 - (void)initSubviews {
     
     //点
-    self.dotIV = [[UIImageView alloc] initWithImage:kImage(@"圆")];
+    self.dotIV = [[UIImageView alloc] initWithImage:nil/*kImage(@"圆")*/];
+    self.dotIV.backgroundColor = [UIColor colorWithHexString:@"#DDDDDD"];
+    self.dotIV.layer.cornerRadius = 5;
     
     [self addSubview:self.dotIV];
     //横线
     self.wLine = [[UIView alloc] init];
-    
-    self.wLine.backgroundColor = kAppCustomMainColor;
+
+    self.wLine.backgroundColor = kClearColor;//kAppCustomMainColor;
     
     [self addSubview:self.wLine];
     //竖线
     self.hLine = [[UIView alloc] init];
     
-    self.hLine.backgroundColor = kTextColor2;
+    self.hLine.backgroundColor = [UIColor colorWithHexString:@"#E9E9E9"];
     
     [self addSubview:self.hLine];
     //日期
@@ -72,8 +74,8 @@
     
     [self addSubview:self.dateBtn];
     //时间
-    self.timeLbl = [UILabel labelWithBackgroundColor:[UIColor colorWithHexString:@"#e8f5ff"]
-                                             textColor:kAppCustomMainColor
+    self.timeLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                           textColor:[UIColor colorWithHexString:@"#818181"]
                                                   font:14.0];
     self.timeLbl.textAlignment = NSTextAlignmentCenter;
     self.timeLbl.layer.cornerRadius = 10;
@@ -108,7 +110,7 @@
         
         make.left.equalTo(@(kWidth(x)));
         make.top.equalTo(@(kWidth(x)));
-        make.width.height.equalTo(@(dotW));
+        make.width.height.equalTo(@(10));
     }];
     //竖线
     [self.hLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -170,7 +172,9 @@
     NSString *day = [flashModel.showDatetime convertDateWithFormat:@"dd"];
     
     [self.dateBtn setTitle:[NSString stringWithFormat:@"%@\n%@", month, day] forState:UIControlStateNormal];
-    self.dateBtn.hidden = flashModel.isShowDate;
+//    self.dateBtn.hidden = flashModel.isShowDate;
+    
+    self.dateBtn.hidden = YES;
     
     [self.dateBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
     self.timeLbl.text = [flashModel.showDatetime convertDateWithFormat:@"HH:mm:ss"];

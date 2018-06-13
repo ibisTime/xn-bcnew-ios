@@ -52,7 +52,7 @@ static NSString *identifierCell = @"NewsFlashListCell";
     cell.isAll = self.isAll;
     NewsFlashModel *new = self.news[indexPath.section];
     
-    new.isShowDate = [self isShowDateWithIndexPath:indexPath];
+    new.isShowDate = [self isShowDateWithIndexPath:indexPath.section];
     
     cell.flashModel = new;
     cell.shareBtn.tag = 2000 + indexPath.section;
@@ -62,16 +62,16 @@ static NSString *identifierCell = @"NewsFlashListCell";
     return cell;
 }
 
-- (BOOL)isShowDateWithIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)isShowDateWithIndexPath:(NSInteger )indexPath {
     
     //第一个直接
-    if (indexPath.section == 0) {
+    if (indexPath == 0) {
         
         return NO;
     }
     //后面的时间跟前面比对
-    NewsFlashModel *new1 = self.news[indexPath.section - 1];
-    NewsFlashModel *new2 = self.news[indexPath.section];
+    NewsFlashModel *new1 = self.news[indexPath - 1];
+    NewsFlashModel *new2 = self.news[indexPath];
     
     NSString *day1 = [new1.showDatetime convertDateWithFormat:@"d"];
     NSString *day2 = [new2.showDatetime convertDateWithFormat:@"d"];
@@ -107,12 +107,53 @@ static NSString *identifierCell = @"NewsFlashListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
+    if (![self isShowDateWithIndexPath:section]) {
+        return 30;
+    }
+    
     return 0.1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    return [UIView new];
+    UIView *headrSectionview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+    headrSectionview.backgroundColor = [UIColor colorWithHexString:@"#F5F5F7"];
+    
+    UILabel *titleLable = [UILabel labelWithBackgroundColor:kClearColor textColor:[UIColor colorWithHexString:@"#002A00"] font:14];
+    [headrSectionview addSubview:titleLable];
+    titleLable.textAlignment = NSTextAlignmentCenter;
+    [titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(@0);
+    }];
+    
+    NewsFlashModel *new = self.news[section];
+    NSString *month = [new.showDatetime convertDateWithFormat:@"MM月dd日"];
+    
+   
+    
+    NSString *WeekStr = [self getWeekDayFordate:new.showDatetime];
+    
+    titleLable.text = [NSString stringWithFormat:@"%@%@",month,WeekStr];
+    
+    return headrSectionview;
+}
+- (NSString *)getWeekDayFordate:(NSString *)dateStr
+{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MMM dd, yyyy hh:mm:ss aa";
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    
+    NSArray *weekday = [NSArray arrayWithObjects: [NSNull null], @"星期日", @"星期一", @"星期二", @"星期三", @"星期四", @"星期五", @"星期六", nil];
+    
+//    NSDate *newDate = [NSDate dateWithTimeIntervalSince1970:data];
+    NSDate *newDate = [formatter dateFromString:dateStr];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:NSCalendarUnitWeekday fromDate:newDate];
+    
+    NSString *weekStr = [weekday objectAtIndex:components.weekday];
+    return weekStr;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

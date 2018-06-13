@@ -175,7 +175,7 @@ static NSString *informationListCellID = @"InformationListCell";
     //text
     UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:17.0];
+                                                    font:16.0];
     textLbl.text = titleArr[section];
     [headerView addSubview:textLbl];
     [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
