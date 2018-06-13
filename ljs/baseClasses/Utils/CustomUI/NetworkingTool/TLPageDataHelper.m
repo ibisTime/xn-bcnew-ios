@@ -58,9 +58,12 @@
         NSArray *newObjs;
         
         if (!weakSelf.isList) {
-            
+            if (weakSelf.isActivity == YES) {
+                newObjs = responseObject[@"data"][@"approvedList"];
+
+            }else{
             newObjs = responseObject[@"data"][@"list"];
-            
+            }
         } else {
             
             newObjs = weakSelf.isCurrency == YES ? responseObject[@"data"][@"accountList"]: responseObject[@"data"];

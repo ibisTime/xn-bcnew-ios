@@ -20,7 +20,7 @@ static NSString *informationListCell2 = @"InformationListCell2";
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
     if (self = [super initWithFrame:frame style:style]) {
-        
+        self.infos = [NSMutableArray array];
         self.dataSource = self;
         self.delegate = self;
         

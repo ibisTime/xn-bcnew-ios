@@ -126,6 +126,8 @@
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"20";
 //    helper.parameters[@"direction"] = @"1";
+    
+    
     helper.parameters[@"userId"] = [TLUser user].userId;
 //    helper.parameters[@"type"] = @"E";
 //
@@ -221,7 +223,7 @@
     
     http.code = @"628332";
     http.showView = self.view;
-    http.parameters[@"id"] = optional.ID;
+    http.parameters[@"id"] = optional.choiceId;
     
     [http postWithSuccess:^(id responseObject) {
         

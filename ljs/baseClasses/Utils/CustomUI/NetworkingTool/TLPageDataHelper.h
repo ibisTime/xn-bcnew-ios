@@ -22,6 +22,8 @@
 @property (nonatomic,assign) BOOL isDeliverCompanyCode; //是否展示警告信息
 //列表查询
 @property (nonatomic, assign) BOOL isList;
+@property (nonatomic, assign) BOOL isActivity;
+
 //账户
 @property (nonatomic, assign) BOOL isCurrency;
 @property (nonatomic,assign) BOOL refreshed;

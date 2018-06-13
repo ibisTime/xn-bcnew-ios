@@ -7,7 +7,7 @@
 //
 
 #import "BaseModel.h"
-
+#import "signUpUsersListModel.h"
 @interface DetailActModel : BaseModel
 @property (nonatomic,copy) NSString * advPic;
 @property (nonatomic,copy) NSString * title;
@@ -39,5 +39,6 @@
 @property (nonatomic, copy) NSString *enrollCount;
 
 
+@property (nonatomic, strong) NSArray <signUpUsersListModel *>*approvedList;
 
 @end

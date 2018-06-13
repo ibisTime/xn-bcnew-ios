@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+#import "signUpUsersListModel.h"
 @interface signUpUsersListVC : BaseViewController
 @property (nonatomic, copy) NSString *code;
+@property (nonatomic, strong) NSArray <signUpUsersListModel *>*signUpUsersListM;
+
 @end

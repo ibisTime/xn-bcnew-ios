@@ -69,11 +69,11 @@
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-//        make.edges.mas_equalTo(0);
-        make.left.equalTo(self.view.mas_left);
-        make.top.equalTo(self.view.mas_top);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.edges.mas_equalTo(0);
+//        make.left.equalTo(self.view.mas_left);
+//        make.top.equalTo(self.view.mas_top);
+//        make.right.equalTo(self.view.mas_right);
+//        make.bottom.equalTo(self.view.mas_bottom);
     }];
     
     self.tableView.tableHeaderView = self.introduceView;

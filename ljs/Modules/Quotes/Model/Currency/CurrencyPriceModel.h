@@ -61,6 +61,7 @@
 //涨跌颜色
 @property (nonatomic, strong) UIColor *bgColor;
 @property (nonatomic, strong) NSNumber *volume;
+@property (nonatomic, copy) NSString *choiceId;
 
 @property (nonatomic, strong) NSNumber *flow_percent_change_24h;
 

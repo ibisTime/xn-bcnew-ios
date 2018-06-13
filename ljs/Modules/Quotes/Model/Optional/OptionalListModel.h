@@ -16,6 +16,7 @@
 
 @property (nonatomic, copy) NSString *exchangeEname;
 @property (nonatomic, copy) NSString *exchangeCname;
+@property (nonatomic, copy) NSString *choiceId;
 
 
 @property (nonatomic, copy) NSString *toCoin;

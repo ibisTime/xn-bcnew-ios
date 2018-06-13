@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <UMMobClick/MobClick.h>
 #import "CoinHeader.h"
 @interface BaseViewController : UIViewController <UIAlertViewDelegate>
 

@@ -36,7 +36,7 @@
 @property (nonatomic, strong) InfoDetailShareView *shareView;
 @property (nonatomic, copy) NSString  *url;
 
-
+@property (nonatomic, strong) UIScrollView * contentScrollView;
 @end
 
 @implementation detailActivityVC
@@ -64,9 +64,9 @@
 
 #pragma mark - init
 -(void)initDetailAct{
-    UIScrollView * contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight-44)];
+    UIScrollView * contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight-kBottomInsetHeight)];
     contentScrollView.tag = 100086;
-  
+    self.contentScrollView = contentScrollView;
     [self.view addSubview:contentScrollView];
      [UIBarButtonItem addRightItemWithImageName:@"分享白色" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(shareInfo)];
   
@@ -88,10 +88,16 @@
     [contentScrollView addSubview:self.signUpUseres];
     
     //4
-   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, 570)];
+   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, kScreenHeight)];
     self.activeCon.backgroundColor = kMineBackGroundColor;
-
+//    CGFloat  flo  = CGRectGetMaxY(self.activeCon.frame);
+//    contentScrollView.contentSize = CGSizeMake(kScreenWidth, flo);
     [contentScrollView addSubview:self.activeCon];
+    BaseWeakSelf;
+    self.activeCon.selectBlock = ^(CGFloat index) {
+        [weakSelf.contentScrollView setContentSize:CGSizeMake(kScreenWidth, index +kScreenHeight)];
+
+    };
     
     if (kDevice_Is_iPhoneX == YES) {
         self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavigationBarHeight-kBottomInsetHeight-20, kScreenWidth, 44)];
@@ -104,7 +110,7 @@
 //    activityBott.backgroundColor =kYellowColor;
     [self.view addSubview:self.activityBott];
     self.activityBott.detailVc = self;
-    BaseWeakSelf;
+
     self.activityBott.collectionButBlock = ^(NSInteger index) {
         //点击收藏
         NSLog(@"点击收藏");
@@ -283,19 +289,21 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.detailActModel = [DetailActModel mj_objectWithKeyValues:responseObject[@"data"]];
-        
+        NSMutableArray *arr =[signUpUsersListModel mj_objectArrayWithKeyValuesArray:self.detailActModel.approvedList];
+        self.signUpUseres.signUpUsersListM = arr;
         self.detailActHead.detailActModel= self.detailActModel;
          self.detailActMap.detailActModel= self.detailActModel;
          self.signUpUseres.detailActModel= self.detailActModel;
          self.activeCon.detailActModel= self.detailActModel;
+       
         
-        CGSize size = CGSizeMake(kScreenWidth - 30, MAXFLOAT);//设置高度宽度的最大限度
-        
-        CGRect rect = [[NSString filterHTML:self.detailActModel.content] boundingRectWithSize:size options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
-        
-        self.activeCon.height =rect.size.height +50;
-        UIScrollView *contentScrollView = (UIScrollView *)[self.view viewWithTag:100086];
-        contentScrollView.contentSize = CGSizeMake(kScreenWidth, 280+10+146+10+rect.size.height + 160);
+//        CGSize size = CGSizeMake(kScreenWidth - 30, MAXFLOAT);//设置高度宽度的最大限度
+//        
+//        CGRect rect = [[NSString filterHTML:self.detailActModel.content] boundingRectWithSize:size options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
+//        
+//        self.activeCon.height =rect.size.height +50;
+//        UIScrollView *contentScrollView = (UIScrollView *)[self.view viewWithTag:100086];
+//        contentScrollView.contentSize = CGSizeMake(kScreenWidth, 280+10+146+10+rect.size.height + 160);
 
         
          self.activityBott.detailActModel= self.detailActModel;

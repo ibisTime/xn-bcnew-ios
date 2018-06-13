@@ -78,4 +78,6 @@
 //交易成交数量
 @property (nonatomic, assign) NSInteger count;
 
+@property (nonatomic, copy) NSString * choiceId;
+
 @end
