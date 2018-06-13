@@ -48,7 +48,7 @@
     [self addSubview:self.presentImage];
     
     self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                  textColor:kTextColor2
+                                                  textColor:kTextColor
                                                        font:17.0];
     [self addSubview:self.currencyNameLbl];
     //24H交易量

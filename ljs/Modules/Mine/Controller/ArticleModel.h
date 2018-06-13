@@ -14,6 +14,6 @@
 @property (nonatomic, copy) NSString * pageSize;
 @property (nonatomic, copy) NSString * totalCount;
 @property (nonatomic, copy) NSString * totalPage;
-@property (nonatomic, copy) NSArray <ArticleCommentModel *>* list;
+@property (nonatomic, copy) NSMutableArray <ArticleCommentModel *>* list;
 
 @end

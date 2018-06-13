@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     self.title = @"我的资讯";
-    self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+    self.titles = [NSMutableArray arrayWithObjects:@"待审核",@"已通过", nil];
     [super viewDidLoad];
     [self addPushNotification];
     //顶部切换
@@ -107,7 +107,7 @@
         
         if ([self.kind isEqualToString:kInformation]) {
             
-            self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过", nil];
+            self.titles = [NSMutableArray arrayWithObjects:@"待审核",@"已通过", nil];
             
             [self initSelectScrollView:i];
             
@@ -150,7 +150,7 @@
             childVC.titleStr = self.titles[i];
 //        }
         childVC.kind = self.kind;
-        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
+        childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight);
         
         [self addChildViewController:childVC];
         
@@ -173,7 +173,10 @@
 
 #pragma mark - SegmentDelegate
 - (void)segment:(TopLabelUtil *)segment didSelectIndex:(NSInteger)index {
-    
+    NSString * str = [NSString stringWithFormat:@"%ld",index];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"indexChange" object:@{@"str":str}];
+
     [self.switchSV setContentOffset:CGPointMake((index - 1) * self.switchSV.width, 0)];
 //    [self.labelUnil dyDidScrollChangeTheTitleColorWithContentOfSet:(index-1)*kScreenWidth];
     

@@ -32,7 +32,7 @@
 //资讯
 @property (nonatomic, strong) ArticleCommentTableView *infoTableView;
 //infoList
-@property (nonatomic, strong) NSArray <ArticleCommentModel *>*infos;
+@property (nonatomic, strong) NSMutableArray <ArticleCommentModel *>*infos;
 //**********************************
 
 
@@ -43,6 +43,8 @@
 
 @property (nonatomic, strong) ArticleCommentModel *commentModel;
 
+@property (nonatomic)NSInteger page;
+@property (nonatomic,copy) NSString *currtntType;
 
 @end
 
@@ -99,17 +101,22 @@
     NSDictionary * infoDic = [not object];
     NSString * type = infoDic[@"str"];
     self.type = type;
+    [self.infoTableView beginRefreshing];
     [self requestInfoList];
     
 }
 
 - (void)initInfoTableView {
     self.type = @"0";
+    self.page = 1;
+    self.infos = [NSMutableArray array];
     self.infoTableView = [[ArticleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
     self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
-    
+    self.infoTableView.tableFooterView = [UIView new];
+    self.infoTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    self.infoTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopic)];
     [self.view addSubview:self.infoTableView];
     [self.infoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -118,7 +125,16 @@
 }
 
 #pragma mark - Data
-
+- (void)loadNewTopic
+{
+    self.page = 1;
+    [self requestInfoList];
+}
+- (void)loadMoreTopic
+{
+    self.page ++;
+    [self requestInfoList];
+}
 //
 - (void)requestInfoList {
     
@@ -130,8 +146,8 @@
     
     http.parameters[@"type"] = self.code;
     http.parameters[@"status"] = self.type;
-    http.parameters[@"start"] = @"0";
-    http.parameters[@"limit"] = @"1";
+    http.parameters[@"start"] = @(self.page);
+    http.parameters[@"limit"] = @"10";
     if ([TLUser user].isLogin) {
         
         http.parameters[@"userId"] = [TLUser user].userId;
@@ -150,13 +166,34 @@
                      };
         }];
         self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
-        self.infos = self.articleModel.list;
-        self.infoTableView.infos = self.articleModel.list;
-        
+        if (self.articleModel.list.count > 0) {
+            self.currtntType = self.type;
+            self.infos = self.articleModel.list;
+            self.infoTableView.infos = self.articleModel.list;
+
+        }else{
+            if (self.type != self.currtntType) {
+                self.infoTableView.infos = [NSMutableArray array];
+
+                
+            }else{
+                
+
+            }
+            [self.infoTableView reloadData];
+            if (self.page != 1) {
+                self.page --;
+                
+            }
+        }
         [self.infoTableView reloadData];
+        [self.infoTableView.mj_footer endRefreshing];
+        [self.infoTableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
         
     }];
+    
+    
 //    helper.tableView = self.infoTableView;
     
 //    [helper modelClass:[ArticleModel class]];
@@ -216,6 +253,72 @@
     }];
     
     
+}
+
+- (void)requstInfo
+{
+    
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *httper = [TLPageDataHelper new];
+    //    U201805160952110342835
+    httper.code = @"628198";
+    
+    httper.parameters[@"type"] = self.code;
+    httper.parameters[@"status"] = self.type;
+    httper.parameters[@"start"] = @"0";
+    httper.parameters[@"limit"] = @"1";
+    if ([TLUser user].isLogin) {
+        
+        httper.parameters[@"userId"] = [TLUser user].userId;
+        httper.parameters[@"token"] = [TLUser user].token;
+        
+    } else {
+        
+        httper.parameters[@"userId"] = @"";
+        httper.parameters[@"token"] = @"";
+        
+    }
+    [httper modelClass:[ArticleCommentModel class]];
+    [self.infoTableView addRefreshAction:^{
+        
+        [httper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.infos = objs;
+            weakSelf.infoTableView.infos = objs;
+            
+            
+            
+            //            weakSelf.infos = objs;
+            //            //数据转给tableview
+            //            weakSelf.infoTableView.infos = objs;
+            
+            [weakSelf.infoTableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.infoTableView addLoadMoreAction:^{
+        
+        [httper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.infos = objs;
+            
+            weakSelf.infoTableView.infos = objs;
+            
+            [weakSelf.infoTableView reloadData_tl];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+    [self.infoTableView endRefreshingWithNoMoreData_tl];
+    
+
 }
 /**
  用户点击cell阅读快讯

@@ -13,5 +13,12 @@
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *contentType;
+@property (nonatomic,copy) NSString *type;
+@property (nonatomic,copy) NSString *code;
+@property (nonatomic,copy) NSString *location;
+@property (nonatomic,copy) NSString *orderNo;
+@property (nonatomic,copy) NSString *status;
+
 
 @end

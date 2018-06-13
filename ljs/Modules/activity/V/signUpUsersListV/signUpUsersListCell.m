@@ -7,7 +7,7 @@
 //
 
 #import "signUpUsersListCell.h"
-
+#import "NSString+Extension.h"
 
 @interface signUpUsersListCell()
 @property (nonatomic, strong) UIImageView *userImg;
@@ -45,15 +45,16 @@
       
     }];
     
+    self.userImg.layer.masksToBounds = YES;
     
+    self.userImg.layer.cornerRadius = 20;
     
     self.userText = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#818181") font:15.0];
-    self.userText.text = @"已通过";
     
     [self addSubview:self.userText];
 
     //
-    [self.userImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.offset(15);
         make.right.offset(-15);
@@ -65,7 +66,15 @@
 
 -(void)setApprovedList:(signUpUsersListModel *)approvedList{
     _approvedList = approvedList;
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:approvedList.photo] placeholderImage:[UIImage imageNamed:@"用户名"]];
+    if ([approvedList.status isEqualToString:@"0"]) {
+        self.userText.text = @"未审核";
+
+    }else{
+        
+        self.userText.text = @"已通过";
+
+    }
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:[approvedList.photo convertImageUrl ]] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 }
 
 

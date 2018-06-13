@@ -23,6 +23,8 @@ typedef void(^SelectBlock)(NSInteger index);
 @property (nonatomic, assign) NSInteger selectIndex;
 
 @property (nonatomic, copy) SelectBlock selectBlock;
+@property (nonatomic, assign) BOOL IsUserList;
+
 
 @property (nonatomic, assign) BOOL IsCurrency;
 

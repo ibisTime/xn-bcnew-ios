@@ -51,10 +51,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //头部
 //    [self initHeaderView];
     self.percentTempIndex = -1;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self initTableView];
     //添加通知
     [self addNotification];
@@ -376,7 +377,13 @@
 - (void)initTableView {
     self.percentChangeIndex = -1;
 
-    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectMake(0, 46, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    self.tableView = [[CurrencyTableVIew alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
+
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@46);
+        make.edges.mas_equalTo(UIEdgeInsetsMake(44, 0, 0, 0));
+    }];
     BaseWeakSelf;
     self.tableView.selectBlock = ^(NSString *tosymbol) {
         weakSelf.selectBlock(tosymbol);
@@ -385,6 +392,7 @@
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
+    self.tableView.pagingEnabled = false;
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //
 //        make.edges.mas_equalTo(0);

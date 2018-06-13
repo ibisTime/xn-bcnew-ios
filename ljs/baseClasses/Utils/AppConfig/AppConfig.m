@@ -46,6 +46,8 @@ void TLLog(NSString *format, ...) {
             
         case RunEnvRelease: {
             
+
+//            self.addr = @"http://47.97.214.223:2201";
             self.addr = @"http://47.75.175.18:2201";
             self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
         }break;
@@ -58,9 +60,9 @@ void TLLog(NSString *format, ...) {
             
         case RunEnvTest: {
             
-//            self.addr = @"http://47.96.161.183:2901";
-//            self.addr = @"http://47.75.175.18:2201"; //测试
-            self.addr = @"http://47.75.175.18:2205";
+
+            self.addr = @"http://47.75.175.18:2201"; //生产
+//            self.addr = @"http://47.75.175.18:2205";//研发
 
             self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
         }break;
@@ -74,22 +76,22 @@ void TLLog(NSString *format, ...) {
 
 - (NSString *)wxKey {
     
-    return @"wx4bafcae961b658d8";
+    return @"wxa12600b532ed996e";
 }
 
 - (NSString *)qqKey {
     
-    return @"qWDrZ4K4IzhE3OIn";
+    return @"bf8p9yaX7wbnW6bK";
 }
 
 - (NSString *)qqId {
     
-    return @"1106729019";
+    return @"1106869720";
 }
 
 - (NSString *)pushKey {
     
-    return @"bfb492cb1bd1c84633b92614";
+    return @"1c959a496681efca3fd77e30";
     
 }
 @end

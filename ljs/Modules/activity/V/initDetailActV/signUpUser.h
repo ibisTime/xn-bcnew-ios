@@ -8,8 +8,10 @@
 
 #import "BaseView.h"
 #import "DetailActModel.h"
+#import "signUpUsersListModel.h"
 @interface signUpUser : BaseView
 @property (nonatomic, strong) DetailActModel *detailActModel;
+@property (nonatomic, strong) NSArray <signUpUsersListModel *>*signUpUsersListM;
 
 @property (nonatomic, copy) NSString *code;
 @end

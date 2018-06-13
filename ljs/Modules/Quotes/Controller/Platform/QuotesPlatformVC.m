@@ -58,6 +58,8 @@
     [self initTableView];
     self.tableView.optionals = self.optionals;
     self.percentTempIndex = -1;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     //获取自选列表
     [self addNotification];
 
@@ -134,6 +136,7 @@
     //清空数据
     [self.tableView.optionals removeAllObjects];
     [self.tableView reloadData_tl];
+    [self requestOptionalList];
     self.tableView.hiddenHeader = YES;
     self.tableView.tableFooterView = self.footerView;
 }
@@ -215,16 +218,16 @@
 
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-    
+
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     self.currentSegmentIndex = segmentIndex;
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     if (segmentIndex == 2 || segmentIndex == 1) {
         return;
     }
-    if (!self.view.userInteractionEnabled) {
-        return;
-    }
+   
+    self.percentChangeIndex = -1;
+
     [self requestOptionalList];
 
     if (segmentIndex == self.currentSegmentIndex && segmentIndex == 3) {
@@ -312,6 +315,13 @@
 //    }];
 //
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView beginRefreshing];
+    
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -325,12 +335,22 @@
 - (void)initTableView {
     self.percentChangeIndex = -1;
 
-    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStylePlain];
+    self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+
+    }];
     BaseWeakSelf;
     self.tableView.selectBlock = ^(NSString *tosymbol) {
         weakSelf.selectBlock(tosymbol);
     };
 //    self.tableView.type = self.type;
+    self.tableView.refreshBlock = ^{
+        weakSelf.tableView.tableFooterView = weakSelf.footerView;
+        weakSelf.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
+
+    };
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
     [self.view addSubview:self.tableView];
@@ -459,7 +479,7 @@
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
     if ([TLUser user].isLogin == YES) {
-        helper.parameters[@"userId"] = @"U201805160952110342835";
+        helper.parameters[@"userId"] = [TLUser user].userId;
 
     }
     helper.tableView = self.tableView;
@@ -467,7 +487,7 @@
     
     if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
-        
+    
     }
     helper.parameters[@"userId"] = [TLUser user].userId;
     [helper modelClass:[OptionalListModel class]];
@@ -477,16 +497,20 @@
         
         if (weakSelf.percentChangeIndex >= 0) {
         helper.parameters[@"direction"] = [NSString stringWithFormat:@"%ld",weakSelf.percentChangeIndex];
-            
         }
         if ([TLUser user].isLogin == YES) {
-            helper.parameters[@"userId"] = @"U201805160952110342835";
+            helper.parameters[@"userId"] = [TLUser user].userId;
             
         }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             if (objs.count == 0) {
+                weakSelf.view.userInteractionEnabled = YES;
+                weakSelf.optionals = objs;
                 
+                weakSelf.tableView.optionals = objs;
+                
+                [weakSelf.tableView reloadData_tl];
                 weakSelf.tableView.tableFooterView = weakSelf.footerView;
                 return ;
             }
@@ -539,6 +563,8 @@
     } else {
         
         self.tableView.tableFooterView = self.footerView;
+        weakSelf.view.userInteractionEnabled = YES;
+
         [weakSelf stopTimer];
 
     }

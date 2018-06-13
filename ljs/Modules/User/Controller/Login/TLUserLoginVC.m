@@ -364,6 +364,8 @@
         
         //保存用户信息
         [[TLUser user] saveUserInfo:userInfo];
+        [MobClick profileSignInWithPUID:[TLUser user].userId];
+
         //初始化用户信息
         [[TLUser user] setUserInfoWithDict:userInfo];
         

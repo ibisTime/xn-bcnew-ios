@@ -242,7 +242,7 @@
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     
     NSDate *date01 = [formatter dateFromString:self];
-    formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
+    formatter.dateFormat = @"yyyy/MM/dd/HH:mm";
     formatter.locale = [NSLocale currentLocale];
     
     return [formatter stringFromDate:date01];
@@ -284,7 +284,7 @@
 {
 
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy/MM/dd/hh:mm"];//这里的格式必须和DateString格式一致
+        [dateFormatter setDateFormat:@"yyyy/MM/dd/HH:mm"];//这里的格式必须和DateString格式一致
         
         NSDate * nowDate = [NSDate date];
         

@@ -125,7 +125,7 @@ static NSString *identifierCell = @"OptionalCell";
     
     http.code = @"628332";
     http.showView = self;
-    http.parameters[@"id"] = optional.ID;
+    http.parameters[@"id"] = optional.choiceId;
     
     [http postWithSuccess:^(id responseObject) {
         

@@ -14,6 +14,7 @@
 #import "TLUser.h"
 #import "QQManager.h"
 #import "TLWXManager.h"
+#import <UMMobClick/MobClick.h>
 //Extension
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -47,6 +48,7 @@
     [self configQQ];
     //配置微信
     [self configWeChat];
+    [self configUManalytics];
     //服务器环境
     [self configServiceAddress];
     //键盘
@@ -57,6 +59,19 @@
     [self configRootViewController];
     
     return YES;
+}
+
+- (void)configUManalytics
+{
+    
+    UMConfigInstance.appKey = @"5a4b2a008f4a9d1e570000ea";
+    UMConfigInstance.channelId = @"App Store";//一般是这样写，用于友盟后台的渠道统计，当然苹果也不会有其他渠道，写死就好
+    UMConfigInstance.ePolicy =SEND_INTERVAL; //上传模式，这种为最小间隔发送90S，也可按照要求选择其他上传模式。也可不设置，在友盟后台修改。
+    [MobClick startWithConfigure:UMConfigInstance];//开启SDK
+   
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+//    [MobClick setLogEnabled:YES];
 }
 
 // iOS9 NS_AVAILABLE_IOS
