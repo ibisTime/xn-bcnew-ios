@@ -66,7 +66,7 @@ static const float kAnimationdDuration = 0.3;
     
     [self changeItemTitleColorWithIndex:0];
     
-    CGFloat lineW = [NSString getWidthWithString:self.sortNames[0] font:MIN(kWidth(16.0), 16)];
+    CGFloat lineW = [NSString getWidthWithString:self.sortNames[0] font:MIN(kWidth(15.0), 15)];
     CGFloat lineH = 4;
     
     CGFloat leftM = self.allBtnWidth > kScreenWidth ? 10: (widthItem - lineW)/2.0;
@@ -100,7 +100,7 @@ static const float kAnimationdDuration = 0.3;
         
         NSString *title = _sortNames[i];
         
-        CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(16.0), 16)] + 20 + 10;
+        CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(15.0), 15)] + 20 + 10;
         
         self.allBtnWidth += widthMargin;
     }
@@ -110,7 +110,7 @@ static const float kAnimationdDuration = 0.3;
         
         NSString *title = _sortNames[i];
         
-        CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(16.0), 16)] + 20;
+        CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(15.0), 15)] + 20;
         
         CGFloat btnW = self.allBtnWidth > kScreenWidth ? widthMargin: widthItem;
         
@@ -149,7 +149,7 @@ static const float kAnimationdDuration = 0.3;
         if (i == index) {
             
             [btn setTitleColor:kAppCustomMainColor forState:UIControlStateNormal];
-            btn.titleLabel.font = Font(MIN(kWidth(16.0), 16));
+            btn.titleLabel.font = Font(MIN(kWidth(15.0), 15));
         }
         else {
             
@@ -173,7 +173,7 @@ static const float kAnimationdDuration = 0.3;
     
     NSString *title = _sortNames[index];
     
-    CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(16.0), 16)] + 20;
+    CGFloat widthMargin = [NSString getWidthWithString:title font:MIN(kWidth(15.0), 15)] + 20;
     
     CGFloat leftMargin = button.left + (button.width - widthMargin)/2.0 + 10;
     

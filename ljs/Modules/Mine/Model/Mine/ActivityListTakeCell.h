@@ -7,8 +7,8 @@
 //
 
 #import "BaseTableViewCell.h"
-#import "ActivityDetailModel.h"
+#import "ActivityListModel.h"
 @interface ActivityListTakeCell : BaseTableViewCell
-@property (nonatomic, strong) ActivityDetailModel *infoModel;
+@property (nonatomic, strong) ActivityListModel *infoModel;
 
 @end

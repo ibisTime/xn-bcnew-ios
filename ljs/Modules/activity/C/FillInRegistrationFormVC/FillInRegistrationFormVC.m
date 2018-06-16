@@ -47,11 +47,12 @@ typedef struct TitleInfo TitleInfo;
 }
 - (void)initSignInfomation
 {
-    self.nameTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 45)
+    self.nameTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 55)
                                               leftTitle:@"真实姓名"
                                              titleWidth:100
                                             placeholder:@"请填写真实姓名"];
     [self.nameTf addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingDidEnd];
+    self.nameTf.font = [UIFont systemFontOfSize:15];
     self.nameTf.returnKeyType = UIReturnKeyNext;
     self.nameTf.tag = 20001;
     self.nameTf.delegate =self;
@@ -61,13 +62,15 @@ typedef struct TitleInfo TitleInfo;
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 65, 375, 1);
     [self.view addSubview:view];
-    self.PhoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 65, kScreenWidth, 45)
+    self.PhoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 65, kScreenWidth, 55)
                                            leftTitle:@"手机号"
                                           titleWidth:100
                                          placeholder:@"请填写手机号"];
     self.PhoneTf.returnKeyType = UIReturnKeyDone;
     self.PhoneTf.keyboardType = UIKeyboardTypeNumberPad;
     self.PhoneTf.delegate =self;
+    self.PhoneTf.font = [UIFont systemFontOfSize:15];
+
     self.PhoneTf.tag = 20002;
 
     [self.PhoneTf addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingDidEnd];
@@ -123,6 +126,8 @@ typedef struct TitleInfo TitleInfo;
     UIBarButtonItem * rightBar= [[UIBarButtonItem alloc]initWithTitle:@"报名" style:UIBarButtonItemStyleDone target:self action:@selector(signUpBegin)];
     rightBar.tintColor = kWhiteColor;
     self.navigationItem.rightBarButtonItem= rightBar;
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14], NSTextEffectAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+
 }
 
 

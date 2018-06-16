@@ -321,6 +321,11 @@
 		B8DEF9B320BD2EA000E3D7C5 /* AddNumberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B220BD2EA000E3D7C5 /* AddNumberModel.m */; };
 		B8DEF9B620BD3A6600E3D7C5 /* QHCollectionViewNine.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */; };
 		B8DEF9B920BD448000E3D7C5 /* AddSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */; };
+		B8ECCB1720D4AC2300DB4499 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECCB1620D4AC2300DB4499 /* ContactUsVC.m */; };
+		B8ECCB1A20D4ED2900DB4499 /* SearchActivityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECCB1920D4ED2900DB4499 /* SearchActivityVC.m */; };
+		B8ECCB1D20D4EDD900DB4499 /* SearchActivityTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECCB1C20D4EDD900DB4499 /* SearchActivityTableView.m */; };
+		B8ECCB2020D4EE6D00DB4499 /* SearchActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECCB1F20D4EE6D00DB4499 /* SearchActivityCell.m */; };
+		B8ECCB2320D5467100DB4499 /* CustomTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECCB2220D5467100DB4499 /* CustomTitleButton.m */; };
 		B8F37F2F20AD44F0005EBB09 /* ActiveCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */; };
 		B8F37F3220ADBF23005EBB09 /* TakeActivityVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F37F3120ADBF23005EBB09 /* TakeActivityVCr.m */; };
 		B8F513B420BE3E0C00AC7FAD /* AddSearchBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */; };
@@ -978,6 +983,16 @@
 		B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHCollectionViewNine.m; sourceTree = "<group>"; };
 		B8DEF9B720BD447F00E3D7C5 /* AddSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSearchCell.h; sourceTree = "<group>"; };
 		B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSearchCell.m; sourceTree = "<group>"; };
+		B8ECCB1520D4AC2300DB4499 /* ContactUsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactUsVC.h; sourceTree = "<group>"; };
+		B8ECCB1620D4AC2300DB4499 /* ContactUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsVC.m; sourceTree = "<group>"; };
+		B8ECCB1820D4ED2900DB4499 /* SearchActivityVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchActivityVC.h; sourceTree = "<group>"; };
+		B8ECCB1920D4ED2900DB4499 /* SearchActivityVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchActivityVC.m; sourceTree = "<group>"; };
+		B8ECCB1B20D4EDD900DB4499 /* SearchActivityTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchActivityTableView.h; sourceTree = "<group>"; };
+		B8ECCB1C20D4EDD900DB4499 /* SearchActivityTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchActivityTableView.m; sourceTree = "<group>"; };
+		B8ECCB1E20D4EE6D00DB4499 /* SearchActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchActivityCell.h; sourceTree = "<group>"; };
+		B8ECCB1F20D4EE6D00DB4499 /* SearchActivityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchActivityCell.m; sourceTree = "<group>"; };
+		B8ECCB2120D5467100DB4499 /* CustomTitleButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTitleButton.h; sourceTree = "<group>"; };
+		B8ECCB2220D5467100DB4499 /* CustomTitleButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTitleButton.m; sourceTree = "<group>"; };
 		B8F37F2D20AD44F0005EBB09 /* ActiveCommentsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActiveCommentsListViewController.h; sourceTree = "<group>"; };
 		B8F37F2E20AD44F0005EBB09 /* ActiveCommentsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActiveCommentsListViewController.m; sourceTree = "<group>"; };
 		B8F37F3020ADBF23005EBB09 /* TakeActivityVCr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityVCr.h; sourceTree = "<group>"; };
@@ -1761,10 +1776,8 @@
 				C432D71820B65BDB0022337E /* NewSearchViewController.h */,
 				C432D71920B65BDB0022337E /* NewSearchViewController.m */,
 				C490183B20B6BAD00091C11F /* PlatformAndOtherVC.h */,
-				C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */,
 				B8DEF9A820BD26CD00E3D7C5 /* AddSearchCurreneyVC.h */,
 				B8DEF9A920BD26CD00E3D7C5 /* AddSearchCurreneyVC.m */,
-
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2416,6 +2429,14 @@
 				21EF0B66206642AC008EA865 /* CircleComment */,
 				21EF0B652066429E008EA865 /* InfoComment */,
 				21EF0B8720668ED4008EA865 /* Collection */,
+				B8ECCB1520D4AC2300DB4499 /* ContactUsVC.h */,
+				B8ECCB1E20D4EE6D00DB4499 /* SearchActivityCell.h */,
+				B8ECCB1F20D4EE6D00DB4499 /* SearchActivityCell.m */,
+				B8ECCB1620D4AC2300DB4499 /* ContactUsVC.m */,
+				B8ECCB1820D4ED2900DB4499 /* SearchActivityVC.h */,
+				B8ECCB1920D4ED2900DB4499 /* SearchActivityVC.m */,
+				B8ECCB1B20D4EDD900DB4499 /* SearchActivityTableView.h */,
+				B8ECCB1C20D4EDD900DB4499 /* SearchActivityTableView.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2561,6 +2582,8 @@
 				21EF0B512064D2CD008EA865 /* ForumQuotesTableView.m */,
 				21C01A462074CBAF00587DF0 /* ForumQuotesCurrencyCell.h */,
 				21C01A472074CBAF00587DF0 /* ForumQuotesCurrencyCell.m */,
+				B8ECCB2120D5467100DB4499 /* CustomTitleButton.h */,
+				B8ECCB2220D5467100DB4499 /* CustomTitleButton.m */,
 			);
 			path = Quotes;
 			sourceTree = "<group>";
@@ -3227,6 +3250,7 @@
 				21EB9C7120562D3E00394C3C /* BaseView.m in Sources */,
 				21AC58951FDE741A00F19DE8 /* CaptchaView.m in Sources */,
 				21EF0B83206681E5008EA865 /* MyCommentDetailTableView.m in Sources */,
+				B8ECCB1A20D4ED2900DB4499 /* SearchActivityVC.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
 				C429628920B580F70011E2B2 /* CurrencyTrendMapView.m in Sources */,
 				21EF0B4A2064D24E008EA865 /* ForumCircleTableView.m in Sources */,
@@ -3320,6 +3344,7 @@
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				219CF5252072550300012F68 /* SGGenerateQRCodeVC.m in Sources */,
 				21EB9C6120561AB600394C3C /* UIImage+Tint.m in Sources */,
+				B8ECCB2020D4EE6D00DB4499 /* SearchActivityCell.m in Sources */,
 				21AC59401FDE7A1B00F19DE8 /* SortBar.m in Sources */,
 				21459414206BF5060006E238 /* GengXinModel.m in Sources */,
 				21AC59451FDE7A1B00F19DE8 /* CustomPickerView.m in Sources */,
@@ -3422,6 +3447,7 @@
 				21EF0B9B20677477008EA865 /* OptionalListModel.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
 				B8DCAC0C20B04AF2009B6EE9 /* ArticleCommentCell.m in Sources */,
+				B8ECCB2320D5467100DB4499 /* CustomTitleButton.m in Sources */,
 				B8DEF9AA20BD26CD00E3D7C5 /* AddSearchCurreneyVC.m in Sources */,
 				2124BEB62062885A00CB79E8 /* AddOptionalTableView.m in Sources */,
 				21EF0B6C206643D3008EA865 /* CircleCommentVC.m in Sources */,
@@ -3460,6 +3486,7 @@
 				21AC58901FDE73FE00F19DE8 /* TLUser.m in Sources */,
 				C490184320B80F560091C11F /* BannerModel.m in Sources */,
 				2121E18B2067DA9C005D6868 /* SearchForumVC.m in Sources */,
+				B8ECCB1D20D4EDD900DB4499 /* SearchActivityTableView.m in Sources */,
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21CFFB1D20566BC500D245ED /* NewsFlashListCell.m in Sources */,
 				219CF5302072550300012F68 /* SGQRCodeTool.m in Sources */,
@@ -3486,6 +3513,7 @@
 				2124BEA620625FF700CB79E8 /* NewCurrencyCell.m in Sources */,
 				2124BEC72063493600CB79E8 /* SearchCurrencyCell.m in Sources */,
 				2124BE8E20623EAA00CB79E8 /* PlatformTableView.m in Sources */,
+				B8ECCB1720D4AC2300DB4499 /* ContactUsVC.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
 				C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */,
 				B8DEF9B920BD448000E3D7C5 /* AddSearchCell.m in Sources */,
@@ -3665,7 +3693,7 @@
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3708,7 +3736,7 @@
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -22,6 +22,9 @@
 
 @property (nonatomic , strong)SelectScrollView *selectSV;
 
+@property (nonatomic, strong) TLPlaceholderView *holdView;
+
+
 @end
 
 @implementation MyCollectionListVC
@@ -70,7 +73,8 @@
     
     self.tableView.refreshDelegate = self;
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无收藏"];
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无收藏"];
+    self.tableView.placeHolderView = self.holdView;
 
     [self.selectSV.scrollView addSubview:self.tableView];
     
@@ -97,9 +101,12 @@
     [self.tableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <= 0) {
+                [weakSelf.tableView addSubview:weakSelf.holdView];
+                return ;
+            }
             weakSelf.collections = objs;
-            
+            [weakSelf.holdView removeFromSuperview];
             weakSelf.tableView.collections = objs;
             
             [weakSelf.tableView reloadData_tl];
@@ -113,9 +120,13 @@
     [self.tableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <= 0) {
+                [weakSelf.tableView addSubview:weakSelf.holdView];
+                return ;
+            }
             weakSelf.collections = objs;
-            
+            [weakSelf.holdView removeFromSuperview];
+
             weakSelf.tableView.collections = objs;
             
             [weakSelf.tableView reloadData_tl];

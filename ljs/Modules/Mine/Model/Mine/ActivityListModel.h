@@ -21,6 +21,18 @@
 @property (nonatomic, copy) NSString * approveNote;
 @property (nonatomic, strong) ActivityDetailModel *activity;
 
+@property (nonatomic,copy) NSString * advPic;
+@property (nonatomic,copy) NSString * title;
+@property (nonatomic,copy) NSString * price;
+@property (nonatomic,copy) NSString * endDatetime;
+@property (nonatomic,copy) NSString * startDatetime;
+@property (nonatomic,copy) NSString * address;
+@property (nonatomic,copy) NSString * readCount;
+//
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *isEnroll;
+@property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic,copy) NSString * isTop;
 
 
 

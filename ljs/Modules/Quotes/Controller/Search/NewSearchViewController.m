@@ -15,7 +15,7 @@
 #import "HomeChildVC.h"
 #import "ActivityVC.h"
 #import "PlatformAndOtherVC.h"
-
+#import "SearchActivityVC.h"
 @interface NewSearchViewController ()<UITextFieldDelegate>
 //搜索
 @property (nonatomic, strong) TLTextField *searchTF;
@@ -32,7 +32,7 @@
 //快讯
 @property (nonatomic , strong)HomeChildVC *alerts;
 //活动
-@property (nonatomic , strong)ActivityVC *activity;
+@property (nonatomic , strong)SearchActivityVC *activity;
 @property (nonatomic , strong)NSString *searchText;
 
 @end
@@ -150,9 +150,8 @@
         }
         else if (index == 4)
         {
-            self.activity = [[ActivityVC alloc]init];
+            self.activity = [[SearchActivityVC alloc]init];
             self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            self.activity.isSearch = YES;
             [self addChildViewController:self.activity];
             [self.selectSV.scrollView addSubview:self.activity.view];
 

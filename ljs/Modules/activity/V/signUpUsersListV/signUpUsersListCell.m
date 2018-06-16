@@ -49,7 +49,7 @@
     
     self.userImg.layer.cornerRadius = 20;
     
-    self.userText = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#818181") font:15.0];
+    self.userText = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#818181") font:14.0];
     
     [self addSubview:self.userText];
 

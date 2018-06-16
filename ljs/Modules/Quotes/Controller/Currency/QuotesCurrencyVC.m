@@ -188,10 +188,12 @@
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
    
     if (segmentIndex == 2) {
-        UIButton *smallBtn = [UIButton buttonWithImageName:@"添加蓝色"];
+        UIButton *smallBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [smallBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        
+        [smallBtn setTitle:@"➕" forState:UIControlStateNormal];
         self.smallBtn = smallBtn;
+        [smallBtn setTitleColor:kBlackColor forState:UIControlStateNormal];
+        smallBtn.titleLabel.font = [UIFont systemFontOfSize:28];
         smallBtn.backgroundColor = [UIColor whiteColor];
         smallBtn.frame = CGRectMake(kScreenWidth - 60, 15, 60, 15);
         UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;

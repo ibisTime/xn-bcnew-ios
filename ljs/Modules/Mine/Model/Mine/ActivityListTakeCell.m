@@ -29,7 +29,7 @@
 @property (nonatomic, strong) UIImageView *locationImg;
 @property (nonatomic, strong) UILabel *location;
 @property (nonatomic, strong) UILabel *price;
-@property (nonatomic, strong)  UIView *stateView;
+@property (nonatomic, strong)  UIButton *stateView;
 @property (nonatomic, strong)  UILabel *stateLable;
 
 //收藏数
@@ -51,12 +51,9 @@
 
 #pragma mark - Init
 - (void)initSubviews {
-    UIView *stateView = [[UIView alloc] init];
-    self.stateView =stateView;
-    [self addSubview:stateView];
-    UILabel *stateLable = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:14];
-    self.stateLable = stateLable;
-    [self addSubview:stateLable];
+//    UIView *stateView = [[UIView alloc] init];
+//    self.stateView =stateView;
+//    [self addSubview:stateView];
     
     //缩略图
     self.infoIV = [[UIImageView alloc] init];
@@ -66,6 +63,15 @@
     self.infoIV.layer.cornerRadius = 4;
     
     [self addSubview:self.infoIV];
+    
+   
+    UIButton *stateView = [[UIButton alloc] init];
+    self.stateView =stateView;
+    [self addSubview:stateView];
+    stateView.titleLabel.font = [UIFont systemFontOfSize:14];
+    UILabel *stateLable = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:14];
+    self.stateLable = stateLable;
+    [self addSubview:stateLable];
     //标题
     self.titleLbl = [UILabel labelWithBackgroundColor:kClearColor
                                             textColor:kTextColor
@@ -107,12 +113,12 @@
     
     [self addSubview:self.collectNumLbl];
     self.location = [UILabel labelWithBackgroundColor:kClearColor  textColor:kHexColor(@"#818181") font:12.0];
-     self.location.numberOfLines = 0;
 //     self.location.lineBreakMode = NSLineBreakByTruncatingTail;
+    [self.location sizeToFit];
     [self addSubview:self.location];
     //bottomLine
     //价格
-    self.price = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#2F93ED") font:12.0];
+    self.price = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA000") font:12.0];
     [self  addSubview:self.price];
     UIView *bottomLine = [[UIView alloc] init];
     
@@ -142,11 +148,21 @@
     }];
     [self.stateView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(x));
-        make.top.equalTo(@10);
-        make.width.equalTo(@58);
-        make.height.equalTo(@23);
+        make.left.offset(x);
+        make.top.offset(10);
+        make.width.offset(58);
+        make.height.equalTo(@24);
+        
     }];
+    
+    
+//    [self.stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.left.equalTo(@(x));
+//        make.top.equalTo(@10);
+//        make.width.equalTo(@58);
+//        make.height.equalTo(@23);
+//    }];
     [self.stateLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(x+23));
@@ -190,7 +206,7 @@
     }];
     [self.location mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.locationImg.mas_right).offset(5);
-        make.top.equalTo(self.dateLblImg.mas_bottom).offset(15);
+        make.centerY.equalTo(self.locationImg.mas_centerY);
 
     }];
     [self.readCountImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -211,12 +227,41 @@
 }
 
 #pragma mark - Setting
-- (void)setInfoModel:(ActivityDetailModel *)infoModel {
+- (void)setInfoModel:(ActivityListModel *)infoModel {
     
     _infoModel = infoModel;
     
+   /* [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
+    self.ActivityTitle.text = actModel.title;
+    if ([actModel.price isEqualToString:@"0"]) {
+        self.price.text =[NSString stringWithFormat:@"免费"];
+    }else{
+        self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
+    }
+    self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
+    self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];
+    self.readCount.text = actModel.readCount;
+    self.location.text = actModel.address;
+    [self layoutIfNeeded];
+    self.cellRowHeight =   CGRectGetMaxY(self.location.frame);
+    */
+   
     [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
     [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    
+    NSString *state = [NSString stringWithFormat:@"%@",infoModel.status];
+    if ([state isEqualToString:@"9"]) {
+        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
+        //        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
+    }else
+    {
+        
+        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
+        //        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
+        
+    }
     self.timeLbl.text = [infoModel.startDatetime convertDate];
     self.timeLine.text = @"-";
     self.timeLb2.text = [infoModel.endDatetime convertDate];
@@ -227,6 +272,6 @@
         self.price.text = @"免费";
         return;
     }
-    self.price.text= [NSString stringWithFormat:@"¥%.2f", [infoModel.price doubleValue]/1000];;
+    self.price.text= [NSString stringWithFormat:@"%@", infoModel.price ];;
 }
 @end

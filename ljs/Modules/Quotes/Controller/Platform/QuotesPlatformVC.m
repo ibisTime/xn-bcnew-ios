@@ -79,7 +79,7 @@
     
     self.footerView.backgroundColor = kWhiteColor;
     //添加按钮
-    UIButton *addBtn = [UIButton buttonWithImageName:@"大加"];
+    UIButton *addBtn = [UIButton buttonWithImageName:@"添加自选"];
     
     [addBtn addTarget:self action:@selector(addCurrency) forControlEvents:UIControlEventTouchUpInside];
     
@@ -89,6 +89,16 @@
         make.center.equalTo(@0);
         make.width.height.equalTo(@72);
     }];
+    
+    UILabel *addLab = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA300") font:15];
+    [self.footerView addSubview:addLab];
+    addLab.text = @"暂无自选,点击添加";
+    [addLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(addBtn);
+        make.top.equalTo(addBtn.mas_bottom).offset(10);
+    }];
+
 }
 /**
  添加币种

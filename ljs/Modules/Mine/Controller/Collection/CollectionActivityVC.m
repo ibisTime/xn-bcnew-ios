@@ -13,6 +13,8 @@
 @property (nonatomic , strong)AcvitityInformationListTableView *ActivityListTableView;
 @property (nonatomic , strong)NSMutableArray <ActivityDetailModel *>*infos;
 @property (nonatomic , strong) detailActivityVC * detOfActVC;
+@property (nonatomic , strong) TLPlaceholderView * holdView;
+
 @end
 
 @implementation CollectionActivityVC
@@ -32,8 +34,9 @@
     self.ActivityListTableView.siCollection = YES;
     
     //    self.repaymentListTableView.refreshDelegate = self;
-    
-    self.ActivityListTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+
+    self.ActivityListTableView.placeHolderView  =self.holdView;
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];
     [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -63,10 +66,14 @@
     [self.ActivityListTableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <=0) {
+                [weakSelf.ActivityListTableView addSubview:weakSelf.holdView];
+                return ;
+            }
             
             weakSelf.infos = objs;
             //数据转给tableview
+            [weakSelf.holdView removeFromSuperview];
             weakSelf.ActivityListTableView.infos = objs;
             
             [weakSelf.ActivityListTableView reloadData_tl];
@@ -79,9 +86,13 @@
     [self.ActivityListTableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <=0) {
+                [weakSelf.ActivityListTableView addSubview:weakSelf.holdView];
+                return ;
+            }
             weakSelf.infos = objs;
-            
+            [weakSelf.holdView removeFromSuperview];
+
             weakSelf.ActivityListTableView.infos = objs;
             
             [weakSelf.ActivityListTableView reloadData_tl];

@@ -36,6 +36,8 @@
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 @property (nonatomic, strong) ActivityLimitModel *limitModel;
 
+@property (nonatomic, strong) TLPlaceholderView *holfView;
+
 
 @end
 
@@ -90,7 +92,8 @@
     
     //    self.repaymentListTableView.refreshDelegate = self;
     
-    self.ActivityListTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+    self.ActivityListTableView.placeHolderView =self.holfView;
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];
     [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,6 +141,12 @@
         }];
         
         self.limitModel = [ActivityLimitModel mj_objectWithKeyValues:responseObject[@"data"]];
+        if (self.limitModel.list.count <= 0) {
+            [self.ActivityListTableView addSubview:self.holfView];
+            return ;
+            
+        }
+        [self.holfView removeFromSuperview];
         self.ActivityListTableView.infos = self.limitModel.list;
         self.activities = [NSMutableArray array];
 

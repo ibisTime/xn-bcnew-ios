@@ -44,7 +44,7 @@ static NSString *identifierCell = @"OptionalCell";
     
     OptionalCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
     
-    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+//    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
     
     cell.optional = self.optionals[indexPath.row];
     
@@ -64,7 +64,7 @@ static NSString *identifierCell = @"OptionalCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 68;
+    return 65;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

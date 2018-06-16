@@ -13,7 +13,7 @@
 @import CoreLocation;
 @import MapKit;
 
-@interface initDetailActMap ()
+@interface initDetailActMap ()<CLLocationManagerDelegate>
 @property (nonatomic, strong) UIImageView *dateImg;
 @property (nonatomic, strong) UILabel *date;
 @property (nonatomic, strong) UIImageView * locationImg;
@@ -95,7 +95,7 @@
     }];
     
     //5
-    self.locationBut = [UIButton buttonWithTitle:@"查看地图" titleColor:kHexColor(@"#2F93ED") backgroundColor:kClearColor titleFont:12];
+    self.locationBut = [UIButton buttonWithTitle:@"查看地图" titleColor:kHexColor(@"FFA300") backgroundColor:kClearColor titleFont:12];
     [self addSubview:self.locationBut];
     [self.locationBut addTarget:self action:@selector(openMap) forControlEvents:UIControlEventTouchUpInside];
     [self.locationBut mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -194,6 +194,7 @@
                 MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil]];
                 //目的地名称,可以传值进来,当然我们实际需要的并不是它,它只作为给用户的展示,我们实际需要的是self.coordinate,通过它来进行定位
                 toLocation.name =self.detailActModel.address;
+                
                 [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
                                launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
             }];

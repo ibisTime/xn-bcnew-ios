@@ -15,8 +15,10 @@
 #import "SelectScrollView.h"
 #import "TopLabelUtil.h"
 //C
+#import "UIBarButtonItem+convience.h"
 #import "HomeChildVC.h"
 #import "ArticleStateController.h"
+#import "ContactUsVC.h"
 @interface MyArticleViewController ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -43,6 +45,7 @@
     [self addPushNotification];
     //顶部切换
     [self initSegmentView];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -89,8 +92,15 @@
     self.labelUnil.selectBtn.selected = YES;
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateSelected];
-    
-    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"联系我们" style:UIBarButtonItemStyleDone target:self action:@selector(callUs)];
+    [item setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = item;
+
+//    [UIBarButtonItem addRightItemWithTitle:@"联系我们"
+//                                titleColor:kWhiteColor
+//                                     frame:CGRectMake(0, 0, 60, 100)
+//                                        vc:self
+//                                    action:@selector(callUs)];
     self.navigationItem.titleView = self.labelUnil;
     //******************************************
     
@@ -117,6 +127,14 @@
         }
     }
 
+}
+
+- (void)callUs
+{
+    ContactUsVC *usVC = [ContactUsVC new];
+    usVC.title = @"联系我们";
+    [self.navigationController pushViewController:usVC animated:YES];
+    
 }
 
 - (void)initSelectScrollView:(NSInteger)index {

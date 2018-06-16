@@ -82,13 +82,13 @@
     [contentScrollView addSubview:self.detailActMap];
 
     //3
-    self.signUpUseres = [[signUpUser alloc] initWithFrame:CGRectMake(0, 280+10+146+10, kScreenWidth, 101)];
+    self.signUpUseres = [[signUpUser alloc] initWithFrame:CGRectMake(0, 280+10+146+10, kScreenWidth, 50)];
     self.signUpUseres.code = self.code;
     self.signUpUseres.backgroundColor = kMineBackGroundColor;
     [contentScrollView addSubview:self.signUpUseres];
     
     //4
-   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, kScreenHeight)];
+   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10-50, kScreenWidth, kScreenHeight)];
     self.activeCon.backgroundColor = kMineBackGroundColor;
 //    CGFloat  flo  = CGRectGetMaxY(self.activeCon.frame);
 //    contentScrollView.contentSize = CGSizeMake(kScreenWidth, flo);

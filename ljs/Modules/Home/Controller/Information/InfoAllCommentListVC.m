@@ -32,6 +32,9 @@
 @property (nonatomic, strong) NSArray <InfoCommentModel *>*comments;
 @property (nonatomic, strong) TLPageDataHelper *helper;
 
+@property (nonatomic, strong) TLPlaceholderView *holde;
+
+
 @end
 
 @implementation InfoAllCommentListVC
@@ -58,6 +61,10 @@
     
     self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
     
+    TLPlaceholderView *holder = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来坐下谈谈"];;
+    holder.backgroundColor = kHexColor(@"#F7F7F7");
+    self.holde = holder;
+
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
@@ -81,7 +88,7 @@
     [TLProgressHUD show];
     
     TLNetworking *http = [TLNetworking new];
-    
+    BaseWeakSelf;
     http.code = @"628206";
     
     http.parameters[@"code"] = self.code;
@@ -95,7 +102,7 @@
         [self requestCommentList];
         
     } failure:^(NSError *error) {
-        
+        weakSelf.tableView.tableFooterView = weakSelf.holde;
         [TLProgressHUD dismiss];
     }];
     
@@ -126,13 +133,17 @@
         weakSelf.tableView.newestComments = objs;
         //刷新
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            weakSelf.tableView.tableFooterView = weakSelf.holde;
+
             [weakSelf.tableView reloadData_tl];
+
         });
         
         [TLProgressHUD dismiss];
         
     } failure:^(NSError *error) {
-        
+        weakSelf.tableView.tableFooterView = weakSelf.holde;
+
     }];
     
     [self.tableView addLoadMoreAction:^{
@@ -142,7 +153,8 @@
             weakSelf.comments = objs;
             
             weakSelf.tableView.newestComments = objs;
-            
+            weakSelf.tableView.tableFooterView = weakSelf.holde;
+
             [weakSelf.tableView reloadData_tl];
             
         } failure:^(NSError *error) {

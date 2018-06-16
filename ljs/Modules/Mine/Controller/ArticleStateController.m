@@ -22,6 +22,7 @@
 #import "MyCommentModel.h"
 #import "ArticleCommentModel.h"
 #import "ArticleCommentTableView.h"
+#import "UIBarButtonItem+convience.h"
 @interface ArticleStateController ()<RefreshDelegate>
 //快讯
 @property (nonatomic, strong) NewsFlashListTableView *flashTableView;
@@ -42,6 +43,9 @@
 @property (nonatomic, strong) ArticleModel *articleModel;
 
 @property (nonatomic, strong) ArticleCommentModel *commentModel;
+
+@property (nonatomic, strong) TLPlaceholderView *holdView;
+
 
 @property (nonatomic)NSInteger page;
 @property (nonatomic,copy) NSString *currtntType;
@@ -70,11 +74,20 @@
         [self initInfoTableView];
         //获取资讯列表
         [self requestInfoList];
+  
+
         //刷新
         [self.infoTableView beginRefreshing];
 //    }
     // Do any additional setup after loading the view.
 }
+
+- (void)callUs
+{
+    
+    
+}
+
 #pragma mark - Init
 - (void)addNotification {
     //用户登录刷新首页快讯
@@ -113,7 +126,9 @@
     self.infoTableView = [[ArticleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无文章"];
+    self.infoTableView.placeHolderView = self.holdView;
+
     self.infoTableView.tableFooterView = [UIView new];
     self.infoTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     self.infoTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopic)];
@@ -167,30 +182,41 @@
         }];
         self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
         if (self.articleModel.list.count > 0) {
+            [self.placeholderView removeFromSuperview];
             self.currtntType = self.type;
             self.infos = self.articleModel.list;
             self.infoTableView.infos = self.articleModel.list;
+            [self.infoTableView reloadData];
+            [self.infoTableView.mj_footer endRefreshing];
+            [self.infoTableView.mj_header endRefreshing];
 
         }else{
             if (self.type != self.currtntType) {
                 self.infoTableView.infos = [NSMutableArray array];
-
-                
+                [self.infoTableView addSubview:self.holdView];
+                if (self.page != 1) {
+                    self.page --;
+                    
+                }
+                [self.infoTableView.mj_footer endRefreshing];
+                [self.infoTableView.mj_header endRefreshing];
             }else{
                 
-
+                [self.infoTableView addSubview:self.holdView];
+                if (self.page != 1) {
+                    self.page --;
+                    
+                }
+                [self.infoTableView.mj_footer endRefreshing];
+                [self.infoTableView.mj_header endRefreshing];
             }
-            [self.infoTableView reloadData];
-            if (self.page != 1) {
-                self.page --;
-                
-            }
+//            [self.infoTableView reloadData];
+            
         }
-        [self.infoTableView reloadData];
-        [self.infoTableView.mj_footer endRefreshing];
-        [self.infoTableView.mj_header endRefreshing];
+       
     } failure:^(NSError *error) {
-        
+        [self.placeholderView removeFromSuperview];
+
     }];
     
     
@@ -284,11 +310,14 @@
     [self.infoTableView addRefreshAction:^{
         
         [httper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count == 0) {
+                [weakSelf.view addSubview:weakSelf.placeholderView];
+                return ;
+            }
             weakSelf.infos = objs;
             weakSelf.infoTableView.infos = objs;
             
-            
+            [weakSelf.placeholderView removeFromSuperview];
             
             //            weakSelf.infos = objs;
             //            //数据转给tableview
@@ -297,14 +326,20 @@
             [weakSelf.infoTableView reloadData_tl];
             
         } failure:^(NSError *error) {
-            
+            [weakSelf.view addSubview:weakSelf.placeholderView];
+
         }];
     }];
     
     [self.infoTableView addLoadMoreAction:^{
         
         [httper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count == 0) {
+                [weakSelf.view addSubview:weakSelf.placeholderView];
+                return ;
+            }
+            [weakSelf.placeholderView removeFromSuperview];
+
             weakSelf.infos = objs;
             
             weakSelf.infoTableView.infos = objs;

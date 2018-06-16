@@ -37,6 +37,7 @@
 {
     self.searchText = search;
     [self getLists];
+//    [self.platformTable.mj_header beginRefreshing];
 }
 - (void)getLists
 {

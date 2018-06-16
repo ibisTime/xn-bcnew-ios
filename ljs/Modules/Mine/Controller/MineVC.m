@@ -78,6 +78,7 @@
 #pragma mark - Init
 - (void)addEditItem {
     
+    
     [UIBarButtonItem addRightItemWithTitle:@"编辑"
                                 titleColor:kWhiteColor
                                      frame:CGRectMake(0, 0, 60, 40)
@@ -133,7 +134,7 @@
     MineModel *infoComment = [MineModel new];
     
     infoComment.text = @"评论";
-    infoComment.imgName = @"资讯评论";
+    infoComment.imgName = @"评论";
     infoComment.action = ^{
         
         [weakSelf checkLogin:^{
@@ -146,7 +147,7 @@
     //圈子评论
    MineModel *forumComment = [MineModel new];
     forumComment.text = @"我参与的活动";
-    forumComment.imgName = @"我发布的活动";
+    forumComment.imgName = @"参加的活动";
     forumComment.action = ^{
         
         [weakSelf checkLogin:^{

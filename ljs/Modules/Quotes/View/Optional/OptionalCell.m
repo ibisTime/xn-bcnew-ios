@@ -59,7 +59,7 @@
     //平台名称
     self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor2
-                                                        font:12.0];
+                                                        font:14.0];
     
     [self addSubview:self.platformNameLbl];
     //24H交易量
@@ -79,14 +79,14 @@
     //当前对应币种价格
     self.opppsitePriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kHexColor(@"#595A6E")
-                                                    font:12.0];
+                                                    font:14.0];
     
     [self addSubview:self.opppsitePriceLbl];
     
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:14.0];
+                                                    font:15.0];
     
     [self addSubview:self.rmbPriceLbl];
     //布局
@@ -95,23 +95,25 @@
 
 - (void)setSubviewLayout {
     
-    [self.isWarnView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(@10);
-        make.left.equalTo(@15);
-    }];
+   
     
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(@10);
-        make.left.equalTo(self.isWarnView.mas_right).offset(5);
+        make.left.equalTo(@15);
     }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.currencyNameLbl.mas_right).offset(10);
         make.centerY.equalTo(self.currencyNameLbl.mas_centerY);
+    }];
+    
+    [self.isWarnView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(self.platformNameLbl.mas_centerY);
+        make.centerX.equalTo(self.mas_centerX).offset(-45);
     }];
     //一日交易量
     [self.tradeVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,7 +125,7 @@
     //涨幅
     [self.priceFluctBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(@(-15));
+        make.right.equalTo(@(-10));
         make.centerY.equalTo(@0);
         make.height.equalTo(@37);
     }];
@@ -147,34 +149,34 @@
     
     _optional = optional;
     
-    
+    optional.isWarn = @"1";
     //币种名称
     self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
     self.platformNameLbl.text = optional.exchangeEname;
     self.isWarnView.hidden = [optional.isWarn isEqualToString:@"0"];
-    if (self.currencyNameLbl.frame.origin.x <= self.isWarnView.frame.origin.x) {
-        
-        if ([optional.isWarn isEqualToString:@"0"]) {
-            [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(@10);
-                make.left.equalTo(@15);
-            }];
-        }else{
-        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@10);
-            make.left.mas_equalTo(self.isWarnView.mas_right).offset(5);
-        }];
-        }
-    }else
-    {
-    if ([optional.isWarn isEqualToString:@"0"]) {
-        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(@10);
-                make.left.equalTo(@15);
-        }];
-    }
-    }
+//    if (self.currencyNameLbl.frame.origin.x <= self.isWarnView.frame.origin.x) {
+//
+//        if ([optional.isWarn isEqualToString:@"0"]) {
+//            [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(@10);
+//                make.left.equalTo(@15);
+//            }];
+//        }else{
+//        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(@10);
+//            make.left.mas_equalTo(self.isWarnView.mas_right).offset(5);
+//        }];
+//        }
+//    }else
+//    {
+//    if ([optional.isWarn isEqualToString:@"0"]) {
+//        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(@10);
+//                make.left.equalTo(@15);
+//        }];
+//    }
+//    }
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     

@@ -28,7 +28,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
+        self.backgroundColor = kBackgroundColor;
         [self initSubviews];
     }
     
@@ -49,9 +49,10 @@
                                                    textColor:kTextColor
                                                         font:14.0];
     
+    
     [self addSubview:self.unitLbl];
     //添加按钮
-    self.addBtn = [UIButton buttonWithImageName:@"小加" selectedImageName:@"勾选"];
+    self.addBtn = [UIButton buttonWithImageName:@"未选中" selectedImageName:@"选这个"];
     
     self.addBtn.userInteractionEnabled = NO;
     
@@ -80,6 +81,17 @@
         make.right.equalTo(@(-15));
         make.centerY.equalTo(@0);
         make.width.height.equalTo(@22);
+    }];
+    
+    UIView *line = [UIView new];
+    [self addSubview:line];
+    line.backgroundColor = kLineColor;
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@15);
+        make.right.equalTo(@-15);
+        make.bottom.equalTo(self.mas_bottom).offset(-2);
+        make.height.equalTo(@1);
+
     }];
 }
 

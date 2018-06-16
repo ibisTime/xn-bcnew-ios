@@ -33,17 +33,17 @@
 #pragma mark - Init
 - (void)initSubviews {
     //1
-    self.users = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:15];
-    
-//    self.userImg.clipsToBounds = YES;
-   
-    
-    [self addSubview:self.users];
-    [self.users mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(15);
-        make.left.offset(15);
-        
-    }];
+//    self.users = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:15];
+//
+////    self.userImg.clipsToBounds = YES;
+//
+//
+//    [self addSubview:self.users];
+//    [self.users mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.offset(15);
+//        make.left.offset(15);
+//
+//    }];
     //2
     self.userImg = [[UIImageView alloc] init];
     [self addSubview:self.userImg];
@@ -51,8 +51,8 @@
     
     self.userImg.layer.cornerRadius = 20;
     [self.userImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.offset(-10);
-        make.left.offset(15);
+        make.top.offset(5);
+        make.left.offset(10);
         make.height.equalTo(@40);
         make.width.equalTo(@40);
         
@@ -79,7 +79,7 @@
 
 -(void)setSignUpUsersListM:(NSArray<signUpUsersListModel *> *)signUpUsersListM
 {
-    int j = 15;
+    int j = 5;
     _signUpUsersListM = signUpUsersListM;
     if (_signUpUsersListM.count>1) {
         for (int i = 0; i <_signUpUsersListM.count; i++) {
@@ -104,7 +104,7 @@
         
     }else{
         signUpUsersListModel *listModel = signUpUsersListM[0];
-         self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),_detailActModel.enrollCount,_detailActModel.approveCount];
+//         self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),_detailActModel.enrollCount,_detailActModel.approveCount];
         if (self.signUpUsersListM.count == 1) {
 
              [self.userImg sd_setImageWithURL:[NSURL URLWithString:[listModel.photo convertImageUrl]] placeholderImage:[UIImage imageNamed:@"默认头像"]];
@@ -118,10 +118,10 @@
 {
     if (_signUpUsersListM.count > 1) {
         
-        self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
+//        self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
     }else{
         _detailActModel = detailActModel;
-    self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
+//    self.users.text = [NSString stringWithFormat:(@"已报名用户(%@)/已通过(%ld)"),detailActModel.enrollCount,detailActModel.approveCount];
    
     }
 

@@ -127,8 +127,8 @@ static const float kAnimationdDuration = 0.3;
             make.width.mas_equalTo(btnW);
             make.left.mas_equalTo(w);
         }];
-        
-        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -btnW/2.5, 0, 0)];
+        [button setImageEdgeInsets:UIEdgeInsetsMake(0, btnW/2.5+10, 0, 0)];
         
         [self.btnArr addObject:button];
         

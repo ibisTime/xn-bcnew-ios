@@ -10,6 +10,8 @@
 
 @interface TLPlaceholderView : UIView
 
+@property (nonatomic , strong) UILabel *textLbl;
+
 + (instancetype)placeholderViewWithText:(NSString *)text;
 
 + (instancetype)placeholderViewWithText:(NSString *)text topMargin:(CGFloat)margin ;

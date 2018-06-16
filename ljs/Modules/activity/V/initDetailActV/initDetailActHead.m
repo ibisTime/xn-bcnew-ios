@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIImageView * readCountImg;
 @property (nonatomic, strong) UILabel * readCountDet;
 @property (nonatomic,strong) UILabel * priceDet;
+@property (nonatomic,strong) UILabel * users;
+
 
 @end
 @implementation initDetailActHead
@@ -82,8 +84,18 @@
         make.centerY.equalTo(self.readCountImg.mas_centerY);
     }];
     
+    self.users = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:15];
+    [self addSubview:self.users];
+
+    //    self.userImg.clipsToBounds = YES;
+    [self.users mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.self.mas_centerX);
+        make.centerY.equalTo(self.readCountDet.mas_centerY);
+        
+    }];
+    
     //5
-    self.priceDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#2F93ED") font:15];
+    self.priceDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA300") font:15];
     [self addSubview:self.priceDet];
     
     [self.priceDet mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -104,6 +116,7 @@
     [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:[detailActModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     self.titleDet.text = detailActModel.title;
     self.readCountDet.text = detailActModel.readCount;
+    self.users.text = [NSString stringWithFormat:(@"已通过%@)/%ld"),_detailActModel.enrollCount,_detailActModel.approveCount];
     self.priceDet.text = [NSString stringWithFormat:@"¥%@" ,detailActModel.price];
 }
 

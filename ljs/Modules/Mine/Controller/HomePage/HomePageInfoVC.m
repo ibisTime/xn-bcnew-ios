@@ -21,7 +21,7 @@
 #import "InfoDetailVC.h"
 #import "ArticleModel.h"
 #import "ArticleCommentModel.h"
-
+#import "TLPlaceholderView.h"
 @interface HomePageInfoVC ()<RefreshDelegate>
 
 //头部
@@ -33,6 +33,9 @@
 @property (nonatomic, strong) ArticleModel *articleModel;
 @property (nonatomic, strong) ArticleCommentModel *articleCommentModel;
 @property (nonatomic, strong) NSArray <ArticleCommentModel *>*infos;
+
+@property (nonatomic, strong) TLPlaceholderView *holderView;
+@property (nonatomic, strong) TLPlaceholderView *holderArticleView;
 
 
 @end
@@ -51,6 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"个人中心";
+   
     //
     [self initTableView];
     //获取信息列表
@@ -73,12 +77,14 @@
         imageView.tag = 1500;
         imageView.backgroundColor = kAppCustomMainColor;
         
+        
+
         [self.view addSubview:imageView];
         //tableview的header
         self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
         
         self.tableView.refreshDelegate = self;
-        
+        self.tableView.placeHolderView = self.holderView;
         [self.view addSubview:self.tableView];
         self.headerView = [[HomePageHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
         
@@ -89,9 +95,11 @@
     
     
     self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
-    
+    self.holderView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无动态"];
+    self.holderArticleView = [TLPlaceholderView placeholderViewWithImage:@"暂无文章" text:@"暂无文章"];
+
     self.tableView.refreshDelegate = self;
-    
+    self.tableView.placeHolderView = self.holderView;
     [self.view addSubview:self.tableView];
     
    
@@ -108,8 +116,10 @@
         self.tableView.IsArticle = NO;
         [self.tableView beginRefreshing];
     }else if ([self.type isEqualToString:@"1"]){
-//        [self.tableView beginRefreshing];
+        [self.tableView beginRefreshing];
         [self requestInfoList];
+//        [self.tableView beginRefreshing];
+
     }else{
         //点击活动 返回
         return;
@@ -126,7 +136,7 @@
     http.code = @"628198";
     
 //    http.parameters[@"type"] = self.type;
-    http.parameters[@"status"] =@"0";
+//    http.parameters[@"status"] =@"0";
     http.parameters[@"start"] = @"0";
     http.parameters[@"limit"] = @"10";
     if ([TLUser user].isLogin) {
@@ -147,10 +157,18 @@
                      };
         }];
         self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
+        if (self.articleModel.list.count <= 0) {
+            [self.holderView removeFromSuperview];
+
+            self.tableView.placeHolderView = self.holderArticleView;
+            [self.tableView addSubview:self.holderArticleView];
+            return ;
+        }
         self.infos = self.articleModel.list;
+        [self.holderArticleView removeFromSuperview];
         self.tableView.infos = self.articleModel.list;
         self.tableView.IsArticle = YES;
-        [self.tableView reloadData];
+        [weakSelf.tableView reloadData_tl];
     } failure:^(NSError *error) {
         
     }];
@@ -163,7 +181,9 @@
 - (void)requestPageList {
     
     BaseWeakSelf;
-    
+    if (self.tableView.IsArticle == NO && [self.type isEqualToString:@"1"]) {
+        return;
+    }
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
     helper.code = @"628210";
@@ -176,9 +196,17 @@
     [self.tableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (weakSelf.tableView.IsArticle == NO && [weakSelf.type isEqualToString:@"1"]) {
+                return;
+            }
+            if (objs.count <= 0) {
+                weakSelf.tableView.placeHolderView = weakSelf.holderView;
+                [weakSelf.tableView addSubview:weakSelf.holderView];
+                [weakSelf.holderArticleView removeFromSuperview];
+                return ;
+            }
+            [weakSelf.holderView removeFromSuperview];
             weakSelf.pageModels = objs;
-            
             weakSelf.tableView.pageModels = objs;
             
             [weakSelf.tableView reloadData_tl];
@@ -192,9 +220,15 @@
     [self.tableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <= 0) {
+                weakSelf.tableView.placeHolderView = weakSelf.holderView;
+                [weakSelf.tableView addSubview:weakSelf.holderView];
+
+                return ;
+            }
             weakSelf.pageModels = objs;
-            
+            [weakSelf.holderView removeFromSuperview];
+            [weakSelf.holderArticleView removeFromSuperview];
             weakSelf.tableView.pageModels = objs;
             
             [weakSelf.tableView reloadData_tl];

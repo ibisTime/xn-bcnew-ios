@@ -21,6 +21,9 @@
 //评论列表
 @property (nonatomic, strong) NSArray <MyCommentModel *>*comments;
 
+@property (nonatomic, strong) TLPlaceholderView *holdView;
+
+
 @end
 
 @implementation InfoCommentChildVC
@@ -43,7 +46,8 @@
     self.tableView = [[InfoCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.isReplyMe = [self.type isEqualToString:@"0"] ? YES: NO;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
+    self.tableView.placeHolderView = self.holdView;
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,9 +73,12 @@
     [self.tableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <= 0) {
+                [weakSelf.tableView addSubview:weakSelf.holdView];
+                return ;
+            }
             weakSelf.comments = objs;
-            
+            [weakSelf.holdView removeFromSuperview];
             weakSelf.tableView.comments = objs;
             
             [weakSelf.tableView reloadData_tl];
@@ -85,7 +92,12 @@
     [self.tableView addLoadMoreAction:^{
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+            if (objs.count <= 0) {
+                [weakSelf.tableView addSubview:weakSelf.holdView];
+                return ;
+            }
+            [weakSelf.holdView removeFromSuperview];
+
             weakSelf.comments = objs;
             
             weakSelf.tableView.comments = objs;

@@ -67,13 +67,14 @@
     stateView.titleLabel.font = [UIFont systemFontOfSize:14];
     //活动主题
     self.ActivityTitle = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:17.0];
-    self.ActivityTitle.numberOfLines = 2;//行数
+    self.ActivityTitle.numberOfLines = 0;//行数
     
     [self addSubview:self.ActivityTitle];
     
     //价格
-    self.price = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#2F93ED") font:15.0];
+    self.price = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA300") font:15.0];
     [self  addSubview:self.price];
+    self.price.textAlignment = NSTextAlignmentRight;
     
     //日期
     self.dateLblImg = [[UIImageView alloc] initWithImage:kImage(@"已报名时间")];
@@ -134,8 +135,10 @@
     [self.ActivityTitle mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
          make.left.offset(10);
+        make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
+
         make.width.equalTo(@280);
-        make.height.equalTo(@44);
+//        make.height.equalTo(@44);
 
         }];
     
@@ -154,33 +157,20 @@
     [self.dateLblImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.offset(15);
-        make.top.equalTo(self.ActivityTitle.mas_bottom).offset(9);
+        make.top.equalTo(self.ActivityTitle.mas_bottom).offset(10);
 
     }];
    
     //日期
     [self.dateLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.ActivityTitle.mas_bottom).offset(5);
-        make.left.equalTo(self.dateLblImg.mas_right) .offset(5);
+        make.centerY.equalTo(self.dateLblImg.mas_centerY);
+        make.left.equalTo(self.dateLblImg.mas_right).offset(5);
                 make.width.equalTo(@284);
 
     }];
 
-    //浏览量图
-    [self.readCountImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.offset(-46);
-        make.centerY.equalTo(self.dateLbl.mas_centerY);
-    }];
     
-    //浏览量
-    [self.readCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.offset(-15);
-        make.centerY.equalTo(self.dateLbl.mas_centerY);
-        
-    }];
 
     
     //位置图
@@ -194,11 +184,26 @@
     //位置
     [self.location mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.dateLbl.mas_bottom).offset(5);
+        make.centerY.equalTo(self.locationImg.mas_centerY);
         make.left.equalTo(self.locationImg.mas_right) .offset(5);
+        make.width.equalTo(@284);
+
     }];
     
-
+    //浏览量图
+    [self.readCountImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.offset(-46);
+        make.centerY.equalTo(self.locationImg.mas_centerY);
+    }];
+    
+    //浏览量
+    [self.readCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.readCountImg.mas_right).offset(2);
+        make.centerY.equalTo(self.locationImg.mas_centerY);
+        
+    }];
    
 //    [self.status mas_makeConstraints:^(MASConstraintMaker *make) {
 //
@@ -217,26 +222,28 @@
     _actModel  = actModel;
     ;
     [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
-    NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
-    if ([state isEqualToString:@"2"]) {
-        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
-        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
-//        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
-    }else if([state isEqualToString:@"9"])
-    {
-        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
-        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
-
-//        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
-        
-    }else{
-        [self.stateView setTitle:@"" forState:UIControlStateNormal];
-
-        [self.stateView setBackgroundColor:kClearColor forState:UIControlStateNormal];
-
-    }
+//    NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
+//    if ([state isEqualToString:@"2"]) {
+//        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
+//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
+////        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
+//    }else if([state isEqualToString:@"9"])
+//    {
+//        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
+//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
+//
+////        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
+//
+//    }else{
+//        [self.stateView setTitle:@"" forState:UIControlStateNormal];
+//
+//        [self.stateView setBackgroundColor:kClearColor forState:UIControlStateNormal];
+//
+//    }
   
 //    self.ActivityImg.image =[UIImage imageNamed: actModel.advPic];
+    
+    
     self.ActivityTitle.text = actModel.title;
     if ([actModel.price isEqualToString:@"0"]) {
         self.price.text =[NSString stringWithFormat:@"免费"];
@@ -245,6 +252,9 @@
     }
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
     self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];
+    if (self.isTopView.hidden ==YES) {
+        
+    }
     self.readCount.text = actModel.readCount;
     self.location.text = actModel.address;
     [self layoutIfNeeded];

@@ -71,7 +71,7 @@
 
     }];
     
-    self.placeholderLab = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#818181") font:13];
+    self.placeholderLab = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#818181") font:14];
     [self.titleView addSubview:self.placeholderLab];
     
     [self.placeholderLab mas_makeConstraints:^(MASConstraintMaker *make) {

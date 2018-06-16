@@ -171,12 +171,15 @@
         
         btn.frame = CGRectMake(btnX, 0, BTN_LINE_WIDTH, self.segmentHeight);
         btn.tag = i+1000;
+        
 //        btn.layer.borderWidth = 1;
 //        btn.layer.borderColor = kWhiteColor.CGColor;
         [btn setTitleColor:_titleSelectColor forState:UIControlStateSelected];
         [btn setBackgroundColor:kWhiteColor forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnIndexClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = self.titleFont;
+        btn.layer.cornerRadius = self.segmentHeight/2;
+        btn.clipsToBounds = YES;
         [self.bgScrollView addSubview:btn];
         
         [self.btnArray addObject:btn];

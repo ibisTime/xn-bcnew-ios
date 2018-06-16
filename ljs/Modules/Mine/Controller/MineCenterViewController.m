@@ -74,7 +74,7 @@
     
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.image = kImage(@"我的-背景");
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor]}] ;
     imageView.tag = 1500;
     imageView.backgroundColor = kAppCustomMainColor;
     
@@ -125,7 +125,7 @@
         
         if ([self.kind isEqualToString:kInformation]) {
             
-            self.titles = [NSMutableArray arrayWithObjects:@"动态", @"资讯",@"活动", nil];
+            self.titles = [NSMutableArray arrayWithObjects:@"动态", @"文章", nil];
             
             [self initSelectScrollView:i];
             

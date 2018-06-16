@@ -55,7 +55,7 @@
                 [self.contentView addSubview:self.photoImageView];
                 self.photoImageView.clipsToBounds = YES;
                 self.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-                self.photoImageView.image = [UIImage imageNamed:@"打勾"];
+                self.photoImageView.image = [UIImage imageNamed:@"选择勾"];
                 [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(self.mas_right);
                     make.bottom.equalTo(self.selectedBtn.mas_bottom);
@@ -79,12 +79,15 @@
     _title = title;
     [self.selectedBtn setTitle:title.symbol forState:UIControlStateNormal];
     if (title.IsSelect == YES) {
-        [self.selectedBtn setBackgroundColor:[UIColor colorWithHexString:@"#DAEDFD"]];
-        
+        [self.selectedBtn setBackgroundColor:[UIColor colorWithHexString:@"#F7F7F7"]];
+        [self.selectedBtn setTitleColor:kHexColor(@"#FFA300") forState:UIControlStateNormal];
+
         self.photoImageView.hidden = NO;
+    
     }else{
         
-        [self.selectedBtn setBackgroundColor:[UIColor colorWithHexString:@"##F7F7F7"]];
+        [self.selectedBtn setBackgroundColor:[UIColor colorWithHexString:@"#F7F7F7"]];
+        [self.selectedBtn setTitleColor:kTextColor forState:UIControlStateNormal];
 
         self.photoImageView.hidden = YES;
     }

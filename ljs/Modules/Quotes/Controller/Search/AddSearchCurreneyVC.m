@@ -191,10 +191,10 @@
     [self.view addSubview:contentScrollView];
     self.contentScrollView = contentScrollView;
     
-    AddSearchHeadView *headView = [[AddSearchHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    AddSearchHeadView *headView = [[AddSearchHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
     self.headView = headView;
     headView.numberModel = [AddNumberModel new];
-    AddSearchBottomView *bottomTitle = [[AddSearchBottomView alloc] initWithFrame:CGRectMake(0, 250, kScreenWidth, 44)];
+    AddSearchBottomView *bottomTitle = [[AddSearchBottomView alloc] initWithFrame:CGRectMake(0, 250, kScreenWidth, 35)];
     self.bottomTitle = bottomTitle;
     bottomTitle.numberModel = [AddNumberModel new];
     [contentScrollView addSubview:headView];

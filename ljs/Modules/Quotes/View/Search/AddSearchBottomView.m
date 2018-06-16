@@ -46,7 +46,7 @@
     }];
     
     //2
-    self.titleDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kBlackColor font:17];
+    self.titleDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kBlackColor font:15];
     self.titleDet.textAlignment = NSTextAlignmentLeft;
     [self.titleView addSubview:self.titleDet];
     

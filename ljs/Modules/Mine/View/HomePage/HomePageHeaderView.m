@@ -37,7 +37,7 @@
     
     UIImageView *bgIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110 + kNavigationBarHeight)];
     
-    //    bgIV.image =kImage(@"我的-背景");
+        bgIV.image =kImage(@"个人中心背景");
     bgIV.contentMode = UIViewContentModeScaleToFill;
     
     [self addSubview:bgIV];

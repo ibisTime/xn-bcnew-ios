@@ -311,7 +311,7 @@
     self.labelUnil.titleArray = titleArr;
     self.labelUnil.layer.cornerRadius = h/2.0;
     self.labelUnil.layer.borderWidth = 1;
-    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
+    self.labelUnil.layer.borderColor = kLineColor.CGColor;
     
     self.navigationItem.titleView = self.labelUnil;
     self.percentTempIndex = -1;
