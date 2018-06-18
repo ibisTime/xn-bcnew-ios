@@ -329,6 +329,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    UIButton *btn = [currentVC.view viewWithTag:20180618];
+    [btn  removeFromSuperview];
     [self.tableView beginRefreshing];
     
 }

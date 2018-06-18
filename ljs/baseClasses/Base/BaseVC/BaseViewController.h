@@ -23,7 +23,7 @@
 
 - (void)removePlaceholderView; //移除
 - (void)addPlaceholderView; // 添加
-
+- (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC;
 /**
  登录成功后执行loginSuccess
  */

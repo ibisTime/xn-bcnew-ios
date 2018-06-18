@@ -80,34 +80,6 @@
     [super viewDidAppear:animated];
     
 }
-- (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC
-{
-    UIViewController *currentVC;
-    
-    if ([rootVC presentedViewController]) {
-        // 视图是被presented出来的
-        
-        rootVC = [rootVC presentedViewController];
-    }
-    
-    if ([rootVC isKindOfClass:[UITabBarController class]]) {
-        // 根视图为UITabBarController
-        
-        currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
-        
-    } else if ([rootVC isKindOfClass:[UINavigationController class]]){
-        // 根视图为UINavigationController
-        
-        currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
-        
-    } else {
-        // 根视图为非导航类
-        
-        currentVC = rootVC;
-    }
-    
-    return currentVC;
-}
 
 #pragma mark - 通知
 - (void)addNotification {
@@ -190,16 +162,18 @@
     if (segmentIndex == 2) {
         UIButton *smallBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [smallBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [smallBtn setTitle:@"➕" forState:UIControlStateNormal];
+        [smallBtn setImage:kImage(@"添加 黄") forState:UIControlStateNormal];
+//        [smallBtn setTitle:@"➕" forState:UIControlStateNormal];
         self.smallBtn = smallBtn;
         [smallBtn setTitleColor:kBlackColor forState:UIControlStateNormal];
         smallBtn.titleLabel.font = [UIFont systemFontOfSize:28];
         smallBtn.backgroundColor = [UIColor whiteColor];
         smallBtn.frame = CGRectMake(kScreenWidth - 60, 15, 60, 15);
         UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        
+        smallBtn.tag = 20180618;
         UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
         self.currentVC = currentVC;
+        self.smallBtn = smallBtn;
         [currentVC.view addSubview:smallBtn];
         
     }
@@ -250,6 +224,19 @@
     [self requestCurrencyList];
     
     //定时器停止
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    self.currentVC = currentVC;
+    [self.smallBtn removeFromSuperview];
+    self.smallBtn.hidden = YES;
+    
+    [super viewWillDisappear:animated];
+    
 }
 - (void)addBtnClick
 {

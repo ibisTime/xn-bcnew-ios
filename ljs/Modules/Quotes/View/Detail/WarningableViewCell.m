@@ -46,7 +46,7 @@
 {
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_deleteBtn setImage:[UIImage imageNamed:@"减 红"] forState:UIControlStateNormal];
+        [_deleteBtn setImage:[UIImage imageNamed:@"删除 红"] forState:UIControlStateNormal];
         [self.contentView addSubview:_deleteBtn];
     }
     return _deleteBtn;

@@ -55,7 +55,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 
 }
 
@@ -128,7 +128,7 @@
     
     self.navigationItem.titleView = titleView;
     
-    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[self.platform.bgColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     
     self.informationCardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -151,7 +151,7 @@
     
     
     
-    self.navigationItem.rightBarButtonItems  = @[informationCardItem,fixedSpaceBarButtonItem,settingBtnItem];
+    self.navigationItem.rightBarButtonItems  = @[fixedSpaceBarButtonItem,settingBtnItem];
     
 }
 - (void)reloadWebview
@@ -177,13 +177,13 @@
         [http postWithSuccess:^(id responseObject) {
             
             if ([self.platform.isChoice integerValue] == 1) {
-                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
+//                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
                 self.platform.isChoice = @"0";
                 
             }
             else
             {
-                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
+//                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
                 self.platform.isChoice = @"1";
             }
             
@@ -264,6 +264,8 @@
     analysisvc.platform = self.platform;
     [self.navigationController pushViewController:analysisvc animated:YES];
 }
+
+
 
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu

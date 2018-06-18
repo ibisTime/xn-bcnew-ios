@@ -81,7 +81,7 @@
 }
 - (void)addtopInfoView
 {
-    WarningTirleView *titleinfoView = [[WarningTirleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 74)];
+    WarningTirleView *titleinfoView = [[WarningTirleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 104)];
     titleinfoView.platform = self.platform;
     [self.view addSubview:titleinfoView];
     

@@ -72,7 +72,7 @@ static NSString *platformCell = @"PlatformCell";
     PlatformCell *cell = [tableView dequeueReusableCellWithIdentifier:platformCell forIndexPath:indexPath];
     
     cell.platform = platform;
-    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
+//    cell.backgroundColor = indexPath.row%2 == 0 ? kBackgroundColor: kWhiteColor;
 
     return cell;
 }
@@ -89,7 +89,7 @@ static NSString *platformCell = @"PlatformCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 68;
+    return 65;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

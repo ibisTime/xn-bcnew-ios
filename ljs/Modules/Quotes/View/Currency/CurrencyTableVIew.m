@@ -103,7 +103,7 @@ static NSString *currencyCell = @"CurrencyCell";
 //
 //        return 76;
 //    }
-    return 68;
+    return 65;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

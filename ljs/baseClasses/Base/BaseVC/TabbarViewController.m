@@ -48,14 +48,14 @@
 
 - (void)createSubControllers {
     
-    NSArray *titles = @[@"首页", @"行情", @"活动", @"我的"];
+    NSArray *titles = @[@"首页", @"行情",@"板块", @"活动", @"我的"];
     
-    NSArray *normalImages = @[@"home", @"quotes", @"活动未点击", @"mine"];
+    NSArray *normalImages = @[@"home", @"行情未点击",@"板块", @"活动未点击", @"我的未点击"];
     
-    NSArray *selectImages = @[@"home_select", @"quotes_select", @"活动点击", @"mine_select"];
+    NSArray *selectImages = @[@"home_select", @"行情已点击",@"板块点击", @"活动点击", @"我的点击"];
     
 //    NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"ForumVC", @"MineVC"];
-     NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"ActivityVC", @"MineVC"];
+     NSArray *vcNames = @[@"HomeVC", @"QuotesVC",@"TLPlateVC", @"ActivityVC", @"MineVC"];
     
     for (int i = 0; i < normalImages.count; i++) {
         

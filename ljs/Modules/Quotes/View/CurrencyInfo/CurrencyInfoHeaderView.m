@@ -60,10 +60,10 @@
     self.introduceLbl.numberOfLines = 5;
     [self addSubview:self.introduceLbl];
     //展开按钮
-    self.showBtn = [UIButton buttonWithTitle:@"展开" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:13.0];
+    self.showBtn = [UIButton buttonWithTitle:@"点击展开" titleColor:kHexColor(@"#FFA300") backgroundColor:kClearColor titleFont:13.0];
     
-    [self.showBtn setTitle:@"收起" forState:UIControlStateSelected];
-    
+    [self.showBtn setTitle:@"点击收起" forState:UIControlStateSelected];
+
     [self.showBtn addTarget:self action:@selector(showTitleContent:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.showBtn setEnlargeEdge:20];

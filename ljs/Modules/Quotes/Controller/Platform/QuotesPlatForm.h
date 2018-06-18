@@ -17,5 +17,6 @@ typedef void(^selectPlat)(NSString *);
 @property (nonatomic,copy) selectPlat seleBlock;
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
+@property (nonatomic, strong) PlatformTitleModel  *platformTitleModel;
 
 @end

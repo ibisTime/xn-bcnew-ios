@@ -75,7 +75,7 @@
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:14.0];
+                                                    font:15.0];
     
     [self addSubview:self.rmbPriceLbl];
     //布局
@@ -110,7 +110,7 @@
     //涨幅
     [self.priceFluctBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(@(-15));
+        make.right.equalTo(@(-10));
         make.centerY.equalTo(@0);
         make.height.equalTo(@37);
     }];

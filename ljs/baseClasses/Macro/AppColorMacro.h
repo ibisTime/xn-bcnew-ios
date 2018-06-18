@@ -45,6 +45,8 @@
 #define kThemeColor             [UIColor colorWithHexString:@"#f15353"]  //红色文字
 #define kPaleBlueColor          [UIColor colorWithHexString:@"#48b0fb"]    //蓝色文字
 #define kRiseColor              [UIColor colorWithHexString:@"#1FC07D"]  //涨
+#define kbottomColor              [UIColor colorWithHexString:@"#FF5858"]  //涨
+
 #define kStateColor              [UIColor colorWithHexString:@"#F6A623"]  //活动
 
 #define kAuxiliaryTipColor      [UIColor colorWithHexString:@"#FF254C"]   //辅助提示颜色
@@ -58,6 +60,8 @@
 #define kWhiteColor RGB(255, 255, 255)             //白色   #ffffff
 #define kBlackColor RGB(0, 0, 0)                   //黑色   #000000
 #define kYellowColor [UIColor yellowColor]           //黄色
+#define kBullowColor RGB(70, 86, 170)             //蓝色   #ffffff
+
 #pragma mark - 界面尺寸
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height

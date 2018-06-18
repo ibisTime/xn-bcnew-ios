@@ -12,6 +12,7 @@
 
 - (void)selectBtnisChangeWrning:(BOOL)isChage with:(UIButton *)sender;
 - (void)opendAnalysisVC;
+- (void)addchouse;
 @end
 
 @interface CurrencyBottomView : UIView

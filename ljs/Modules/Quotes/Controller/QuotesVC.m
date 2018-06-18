@@ -552,6 +552,8 @@
             };
             //            childVC.type = i == 0 ? PlatformTypeAll: (i == 1 ? PlatformTypeMoney: PlatformTypePlatform);
             childVC.platformTitleList = self.platformTitleList;
+            childVC.platformTitleModel = childVC.platformTitleList[i];
+
             childVC.currentIndex = i;
 //            childVC.type = PlatformTypePlatform;
             //            childVC.titleModel = self.platformTitleList[i];

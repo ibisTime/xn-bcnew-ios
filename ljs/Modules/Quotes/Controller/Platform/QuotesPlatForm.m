@@ -14,7 +14,6 @@
 @property (nonatomic, strong) PlatformTableView *tableView;
 
 //平台
-@property (nonatomic, strong) PlatformTitleModel  *platformTitleModel;
 //定时器
 @property (nonatomic, strong) NSTimer *timer;
 //
@@ -37,7 +36,7 @@
     self.percentChangeIndex = -1;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-
+    
     //获取自选列表
     [self addNotification];
     
@@ -62,7 +61,18 @@
     
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    UIButton *btn = [currentVC.view viewWithTag:20180618];
+    [btn  removeFromSuperview];
+    [super viewWillAppear:animated];
 
+    
+    
+}
 - (void)didSwitchLabel : (NSNotification *)notification
 {
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
