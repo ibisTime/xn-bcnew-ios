@@ -162,7 +162,7 @@
     if (segmentIndex == 2) {
         UIButton *smallBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [smallBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [smallBtn setImage:kImage(@"添加 黄") forState:UIControlStateNormal];
+        [smallBtn setImage:kImage(@"添加 黑色") forState:UIControlStateNormal];
 //        [smallBtn setTitle:@"➕" forState:UIControlStateNormal];
         self.smallBtn = smallBtn;
         [smallBtn setTitleColor:kBlackColor forState:UIControlStateNormal];

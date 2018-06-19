@@ -233,7 +233,7 @@
                                          title:self.detailActModel.title
                                           desc:desc
                                            url:self.url
-                                  previewImage:previewImage ];
+                                  previewImage:nil ];
             
         }break;
             

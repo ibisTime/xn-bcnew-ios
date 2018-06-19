@@ -33,6 +33,7 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
         self.backgroundColor = kBackgroundColor;
         self.delegate = self;
         self.dataSource = self;
+        self.userInteractionEnabled = NO;
         [self registerClass:[TLPlateCell class] forCellWithReuseIdentifier:identifierCell];
         
     }

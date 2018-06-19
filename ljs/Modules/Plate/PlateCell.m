@@ -175,23 +175,28 @@
 
     }
     self.rmbLbl.text = model.bestSymbol;
-    self.rmbPriceLbl.text = [NSString stringWithFormat:@"%.2f%%",[model.bestChange floatValue]*100];
     if ([model.bestChange floatValue]*100 >0) {
+        self.rmbPriceLbl.text = [NSString stringWithFormat:@"%+.2f%%",[model.bestChange floatValue]*100];
+
         self.rmbPriceLbl.textColor = kRiseColor;
     }else
     {
+        self.rmbPriceLbl.text = [NSString stringWithFormat:@"%.2f%%",[model.bestChange floatValue]*100];
+
         self.rmbPriceLbl.textColor = kbottomColor;
 
     }
     self.opppsiteLbl.text = model.worstSymbol;
     if ([model.worstChange floatValue]*100 >0) {
         self.opppsitePriceLbl.textColor = kRiseColor;
+        self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%+.2f%%",[model.worstChange floatValue]*100];
+
     }else
     {
         self.opppsitePriceLbl.textColor = kbottomColor;
-        
+        self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%.2f%%",[model.worstChange floatValue]*100];
+
     }
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%.2f%%",[model.worstSymbol floatValue]*100];
     
     
     }

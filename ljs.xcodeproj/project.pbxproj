@@ -300,6 +300,7 @@
 		B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8839C6520B174B100024A66 /* QCInfomationModel.m */; };
 		B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423C20B271D500A99740 /* HomeQuotesView.m */; };
 		B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */; };
+		B8A5D86D20D897BE00B16548 /* PlateIntroduceUS.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5D86C20D897BE00B16548 /* PlateIntroduceUS.m */; };
 		B8B489A120AC807F004D7BC9 /* ActivityNewSVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */; };
 		B8BD683820AC4BCC00DCADD0 /* ActivityNewsCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD683720AC4BCC00DCADD0 /* ActivityNewsCommentView.m */; };
 		B8BEA03620D796A2004F5362 /* TLPlateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BEA03520D796A2004F5362 /* TLPlateVC.m */; };
@@ -952,6 +953,8 @@
 		B89D423D20B271D500A99740 /* HomeQuotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesView.h; sourceTree = "<group>"; };
 		B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesSortBar.m; sourceTree = "<group>"; };
 		B89D423F20B271D600A99740 /* HomeQuotesSortBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesSortBar.h; sourceTree = "<group>"; };
+		B8A5D86B20D897BE00B16548 /* PlateIntroduceUS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlateIntroduceUS.h; sourceTree = "<group>"; };
+		B8A5D86C20D897BE00B16548 /* PlateIntroduceUS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlateIntroduceUS.m; sourceTree = "<group>"; };
 		B8B4899F20AC807F004D7BC9 /* ActivityNewSVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityNewSVC.h; sourceTree = "<group>"; };
 		B8B489A020AC807F004D7BC9 /* ActivityNewSVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityNewSVC.m; sourceTree = "<group>"; };
 		B8BD683620AC4BCC00DCADD0 /* ActivityNewsCommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityNewsCommentView.h; sourceTree = "<group>"; };
@@ -3085,6 +3088,8 @@
 				B8BEA05020D7DBD8004F5362 /* plateDetailModel.m */,
 				B8BEA05220D7E894004F5362 /* PlateDetailCell.h */,
 				B8BEA05320D7E894004F5362 /* PlateDetailCell.m */,
+				B8A5D86B20D897BE00B16548 /* PlateIntroduceUS.h */,
+				B8A5D86C20D897BE00B16548 /* PlateIntroduceUS.m */,
 			);
 			path = Plate;
 			sourceTree = "<group>";
@@ -3479,6 +3484,7 @@
 				21459408206B35290006E238 /* HomePageCircleModel.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				186E8C00209C0A9D00532B1C /* ActCommentsListCell.m in Sources */,
+				B8A5D86D20D897BE00B16548 /* PlateIntroduceUS.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
 				B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */,
 				B8BEA03920D79909004F5362 /* PlateMineModel.m in Sources */,

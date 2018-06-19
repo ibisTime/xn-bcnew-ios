@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UIView *topLine;
 
 @property (nonatomic, strong) UIView *bottomLine;
-
+@property (nonatomic, strong) TLPlaceholderView*hold;
 
 @end
 
@@ -119,7 +119,9 @@
     BaseWeakSelf;
     [self.view addSubview:self.tableView];
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+    
+   self.hold  = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无信息"];
+    self.tableView.placeHolderView = self.hold;
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.pagingEnabled = false;
@@ -143,7 +145,7 @@
     helper.code = @"628615";
     helper.showView = self.view;
    
-    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"start"] = @"1";
     helper.parameters[@"limit"] = @"10";
     helper.parameters[@"location"] = @"1";
 
@@ -156,18 +158,25 @@
     
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
-
+ 
+            if (objs.count <= 0) {
+                
+                [weakSelf.tableView addSubview:weakSelf.hold];
+                return ;
+            }
             for (int i =  0 ; i<6; i++) {
                 [temp addObject:objs[i]];
 
             }
+            [weakSelf.hold removeFromSuperview];
             weakSelf.Plateforms = temp;
             weakSelf.topView.models = temp;
             [weakSelf.topView reloadData];
             NSLog(@"%@",objs);
             
         } failure:^(NSError *error) {
-            
+            [weakSelf.tableView addSubview:weakSelf.hold];
+
         }];
     
 }
@@ -181,9 +190,8 @@
     helper.code = @"628615";
     helper.showView = self.view;
     
-    helper.parameters[@"start"] = @"0";
+    helper.parameters[@"start"] = @"1";
     helper.parameters[@"limit"] = @"10";
-    helper.parameters[@"location"] = @"0";
     
     
     helper.tableView = self.tableView;
@@ -193,7 +201,6 @@
     
     
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
         
         weakSelf.bottomPlateforms = objs;
         weakSelf.tableView.models= objs;

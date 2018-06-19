@@ -149,7 +149,6 @@
     
     _optional = optional;
     
-    optional.isWarn = @"1";
     //币种名称
     self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
@@ -180,7 +179,7 @@
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     
-    NSString *volumeStr = [NSString stringWithFormat:@"%d",optional.volume.intValue];
+    NSString *volumeStr = [NSString stringWithFormat:@"%.2f万",optional.volume.floatValue/10000];
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [optional.toSymbol uppercaseString],volumeStr];
 
     //对应币种价格

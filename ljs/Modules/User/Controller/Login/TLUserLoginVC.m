@@ -33,6 +33,8 @@
 //手机号
 @property (nonatomic, copy) NSString *mobile;
 
+@property (nonatomic, strong) UIImageView *bgImage;
+
 @end
 
 @implementation TLUserLoginVC
@@ -74,7 +76,17 @@
     CGFloat margin = 32;
     CGFloat w = kScreenWidth - 2*margin;
     CGFloat h = ACCOUNT_HEIGHT;
+    UIImageView *bgImage = [[UIImageView alloc] init];
+    self.bgImage = bgImage;
+    [self.view addSubview:bgImage];
+//    bgImage.contentMode = UIViewContentModeScaleToFill;
+    self.bgImage.image = kImage(@"登陆背景");
 
+    [bgImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(@5);
+        make.right.equalTo(@-5);
+        make.height.equalTo(@(kWidth(150)));
+    }];
     UIView *bgView = [[UIView alloc] init];
     
     bgView.backgroundColor = kWhiteColor;

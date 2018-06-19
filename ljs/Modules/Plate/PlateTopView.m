@@ -179,24 +179,24 @@
     
     if ([model.worstChange floatValue]*100 > 0) {
         self.worestLable.text = model.worstSymbol;
-        self.worestLableNum.text = [NSString stringWithFormat:@"%.2f",[model.worstChange floatValue]*100];
+        self.worestLableNum.text = [NSString stringWithFormat:@"%.2f%%",[model.worstChange floatValue]*100];
         self.worestLableNum.textColor = kRiseColor;
     }else
     {
         self.worestLable.text = model.worstSymbol;
 
-        self.worestLableNum.text = [NSString stringWithFormat:@"%.2f",[model.worstChange floatValue]*100];
+        self.worestLableNum.text = [NSString stringWithFormat:@"%.2f%%",[model.worstChange floatValue]*100];
         self.worestLableNum.textColor = kbottomColor;
     }
     
    
 
     if ([model.avgChange floatValue]*100 > 0) {
-        self.rightNumberLab.text = [NSString stringWithFormat:@"%.2f",[model.avgChange floatValue]*100];
+        self.rightNumberLab.text = [NSString stringWithFormat:@"%.2f%%",[model.avgChange floatValue]*100];
         self.rightNumberLab.textColor = kRiseColor;
     }else
     {
-        self.rightNumberLab.text = [NSString stringWithFormat:@"%.2f",[model.avgChange floatValue]*100];
+        self.rightNumberLab.text = [NSString stringWithFormat:@"%.2f%%",[model.avgChange floatValue]*100];
         self.rightNumberLab.textColor = kbottomColor;
         }
     self.rightBottomLab.text = @"平均涨跌幅";

@@ -162,7 +162,9 @@
     }
 
     //一日交易量
-    NSString *volumeStr = [NSString stringWithFormat:@"%d",platform.volume.intValue];
+//    NSString *volumeStr = [NSString stringWithFormat:@"%d",platform.volume.intValue];
+    NSString *volumeStr = [NSString stringWithFormat:@"%.2f万",[platform.volume floatValue]/10000];
+
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [platform.toSymbol uppercaseString] ,volumeStr];
     
     //对应币种价格
@@ -205,7 +207,7 @@
     //币种名称
     self.currencyNameLbl.text = currency.coinSymbol;
     //一日交易量
-    NSString *volumeStr = currency.volume;
+    NSString *volumeStr = [NSString stringWithFormat:@"%.2f万",[currency.volume floatValue]/10000];
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", currency.toCoinSymbol,volumeStr];
     
     //对应币种价格

@@ -22,7 +22,7 @@
             
             return @{
                      
-                     @"description" : @"Description"
+                     @"Description" : @"description"
                      
                      };
             

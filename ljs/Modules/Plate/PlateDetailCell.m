@@ -139,10 +139,20 @@
 {
     self.currencyNameLbl.text = model.symbol;
     self.tradeVolumeLbl.text = [NSString stringWithFormat:@"量%.2f万",[model.count floatValue]/10000];
+    if ([model.toSymbol isEqualToString:@"btc"]) {
+        self.opppsitePriceLbl.text = [NSString stringWithFormat:@"₿%.8f",[model.lastPrice floatValue]];;
+
+    }else
+    {
+        self.opppsitePriceLbl.text = [NSString stringWithFormat:@"$%.8f",[model.lastPrice floatValue]];;
+
+        
+    }
     self.rmbPriceLbl.text = [NSString stringWithFormat:@"¥%.4f",[model.lastCnyPrice floatValue]];
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"$%.8f",[model.lastPrice floatValue]];;
     if ([model.percentChange24h floatValue]*100 > 0) {
         [self.priceFluctBtn setTitle:[NSString stringWithFormat:@"%.2f%%",[model.percentChange24h floatValue]*100] forState:UIControlStateNormal];
+        self.rmbPriceLbl.textColor = kRiseColor;
+//        self.opppsitePriceLbl.textColor = kRiseColor;
 
         [self.priceFluctBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
         [self.priceFluctBtn setBackgroundColor:kRiseColor forState:UIControlStateNormal];
@@ -151,7 +161,8 @@
     {
         [self.priceFluctBtn setTitle:[NSString stringWithFormat:@"%.2f%%",[model.percentChange24h floatValue]*100] forState:UIControlStateNormal];
         [self.priceFluctBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
-
+        self.rmbPriceLbl.textColor = kbottomColor;
+//        self.opppsitePriceLbl.textColor = kbottomColor;
         [self.priceFluctBtn setBackgroundColor:kbottomColor forState:UIControlStateNormal];
 
         
