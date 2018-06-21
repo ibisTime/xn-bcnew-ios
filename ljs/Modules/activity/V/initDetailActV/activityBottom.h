@@ -9,6 +9,7 @@
 #import "BaseView.h"
 #import "DetailActModel.h"
 #import "detailActivityVC.h"
+
 @interface activityBottom : BaseView
 @property (nonatomic, strong) DetailActModel *detailActModel;
 
@@ -20,5 +21,7 @@
 
 @property (nonatomic, strong) UIButton * collectionBut;
 @property (nonatomic, copy) void(^collectionButBlock)(NSInteger index );
+@property (nonatomic, copy) void(^TakeButBlock)(NSInteger index );
+
 
 @end

@@ -106,7 +106,7 @@
     
     //    self.repaymentListTableView.refreshDelegate = self;
     
-    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
     self.ActivityListTableView.placeHolderView =self.holfView;
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];
@@ -128,7 +128,7 @@
     
     http.code = @"628507";
     
-    http.parameters[@"start"] = @"0";
+    http.parameters[@"start"] = @"1";
     http.parameters[@"limit"] = @"10";
     http.parameters[@"status"] = @"1";
     self.http.parameters[@"keywords"] =self.search;

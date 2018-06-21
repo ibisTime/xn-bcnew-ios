@@ -13,6 +13,7 @@
 @interface PlatformAndOtherVC ()<UITableViewDelegate , UITableViewDataSource,PlatformAndOtherCellDelegate>
 @property (nonatomic , strong)UITableView *platformTable;
 @property (nonatomic , strong)NSMutableArray *platformArry;
+@property (nonatomic , strong) TLPlaceholderView *hold;
 @property (nonatomic)NSInteger page;
 
 @end
@@ -36,40 +37,47 @@
 - (void)searchRequestWith:(NSString *)search
 {
     self.searchText = search;
+    [self.platformTable.mj_header beginRefreshing];
+
     [self getLists];
-//    [self.platformTable.mj_header beginRefreshing];
 }
 - (void)getLists
 {
     
     
     
-    TLNetworking *http = [TLNetworking new];
+    TLPageDataHelper *http = [TLPageDataHelper new];
     http.showView = self.view;
-
-    
     http.code = @"628350";;
 //    if (self.isCurrency) {
-//        
+//
 //        http.parameters[@"symbol"] = self.searchText;
 //    }else {
-//        
+//
 //        http.parameters[@"exchangeEname"] = self.searchText;
 //    }
     http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"start"] = @(self.page);
     http.parameters[@"limit"] = @"20";
     http.parameters[@"keywords"] = self.searchText;
+    [http modelClass:[CurrencyPriceModel class]];
     
-    [http postWithSuccess:^(id responseObject) {
-        
-        NSArray *newObjs = responseObject[@"data"][@"list"];
+    [http refresh:^(NSMutableArray *objs, BOOL stillHave) {
         if (self.page == 1) {
             [self.platformArry removeAllObjects];
         }
-        if (newObjs.count != 0) {
-            NSMutableArray *objs = [[CurrencyPriceModel class] mj_objectArrayWithKeyValuesArray:newObjs];
-            [self.platformArry addObjectsFromArray:objs];
+        if (objs.count == 0) {
+            [self.platformTable addSubview:self.hold];
+            [self.platformTable.mj_footer endRefreshing];
+            [self.platformTable.mj_header endRefreshing];
+            return ;
+        }
+        
+        [self.hold removeFromSuperview];
+        
+        if (objs.count != 0) {
+           
+            self.platformArry = objs;
         }
         else
         {
@@ -79,6 +87,7 @@
             }
         }
         [self.platformTable reloadData];
+
         [self.platformTable.mj_footer endRefreshing];
         [self.platformTable.mj_header endRefreshing];
 
@@ -127,7 +136,8 @@
         _platformTable.dataSource = self;
         _platformTable.tableFooterView = [UIView new];
         [self.view addSubview:_platformTable];
-        
+     TLPlaceholderView *hold =  [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+        self.hold = hold;
         _platformTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
         _platformTable.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopic)];
     }

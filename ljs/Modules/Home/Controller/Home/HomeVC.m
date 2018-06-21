@@ -15,9 +15,11 @@
 //V
 #import "SelectScrollView.h"
 #import "TopLabelUtil.h"
+#import "UIBarButtonItem+convience.h"
 //C
 #import "HomeChildVC.h"
-
+#import "NewSearchViewController.h"
+#import "NavigationController.h"
 @interface HomeVC ()<SegmentDelegate>
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
@@ -79,16 +81,19 @@
     self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(200), (44-h), kWidth(199), h)];
     
     self.labelUnil.delegate = self;
-    self.labelUnil.backgroundColor = [UIColor clearColor];
-    self.labelUnil.titleNormalColor = kWhiteColor;
-    self.labelUnil.titleSelectColor = kAppCustomMainColor;
+//    self.labelUnil.backgroundColor = [UIColor clearColor];
+//    self.labelUnil.titleNormalColor = kWhiteColor;
+//    self.labelUnil.titleSelectColor = kAppCustomMainColor;
     self.labelUnil.titleFont = Font(18);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
     self.labelUnil.layer.cornerRadius = h/2.0;
     self.labelUnil.layer.borderWidth = 1;
-    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
-    
+//    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
+    self.labelUnil.backgroundColor = kWhiteColor;
+    self.labelUnil.titleNormalColor = kTextColor;
+    self.labelUnil.titleSelectColor = kAppCustomMainColor;
+    self.labelUnil.layer.borderColor = kLineColor.CGColor;
     self.navigationItem.titleView = self.labelUnil;
     //******************************************
     
@@ -105,7 +110,7 @@
     self.kind = kNewsFlash;
     
     [self requestInfoTypeList];
-
+    [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
     
 //    for (int i = 0; i < titleArr.count; i++) {
 //
@@ -122,6 +127,22 @@
 //            [self requestInfoTypeList];
 //        }
 //    }
+}
+
+- (void)search {
+    
+    BaseWeakSelf;
+    
+    NewSearchViewController *searchVC = [NewSearchViewController new];
+    
+    //    searchVC.currencyBlock = ^{
+    //
+    //        [weakSelf.tableView beginRefreshing];
+    //    };
+    
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)initSelectScrollView:(NSInteger)index {

@@ -35,7 +35,6 @@
 @property (nonatomic, strong) NSArray <ArticleCommentModel *>*infos;
 
 @property (nonatomic, strong) TLPlaceholderView *holderView;
-@property (nonatomic, strong) TLPlaceholderView *holderArticleView;
 
 
 @end
@@ -96,10 +95,9 @@
     
     self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
     self.holderView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无动态"];
-    self.holderArticleView = [TLPlaceholderView placeholderViewWithImage:@"暂无文章" text:@"暂无文章"];
 
     self.tableView.refreshDelegate = self;
-    self.tableView.placeHolderView = self.holderView;
+//    self.tableView.placeHolderView = self.holderView;
     [self.view addSubview:self.tableView];
     
    
@@ -115,10 +113,13 @@
     if ([self.type isEqualToString:@"0"]) {
         self.tableView.IsArticle = NO;
         [self.tableView beginRefreshing];
+
+//        [self requestPageList];
     }else if ([self.type isEqualToString:@"1"]){
-        [self.tableView beginRefreshing];
+        self.tableView.IsArticle = YES;
+
         [self requestInfoList];
-//        [self.tableView beginRefreshing];
+        [self.tableView beginRefreshing];
 
     }else{
         //点击活动 返回
@@ -130,13 +131,15 @@
 - (void)requestInfoList {
     
     BaseWeakSelf;
-    
+    if (self.holderView.superview) {
+        [self.holderView removeFromSuperview];
+    }
     TLNetworking *http = [TLNetworking new];
     //    U201805160952110342835
     http.code = @"628198";
     
 //    http.parameters[@"type"] = self.type;
-//    http.parameters[@"status"] =@"0";
+    http.parameters[@"status"] =@"1";
     http.parameters[@"start"] = @"0";
     http.parameters[@"limit"] = @"10";
     if ([TLUser user].isLogin) {
@@ -158,17 +161,22 @@
         }];
         self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
         if (self.articleModel.list.count <= 0) {
-            [self.holderView removeFromSuperview];
+            self.tableView.infos = [NSMutableArray array];
+            self.tableView.pageModels =  [NSMutableArray array];
 
-            self.tableView.placeHolderView = self.holderArticleView;
-            [self.tableView addSubview:self.holderArticleView];
+            [self.tableView reloadData];
+//            self.tableView.placeHolderView = self.holderArticleView;
+            [self.tableView addSubview:self.holderView];
             return ;
         }
+        
+        [self.holderView removeFromSuperview];
         self.infos = self.articleModel.list;
-        [self.holderArticleView removeFromSuperview];
         self.tableView.infos = self.articleModel.list;
-        self.tableView.IsArticle = YES;
-        [weakSelf.tableView reloadData_tl];
+        [weakSelf.tableView reloadData];
+        if (weakSelf.holderView.superview) {
+            [weakSelf.holderView removeFromSuperview];
+        }
     } failure:^(NSError *error) {
         
     }];
@@ -179,9 +187,11 @@
  评论我的和我评论的资讯分页查询
  */
 - (void)requestPageList {
-    
+    if (self.holderView.superview) {
+        [self.holderView removeFromSuperview];
+    }
     BaseWeakSelf;
-    if (self.tableView.IsArticle == NO && [self.type isEqualToString:@"1"]) {
+    if (self.tableView.IsArticle == YES && [self.type isEqualToString:@"1"]) {
         return;
     }
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -196,21 +206,31 @@
     [self.tableView addRefreshAction:^{
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            if (weakSelf.tableView.IsArticle == NO && [weakSelf.type isEqualToString:@"1"]) {
+            if (weakSelf.tableView.IsArticle == YES && [weakSelf.type isEqualToString:@"1"]) {
+                [weakSelf requestInfoList];
                 return;
             }
             if (objs.count <= 0) {
-                weakSelf.tableView.placeHolderView = weakSelf.holderView;
+                weakSelf.tableView.pageModels =  [NSMutableArray array];
+                [weakSelf.tableView reloadData];
+//                weakSelf.tableView.placeHolderView = weakSelf.holderView;
                 [weakSelf.tableView addSubview:weakSelf.holderView];
-                [weakSelf.holderArticleView removeFromSuperview];
                 return ;
             }
             [weakSelf.holderView removeFromSuperview];
+            weakSelf.tableView.pageModels =  [NSMutableArray array];
+            weakSelf.tableView.infos =  [NSMutableArray array];
+            [weakSelf.tableView reloadData_tl];
+
             weakSelf.pageModels = objs;
             weakSelf.tableView.pageModels = objs;
             
             [weakSelf.tableView reloadData_tl];
-            
+            if (weakSelf.holderView.superview) {
+                [weakSelf.holderView removeFromSuperview];
+            }
+            [weakSelf.tableView endRefreshingWithNoMoreData_tl];
+
         } failure:^(NSError *error) {
             
             
@@ -218,23 +238,22 @@
     }];
     
     [self.tableView addLoadMoreAction:^{
-        
+
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <= 0) {
-                weakSelf.tableView.placeHolderView = weakSelf.holderView;
+//                weakSelf.tableView.placeHolderView = weakSelf.holderView;
                 [weakSelf.tableView addSubview:weakSelf.holderView];
 
                 return ;
             }
             weakSelf.pageModels = objs;
             [weakSelf.holderView removeFromSuperview];
-            [weakSelf.holderArticleView removeFromSuperview];
             weakSelf.tableView.pageModels = objs;
-            
+
             [weakSelf.tableView reloadData_tl];
-            
+
         } failure:^(NSError *error) {
-            
+
         }];
     }];
     

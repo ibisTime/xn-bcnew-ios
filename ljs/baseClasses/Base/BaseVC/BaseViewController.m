@@ -195,29 +195,41 @@
     if (self.placeholderView) {
         
         _placeholderTitleLbl.text = title;
-        [_opBtn setTitle:opTitle forState:UIControlStateNormal];
+//        [_opBtn setTitle:opTitle forState:UIControlStateNormal];
         
     } else {
         
         UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
         view.backgroundColor = self.view.backgroundColor;
-        UILabel *lbl = [UILabel labelWithFrame:CGRectMake(0, 100, view.width, 50) textAligment:NSTextAlignmentCenter backgroundColor:[UIColor clearColor] font:FONT(16) textColor:kTextColor];
+        
+        UIImageView *btn = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth(122), kHeight(209) , 131, 112)];
+        [self.view addSubview:btn];
+        btn.contentMode = UIViewContentModeScaleToFill;
+        btn.image = kImage(@"加载失败");
+//        btn.titleLabel.font = FONT(14);
+//        [btn setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
+        btn.centerX = view.width/2.0;
+//        btn.layer.borderWidth = 1;
+//        btn.layer.borderColor = [UIColor textColor].CGColor;
+//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(placeholderOperation)];
+//        [btn addGestureRecognizer:tapGesture];
+//        [btn addTarget:self action:@selector(placeholderOperation) forControlEvents:UIControlEventTouchUpInside];
+//        [btn setTitle:opTitle forState:UIControlStateNormal];
+        [view addSubview:btn];
+        
+        UILabel *lbl = [UILabel labelWithFrame:CGRectMake(0, btn.yy+5, view.width, 50) textAligment:NSTextAlignmentCenter backgroundColor:[UIColor clearColor] font:FONT(16) textColor:kTextColor];
         [view addSubview:lbl];
         lbl.text = title;
         _placeholderTitleLbl = lbl;
         
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, lbl.yy + 10, 200, 40)];
-        [self.view addSubview:btn];
-        btn.titleLabel.font = FONT(14);
-        [btn setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
-        btn.centerX = view.width/2.0;
-        btn.layer.cornerRadius = 5;
-        btn.layer.borderWidth = 1;
-        btn.layer.borderColor = [UIColor textColor].CGColor;
-        [btn addTarget:self action:@selector(placeholderOperation) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:opTitle forState:UIControlStateNormal];
-        [view addSubview:btn];
-        _opBtn = btn;
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(kWidth(127), lbl.yy+5, kWidth(120), 30) title:@"重新加载" backgroundColor:kAppCustomMainColor];
+        [button addTarget:self action:@selector(placeholderOperation) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitleColor:kWhiteColor forState:UIControlStateNormal];
+        button.layer.cornerRadius = 5;
+        button.clipsToBounds = YES;
+        [view addSubview:button];
+        
+//        _opBtn = btn;
         _placeholderView = view;
     }
 }

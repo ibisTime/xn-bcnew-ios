@@ -14,7 +14,11 @@
 @property (nonatomic,copy) NSString * price;
 
 @property (nonatomic,copy) NSString * address;
+@property (nonatomic,copy) NSString * meetAddress;
+
 @property (nonatomic,copy) NSString * readCount;
+@property (nonatomic,copy) NSString * maxCount;
+
 
 @property (nonatomic,copy) NSString * startDatetime;
 @property (nonatomic,copy) NSString * endDatetime;

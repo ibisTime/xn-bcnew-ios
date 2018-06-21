@@ -298,6 +298,7 @@
 		B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5C820AF0ADA00335B87 /* MyArticleViewController.m */; };
 		B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5CB20AF15CE00335B87 /* ArticleStateController.m */; };
 		B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8839C6520B174B100024A66 /* QCInfomationModel.m */; };
+		B8884F0120DBEE2D00D00571 /* HomeArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8884F0020DBEE2A00D00571 /* HomeArticleVC.m */; };
 		B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423C20B271D500A99740 /* HomeQuotesView.m */; };
 		B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */; };
 		B8A5D86D20D897BE00B16548 /* PlateIntroduceUS.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5D86C20D897BE00B16548 /* PlateIntroduceUS.m */; };
@@ -949,6 +950,8 @@
 		B870F5CB20AF15CE00335B87 /* ArticleStateController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleStateController.m; sourceTree = "<group>"; };
 		B8839C6420B174B100024A66 /* QCInfomationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCInfomationModel.h; sourceTree = "<group>"; };
 		B8839C6520B174B100024A66 /* QCInfomationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCInfomationModel.m; sourceTree = "<group>"; };
+		B8884EFF20DBEE2A00D00571 /* HomeArticleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeArticleVC.h; sourceTree = "<group>"; };
+		B8884F0020DBEE2A00D00571 /* HomeArticleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeArticleVC.m; sourceTree = "<group>"; };
 		B89D423C20B271D500A99740 /* HomeQuotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesView.m; sourceTree = "<group>"; };
 		B89D423D20B271D500A99740 /* HomeQuotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesView.h; sourceTree = "<group>"; };
 		B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesSortBar.m; sourceTree = "<group>"; };
@@ -2473,6 +2476,8 @@
 				B8ECCB1920D4ED2900DB4499 /* SearchActivityVC.m */,
 				B8ECCB1B20D4EDD900DB4499 /* SearchActivityTableView.h */,
 				B8ECCB1C20D4EDD900DB4499 /* SearchActivityTableView.m */,
+				B8884EFF20DBEE2A00D00571 /* HomeArticleVC.h */,
+				B8884F0020DBEE2A00D00571 /* HomeArticleVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3393,6 +3398,7 @@
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
 				2124BE542060A8FA00CB79E8 /* InformationDetailHeaderView.m in Sources */,
 				2124BEB920628A3300CB79E8 /* AddOptionalCell.m in Sources */,
+				B8884F0120DBEE2D00D00571 /* HomeArticleVC.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
 				B8DEF9B620BD3A6600E3D7C5 /* QHCollectionViewNine.m in Sources */,
 				B8BEA04520D7B626004F5362 /* PlateCell.m in Sources */,

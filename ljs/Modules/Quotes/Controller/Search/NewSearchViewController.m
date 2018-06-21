@@ -166,11 +166,11 @@
 
     switch (index) {
         case 0:
-            [self.platformvc searchRequestWith:textField.text];
+            [self.currencyvc searchRequestWith:textField.text];
 
             break;
         case 1:
-            [self.currencyvc searchRequestWith:textField.text];
+            [self.platformvc searchRequestWith:textField.text];
 
             break;
         case 2:

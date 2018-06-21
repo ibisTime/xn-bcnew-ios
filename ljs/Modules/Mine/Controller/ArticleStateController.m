@@ -126,7 +126,7 @@
     self.infoTableView = [[ArticleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无文章"];
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无文章" text:@"暂无文章"];
     self.infoTableView.placeHolderView = self.holdView;
 
     self.infoTableView.tableFooterView = [UIView new];
@@ -182,7 +182,7 @@
         }];
         self.articleModel = [ArticleModel mj_objectWithKeyValues:responseObject[@"data"]];
         if (self.articleModel.list.count > 0) {
-            [self.placeholderView removeFromSuperview];
+            [self.holdView removeFromSuperview];
             self.currtntType = self.type;
             self.infos = self.articleModel.list;
             self.infoTableView.infos = self.articleModel.list;
@@ -192,6 +192,8 @@
 
         }else{
             if (self.type != self.currtntType) {
+                self.infoTableView.infos = nil;
+                [self.infoTableView reloadData];
                 self.infoTableView.infos = [NSMutableArray array];
                 [self.infoTableView addSubview:self.holdView];
                 if (self.page != 1) {

@@ -91,7 +91,7 @@
     if (self.currentSegmentIndex == 2 || self.currentSegmentIndex == 3) {
         return;
     }
-    self.percentChangeIndex = -1;
+//    self.percentChangeIndex = -1;
 
     self.currentSegmentIndex = segmentIndex;
     if (labIndex >= self.platformTitleList.count) {
@@ -102,9 +102,9 @@
     if (self.platformTitleList >= 0 && self.platformTitleList) {
         self.platformTitleModel = self.platformTitleList[labIndex];
         //                [self.tableView beginRefreshing];
-                [self.tableView beginRefreshing];
+//                [self.tableView beginRefreshing];
 
-//        [self requestPlatform];
+        [self requestPlatform];
         
     }else{
         

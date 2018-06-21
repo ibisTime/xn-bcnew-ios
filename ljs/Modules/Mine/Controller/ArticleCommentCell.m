@@ -140,7 +140,7 @@
     [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
     NSString *str = [infoModel.updateDatetime convertDate];
 
-    self.timeLbl.text = [str formateDateStr];
+    self.timeLbl.text = str ;
     [self.seeNumber setTitle:infoModel.readCount forState:UIControlStateNormal];
 
     

@@ -139,11 +139,11 @@
         make.left.equalTo(@(x+25+10));
         make.bottom.equalTo(self.infoIV.mas_bottom).offset(0);
     }];
-//    [self.seeNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self.infoIV.mas_left).offset(-x);
-//        make.centerY.equalTo(self.timeLbl.mas_centerY);
-//        make.height.mas_equalTo(20);
-//    }];
+    [self.seeNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.infoIV.mas_left).offset(-x);
+        make.centerY.equalTo(self.timeLbl.mas_centerY);
+        make.height.mas_equalTo(20);
+    }];
 //    //收藏数
 //    [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
 //
@@ -159,9 +159,9 @@
     
     [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
     [self.infoIV sd_setImageWithURL:[NSURL URLWithString:[infoModel.advPic convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
-    self.timeLbl.text = [[infoModel.showDatetime convertDate] formateDateStr];
+    self.timeLbl.text = [infoModel.showDatetime convertDate];
 //    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
-//    [self.seeNumber setTitle:infoModel.readCount forState:UIControlStateNormal];
+    [self.seeNumber setTitle:infoModel.readCount forState:UIControlStateNormal];
     self.isTopView.hidden = [infoModel.isTop isEqualToString:@"0"];
     if ([infoModel.isTop isEqualToString:@"0"]) {
         [self.timeLbl mas_remakeConstraints:^(MASConstraintMaker *make) {

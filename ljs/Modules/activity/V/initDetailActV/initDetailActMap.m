@@ -142,7 +142,7 @@
 {
     _detailActModel = detailActModel;
     self.date.text = [NSString stringWithFormat:(@"%@-%@"),[detailActModel.startDatetime convertDate],[detailActModel.endDatetime convertDate]];
-    self.location.text = detailActModel.address;
+    self.location.text = detailActModel.meetAddress;
     self.telphone.text = detailActModel.contactMobile;
 
 }

@@ -23,6 +23,7 @@
 #import "DetailActModel.h"
 #import "InfoDetailShareView.h"
 #import "NSString+Extension.h"
+#import "FillInRegistrationFormVC.h"
 @interface detailActivityVC ()
 @property (nonatomic, strong) DetailActModel *detailActModel;
 //v
@@ -82,13 +83,13 @@
     [contentScrollView addSubview:self.detailActMap];
 
     //3
-    self.signUpUseres = [[signUpUser alloc] initWithFrame:CGRectMake(0, 280+10+146+10, kScreenWidth, 50)];
+    self.signUpUseres = [[signUpUser alloc] initWithFrame:CGRectMake(0, 280+10+146+10, kScreenWidth, 100)];
     self.signUpUseres.code = self.code;
     self.signUpUseres.backgroundColor = kMineBackGroundColor;
     [contentScrollView addSubview:self.signUpUseres];
     
     //4
-   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10-50, kScreenWidth, kScreenHeight)];
+   self.activeCon = [[activeContent alloc] initWithFrame:CGRectMake(0, 280+10+146+10+101+10, kScreenWidth, kScreenHeight)];
     self.activeCon.backgroundColor = kMineBackGroundColor;
 //    CGFloat  flo  = CGRectGetMaxY(self.activeCon.frame);
 //    contentScrollView.contentSize = CGSizeMake(kScreenWidth, flo);
@@ -101,11 +102,17 @@
     
     if (kDevice_Is_iPhoneX == YES) {
         self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavigationBarHeight-kBottomInsetHeight-20, kScreenWidth, 44)];
+        
+        
+        
     }else{
         
          self.activityBott = [[activityBottom alloc] initWithFrame:CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44)];
     }
    
+    self.activityBott.TakeButBlock = ^(NSInteger index) {
+        [weakSelf jumpNextVC];
+    };
     self.activityBott.backgroundColor =kHexColor(@"#FBFBFB");
 //    activityBott.backgroundColor =kYellowColor;
     [self.view addSubview:self.activityBott];
@@ -125,6 +132,16 @@
 
     
     
+    
+}
+
+- (void)jumpNextVC
+{
+    
+    FillInRegistrationFormVC * fillInRegistrationFormVC = [[FillInRegistrationFormVC alloc] init];
+    fillInRegistrationFormVC.code = self.code;
+//    [self.navigationController pushViewController:fillInRegistrationFormVC animated:YES];
+    [self presentViewController:fillInRegistrationFormVC animated:YES completion:nil];
     
 }
 - (void)requestAppUrl {
@@ -233,7 +250,7 @@
                                          title:self.detailActModel.title
                                           desc:desc
                                            url:self.url
-                                  previewImage:nil ];
+                                  previewImage:previewImage ];
             
         }break;
             

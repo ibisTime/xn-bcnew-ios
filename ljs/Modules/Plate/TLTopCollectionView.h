@@ -8,6 +8,8 @@
 
 #import "BaseCollectionView.h"
 #import "PlateMineModel.h"
+
+
 @interface TLTopCollectionView : BaseCollectionView
 @property (nonatomic, strong) NSMutableArray <PlateMineModel *>*models;
 //@property (nonatomic, strong) NSMutableArray <CurrencyTitleModel *>*resultTitleList;

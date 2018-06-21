@@ -169,6 +169,33 @@
     
     
 }
+
+- (void)chose
+{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    self.currencyTitleList  =[NSMutableArray array];
+    NSData *data = [user objectForKey:@"choseOptionList"];
+    self.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    //    self.currencyTitleList = notification.userInfo[@"choseOptionList"];
+    CurrencyTitleModel *title = [CurrencyTitleModel new];
+    title.symbol = @"";
+    [self.currencyTitleList addObject:title];
+    
+    NSLog(@"currencyTitleList%@",self.currencyTitleList);
+    
+    self.titles = [NSMutableArray arrayWithObject:@"全部"];
+    if (self.currencyTitleList.count > 1) {
+        [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj.symbol) {
+                
+                [self.titles addObject:obj.symbol];
+            }
+        }];
+    }
+    
+    
+}
 - (void)choseOptionList : (NSNotification *)notification
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -183,14 +210,16 @@
     NSLog(@"currencyTitleList%@",self.currencyTitleList);
     
     self.titles = [NSMutableArray arrayWithObject:@"全部"];
-    
-    [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (obj.symbol) {
+    if (self.currencyTitleList.count > 0) {
+        [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            [self.titles addObject:obj.symbol];
-        }
-    }];
+            if (obj.symbol) {
+                
+                [self.titles addObject:obj.symbol];
+            }
+        }];
+    }
+    
     [self initFooterView];
     //顶部切换
     [self initSegmentView];
@@ -303,14 +332,17 @@
     self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(249), (44-h), kWidth(250), h)];
     
     self.labelUnil.delegate = self;
-    self.labelUnil.backgroundColor = [UIColor clearColor];
-    self.labelUnil.titleNormalColor = kWhiteColor;
+    self.labelUnil.backgroundColor = kWhiteColor;
+    self.labelUnil.titleNormalColor = kTextColor;
     self.labelUnil.titleSelectColor = kAppCustomMainColor;
     self.labelUnil.titleFont = Font(16.0);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
     self.labelUnil.layer.cornerRadius = h/2.0;
     self.labelUnil.layer.borderWidth = 1;
+    self.labelUnil.backgroundColor = kWhiteColor;
+    self.labelUnil.titleNormalColor = kTextColor;
+    self.labelUnil.titleSelectColor = kAppCustomMainColor;
     self.labelUnil.layer.borderColor = kLineColor.CGColor;
     
     self.navigationItem.titleView = self.labelUnil;
@@ -952,6 +984,7 @@
 - (void)requestCurrencyTitleList {
     [self.MbHud show:YES];
 
+    
     BaseWeakSelf;
     
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -962,6 +995,12 @@
     [helper modelClass:[CurrencyTitleModel class]];
     
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        
+        [weakSelf chose];
+        if (weakSelf.titles.count > 1) {
+            
+        }else
+        {
         weakSelf.currencyTitleList = objs;
         //遍历标题
         weakSelf.titles = [NSMutableArray arrayWithObject:@"全部"];
@@ -973,7 +1012,7 @@
                 [weakSelf.titles addObject:obj.symbol];
             }
         }];
-        
+        }
         weakSelf.kind = kCurrency;
         
         //添加滚动
@@ -1032,7 +1071,23 @@
 
         
     }
-    
+//    NSInteger inde = -1;;
+
+//    switch (index) {
+//
+//        case 0:
+//            inde = ;
+//            break;
+//        case  1 :
+//            inde = 0;
+//
+//
+//        default:
+//            break;
+//    }
+   
+    [self.quotesView.headView resetSortBarWithNames:self.titleBars selectIndex:0];
+//    [self.quotesView.headView setCurruntIndex:index];
     NSInteger labelIndex = 0;
     [self startCurrencyTimerWithSegmentIndex:index labelIndex:labelIndex];
     //自选定时器停止

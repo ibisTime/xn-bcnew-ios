@@ -11,7 +11,10 @@
 #import "TLTopCollectionView.h"
 #import "PlateTableView.h"
 #import "PlateDetailVC.h"
-@interface TLPlateVC ()<RefreshDelegate>
+#import "UIBarButtonItem+convience.h"
+#import "NewSearchViewController.h"
+#import "NavigationController.h"
+@interface TLPlateVC ()<RefreshDelegate,RefreshCollectionViewDelegate>
 @property (nonatomic, strong) PlateTableView *tableView;
 @property (nonatomic, strong) TLTopCollectionView *topView;
 
@@ -77,6 +80,7 @@
     
     TLTopCollectionView *topView = [[TLTopCollectionView alloc] initWithFrame:CGRectMake(0, 60, kScreenWidth, 200-35) collectionViewLayout:layout withImage:array];
     self.topView = topView;
+    topView.refreshDelegate = self;
     [self.view addSubview:topView];
     
     UIView *lineView = [[UIView alloc] init];
@@ -125,10 +129,24 @@
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.pagingEnabled = false;
-    
+    [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
     
 }
-
+- (void)search {
+    
+    BaseWeakSelf;
+    
+    NewSearchViewController *searchVC = [NewSearchViewController new];
+    
+    //    searchVC.currencyBlock = ^{
+    //
+    //        [weakSelf.tableView beginRefreshing];
+    //    };
+    
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
+    
+    [self presentViewController:nav animated:YES completion:nil];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [self requestPlatform];
@@ -164,10 +182,20 @@
                 [weakSelf.tableView addSubview:weakSelf.hold];
                 return ;
             }
+            if (objs.count > 5) {
+                
+          
             for (int i =  0 ; i<6; i++) {
                 [temp addObject:objs[i]];
 
             }
+        }else
+        {
+            for (int i =  0 ; i<objs.count; i++) {
+                [temp addObject:objs[i]];
+                
+            }
+        }
             [weakSelf.hold removeFromSuperview];
             weakSelf.Plateforms = temp;
             weakSelf.topView.models = temp;
@@ -220,6 +248,17 @@
 }
 
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    PlateMineModel *model = self.bottomPlateforms[indexPath.row];
+    PlateDetailVC *detail = [PlateDetailVC new];
+    detail.code = model.code;
+    detail.title = model.name;
+    [self.navigationController pushViewController:detail animated:YES];
+    
+}
+
+-(void)refreshCollectionView:(BaseCollectionView *)refreshCollectionview didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     PlateMineModel *model = self.Plateforms[indexPath.row];

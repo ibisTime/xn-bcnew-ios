@@ -92,7 +92,7 @@
     
     //    self.repaymentListTableView.refreshDelegate = self;
     
-    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无活动" text:@"暂无活动"];
     self.ActivityListTableView.placeHolderView =self.holfView;
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];

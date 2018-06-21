@@ -48,6 +48,10 @@
 //
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 
+@property (nonatomic, strong) TLPlaceholderView *hold;
+
+@property (nonatomic, copy)  NSString *currentSearch;
+
 @end
 
 @implementation HomeChildVC
@@ -99,6 +103,7 @@
     self.isSearch = NO;
     if (search.length != 0) {
         self.flashHelper.parameters[@"keywords"] = search;
+        self.currentSearch = search;
         [self refreshNewsFlash];
         
         if ([self.kind isEqualToString:kNewsFlash]) {
@@ -126,7 +131,16 @@
     
     self.flashTableView.isAll = [self.status isEqualToString:kAllNewsFlash];
     self.flashTableView.refreshDelegate = self;
-    self.flashTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无快讯"];
+    if (self.isSearch == YES) {
+        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+
+    }else{
+        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
+
+        
+    }
+
+//    self.flashTableView.placeHolderView = self.hold;
 
     [self.view addSubview:self.flashTableView];
     [self.flashTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,8 +154,16 @@
     self.infoTableView = [[InformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
-    
+    if (self.isSearch == YES) {
+        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+        
+    }else{
+        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
+        
+        
+    }
+    self.infoTableView.placeHolderView = self.hold;
+
     [self.view addSubview:self.infoTableView];
     [self.infoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -179,9 +201,19 @@
             helper.parameters[@"userId"] = @"";
         }
         //
-        
+        if (weakSelf.currentSearch.length > 0) {
+            helper.parameters[@"keywords"] = weakSelf.currentSearch;
+
+        }
+
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            if (objs.count <= 0) {
+                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
+                [weakSelf.flashTableView addSubview:weakSelf.hold];
+                return ;
+            }
             
+            [weakSelf.hold removeFromSuperview];
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
@@ -197,9 +229,20 @@
     }];
    // 拉加载更多
     [self.flashTableView addLoadMoreAction:^{
-        
+        if (weakSelf.currentSearch.length > 0) {
+            helper.parameters[@"keywords"] = weakSelf.currentSearch;
+            
+        }
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
            //中转
+            if (objs.count <= 0) {
+                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
+
+                [weakSelf.flashTableView addSubview:weakSelf.hold];
+                return ;
+            }
+            
+            [weakSelf.hold removeFromSuperview];
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
@@ -232,10 +275,18 @@
     [helper modelClass:[InformationModel class]];
     
     [self.infoTableView addRefreshAction:^{
-        
+        if (weakSelf.currentSearch.length > 0) {
+            helper.parameters[@"keywords"] = weakSelf.currentSearch;
+            
+        }
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            if (objs.count <= 0) {
+                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
+                [weakSelf.infoTableView addSubview:weakSelf.hold];
+                return ;
+            }
             
-            
+            [weakSelf.hold removeFromSuperview];
             weakSelf.infos = objs;
             //数据转给tableview
             weakSelf.infoTableView.infos = objs;
@@ -252,9 +303,19 @@
     }];
     
     [self.infoTableView addLoadMoreAction:^{
-        
-        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+        if (weakSelf.currentSearch.length > 0) {
+            helper.parameters[@"keywords"] = weakSelf.currentSearch;
             
+        }
+        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+            if (objs.count <= 0) {
+                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
+
+                [weakSelf.infoTableView addSubview:weakSelf.hold];
+                return ;
+            }
+            
+            [weakSelf.hold removeFromSuperview];
             weakSelf.infos = objs;
             
             weakSelf.infoTableView.infos = objs;

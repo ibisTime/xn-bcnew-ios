@@ -245,7 +245,7 @@
     
     
     self.ActivityTitle.text = actModel.title;
-    if ([actModel.price isEqualToString:@"0"]) {
+    if ([actModel.price isEqualToString:@"0"]|| [actModel.price isEqualToString:@"免费"] || [actModel.price isEqualToString:@""]) {
         self.price.text =[NSString stringWithFormat:@"免费"];
     }else{
         self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
@@ -256,7 +256,7 @@
         
     }
     self.readCount.text = actModel.readCount;
-    self.location.text = actModel.address;
+    self.location.text = actModel.meetAddress;
     [self layoutIfNeeded];
     self.cellRowHeight =   CGRectGetMaxY(self.location.frame);
     NSLog(@"cellRowHeight%f",self.cellRowHeight);

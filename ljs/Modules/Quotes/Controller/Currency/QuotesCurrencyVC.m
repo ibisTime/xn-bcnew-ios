@@ -81,6 +81,17 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    self.currentVC = currentVC;
+    self.smallBtn.hidden = NO;
+    [super viewWillAppear:animated];
+    
+}
+
 #pragma mark - 通知
 - (void)addNotification {
     
@@ -156,7 +167,7 @@
 }
 
 - (void)didSwitchLabel:(NSNotification *)notification {
-    self.percentChangeIndex = -1;
+//    self.percentChangeIndex = -1;
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
    
     if (segmentIndex == 2) {
@@ -184,9 +195,7 @@
     if (!self.view.userInteractionEnabled) {
         return;
     }
-//    if (self.currentSegmentIndex == 1 || self.currentSegmentIndex == 3) {
-//        return;
-//    }
+
 
     NSInteger labelIndex = [notification.userInfo[@"labelIndex"] integerValue];
     self.CurrentLableIndex = labelIndex;
@@ -245,7 +254,7 @@
     BaseWeakSelf;
     
     AddSearchCurreneyVC *searchVC = [AddSearchCurreneyVC new];
-    searchVC.currencyTitleList = self.currencyTitleList;
+//    searchVC.currencyTitleList = self.currencyTitleList;
     searchVC.titles = [NSMutableArray array];
     CurrencyTitleModel * titleModel = [CurrencyTitleModel new];
     titleModel.symbol = @"全部";
@@ -253,29 +262,44 @@
     [self checkLogin:^{
         [searchVC.titles addObject:titleModel];
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        self.currencyTitleList  =[NSMutableArray array];
+//        self.currencyTitleList  =[NSMutableArray array];
         NSData *data = [user objectForKey:@"choseOptionList"];
-        self.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    }];
-    
-        
-   
-    [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (obj) {
-            
-            [searchVC.titles addObject:obj];
+        searchVC.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if (searchVC.currencyTitleList.count <= 0) {
+            searchVC.currencyTitleList = weakSelf.currencyTitleList;
+        }else
+        {
+            weakSelf.currencyTitleList = searchVC.currencyTitleList;
         }
+        
+        NSMutableArray *Arr = [NSMutableArray array];
+        
+        
+        [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (obj) {
+                obj.IsSelect = YES;
+                [searchVC.titles addObject:obj];
+            }
+        }];
+        
+        [weakSelf.navigationController pushViewController:searchVC animated:YES];
+
+        
     }];
     
+  
         searchVC.currencyBlock = ^{
-    
-            [weakSelf.tableView beginRefreshing];
+//            UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//            UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+//            [currentVC.view addSubview:weakSelf.smallBtn];
+            weakSelf.smallBtn.hidden = NO;
+            
+//            [weakSelf.tableView beginRefreshing];
         };
     
 //    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
-    
-    [self.navigationController pushViewController:searchVC animated:YES];
+//    [self presentViewController:searchVC animated:YES completion:nil];
     
 }
 #pragma mark - 定时器

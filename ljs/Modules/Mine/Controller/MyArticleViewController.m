@@ -82,16 +82,20 @@
     self.labelUnil.backgroundColor = kAppCustomMainColor;
     self.labelUnil.titleNormalColor = kWhiteColor;
     self.labelUnil.titleSelectColor = kWhiteColor;
+//    self.labelUnil.layer.borderColor = kLineColor.CGColor;
     self.labelUnil.titleFont = Font(18);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
 //    self.labelUnil.layer.cornerRadius = h/2.0;
 //    self.labelUnil.layer.borderWidth = 1;
-//    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
     self.labelUnil.userInteractionEnabled = NO;
     self.labelUnil.selectBtn.selected = YES;
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateSelected];
+//    self.labelUnil.selectBtn.layer.cornerRadius = 0;
+//    self.labelUnil.selectBtn.
+    self.labelUnil.selectBtn.layer.borderWidth = 0;
+    self.labelUnil.selectBtn.clipsToBounds = YES;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"联系我们" style:UIBarButtonItemStyleDone target:self action:@selector(callUs)];
     [item setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = item;

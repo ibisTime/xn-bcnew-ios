@@ -43,9 +43,13 @@
 
     self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(200), (44-h), kWidth(199), h)];
     self.labelUnil.delegate = self;
-    self.labelUnil.backgroundColor = [UIColor clearColor];
-    self.labelUnil.titleNormalColor = kWhiteColor;
+//    self.labelUnil.backgroundColor = [UIColor clearColor];
+//    self.labelUnil.titleNormalColor = kWhiteColor;
+//    self.labelUnil.titleSelectColor = kAppCustomMainColor;
+    self.labelUnil.backgroundColor = kWhiteColor;
+    self.labelUnil.titleNormalColor = kTextColor;
     self.labelUnil.titleSelectColor = kAppCustomMainColor;
+    self.labelUnil.layer.borderColor = kLineColor.CGColor;
     self.labelUnil.titleFont = Font(18.0);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = self.titles;

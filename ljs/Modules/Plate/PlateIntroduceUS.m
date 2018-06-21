@@ -23,6 +23,7 @@
 
 @property (nonatomic ,strong) InfoDetailShareView *shareView;
 
+@property (nonatomic ,strong) UIWebView *contentWebView;
 
 @end
 
@@ -36,6 +37,22 @@
     [self getShareUrl];
     // Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.contentWebView = [[UIWebView alloc] init];
+    [self.view addSubview:self.contentWebView];
+    [self.contentWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(@0);
+    }];
+    
+//    [self.contentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.content]]];
+    [self.contentWebView loadHTMLString:self.content baseURL:nil];
+    
+}
+
+
+
 - (InfoDetailShareView *)shareView {
     
     if (!_shareView) {
@@ -158,14 +175,14 @@
 
 - (void)initSubViews
 {
-    self.contentLab = [UILabel labelWithBackgroundColor:kBackgroundColor textColor:kTextColor font:16.0];
-    [self.view addSubview:self.contentLab];
-    self.contentLab.numberOfLines = 0;
-    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(@15);
-        make.right.equalTo(@-15);
-    }];
-    self.contentLab.text = self.content;
+//    self.contentLab = [UILabel labelWithBackgroundColor:kBackgroundColor textColor:kTextColor font:16.0];
+//    [self.view addSubview:self.contentLab];
+//    self.contentLab.numberOfLines = 0;
+//    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.left.equalTo(@15);
+//        make.right.equalTo(@-15);
+//    }];
+//    self.contentLab.text = self.content;
     [UIBarButtonItem addRightItemWithTitle:@"分享" titleColor:kWhiteColor frame:CGRectMake(0, 0, 60, 50) vc:self action:@selector(introduceUs)];
     
 }

@@ -128,7 +128,7 @@ static const float kAnimationdDuration = 0.3;
             make.left.mas_equalTo(w);
         }];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -btnW/2.5, 0, 0)];
-        [button setImageEdgeInsets:UIEdgeInsetsMake(0, btnW/2.5+10, 0, 0)];
+        [button setImageEdgeInsets:UIEdgeInsetsMake(0, btnW/2.5+10+10, 0, 0)];
         
         [self.btnArr addObject:button];
         
@@ -230,10 +230,10 @@ static const float kAnimationdDuration = 0.3;
     [self createItems];
     
     // 3.更改下划线位置
-    [self selectSortBarWithIndex:index];
-    
-    //4.改变字体
-    [self changeItemTitleColorWithIndex:index];
+//    [self selectSortBarWithIndex:index];
+//
+//    //4.改变字体
+//    [self changeItemTitleColorWithIndex:index];
 }
 
 - (void)clearLastItems {

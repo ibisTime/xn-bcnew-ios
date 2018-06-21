@@ -122,7 +122,7 @@
         
         make.edges.mas_equalTo(UIEdgeInsetsMake(0, 13, 0, 0));
         
-        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15 - 13);
+        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15 - 13-50);
     }];
     
 }

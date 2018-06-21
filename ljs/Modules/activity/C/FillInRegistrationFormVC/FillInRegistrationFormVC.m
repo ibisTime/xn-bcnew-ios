@@ -126,7 +126,11 @@ typedef struct TitleInfo TitleInfo;
     UIBarButtonItem * rightBar= [[UIBarButtonItem alloc]initWithTitle:@"报名" style:UIBarButtonItemStyleDone target:self action:@selector(signUpBegin)];
     rightBar.tintColor = kWhiteColor;
     self.navigationItem.rightBarButtonItem= rightBar;
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14], NSTextEffectAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+//    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14], NSTextEffectAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    
+//    UIButton *button =[UIButton buttonWithTitle:@"" titleColor:kWhiteColor backgroundColor:kClearColor titleFont:14];
+//    button.frame = CGRectMake(kScreenWidth-100, 20, 50, 30);
+//    [self.view addSubview:button];
 
 }
 

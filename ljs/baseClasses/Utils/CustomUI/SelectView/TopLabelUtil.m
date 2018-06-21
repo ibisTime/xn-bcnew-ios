@@ -34,6 +34,10 @@
 
 @property(nonatomic,strong)UIView *bottomLine;
 
+@property(nonatomic,strong) UIButton *tempbtn;
+@property(nonatomic,strong) UIButton *firstBtn;
+
+
 //底部线条长度
 @property (nonatomic, assign) CGFloat lineWidth;
 
@@ -166,26 +170,31 @@
         
         UIButton *btn = [UIButton buttonWithTitle:_titleArray[i]
                                        titleColor:_titleNormalColor
-                                  backgroundColor:kAppCustomMainColor
+                                  backgroundColor:kWhiteColor
                                         titleFont:16.0];
         
         btn.frame = CGRectMake(btnX, 0, BTN_LINE_WIDTH, self.segmentHeight);
         btn.tag = i+1000;
         
-//        btn.layer.borderWidth = 1;
-//        btn.layer.borderColor = kWhiteColor.CGColor;
+       
+        
         [btn setTitleColor:_titleSelectColor forState:UIControlStateSelected];
         [btn setBackgroundColor:kWhiteColor forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnIndexClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = self.titleFont;
         btn.layer.cornerRadius = self.segmentHeight/2;
+      
         btn.clipsToBounds = YES;
         [self.bgScrollView addSubview:btn];
         
         [self.btnArray addObject:btn];
         if (self.defaultSelectIndex - 1 == i) {
             self.selectBtn  = btn;
+            self.firstBtn = btn;
             btn.selected    = YES;
+            btn.layer.borderWidth = 1;
+            btn.layer.borderColor = kLineColor.CGColor;
+            btn.clipsToBounds = YES;
             //            btn.transform   = CGAffineTransformMakeScale(1*BTN_BASE_SCALE+1, 1*BTN_BASE_SCALE+1);
         }
     }
@@ -201,7 +210,32 @@
 - (void)btnIndexClick:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
+    if (self.firstBtn) {
+        self.firstBtn.layer.borderWidth = 0;
+        self.firstBtn.layer.borderColor = kLineColor.CGColor;
+        self.firstBtn.clipsToBounds = YES;
+    }
+    self.firstBtn = nil;
+    if (self.tempbtn == btn) {
+        return;
+    }
     
+    if (btn.selected == NO) {
+        self.tempbtn.layer.borderWidth = 0;
+        self.tempbtn.layer.borderColor = kLineColor.CGColor;
+        btn.clipsToBounds = YES;
+        btn.layer.borderWidth = 1;
+        btn.layer.borderColor = kLineColor.CGColor;
+        btn.clipsToBounds = YES;
+        self.tempbtn = btn;
+
+    }else{
+        btn.layer.borderWidth = 0;
+//        btn.layer.borderColor = kLineColor.CGColor;
+        btn.clipsToBounds = YES;
+        
+    }
+   
     [self selectSortBarWithIndex:btn.tag - 1000];
     
 }

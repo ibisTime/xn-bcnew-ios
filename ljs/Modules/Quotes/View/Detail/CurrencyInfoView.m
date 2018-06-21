@@ -220,14 +220,14 @@
 
     [self.priceFluctBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.currencyNameLbl.mas_right).offset(10);
+        make.left.equalTo(self.currencyNameLbl.mas_right).offset(15);
         make.centerY.equalTo(self.currencyNameLbl.mas_centerY);
     }];
    
     //关注
     [self.followNumLbl1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.currencyNameLbl.mas_left);
+        make.left.equalTo(self.rmbPriceLbl.mas_left);
         make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(5);
     }];
    

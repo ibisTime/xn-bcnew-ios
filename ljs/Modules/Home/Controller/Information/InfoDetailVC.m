@@ -49,8 +49,11 @@
 @property (nonatomic, strong) TLPageDataHelper *helper;
 //输入框
 @property (nonatomic, strong) InputTextView *inputTV;
-//收藏
+//分享
 @property (nonatomic, strong) UIButton *collectionBtn;
+
+@property (nonatomic, strong) UIButton *collection;
+
 //分享链接
 @property (nonatomic, copy) NSString *shareUrl;
 //分享
@@ -225,7 +228,7 @@
         make.height.equalTo(@0.5);
         
     }];
-    //分享
+//    //分享
 //    UIButton *shareBtn = [UIButton buttonWithImageName:@"分享"];
 //    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
 //    self.navigationController.navigationItem.rightBarButtonItem = item;
@@ -235,7 +238,7 @@
 //    shareBtn.contentMode = UIViewContentModeScaleAspectFit;
     
     
-    //收藏
+    //分享
     UIButton *collectionBtn = [UIButton buttonWithImageName:@"分享"];
     
 //    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
@@ -254,6 +257,25 @@
     }];
     
     self.collectionBtn = collectionBtn;
+    //分享
+    UIButton *collection = [UIButton buttonWithImageName:@"收藏"];
+    
+    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+
+    [collection setImage:kImage(image) forState:UIControlStateNormal];
+    
+    [collection addTarget:self action:@selector(collectionInfo:) forControlEvents:UIControlEventTouchUpInside];
+    collection.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [self.bottomView addSubview:collection];
+    [collection mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.collectionBtn.mas_left).offset(-15);
+        make.centerY.equalTo(@0);
+        make.width.height.equalTo(@20);
+    }];
+    
+    self.collection = collection;
     
     //评论数
     UIButton *commentNumBtn = [UIButton buttonWithImageName:@"留言"];
@@ -265,7 +287,7 @@
     
     [commentNumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(collectionBtn.mas_left).offset(-15);
+        make.right.equalTo(collection.mas_left).offset(-15);
         make.centerY.equalTo(@0);
         make.width.height.equalTo(@20);
     }];
@@ -366,10 +388,10 @@
  */
 - (void)collectionInfo:(UIButton *)sender {
     
-    [self checkLogin:^{
-        [self.shareView show];
-        
-    }];
+//    [self checkLogin:^{
+//        [self.shareView show];
+//
+//    }];
     
     BaseWeakSelf;
     
@@ -387,7 +409,7 @@
             weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
             NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
             
-            [weakSelf.collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
+            [weakSelf.collection setImage:kImage(image) forState:UIControlStateNormal];
             
         } failure:^(NSError *error) {
             

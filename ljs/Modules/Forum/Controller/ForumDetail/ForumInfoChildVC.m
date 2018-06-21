@@ -66,7 +66,7 @@
     
     self.infoTableView.refreshDelegate = self;
     self.infoTableView.tag = 1800 + self.index;
-    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无资讯"];
+    self.infoTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无资讯"];
     
     [self.view addSubview:self.infoTableView];
     [self.infoTableView mas_makeConstraints:^(MASConstraintMaker *make) {

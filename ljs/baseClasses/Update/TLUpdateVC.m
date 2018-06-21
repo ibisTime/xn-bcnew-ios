@@ -34,7 +34,7 @@
     
     bgIV.image = [UIImage imageNamed:@"Launch"];
     [self setPlaceholderViewTitle:@"加载失败" operationTitle:@"重新加载"];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     // 由于无法通过，审核。如果为强制更新
@@ -102,7 +102,7 @@
     }];
 }
 
-- (void)tl_placeholderOperation {
+- (void)placeholderOperation {
 
 //    [self updateApp];
     [self configUpdate];

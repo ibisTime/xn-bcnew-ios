@@ -116,8 +116,19 @@
     [self.titleImg  sd_setImageWithURL:[NSURL URLWithString:[detailActModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
     self.titleDet.text = detailActModel.title;
     self.readCountDet.text = detailActModel.readCount;
-    self.users.text = [NSString stringWithFormat:(@"已通过%@)/%ld"),_detailActModel.enrollCount,_detailActModel.approveCount];
-    self.priceDet.text = [NSString stringWithFormat:@"¥%@" ,detailActModel.price];
+    if ([_detailActModel.enrollCount isEqualToString:@"0"]) {
+        self.users.text = [NSString stringWithFormat:(@"已通过%ld/无限制"),(long)_detailActModel.approveCount];
+    }else
+    {
+        self.users.text = [NSString stringWithFormat:(@"已通过%ld/%@"),(long)_detailActModel.approveCount,_detailActModel.maxCount];
+    }
+   
+    if ([detailActModel.price isEqualToString:@""]|| [detailActModel.price isEqualToString:@"免费"] ||[detailActModel.price isEqualToString:@"0"]) {
+        self.priceDet.text =[NSString stringWithFormat:@"免费"];
+    }else{
+        self.priceDet.text =[NSString stringWithFormat:@"￥ %@",detailActModel.price];
+    }
+//    self.priceDet.text = [NSString stringWithFormat:@"¥%@" ,detailActModel.price];
 }
 
 

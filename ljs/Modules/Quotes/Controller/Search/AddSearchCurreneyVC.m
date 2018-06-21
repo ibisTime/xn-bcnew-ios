@@ -26,6 +26,7 @@
 #import "AddSearchHeadView.h"
 #import "AddSearchBottomView.h"
 #import "AddNumberModel.h"
+#import "TabbarViewController.h"
 @interface AddSearchCurreneyVC ()<UITextFieldDelegate, RefreshDelegate,addCollectionViewDelegate>
 
 //titles
@@ -68,7 +69,7 @@
     [self initSubViews];
     [self initCollectionViewBottom];
     self.nineView.titles = self.titles;
-    self.headView.currentCount = self.titles.count - 1;
+    self.headView.currentCount = self.titles.count ;
     self.bottomTitle.currentCount = 8-self.titles.count + 1;
     self.bottomtitles = [NSMutableArray array];
     self.bottomView.bottomtitles = self.bottomtitles;
@@ -87,6 +88,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+
+//    if (self.currencyBlock) {
+//        self.currencyBlock();
+//    }
     //显示第三方键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [[IQKeyboardManager sharedManager] setEnable:YES];
@@ -113,10 +119,29 @@
         }
         
     }
-    [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.resultTitleList.count > 0) {
+       
+
+        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+
+    }else{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+      
+//        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
+
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+//    TabbarViewController *tab = [[TabbarViewController alloc] init];
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+//    tab.selectedIndex = 1;
+    
     //
     
 }
@@ -274,7 +299,7 @@
         
         make.edges.mas_equalTo(UIEdgeInsetsMake(0, 13, 0, 0));
         
-        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -  15 - 13);
+        make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -50-  15 - 13);
     }];
     
 }

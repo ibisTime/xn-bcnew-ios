@@ -221,8 +221,8 @@
     self.timeLine.text = @"-";
     self.timeLb2.text = [infoModel.endDatetime convertDate];
     self.collectNumLbl.text = [NSString stringWithFormat:@"%@", infoModel.readCount];
-    self.location.text = infoModel.address;
-    if ([infoModel.price isEqualToString:@"0"] || [infoModel.price isEqualToString:@"免费"]) {
+    self.location.text = infoModel.meetAddress;
+    if ([infoModel.price isEqualToString:@"0"] || [infoModel.price isEqualToString:@"免费"] ||[infoModel.price isEqualToString:@""]) {
         
         self.price.text = @"免费";
         return;

@@ -36,7 +36,7 @@
     //    self.repaymentListTableView.refreshDelegate = self;
 
     self.ActivityListTableView.placeHolderView  =self.holdView;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无活动"];
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无活动" text:@"暂无活动"];
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];
     [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {

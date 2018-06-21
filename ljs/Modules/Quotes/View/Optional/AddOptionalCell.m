@@ -104,7 +104,7 @@
     self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.toSymbol: optional.exchangeCname;
     //单位
    
-    self.unitLbl.text =[self.type isEqualToString:kOptionalTypePlatform] ? [optional.toSymbol uppercaseString] :optional.symbol;
+    self.unitLbl.text =[self.type isEqualToString:kOptionalTypePlatform] ? [optional.toSymbol uppercaseString] :optional.toSymbol;
     //添加按钮
     self.addBtn.selected = [optional.isChoice boolValue];
     

@@ -182,10 +182,12 @@
     if ([TLUser user].isLogin == NO) {
         return;
     }
+//    if (self.TakeButBlock) {
+//        self.TakeButBlock(1);
+//    }
     NSLog(@"openSignUp");
-    FillInRegistrationFormVC * fillInRegistrationFormVC = [[FillInRegistrationFormVC alloc] init];
+    FillInRegistrationFormVC * fillInRegistrationFormVC = [FillInRegistrationFormVC new];
     fillInRegistrationFormVC.code = self.code;
-    NSLog(@"%@",self.code);
     MJWeakSelf;
     
     fillInRegistrationFormVC.signUpSucessClock = ^(BOOL index) {
@@ -195,6 +197,8 @@
     };
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signSucessUp) name:@"SignSucess" object:nil];
     [self.viewController.navigationController pushViewController:fillInRegistrationFormVC animated:YES];
+    
+   
 }
 -(void)openComment{
     [self.detailVc checkLogin:^{

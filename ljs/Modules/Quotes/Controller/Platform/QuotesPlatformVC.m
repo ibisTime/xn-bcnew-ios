@@ -236,7 +236,7 @@
         return;
     }
    
-    self.percentChangeIndex = -1;
+//    self.percentChangeIndex = -1;
 
     [self requestOptionalList];
 
@@ -479,6 +479,7 @@
  */
 - (void)requestOptionalList {
     
+
     self.view.userInteractionEnabled = NO;
     if ([TLUser user].isLogin == NO) {
         self.tableView.tableFooterView = self.footerView;
@@ -488,7 +489,7 @@
     BaseWeakSelf;
     //    return;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
+   
     helper.code = @"628351";
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"10";
@@ -496,6 +497,7 @@
         helper.parameters[@"userId"] = [TLUser user].userId;
 
     }
+    
     helper.tableView = self.tableView;
     helper.showView = self.view;
     
@@ -536,6 +538,11 @@
             weakSelf.tableView.optionals = objs;
             
             [weakSelf.tableView reloadData_tl];
+            if (weakSelf.helper.refreshed == YES) {
+                weakSelf.view.userInteractionEnabled = YES;
+                
+                return;
+            }
 //            if (weakSelf.optionals.count > 0) {
 //                [weakSelf startTimer];
 //            }
