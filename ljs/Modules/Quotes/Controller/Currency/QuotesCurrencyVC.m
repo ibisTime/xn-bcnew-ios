@@ -20,6 +20,7 @@
 #import "SearchCurrencyVC.h"
 #import "NavigationController.h"
 #import "AddSearchCurreneyVC.h"
+#import "SelectScrollView.h"
 @interface QuotesCurrencyVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) NSArray <CurrencyModel *>*currencys;
@@ -100,8 +101,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSwitchLabel:) name:@"DidSwitchLabel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleBarClick:) name:@"titleBarindex" object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSamesBarClick:) name:@"titleSameBarindex" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choseOptionList:) name:@"choseOptionList" object:nil];
     
 }
+
+- (void)choseOptionList : (NSNotification *)notification
+{
+//    NSArray *arr = self.currentSelectVC.subviews;
+//    NSLog(@"%@",arr);
+}
+
 - (void)titleSamesBarClick:(NSNotification *)notification {
     if (!self.view.userInteractionEnabled) {
         return;
@@ -169,7 +178,10 @@
 - (void)didSwitchLabel:(NSNotification *)notification {
 //    self.percentChangeIndex = -1;
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
-   
+    if (segmentIndex != 2 ) {
+        return;
+    }
+    
     if (segmentIndex == 2) {
         UIButton *smallBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [smallBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];

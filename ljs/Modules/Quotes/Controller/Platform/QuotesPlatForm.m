@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSInteger percentTempIndex;
 @property (nonatomic, assign) NSInteger CurrentLableIndex;
 @property (nonatomic, assign) BOOL IsFirst;
+@property (nonatomic, assign) BOOL IsRequsting;
 
 @end
 
@@ -75,13 +76,11 @@
 }
 - (void)didSwitchLabel : (NSNotification *)notification
 {
+    self.IsRequsting = NO;
+
     NSInteger segmentIndex = [notification.userInfo[@"segmentIndex"] integerValue];
     NSInteger labIndex = [notification.userInfo[@"labelIndex"] integerValue];
     if (segmentIndex == 2  || segmentIndex == 3) {
-        return;
-    }
-    
-    if (!self.view.userInteractionEnabled) {
         return;
     }
     
@@ -118,6 +117,7 @@
 
 #pragma mark - Data
 - (void)titleSamesBarClick:(NSNotification *)notification {
+    self.IsRequsting = NO;
     if (!self.view.userInteractionEnabled) {
         return;
     }
@@ -145,6 +145,7 @@
 }
 - (void)titleBarClick:(NSNotification *)notification {
     NSInteger index = [notification.userInfo[@"titleBarindex"] integerValue];
+    self.IsRequsting = NO;
 
     if (!self.view.userInteractionEnabled) {
         return;
@@ -227,7 +228,11 @@
     BaseWeakSelf;
     self.view.userInteractionEnabled =NO;
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
+    if (self.IsRequsting == YES) {
+        weakSelf.view.userInteractionEnabled = YES;
+        
+        return;
+    }
     helper.code = @"628350";
     helper.showView = self.view;
     
@@ -255,7 +260,7 @@
     [helper modelClass:[PlatformModel class]];
     
     self.helper = helper;
-    
+    self.IsRequsting = YES;
     [self.tableView addRefreshAction:^{
         if ([TLUser user].userId) {
             helper.parameters[@"userId"] = [TLUser user].userId;
@@ -269,6 +274,8 @@
         }
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+
             if (objs.count == 0) {
                 
                 weakSelf.tableView.tableFooterView = weakSelf.placeholderView;
@@ -284,12 +291,17 @@
             [weakSelf.tableView reloadData_tl];
             CGFloat y = weakSelf.tableView.frame.origin.y;
             weakSelf.view.userInteractionEnabled = YES;
-            NSLog(@"contenOffSet%@contenSize%@",NSStringFromCGPoint(weakSelf.tableView.contentOffset),NSStringFromCGSize(weakSelf.tableView.contentSize));
+            if (weakSelf.helper.refreshed == YES) {
+                weakSelf.view.userInteractionEnabled = YES;
+                
+                return;
+            } NSLog(@"contenOffSet%@contenSize%@",NSStringFromCGPoint(weakSelf.tableView.contentOffset),NSStringFromCGSize(weakSelf.tableView.contentSize));
             //                [weakSelf.tableView setContentOffset:CGPointMake(0, -54)];
         } failure:^(NSError *error) {
             //                [weakSelf.MbHud hide:YES];
             weakSelf.view.userInteractionEnabled = YES;
-            
+//            weakSelf.IsRequsting = NO;
+
         }];
     }];
     
@@ -297,7 +309,8 @@
         weakSelf.view.userInteractionEnabled = NO;
 
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
+//            weakSelf.IsRequsting = NO;
+
             weakSelf.platforms = objs;
             
             weakSelf.tableView.platforms = objs;
@@ -312,8 +325,9 @@
         }];
     }];
     //        [self initHeaderView];
+    self.IsRequsting = YES;
+
     [self.tableView beginRefreshing];
-    
 }
 
 

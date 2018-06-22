@@ -38,6 +38,8 @@ static const float kAnimationdDuration = 0.3;
 @property (nonatomic, strong) NSMutableArray *btnArr;
 @property (nonatomic, copy) SameSelectBlock sameBlock;
 @property (nonatomic, assign) NSInteger IsSelect;
+@property (nonatomic, strong) UIButton *selectButton;
+@property (nonatomic, assign) NSInteger selectTeger;
 
 @end
 
@@ -228,12 +230,15 @@ static const float kAnimationdDuration = 0.3;
     // 2.创建新的选项
     _sortNames = [NSArray arrayWithArray:sortNames];
     [self createItems];
-    
+    if (self.selectButton) {
+        self.selectButton.selected = !self.selectButton.selected;
+    }
     // 3.更改下划线位置
-//    [self selectSortBarWithIndex:index];
+//    [self selectSortBarWithIndex:self.selectTeger];
+    [self sortBtnOnClicked:self.selectButton];
 //
 //    //4.改变字体
-//    [self changeItemTitleColorWithIndex:index];
+//    [self changeItemTitleColorWithIndex:self.selectTeger];
 }
 
 - (void)clearLastItems {
@@ -249,6 +254,8 @@ static const float kAnimationdDuration = 0.3;
 #pragma mark - Events
 - (void)sortBtnOnClicked:(UIButton*)button {
     // 相同按钮则不触发事件
+    self.selectButton = button;
+    self.selectTeger = button.tag - 100;
     BaseWeakSelf;
     if (_selectIndex == button.tag - 100) {
         _sameBlock(_selectIndex);

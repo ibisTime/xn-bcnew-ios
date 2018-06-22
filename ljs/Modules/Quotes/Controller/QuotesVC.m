@@ -219,8 +219,15 @@
             }
         }];
     }
+//    self.switchSV = nil;
+//    self.selectSV = nil;
+//    [self.switchSV.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    [self.selectSV.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
     
     [self initFooterView];
+    
     //顶部切换
     [self initSegmentView];
     [self.MbHud show:YES];

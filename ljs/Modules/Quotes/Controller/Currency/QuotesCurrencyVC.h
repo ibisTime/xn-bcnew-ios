@@ -7,10 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "SelectScrollView.h"
+
 //M
 #import "CurrencyTitleModel.h"
 //V
 #import "CurrencyTableVIew.h"
+
 /**
  币种
  */
@@ -31,6 +34,7 @@ typedef void(^selectCurrent)(NSString *);
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
 @property (nonatomic,copy)selectCurrent selectBlock;
+@property (nonatomic, strong) SelectScrollView *currentSelectVC;
 
 @property (nonatomic, assign) NSInteger currentSegmentIndex;
 @property (nonatomic, strong) UIButton *smallBtn;
