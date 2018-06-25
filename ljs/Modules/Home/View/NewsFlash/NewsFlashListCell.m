@@ -187,11 +187,11 @@
     
     if ([flashModel.type isEqualToString:@"1"]) {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor3: [UIColor colorWithHexString:@"#F6A623"];
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kHexColor(@"#FFA300"): [UIColor colorWithHexString:@"#FF5757"];
 
     } else {
         
-        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kTextColor4: kTextColor;
+        self.contentLbl.textColor = [flashModel.isRead isEqualToString:@"1"] ? kHexColor(@"#FFA300"): [UIColor colorWithHexString:@"#FF5757"];
     }
     //
     [self layoutSubviews];

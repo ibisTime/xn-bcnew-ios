@@ -90,7 +90,7 @@
     }];
     [warningBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     
-    UIButton *AnalysisBtn = [UIButton buttonWithTitle:@"分析"
+    UIButton *AnalysisBtn = [UIButton buttonWithTitle:@"介绍"
                                        titleColor:[UIColor whiteColor]
                                   backgroundColor:kClearColor
                                         titleFont:14.0];
@@ -116,7 +116,7 @@
                                      backgroundColor:kClearColor
                                            titleFont:14.0];
     [moreBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setImage:kImage(@"更多") forState:UIControlStateNormal];
+    [moreBtn setImage:kImage(@"更多3") forState:UIControlStateNormal];
     
     [self addSubview:moreBtn];
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {

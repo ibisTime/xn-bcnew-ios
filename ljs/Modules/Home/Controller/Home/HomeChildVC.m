@@ -348,8 +348,8 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        flashModel.isRead = @"1";
-        flashModel.isSelect = YES;
+//        flashModel.isRead = @"1";
+//        flashModel.isSelect = YES;
         [self.flashTableView reloadData];
         
     } failure:^(NSError *error) {

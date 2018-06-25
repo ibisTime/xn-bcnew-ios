@@ -81,7 +81,7 @@
 }
 - (void)addtopInfoView
 {
-    WarningTirleView *titleinfoView = [[WarningTirleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 104)];
+    WarningTirleView *titleinfoView = [[WarningTirleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHeight(139))];
     titleinfoView.platform = self.platform;
     [self.view addSubview:titleinfoView];
     
@@ -163,7 +163,7 @@
     http.showView = self.view;
     http.parameters[@"userId"] = [TLUser user].userId;
 
-    http.parameters[@"exchangeEname"] = self.platform.exchangeCname;
+    http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
     http.parameters[@"symbol"] = self.platform.symbol;
     http.parameters[@"toSymbol"] = self.platform.toSymbol;
 

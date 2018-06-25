@@ -209,6 +209,9 @@
 
     NSLog(@"currencyTitleList%@",self.currencyTitleList);
     
+    
+    [self.switchSV removeFromSuperview];
+    [self.titles removeAllObjects];
     self.titles = [NSMutableArray arrayWithObject:@"全部"];
     if (self.currencyTitleList.count > 0) {
         [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

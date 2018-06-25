@@ -99,6 +99,22 @@
         make.height.equalTo(@(2*h+1));
         make.width.equalTo(@(w));
     }];
+    UIImageView *nameImage = [[UIImageView alloc] init];
+//    self.bgImage = bgImage;
+    [self.view addSubview:nameImage];
+    //    bgImage.contentMode = UIViewContentModeScaleToFill;
+    nameImage.image = kImage(@"链接社");
+    
+    [nameImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(kWidth(70)));
+        make.centerX.equalTo(self.bgImage.mas_centerX);
+        make.height.equalTo(@(kHeight(35)));
+        make.width.equalTo(@(kWidth(98)));
+
+    }];
+    
+    
+   
     
     //账号
     TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, w, h)

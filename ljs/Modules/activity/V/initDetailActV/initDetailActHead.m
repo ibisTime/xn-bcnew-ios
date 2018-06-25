@@ -84,7 +84,7 @@
         make.centerY.equalTo(self.readCountImg.mas_centerY);
     }];
     
-    self.users = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#3A3A3A") font:15];
+    self.users = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14];
     [self addSubview:self.users];
 
     //    self.userImg.clipsToBounds = YES;
@@ -97,8 +97,11 @@
     //5
     self.priceDet = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA300") font:15];
     [self addSubview:self.priceDet];
+    self.priceDet.textAlignment = NSTextAlignmentRight;
     
     [self.priceDet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.users.mas_right).offset(15);
+
         make.centerY.equalTo(self.readCountImg.mas_centerY);
         make.right.offset(-15);
     }];

@@ -35,7 +35,7 @@
     
     self.backgroundColor = kClearColor;
     
-    UIImageView *bgIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110 + kNavigationBarHeight)];
+    UIImageView *bgIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 110)];
     
         bgIV.image =kImage(@"个人中心背景");
     bgIV.contentMode = UIViewContentModeScaleToFill;

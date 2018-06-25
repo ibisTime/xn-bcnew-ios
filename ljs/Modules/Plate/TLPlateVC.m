@@ -14,12 +14,13 @@
 #import "UIBarButtonItem+convience.h"
 #import "NewSearchViewController.h"
 #import "NavigationController.h"
+#import <MJRefresh.h>
 @interface TLPlateVC ()<RefreshDelegate,RefreshCollectionViewDelegate>
 @property (nonatomic, strong) PlateTableView *tableView;
 @property (nonatomic, strong) TLTopCollectionView *topView;
 
 @property (nonatomic, strong) TLPageDataHelper *help;
-
+@property (nonatomic, strong) TLPageDataHelper *helper;
 @property (nonatomic, strong) UIView *topLine;
 
 @property (nonatomic, strong) UIView *bottomLine;
@@ -30,15 +31,14 @@
 @implementation TLPlateVC
 
 - (void)viewDidLoad {
-    self.title = @"板块";
+    self.title = @"版块";
     self.view.backgroundColor = kWhiteColor;
     [super viewDidLoad];
     [self initCollection];
     [self initTableView];
 
     [self requestPlatform];
-    [self requestBottom];
-    [self.tableView beginRefreshing];
+    [self.topView beginRefreshing];
     
     // Do any additional setup after loading the view.
 }
@@ -56,7 +56,7 @@
 {
     
     
-    UILabel *lable = [UILabel labelWithTitle:@"热门板块" frame:CGRectMake(10, 10, kScreenWidth -30, 30)];
+    UILabel *lable = [UILabel labelWithTitle:@"热门版块" frame:CGRectMake(10, 10, kScreenWidth -30, 30)];
     lable.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:lable];
     lable.font = [UIFont systemFontOfSize:17.0];
@@ -82,6 +82,7 @@
     self.topView = topView;
     topView.refreshDelegate = self;
     [self.view addSubview:topView];
+    topView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
     
     UIView *lineView = [[UIView alloc] init];
     self.bottomLine = lineView;
@@ -91,7 +92,7 @@
     lineView.backgroundColor = kHexColor(@"#F5F5F5");
     
     
-    UILabel *lable1 = [UILabel labelWithTitle:@"全部板块" frame:CGRectMake(15, CGRectGetMaxY(lineView.frame), kScreenWidth -30, 30)];
+    UILabel *lable1 = [UILabel labelWithTitle:@"全部版块" frame:CGRectMake(15, CGRectGetMaxY(lineView.frame), kScreenWidth -30, 30)];
     lable1.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:lable1];
     lable1.font = [UIFont systemFontOfSize:17.0];
@@ -132,6 +133,12 @@
     [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
     
 }
+- (void)loadMoreNews
+{
+    
+    [self requestPlatform];
+    
+}
 - (void)search {
     
     BaseWeakSelf;
@@ -149,13 +156,15 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self requestPlatform];
+//    [self requestPlatform];
     [super viewWillAppear:animated];
     
 }
 
 - (void)requestPlatform
 {
+    [self.topView.mj_header beginRefreshing];
+    [self.tableView beginRefreshing];
     BaseWeakSelf;
 
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
@@ -168,15 +177,17 @@
     helper.parameters[@"location"] = @"1";
 
     
-    helper.tableView = self.tableView;
+    helper.collectionView = self.topView;
     [helper modelClass:[PlateMineModel class]];
     
-    self.help = helper;
-    
-    
+    self.helper = helper;
+
+    [self.topView addRefreshAction:^{
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            [weakSelf requestBottom];
+            [weakSelf.tableView beginRefreshing];
             NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
- 
+            
             if (objs.count <= 0) {
                 
                 [weakSelf.tableView addSubview:weakSelf.hold];
@@ -184,18 +195,18 @@
             }
             if (objs.count > 5) {
                 
-          
-            for (int i =  0 ; i<6; i++) {
-                [temp addObject:objs[i]];
-
-            }
-        }else
-        {
-            for (int i =  0 ; i<objs.count; i++) {
-                [temp addObject:objs[i]];
                 
+                for (int i =  0 ; i<6; i++) {
+                    [temp addObject:objs[i]];
+                    
+                }
+            }else
+            {
+                for (int i =  0 ; i<objs.count; i++) {
+                    [temp addObject:objs[i]];
+                    
+                }
             }
-        }
             [weakSelf.hold removeFromSuperview];
             weakSelf.Plateforms = temp;
             weakSelf.topView.models = temp;
@@ -204,8 +215,45 @@
             
         } failure:^(NSError *error) {
             [weakSelf.tableView addSubview:weakSelf.hold];
+            
+        }];
+    }];
+    [self.topView addLoadMoreAction:^{
+        [weakSelf.tableView beginRefreshing];
+
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
+            
+            if (objs.count <= 0) {
+                
+                [weakSelf.topView addSubview:weakSelf.hold];
+                return ;
+            }
+            if (objs.count > 5) {
+                
+                
+                for (int i =  0 ; i<6; i++) {
+                    [temp addObject:objs[i]];
+                    
+                }
+            }else
+            {
+                for (int i =  0 ; i<objs.count; i++) {
+                    [temp addObject:objs[i]];
+                    
+                }
+            }
+            [weakSelf.hold removeFromSuperview];
+            weakSelf.Plateforms = temp;
+            weakSelf.topView.models = temp;
+            [weakSelf.topView reloadData];
+            NSLog(@"%@",objs);
+            
+        } failure:^(NSError *error) {
+            [weakSelf.topView addSubview:weakSelf.hold];
 
         }];
+    }];
     
 }
 
@@ -226,19 +274,34 @@
     [helper modelClass:[PlateMineModel class]];
     
     self.help = helper;
-    
-    
-    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
-        weakSelf.bottomPlateforms = objs;
-        weakSelf.tableView.models= objs;
-        
-        [weakSelf.tableView reloadData_tl];
-        NSLog(@"%@",objs);
-        
-    } failure:^(NSError *error) {
-        
+    [self.tableView addRefreshAction:^{
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.bottomPlateforms = objs;
+            weakSelf.tableView.models= objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            NSLog(@"%@",objs);
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }];
+    [self.tableView addLoadMoreAction:^{
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            
+            weakSelf.bottomPlateforms = objs;
+            weakSelf.tableView.models= objs;
+            
+            [weakSelf.tableView reloadData_tl];
+            NSLog(@"%@",objs);
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    
+   
     
 }
 

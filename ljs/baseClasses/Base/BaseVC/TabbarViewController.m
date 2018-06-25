@@ -48,7 +48,7 @@
 
 - (void)createSubControllers {
     
-    NSArray *titles = @[@"首页", @"行情",@"板块", @"活动", @"我的"];
+    NSArray *titles = @[@"首页", @"行情",@"版块", @"活动", @"我的"];
     
     NSArray *normalImages = @[@"home", @"行情未点击",@"板块", @"活动未点击", @"我的未点击"];
     

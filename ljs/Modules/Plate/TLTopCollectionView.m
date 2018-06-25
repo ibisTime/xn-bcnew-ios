@@ -34,7 +34,7 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
         self.delegate = self;
         self.dataSource = self;
 //        self.userInteractionEnabled = NO;
-        self.scrollEnabled = NO;
+//        self.scrollEnabled = NO;
 
         [self registerClass:[TLPlateCell class] forCellWithReuseIdentifier:identifierCell];
         

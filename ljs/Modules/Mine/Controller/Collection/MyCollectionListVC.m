@@ -67,13 +67,13 @@
 #pragma mark - Init
 - (void)initTableView {
     
-    self.tableView = [[MyCollectionTableView alloc] initWithFrame:CGRectMake(0, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight) style:UITableViewStylePlain];
+    self.tableView = [[MyCollectionTableView alloc] initWithFrame:CGRectMake(0, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight) style:UITableViewStylePlain];
     
 //    self.tableView.frame = CGRectMake(0, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
     
     self.tableView.refreshDelegate = self;
     
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无收藏"];
+    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无收藏"];
     self.tableView.placeHolderView = self.holdView;
 
     [self.selectSV.scrollView addSubview:self.tableView];

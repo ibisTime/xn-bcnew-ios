@@ -99,8 +99,8 @@
     self.labelUnil.backgroundColor = kWhiteColor;
     self.labelUnil.titleNormalColor = kTextColor;
     self.labelUnil.titleSelectColor = kAppCustomMainColor;
-    self.labelUnil.layer.borderColor = kLineColor.CGColor;
-    self.labelUnil.titleFont = Font(18);
+//    self.labelUnil.layer.borderColor = kLineColor.CGColor;
+    self.labelUnil.titleFont = Font(15);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
     //    self.labelUnil.layer.cornerRadius = h/2.0;

@@ -83,15 +83,17 @@
     self.labelUnil.titleFont = Font(18);
     self.labelUnil.lineType = LineTypeButtonLength;
     self.labelUnil.titleArray = titleArr;
-    self.labelUnil.backgroundColor = kWhiteColor;
-    self.labelUnil.titleNormalColor = kTextColor;
-    self.labelUnil.titleSelectColor = kAppCustomMainColor;
-    self.labelUnil.layer.borderColor = kLineColor.CGColor;
+    self.labelUnil.backgroundColor = kAppCustomMainColor;
+    self.labelUnil.titleNormalColor = kWhiteColor;
+    self.labelUnil.titleSelectColor = kWhiteColor;
+    self.labelUnil.selectBtn.layer.borderWidth = 0;
+    self.labelUnil.selectBtn.clipsToBounds = YES;
+//    self.labelUnil.layer.borderColor = kLineColor.CGColor;
     //    self.labelUnil.layer.cornerRadius = h/2.0;
     //    self.labelUnil.layer.borderWidth = 1;
     //    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
     self.labelUnil.userInteractionEnabled = NO;
-    self.labelUnil.selectBtn.selected = YES;
+//    self.labelUnil.selectBtn.selected = YES;
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateNormal];
     [self.labelUnil.selectBtn setBackgroundColor:kAppCustomMainColor forState:UIControlStateSelected];
     

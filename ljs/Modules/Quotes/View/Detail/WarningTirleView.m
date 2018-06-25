@@ -24,6 +24,7 @@
 @property (nonatomic , strong)UIView *lineView;
 
 @property (nonatomic , strong)UIImageView *topImageView;
+@property (nonatomic , strong)UIView *bottomView;
 
 @end
 
@@ -79,9 +80,13 @@
 //    [self addSubview:self.USDLabel];
 //
 //    //当前人民币价格
+  
+    self.bottomView = [[UIView alloc]init];
+    [self addSubview:self.bottomView];
+    self.bottomView.backgroundColor = kBackgroundColor;
     self.toSymbol = [UILabel labelWithBackgroundColor:kHexColor(@"#FFA300")
-                                               textColor:[UIColor whiteColor]
-                                                    font:17.0];
+                                            textColor:[UIColor whiteColor]
+                                                 font:17.0];
     self.toSymbol.textAlignment = NSTextAlignmentLeft;
     self.toSymbol.layer.cornerRadius = 23.5;
     self.toSymbol.clipsToBounds = YES;
@@ -117,13 +122,22 @@
 
     }];
     
+ 
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(0);
+        make.bottom.equalTo(self.self.mas_bottom).with.offset(0);
+        make.right.equalTo(self.mas_right).offset(0);
+        //        make.width.mas_equalTo(([UIScreen mainScreen].bounds.size.width - 30)/3);
+        make.height.mas_equalTo(28);
+        
+    }];
     [self.toSymbol mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(15);
-        make.bottom.equalTo(self.self.mas_bottom).with.offset(0);
+        make.bottom.equalTo(self.self.mas_bottom).with.offset(-5);
         make.right.equalTo(self.mas_right).offset(-15);
-//        make.width.mas_equalTo(([UIScreen mainScreen].bounds.size.width - 30)/3);
+        //        make.width.mas_equalTo(([UIScreen mainScreen].bounds.size.width - 30)/3);
         make.height.mas_equalTo(47);
-
+        
     }];
 //    [self.USDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(self.toSymbol.mas_right);

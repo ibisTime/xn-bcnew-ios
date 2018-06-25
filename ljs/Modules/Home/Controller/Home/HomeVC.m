@@ -91,7 +91,7 @@
     self.labelUnil.layer.borderWidth = 1;
 //    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
     self.labelUnil.backgroundColor = kWhiteColor;
-    self.labelUnil.titleNormalColor = kTextColor;
+    self.labelUnil.titleNormalColor = kTextColor2;
     self.labelUnil.titleSelectColor = kAppCustomMainColor;
     self.labelUnil.layer.borderColor = kLineColor.CGColor;
     self.navigationItem.titleView = self.labelUnil;

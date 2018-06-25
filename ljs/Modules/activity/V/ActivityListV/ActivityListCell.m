@@ -91,12 +91,14 @@
     [self addSubview:self.readCountImg];
     self.readCount = [UILabel labelWithBackgroundColor:kClearColor  textColor:kHexColor(@"#818181") font:14.0];
     [self addSubview:self.readCount];
+    self.readCount.textAlignment = NSTextAlignmentRight;
     
     //位置
     self.locationImg = [[UIImageView alloc] initWithImage:kImage(@"已报名地点")];
     [self addSubview:self.locationImg];
     self.location = [UILabel labelWithBackgroundColor:kClearColor  textColor:kHexColor(@"#818181") font:14.0];
     [self addSubview:self.location];
+
 
 
     
@@ -137,7 +139,7 @@
          make.left.offset(10);
         make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
 
-        make.width.equalTo(@280);
+        make.width.equalTo(@(kWidth(200)));
 //        make.height.equalTo(@44);
 
         }];
@@ -146,6 +148,7 @@
     [self.price mas_makeConstraints:^(MASConstraintMaker *make) {
         
                 make.right.offset(-15);
+        make.left.equalTo(self.ActivityTitle.mas_right).offset(15);
               make.top.equalTo(self.ActivityImg.mas_bottom).offset(10);
     }];
     [self.isTopView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -200,7 +203,7 @@
     //浏览量
     [self.readCount mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.readCountImg.mas_right).offset(2);
+        make.right.equalTo(self.mas_right).offset(-15);
         make.centerY.equalTo(self.locationImg.mas_centerY);
         
     }];
@@ -221,33 +224,41 @@
 {
     _actModel  = actModel;
     ;
-    [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"1513759741.41"]];
-//    NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
-//    if ([state isEqualToString:@"2"]) {
-//        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
-//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
-////        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
-//    }else if([state isEqualToString:@"9"])
-//    {
-//        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
-//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
-//
-////        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
-//
-//    }else{
-//        [self.stateView setTitle:@"" forState:UIControlStateNormal];
-//
-//        [self.stateView setBackgroundColor:kClearColor forState:UIControlStateNormal];
-//
-//    }
+    [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"占位图"]];
+    NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
+    if ([state isEqualToString:@"9"]) {
+        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
+//        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
+    }else if([state isEqualToString:@"1"] ||[state isEqualToString:@"2"])
+    {
+      
+        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
+        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
+//        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
+
+    }else{
+        [self.stateView setTitle:@"" forState:UIControlStateNormal];
+
+        [self.stateView setBackgroundColor:kClearColor forState:UIControlStateNormal];
+
+    }
   
 //    self.ActivityImg.image =[UIImage imageNamed: actModel.advPic];
     
     
     self.ActivityTitle.text = actModel.title;
-    if ([actModel.price isEqualToString:@"0"]|| [actModel.price isEqualToString:@"免费"] || [actModel.price isEqualToString:@""]) {
+    if ([actModel.price isEqualToString:@"0"]|| [actModel.price isEqualToString:@"免费"] || !actModel.price ||[actModel.price isEqualToString:@""]) {
         self.price.text =[NSString stringWithFormat:@"免费"];
     }else{
+        
+        NSString * str =[NSString stringWithFormat:@"￥ %.2f",[actModel.price floatValue]];
+        if ([str isEqualToString:@"0.00"]) {
+            self.price.text =[NSString stringWithFormat:@"免费"];
+
+            return;
+        }
+
         self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
     }
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
@@ -255,6 +266,8 @@
     if (self.isTopView.hidden ==YES) {
         
     }
+   
+    //完全相等（NSOrderedDescending，NSOrderedAscending，NSOrderedSame这三个是一个枚举类型）
     self.readCount.text = actModel.readCount;
     self.location.text = actModel.meetAddress;
     [self layoutIfNeeded];

@@ -165,12 +165,12 @@
     _currency = currency;
     
     if ([currency.isChoice boolValue]) {
-        [self.addBtn setImage:[UIImage imageNamed:@"df_选择"] forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
 
     }
     else
     {
-        [self.addBtn setImage:[UIImage imageNamed:@"optional_添加"] forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"选这个"] forState:UIControlStateNormal];
 
     }
     

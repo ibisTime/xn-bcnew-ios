@@ -8,6 +8,8 @@
 
 #import "activityBottom.h"
 //VC
+#import "NSString+Extension.h"
+#import "NSString+Date.h"
 #import "TLUserLoginVC.h"
 
 #import "FillInRegistrationFormVC.h"
@@ -159,7 +161,44 @@
         [self.signUpBut setBackgroundColor:kpigColor forState:UIControlStateDisabled];
         self.signUpBut.enabled = YES;
     }
-    
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    //当前时间格式
+    formatter.dateFormat = @"yyyy/MM/dd/HH:mm";
+    NSString *dateTime=[formatter stringFromDate:[NSDate date]];
+    NSDate *date = [formatter dateFromString:dateTime];
+    NSString *str = [detailActModel.startDatetime convertDate];
+    NSString *strEnd = [detailActModel.endDatetime convertDate];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd/HH:mm"];
+    NSDate *date1 = [dateFormatter dateFromString:str];
+    NSDate *dateEnd = [dateFormatter dateFromString:strEnd];
+
+    NSComparisonResult result = [date compare:date1];
+    NSComparisonResult result1 = [date compare:dateEnd];
+
+    NSLog(@"date1 : %@, date2 : %@", date, date1);
+    if (result == NSOrderedDescending  ) {
+        if (result1 == NSOrderedDescending) {
+            [self.signUpBut setTitle:@"活动已结束" forState:UIControlStateDisabled];
+            [self.signUpBut setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+            self.signUpBut.enabled = NO;
+        }else{
+        NSLog(@"活动时间小于当前时间");
+        [self.signUpBut setTitle:@"活动已开始" forState:UIControlStateDisabled];
+        [self.signUpBut setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+        self.signUpBut.enabled = NO;
+        }
+    }
+    else if (result == NSOrderedAscending){
+        //当前时间小于返回时间
+        NSLog(@"活动时间大于当前时间");
+        
+    }else{
+        
+        NSLog(@"当前时间等于活动时间");
+        
+    }
     self.comentCountLab.text = detailActModel.commentCount;
     if ([detailActModel.isCollect isEqualToString:@"1"]) {
         self.collectionBut.selected = YES;

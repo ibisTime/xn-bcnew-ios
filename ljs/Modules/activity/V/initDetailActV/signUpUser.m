@@ -65,8 +65,8 @@
     [self.moreButt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.userImg.mas_centerY);
         make.right.offset(-15);
-        make.height.equalTo(@14);
-        make.width.equalTo(@14);
+        make.height.equalTo(@44);
+        make.width.equalTo(@44);
 
     }];
     

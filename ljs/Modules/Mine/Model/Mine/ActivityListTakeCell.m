@@ -31,6 +31,8 @@
 @property (nonatomic, strong) UILabel *price;
 @property (nonatomic, strong)  UIButton *stateView;
 @property (nonatomic, strong)  UILabel *stateLable;
+@property (nonatomic, strong) UIImageView *stateImg;
+@property (nonatomic, strong) UIView *mengView;
 
 //收藏数
 @property (nonatomic, strong) UILabel *collectNumLbl;
@@ -64,7 +66,13 @@
     
     [self addSubview:self.infoIV];
     
-   
+    self.mengView = [[UIView alloc] init];
+    
+    self.infoIV.contentMode = UIViewContentModeScaleAspectFill;
+    self.infoIV.clipsToBounds = YES;
+    self.infoIV.layer.cornerRadius = 4;
+    [self addSubview:self.mengView];
+
     UIButton *stateView = [[UIButton alloc] init];
     self.stateView =stateView;
     [self addSubview:stateView];
@@ -130,6 +138,9 @@
         make.left.right.bottom.equalTo(@0);
         make.height.equalTo(@0.5);
     }];
+    self.stateImg = [[UIImageView alloc] initWithImage:kImage(@"已报名浏览")];
+    [self addSubview:self.stateImg];
+    self.stateImg.hidden = YES;
     //布局
     [self setSubviewLayout];
 }
@@ -146,6 +157,15 @@
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
+    //缩略图
+    [self.mengView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(@(x));
+        make.top.equalTo(@10);
+        make.width.equalTo(@100);
+        make.height.equalTo(@100);
+    }];
+    self.mengView.hidden = YES;
     [self.stateView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.offset(x);
@@ -216,13 +236,22 @@
     [self.price mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.location.mas_bottom).offset(10);
         make.right.equalTo(@(-10));
-        
+        make.left.equalTo(@((kWidth(250))));
+
     }];
     //收藏数
     [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.readCountImg.mas_right).offset(5);
-        make.top.equalTo(self.location.mas_bottom).offset(10);
+        make.centerY.equalTo(self.readCountImg.mas_centerY).offset(0);
+    }];
+    [self.stateImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(self.collectNumLbl.mas_centerY).offset(0);
+        make.left.equalTo(self.collectNumLbl.mas_right).offset(10);
+        make.width.equalTo(@(kWidth(28)));
+        make.height.equalTo(@(kHeight(15)));
+
     }];
 }
 
@@ -252,11 +281,18 @@
     NSString *state = [NSString stringWithFormat:@"%@",infoModel.status];
     if ([state isEqualToString:@"9"]) {
         [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
+        self.stateImg.hidden = NO;
+        self.stateImg.image = kImage(@"end");
+        self.mengView.hidden = NO;
+        self.mengView.backgroundColor = kAppCustomMainColor;
+        self.mengView.alpha = 0.8;
+        
         [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
         //        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
     }else
     {
-        
+        self.stateImg.hidden = YES;
+
         [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
         [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
         //        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
@@ -267,11 +303,36 @@
     self.timeLb2.text = [infoModel.endDatetime convertDate];
     self.collectNumLbl.text = [NSString stringWithFormat:@"%@", infoModel.readCount];
     self.location.text = infoModel.meetAddress;
-    if ([infoModel.price isEqualToString:@"0"] || [infoModel.price isEqualToString:@"免费"]|| [infoModel.price isEqualToString:@""] ) {
+    if ([infoModel.price isEqualToString:@"0"] || [infoModel.price isEqualToString:@"免费"]|| !infoModel.price ) {
         
         self.price.text = @"免费";
         return;
     }
-    self.price.text= [NSString stringWithFormat:@"%@", infoModel.price ];;
+    self.price.text= [NSString stringWithFormat:@"￥%@", infoModel.price ];;
+    
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    //当前时间格式
+    formatter.dateFormat = @"yyyy/MM/dd/HH:mm";
+    NSString *dateTime=[formatter stringFromDate:[NSDate date]];
+    NSDate *date = [formatter dateFromString:dateTime];
+    NSString *str = [infoModel.endDatetime convertDate];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd/HH:mm"];
+    NSDate *date1 = [dateFormatter dateFromString:str];
+    NSComparisonResult result = [date compare:date1];
+    NSLog(@"date1 : %@, date2 : %@", date, date1);
+    if (result == NSOrderedDescending) {
+        //当前时间大于返回时间
+     
+    }
+    else if (result == NSOrderedAscending){
+        //当前时间小于返回时间
+        NSLog(@"活动时间大于当前时间");
+        
+    }else{
+        
+        NSLog(@"当前时间等于活动时间");
+        
+    }
 }
 @end
