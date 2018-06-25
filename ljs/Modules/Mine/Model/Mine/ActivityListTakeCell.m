@@ -128,6 +128,7 @@
     //价格
     self.price = [UILabel labelWithBackgroundColor:kClearColor textColor:kHexColor(@"#FFA000") font:12.0];
     [self  addSubview:self.price];
+    self.price.textAlignment = NSTextAlignmentRight;
     UIView *bottomLine = [[UIView alloc] init];
     
     bottomLine.backgroundColor = kLineColor;
@@ -239,6 +240,7 @@
         make.left.equalTo(@((kWidth(250))));
 
     }];
+    
     //收藏数
     [self.collectNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -280,21 +282,21 @@
     
     NSString *state = [NSString stringWithFormat:@"%@",infoModel.status];
     if ([state isEqualToString:@"9"]) {
-        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
+//        [self.stateView setTitle:@"已结束" forState:UIControlStateNormal];
         self.stateImg.hidden = NO;
         self.stateImg.image = kImage(@"end");
         self.mengView.hidden = NO;
         self.mengView.backgroundColor = kAppCustomMainColor;
         self.mengView.alpha = 0.8;
         
-        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
+//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"黄"] forState:UIControlStateNormal];
         //        [self.stateView setBackgroundColor:kRiseColor forState:UIControlStateNormal];
     }else
     {
-        self.stateImg.hidden = YES;
-
-        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
-        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
+//        self.stateImg.hidden = YES;
+//
+//        [self.stateView setTitle:@"已报名" forState:UIControlStateNormal];
+//        [self.stateView setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
         //        [self.stateView setBackgroundColor:kStateColor forState:UIControlStateNormal];
         
     }

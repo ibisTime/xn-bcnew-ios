@@ -10,8 +10,12 @@
 /**
  币种二级详情
  */
+typedef void(^ChooseBlock)(NSInteger type);
+
 @interface CurrencyKLineVC : BaseViewController
 //币种ID
 @property (nonatomic, copy) NSString *symbolID;
+
+@property (nonatomic, copy) ChooseBlock choose;
 
 @end

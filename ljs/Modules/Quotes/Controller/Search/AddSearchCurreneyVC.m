@@ -124,14 +124,20 @@
        
 
         [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
 
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+        tabbarCtrl.selectedIndex = 1;
     }else{
+        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
-      
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+        tabbarCtrl.selectedIndex = 1;
 //        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
 
     }

@@ -24,6 +24,9 @@
 #import "ActivityDetailModel.h"
 #import "AcvitityInformationListTableView.h"
 #import "detailActivityVC.h"
+#import "CollectionActivityVC.h"
+#import "TakeActicityUnVc.h"
+#import "TakeActivityNextVc.h"
 @interface TakeActivityVCr ()<RefreshDelegate>
 
 @property (nonatomic, strong) NSMutableArray *titles;
@@ -32,6 +35,7 @@
 @property (nonatomic, strong) NSMutableArray <ActivityListModel *>*activities;
 //
 @property (nonatomic, strong) detailActivityVC *detOfActVC;
+@property (nonatomic , strong)SelectScrollView *selectSV;
 
 @property (nonatomic, strong) TLPageDataHelper *flashHelper;
 @property (nonatomic, strong) ActivityLimitModel *limitModel;
@@ -51,21 +55,51 @@
     
     
     //活动
-    [self initActivityListTableView];
+//    [self initActivityListTableView];
     //获取活动列表
-    [self requestActivityList];
     //刷新
     
-    [self.ActivityListTableView beginRefreshing];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoadHomeVC"
                                                         object:nil];
-//    self.titles = [NSMutableArray arrayWithObjects:@"待审核", @"审核中",@"已通过",@"未通过", nil];
+    self.titles = [NSMutableArray arrayWithObjects:@"已通过",@"未通过", nil];
+    self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    self.selectSV.selectBlock = ^(NSInteger index) {
+        NSString * str = [NSString stringWithFormat:@"%ld",index];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"indexChange" object:@{@"str":str}];
+    };
+    [self.view addSubview:self.selectSV];
+    
+    [self addsubview];
+//    [self requestActivityList];
+//    [self.ActivityListTableView beginRefreshing];
+
 //    //监听推送
 //    [self addPushNotification];
 //    //顶部切换
 //    [self initSegmentView];
 }
+- (void)addsubview
+{
+    for (NSInteger index = 0; index < self.titles.count; index ++) {
+        if (index == 0) {
+            TakeActicityUnVc *activity = [[TakeActicityUnVc alloc] init];
+            [self addChildViewController:activity];
+            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight);
+            [self.selectSV.scrollView addSubview:activity.view];
+            
+        }
+        else
+        {
+            TakeActivityNextVc *activity = [[TakeActivityNextVc alloc] init];
+            [self addChildViewController:activity];
+            activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight  - kTabBarHeight);
+            [self.selectSV.scrollView addSubview:activity.view];
+        }
+    }
+}
+
+
 #pragma mark - Init
 - (void)addNotification {
     //用户登录刷新
@@ -87,21 +121,37 @@
 //
 - (void)initActivityListTableView {
     
-    self.ActivityListTableView = [[AcvitityInformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    
-    
-    //    self.repaymentListTableView.refreshDelegate = self;
-    
-    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无活动" text:@"暂无活动"];
-    self.ActivityListTableView.placeHolderView =self.holfView;
-    self.ActivityListTableView.refreshDelegate = self;
-    [self.view addSubview:self.ActivityListTableView];
-    [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.edges.mas_equalTo(0);
-    }];
+//    self.ActivityListTableView = [[AcvitityInformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+//
+//
+//    //    self.repaymentListTableView.refreshDelegate = self;
+//
+//    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无活动" text:@"暂无活动"];
+//    self.ActivityListTableView.placeHolderView =self.holfView;
+//    self.ActivityListTableView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActivity)];
+//    self.ActivityListTableView.mj_footer = [MJRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextActivity)];
+//    self.ActivityListTableView.refreshDelegate = self;
+//    [self.view addSubview:self.ActivityListTableView];
+//    [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.edges.mas_equalTo(UIEdgeInsetsMake(kTabBarHeight, 0, 0, 0));
+//    }];
 }
 
+//- (void)loadMoreActivity
+//{
+//    [self.ActivityListTableView.mj_header beginRefreshing];
+//    [self requestActivityList];
+//
+//}
+//- (void)loadNextActivity
+//{
+//    [self.ActivityListTableView.mj_header beginRefreshing];
+//
+//    [self requestActivityList];
+//
+//
+//}
 
 #pragma mark - Data
 - (void)requestActivityList {
@@ -109,13 +159,14 @@
     BaseWeakSelf;
     TLNetworking *http = [TLNetworking new];
 
-//    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+//    TLPageDataHelper *help = [[TLPageDataHelper alloc] init];
     
     http.code = @"628527";
     
         http.parameters[@"start"] = @"0";
         http.parameters[@"limit"] = @"10";
-    
+    http.parameters[@"status"] = @"1";
+
     http.showView = self.view;
     if ([TLUser user].isLogin) {
         
@@ -128,6 +179,7 @@
         http.parameters[@"token"] = @"";
 
     }
+    
     [http postWithSuccess:^(id responseObject) {
         [ ActivityLimitModel mj_setupObjectClassInArray:^NSDictionary *{
             return @{
@@ -144,9 +196,11 @@
         if (self.limitModel.list.count <= 0) {
             [self.ActivityListTableView addSubview:self.holfView];
             return ;
-            
+            [self.ActivityListTableView.mj_header endRefreshing];
         }
         [self.holfView removeFromSuperview];
+        [self.ActivityListTableView.mj_header endRefreshing];
+
         self.ActivityListTableView.infos = self.limitModel.list;
         self.activities = [NSMutableArray array];
 
@@ -154,14 +208,7 @@
             [self.activities addObject:model];
         }
         [self.ActivityListTableView reloadData];
-//        NSLog(@"%@",self.limitModel);
-        
-//        self.detailActHead.detailActModel= self.detailActModel;
-//        self.detailActMap.detailActModel= self.detailActModel;
-//        self.signUpUseres.detailActModel= self.detailActModel;
-//        self.activeCon.detailActModel= self.detailActModel;
-//        self.activityBott.detailActModel= self.detailActModel;
-//
+
         
         
         
@@ -170,7 +217,8 @@
         
     } failure:^(NSError *error) {
         
-        
+        [self.ActivityListTableView.mj_header endRefreshing];
+
         
     }];
 }

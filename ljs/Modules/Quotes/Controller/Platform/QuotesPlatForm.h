@@ -18,5 +18,6 @@ typedef void(^selectPlat)(NSString *);
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray <PlatformTitleModel *>*platformTitleList;
 @property (nonatomic, strong) PlatformTitleModel  *platformTitleModel;
+- (void)removeSubViewClass;
 
 @end

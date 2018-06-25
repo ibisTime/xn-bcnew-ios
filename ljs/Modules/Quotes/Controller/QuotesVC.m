@@ -91,6 +91,10 @@
 @property (nonatomic, strong) NSArray <PlatformModel *>*platforms;
 @property (nonatomic, strong) QuotesCurrencyVC *CurrencyVC;
 @property (nonatomic, strong) QuotesPlatformVC *PlatformVC;
+@property (nonatomic, strong) QuotesPlatForm *Platform;
+@property (nonatomic, strong) NSMutableArray <QuotesCurrencyVC *>*CurrencyVCs;
+@property (nonatomic, strong) NSMutableArray <QuotesPlatformVC *>*PlatformVCs;
+@property (nonatomic, strong) NSMutableArray <QuotesPlatForm *>*forms;
 
 @end
 
@@ -209,9 +213,21 @@
 
     NSLog(@"currencyTitleList%@",self.currencyTitleList);
     
+    for (QuotesCurrencyVC*vc in self.CurrencyVCs) {
+        
+        [vc removeSubViewClass];
+    }
+    for (QuotesPlatformVC*vc in self.PlatformVCs) {
+        
+        [vc removeSubViewClass];
+    }for (QuotesPlatForm*vc in self.forms) {
+        
+        [vc removeSubViewClass];
+    }
     
-    [self.switchSV removeFromSuperview];
-    [self.titles removeAllObjects];
+//    [self.switchSV removeFromSuperview];
+//
+//    [self.titles removeAllObjects];
     self.titles = [NSMutableArray arrayWithObject:@"全部"];
     if (self.currencyTitleList.count > 0) {
         [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -327,6 +343,10 @@
 }
 
 - (void)initSegmentView {
+    self.CurrencyVCs = [NSMutableArray array];
+    self.PlatformVCs = [NSMutableArray array];
+    self.forms = [NSMutableArray array];
+
     
     self.currentSegmentIndex = 1;
     self.platformLabelIndex = 0;
@@ -549,7 +569,7 @@
             childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
             
             [self addChildViewController:childVC];
-            
+            [self.CurrencyVCs addObject:childVC];
             [self.selectSV.scrollView addSubview:childVC.view];
            
         }else if ([self.kind isEqualToString:kOptional])
@@ -562,6 +582,7 @@
             childVC.smallBtn = self.smallBtn;
             childVC.smallBtn.hidden = YES;
 
+            [self.PlatformVCs addObject:childVC];
 
             childVC.selectBlock = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
@@ -588,7 +609,8 @@
             QuotesPlatForm *childVC = [[QuotesPlatForm alloc] init];
             childVC.currentSegmentIndex = 1;
             
-            
+            [self.forms addObject:childVC];
+
             childVC.seleBlock  = ^(NSString *idsar) {
                 [weakSelf pushCurrencyKLineVCWith:idsar];
             };

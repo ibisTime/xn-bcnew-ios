@@ -48,7 +48,12 @@
 @end
 
 @implementation QuotesPlatformVC
-
+- (void)removeSubViewClass
+{
+    [self willMoveToParentViewController:nil];
+    [self removeFromParentViewController];
+    [self.view removeFromSuperview];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     //头部

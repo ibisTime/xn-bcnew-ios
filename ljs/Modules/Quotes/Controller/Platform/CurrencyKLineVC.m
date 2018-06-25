@@ -175,16 +175,27 @@
         http.parameters[@"toSymbol"] = self.platform.toSymbol;
         
         [http postWithSuccess:^(id responseObject) {
-            
+
             if ([self.platform.isChoice integerValue] == 1) {
+                [self.bottomView.optionBtn setImage:kImage(@"自选白") forState:UIControlStateNormal];
+
 //                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_添加 圆"] forState:UIControlStateNormal];
                 self.platform.isChoice = @"0";
+                if (self.choose) {
+                    self.choose([self.platform.isChoice integerValue]);
+                }
                 
             }
             else
             {
+            [self.bottomView.optionBtn setImage:kImage(@"删除 红") forState:UIControlStateNormal];
+
 //                [self.informationCardBtn setImage:[UIImage imageNamed:@"df_减"] forState:UIControlStateNormal];
+
                 self.platform.isChoice = @"1";
+                if (self.choose) {
+                    self.choose([self.platform.isChoice integerValue]);
+                }
             }
             
             [TLAlert alertWithMsg:@"操作成功"];
@@ -226,7 +237,8 @@
 
 
     self.bottomView = [[CurrencyBottomView alloc] initWithFrame:CGRectMake(0, kSuperViewHeight - kBottomHeight - kBottomInsetHeight, kScreenWidth, kBottomHeight)];
-
+    self.bottomView.platform = self.platform;
+    self.bottomView.kine = self;
 //    self.bottomView.bottomBlock = ^(BottomEventType type) {
 //
 //        [weakSelf bottomEventType:type];
@@ -339,7 +351,7 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.platform = [PlatformModel mj_objectWithKeyValues:responseObject[@"data"]];
-        
+        self.bottomView.platform = self.platform;
         [self initSubviews];
         
         if ([self.platform.isChoice integerValue] == 1) {

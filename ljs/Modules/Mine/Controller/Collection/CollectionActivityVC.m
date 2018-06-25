@@ -44,7 +44,11 @@
         make.edges.mas_equalTo(0);
     }];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.ActivityListTableView beginRefreshing];
+}
 - (void)requestInfoList {
     
     BaseWeakSelf;
@@ -67,7 +71,10 @@
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <=0) {
+                weakSelf.ActivityListTableView.infos = objs;
+                [weakSelf.ActivityListTableView reloadData_tl];
                 [weakSelf.ActivityListTableView addSubview:weakSelf.holdView];
+
                 return ;
             }
             
@@ -88,6 +95,9 @@
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <=0) {
                 [weakSelf.ActivityListTableView addSubview:weakSelf.holdView];
+                weakSelf.ActivityListTableView.infos = objs;
+                [weakSelf.ActivityListTableView reloadData_tl];
+
                 return ;
             }
             weakSelf.infos = objs;

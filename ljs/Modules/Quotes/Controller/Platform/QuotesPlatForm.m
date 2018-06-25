@@ -29,14 +29,20 @@
 @end
 
 @implementation QuotesPlatForm
-
+- (void)removeSubViewClass
+{
+    [self willMoveToParentViewController:nil];
+    [self removeFromParentViewController];
+    [self.view removeFromSuperview];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTableView];
     self.tableView.platforms = self.platforms;
     self.percentChangeIndex = -1;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.platformTitleModel = self.platformTitleList[0];
+
     
     //获取自选列表
     [self addNotification];
@@ -217,7 +223,7 @@
     self.tableView.pagingEnabled = false;
 
     //       self.tableView.tableHeaderView = self.headerView;
-    [self requestPlatform];
+//    [self requestPlatform];
     
     
     

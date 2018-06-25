@@ -46,6 +46,7 @@
 
     
 }
+
 - (void)addsubview
 {
     for (NSInteger index = 0; index < 2; index ++) {
@@ -102,7 +103,10 @@
         
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <= 0) {
+                weakSelf.tableView.collections = objs;
+                [weakSelf.tableView reloadData_tl];
                 [weakSelf.tableView addSubview:weakSelf.holdView];
+
                 return ;
             }
             weakSelf.collections = objs;
@@ -121,6 +125,8 @@
         
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <= 0) {
+                weakSelf.tableView.collections = objs;
+                [weakSelf.tableView reloadData_tl];
                 [weakSelf.tableView addSubview:weakSelf.holdView];
                 return ;
             }
@@ -138,7 +144,11 @@
     
     [self.tableView endRefreshingWithNoMoreData_tl];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView beginRefreshing];
+}
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     

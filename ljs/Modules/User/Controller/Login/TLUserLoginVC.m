@@ -61,7 +61,7 @@
 - (void)setBarButtonItem {
 
     //取消按钮
-    UIButton *backBtn = [UIButton buttonWithImageName:kCancelIcon];
+    UIButton *backBtn = [UIButton buttonWithImageName:@"关掉"];
     
     backBtn.frame = CGRectMake(0, kStatusBarHeight, 80, 44);
     

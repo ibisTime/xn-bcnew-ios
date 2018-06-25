@@ -252,14 +252,14 @@
         self.price.text =[NSString stringWithFormat:@"免费"];
     }else{
         
-        NSString * str =[NSString stringWithFormat:@"￥ %.2f",[actModel.price floatValue]];
+        NSString * str =[NSString stringWithFormat:@"￥%.2f",[actModel.price floatValue]];
         if ([str isEqualToString:@"0.00"]) {
             self.price.text =[NSString stringWithFormat:@"免费"];
 
             return;
         }
 
-        self.price.text =[NSString stringWithFormat:@"￥ %@",actModel.price];
+        self.price.text =[NSString stringWithFormat:@"￥%@",actModel.price];
     }
     self.dateLbl.text = [NSString stringWithFormat:@"%@-%@",[actModel.startDatetime convertDate ],[actModel.endDatetime convertDate]];
     self.isTopView.hidden = [actModel.isTop isEqualToString:@"0"];

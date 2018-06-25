@@ -299,6 +299,8 @@
 		B870F5CC20AF15CE00335B87 /* ArticleStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B870F5CB20AF15CE00335B87 /* ArticleStateController.m */; };
 		B8839C6620B174B100024A66 /* QCInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8839C6520B174B100024A66 /* QCInfomationModel.m */; };
 		B8884F0120DBEE2D00D00571 /* HomeArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8884F0020DBEE2A00D00571 /* HomeArticleVC.m */; };
+		B89C9D1720E12D53001D8B20 /* TakeActicityUnVc.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C9D1620E12D53001D8B20 /* TakeActicityUnVc.m */; };
+		B89C9D1A20E144BA001D8B20 /* TakeActivityNextVc.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C9D1920E144BA001D8B20 /* TakeActivityNextVc.m */; };
 		B89D424020B271D600A99740 /* HomeQuotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423C20B271D500A99740 /* HomeQuotesView.m */; };
 		B89D424120B271D600A99740 /* HomeQuotesSortBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */; };
 		B8A5D86D20D897BE00B16548 /* PlateIntroduceUS.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5D86C20D897BE00B16548 /* PlateIntroduceUS.m */; };
@@ -952,6 +954,10 @@
 		B8839C6520B174B100024A66 /* QCInfomationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCInfomationModel.m; sourceTree = "<group>"; };
 		B8884EFF20DBEE2A00D00571 /* HomeArticleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeArticleVC.h; sourceTree = "<group>"; };
 		B8884F0020DBEE2A00D00571 /* HomeArticleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeArticleVC.m; sourceTree = "<group>"; };
+		B89C9D1520E12D53001D8B20 /* TakeActicityUnVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActicityUnVc.h; sourceTree = "<group>"; };
+		B89C9D1620E12D53001D8B20 /* TakeActicityUnVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActicityUnVc.m; sourceTree = "<group>"; };
+		B89C9D1820E144BA001D8B20 /* TakeActivityNextVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeActivityNextVc.h; sourceTree = "<group>"; };
+		B89C9D1920E144BA001D8B20 /* TakeActivityNextVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeActivityNextVc.m; sourceTree = "<group>"; };
 		B89D423C20B271D500A99740 /* HomeQuotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesView.m; sourceTree = "<group>"; };
 		B89D423D20B271D500A99740 /* HomeQuotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeQuotesView.h; sourceTree = "<group>"; };
 		B89D423E20B271D600A99740 /* HomeQuotesSortBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeQuotesSortBar.m; sourceTree = "<group>"; };
@@ -1185,6 +1191,10 @@
 			children = (
 				186E8BC4209C0A9C00532B1C /* ActivityVC.h */,
 				186E8BC5209C0A9C00532B1C /* ActivityVC.m */,
+				B89C9D1520E12D53001D8B20 /* TakeActicityUnVc.h */,
+				B89C9D1620E12D53001D8B20 /* TakeActicityUnVc.m */,
+				B89C9D1820E144BA001D8B20 /* TakeActivityNextVc.h */,
+				B89C9D1920E144BA001D8B20 /* TakeActivityNextVc.m */,
 			);
 			path = ActivityVC;
 			sourceTree = "<group>";
@@ -3495,6 +3505,7 @@
 				B870F5C920AF0ADA00335B87 /* MyArticleViewController.m in Sources */,
 				B8BEA03920D79909004F5362 /* PlateMineModel.m in Sources */,
 				186E8C06209C0A9D00532B1C /* initDetailActHead.m in Sources */,
+				B89C9D1A20E144BA001D8B20 /* TakeActivityNextVc.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21CFFB0C205663A600D245ED /* HomeChildVC.m in Sources */,
 				C429629920B587F30011E2B2 /* CurrencyInfoTableView.m in Sources */,
@@ -3601,6 +3612,7 @@
 				B8ECCB1720D4AC2300DB4499 /* ContactUsVC.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
 				C429628320B56AB40011E2B2 /* AnalysisViewController.m in Sources */,
+				B89C9D1720E12D53001D8B20 /* TakeActicityUnVc.m in Sources */,
 				B8DEF9B920BD448000E3D7C5 /* AddSearchCell.m in Sources */,
 				21EF0B9120668FE3008EA865 /* MyCollectionCell.m in Sources */,
 				21AC59701FDE81D500F19DE8 /* UIBarButtonItem+convience.m in Sources */,

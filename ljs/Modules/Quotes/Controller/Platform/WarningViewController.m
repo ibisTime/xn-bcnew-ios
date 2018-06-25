@@ -44,7 +44,7 @@
     http.showView = self.view;
     http.parameters[@"userId"] = [TLUser user].userId;
     
-    http.parameters[@"exchangeEname"] = self.platform.exchangeCname;
+    http.parameters[@"exchangeEname"] = self.platform.exchangeEname;
     http.parameters[@"symbol"] = self.platform.symbol;
     http.parameters[@"toSymbol"] = self.platform.toSymbol;
     http.parameters[@"status"] = @"0";

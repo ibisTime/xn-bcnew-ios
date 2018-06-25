@@ -38,5 +38,5 @@ typedef void(^selectCurrent)(NSString *);
 
 @property (nonatomic, assign) NSInteger currentSegmentIndex;
 @property (nonatomic, strong) UIButton *smallBtn;
-
+- (void)removeSubViewClass;
 @end

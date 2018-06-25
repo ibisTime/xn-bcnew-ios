@@ -37,6 +37,7 @@ typedef void(^selectCurrent)(NSString *);
 @property (nonatomic, strong)  QuotesVC *quotesVc;
 //点击刷新
 - (void)clickPlatformWithIndex:(NSInteger)index;
+- (void)removeSubViewClass;
 
 /**
  点击cell返回ID

@@ -106,6 +106,8 @@
 //切换子标题
 - (void)indexChange: (NSNotification*)not
 {
+    //子标题切换
+    
     NSDictionary * infoDic = [not object];
     NSString * type = infoDic[@"str"];
     self.type = type;

@@ -279,6 +279,7 @@
             helper.parameters[@"keywords"] = weakSelf.currentSearch;
             
         }
+        [weakSelf requestBannerList];
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <= 0) {
                 weakSelf.infoTableView.placeHolderView = weakSelf.hold;
@@ -305,7 +306,8 @@
     [self.infoTableView addLoadMoreAction:^{
         if (weakSelf.currentSearch.length > 0) {
             helper.parameters[@"keywords"] = weakSelf.currentSearch;
-            
+            [weakSelf requestBannerList];
+
         }
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
             if (objs.count <= 0) {
