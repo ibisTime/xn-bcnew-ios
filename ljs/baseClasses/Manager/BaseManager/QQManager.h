@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <TencentOpenAPI/QQApiInterface.h>
-#import <TencentOpenAPI/QQApiInterfaceObject.h>
+//#import <TencentOpenAPI/QQApiInterface.h>
+//#import <TencentOpenAPI/QQApiInterfaceObject.h>
 
-@interface QQManager : NSObject<QQApiInterfaceDelegate>
+@interface QQManager : NSObject
+//<QQApiInterfaceDelegate>
 
 @property (nonatomic, copy) void(^qqShare)(BOOL isSuccess,int errorCode);
 

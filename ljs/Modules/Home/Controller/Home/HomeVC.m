@@ -62,7 +62,6 @@
     
     //切换到热点界面
     SelectScrollView *selectSV = (SelectScrollView *)[self.view viewWithTag:2500];
-    
     selectSV.currentIndex = 1;
 }
 
@@ -163,28 +162,21 @@
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
-        
         if (index == 1) {
-        
             childVC.status = self.statusList[i];
             childVC.kind = @"1";
-
         } else {
-            
             childVC.code = self.infoTypeList[i].code;
             childVC.titleStr = self.titles[i];
             childVC.kind = @"2";
-            
             if (i == 0) {
                 childVC.isActivity = YES;
             }
-
         }
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
-        
         [self addChildViewController:childVC];
-        
         [selectSV.scrollView addSubview:childVC.view];
+        
     }
 }
 

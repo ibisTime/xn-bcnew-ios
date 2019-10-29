@@ -359,10 +359,6 @@
 		C490183D20B6BAD00091C11F /* PlatformAndOtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183C20B6BAD00091C11F /* PlatformAndOtherVC.m */; };
 		C490184020B6C1840091C11F /* PlatformAndOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */; };
 		C490184320B80F560091C11F /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C490184220B80F560091C11F /* BannerModel.m */; };
-		C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */; };
-		C4BD787A20B2A71400C46D05 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787520B2A71400C46D05 /* README.txt */; };
-		C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD787720B2A71400C46D05 /* libWeChatSDK.a */; };
-		C4BD787C20B2A71400C46D05 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4BD787820B2A71400C46D05 /* read_me.txt */; };
 		C4BD788C20B3AD3300C46D05 /* CurrencyKLineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */; };
 		C4BD789020B3AE5700C46D05 /* QuotesChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD788F20B3AE5700C46D05 /* QuotesChangeView.m */; };
 		C4BD789320B3AEDD00C46D05 /* CurrencyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD789120B3AEDD00C46D05 /* CurrencyInfoView.m */; };
@@ -1075,13 +1071,6 @@
 		C490183F20B6C1840091C11F /* PlatformAndOtherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformAndOtherCell.m; sourceTree = "<group>"; };
 		C490184120B80F560091C11F /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
 		C490184220B80F560091C11F /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
-		C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
-		C4BD787320B2A71400C46D05 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		C4BD787420B2A71400C46D05 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		C4BD787520B2A71400C46D05 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		C4BD787620B2A71400C46D05 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
-		C4BD787720B2A71400C46D05 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		C4BD787820B2A71400C46D05 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		C4BD788A20B3AD3200C46D05 /* CurrencyKLineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKLineVC.m; sourceTree = "<group>"; };
 		C4BD788B20B3AD3300C46D05 /* CurrencyKLineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKLineVC.h; sourceTree = "<group>"; };
 		C4BD788E20B3AE5600C46D05 /* QuotesChangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesChangeView.h; sourceTree = "<group>"; };
@@ -1126,13 +1115,11 @@
 				216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */,
 				216AB7F21F189F30006C26A1 /* libc++.tbd in Frameworks */,
 				216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */,
-				C4BD787920B2A71400C46D05 /* TencentOpenAPI.framework in Frameworks */,
 				216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */,
 				216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */,
 				210FD1D31F6673E5001DA03D /* CFNetwork.framework in Frameworks */,
 				210FD1D11F6673D6001DA03D /* CoreGraphics.framework in Frameworks */,
 				210FD1CF1F6673CC001DA03D /* CoreText.framework in Frameworks */,
-				C4BD787B20B2A71400C46D05 /* libWeChatSDK.a in Frameworks */,
 				210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */,
 				210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */,
 				210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */,
@@ -2818,7 +2805,6 @@
 		21F827D11F1742E80019B176 /* ljs */ = {
 			isa = PBXGroup;
 			children = (
-				C4BD787020B2A6D700C46D05 /* Extension */,
 				219CF539207356B100012F68 /* ljs.entitlements */,
 				21F82B7D1F17719D0019B176 /* Modules */,
 				21F82B551F17719D0019B176 /* baseClasses */,
@@ -3124,28 +3110,6 @@
 			path = CurrencyInfo;
 			sourceTree = "<group>";
 		};
-		C4BD787020B2A6D700C46D05 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				C4BD787120B2A71400C46D05 /* TencentOpenAPI.framework */,
-				C4BD787220B2A71400C46D05 /* WechatSDK1.8.2 */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		C4BD787220B2A71400C46D05 /* WechatSDK1.8.2 */ = {
-			isa = PBXGroup;
-			children = (
-				C4BD787320B2A71400C46D05 /* WXApi.h */,
-				C4BD787420B2A71400C46D05 /* WXApiObject.h */,
-				C4BD787520B2A71400C46D05 /* README.txt */,
-				C4BD787620B2A71400C46D05 /* WechatAuthSDK.h */,
-				C4BD787720B2A71400C46D05 /* libWeChatSDK.a */,
-				C4BD787820B2A71400C46D05 /* read_me.txt */,
-			);
-			path = WechatSDK1.8.2;
-			sourceTree = "<group>";
-		};
 		C4BD788D20B3AE3C00C46D05 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -3210,7 +3174,7 @@
 				TargetAttributes = {
 					21F827CE1F1742E80019B176 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = ZKTVZ75A59;
+						DevelopmentTeam = 4M8KD7B9X5;
 						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3251,11 +3215,9 @@
 				21F82D1C1F17719D0019B176 /* Assets.xcassets in Resources */,
 				219CF5292072550300012F68 /* QRCodebottomLeft@2x.png in Resources */,
 				219CF5282072550300012F68 /* QRCodebottomRight@2x.png in Resources */,
-				C4BD787A20B2A71400C46D05 /* README.txt in Resources */,
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
 				219CF52D2072550300012F68 /* QRCodeTopLeft@2x.png in Resources */,
 				219CF52C2072550300012F68 /* QRCodeTopRight@2x.png in Resources */,
-				C4BD787C20B2A71400C46D05 /* read_me.txt in Resources */,
 				219CF52B2072550300012F68 /* QRCodeLine@2x.png in Resources */,
 				219CF52F2072550300012F68 /* sound.caf in Resources */,
 			);
@@ -3270,7 +3232,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ljs/Pods-ljs-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ljs/Pods-ljs-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle",
@@ -3287,7 +3249,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ljs/Pods-ljs-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ljs/Pods-ljs-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB1716A7EE1059654566F3F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -3778,7 +3740,7 @@
 				CODE_SIGN_ENTITLEMENTS = ljs/ljs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = 4M8KD7B9X5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3791,7 +3753,7 @@
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3800,7 +3762,7 @@
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
 					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclubhq;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdkj.wallet6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3821,7 +3783,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKTVZ75A59;
+				DEVELOPMENT_TEAM = 4M8KD7B9X5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3834,7 +3796,7 @@
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ljs/Resource/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3843,7 +3805,7 @@
 					"$(PROJECT_DIR)/WechatSDK1.8.2",
 					"$(PROJECT_DIR)/ljs/Extension/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xs.ljclubhq;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdkj.wallet6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

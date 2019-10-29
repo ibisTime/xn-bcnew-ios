@@ -18,7 +18,7 @@
 #import "UIView+Responder.h"
 #import "NSString+Extension.h"
 //Extension
-#import "WXApi.h"
+//#import "WXApi.h"
 
 @interface ShareView ()
 
@@ -96,32 +96,32 @@
     NSString *shareDesc = PASS_NULL_TO_NIL(_shareDesc).length > 0 ? _shareDesc : @"欢迎使用链接社";
     UIImage *shareImage =  [_shareImgStr isEqualToString:@""] || _shareImgStr == nil? [UIImage imageNamed:APP_ICON] : [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_shareImgStr convertImageUrl]]]];
     
-    WXMediaMessage *message = [WXMediaMessage message];
-    
-    message.title = shareTitle;
-    message.description = shareDesc;
-    
-    UIImage *img = [UIImage imageWithData:[self imageWithImage:shareImage scaledToSize:CGSizeMake(300, 300)]];
-    
-    [message setThumbImage:img];
-    
-    WXWebpageObject *webObject = [WXWebpageObject object];
-    
-    webObject.webpageUrl = _shareURL;
-    
-    message.mediaObject = webObject;
-    
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    
-    req.bText = NO;
-    
-    req.message = message;
-    
-    req.scene = [title isEqualToString:@"微信"] ? WXSceneSession: WXSceneTimeline;
-    
-    [WXApi sendReq:req];
-    
-    [TLWXManager manager].wxShare = self.shareBlock;
+//    WXMediaMessage *message = [WXMediaMessage message];
+//    
+//    message.title = shareTitle;
+//    message.description = shareDesc;
+//    
+//    UIImage *img = [UIImage imageWithData:[self imageWithImage:shareImage scaledToSize:CGSizeMake(300, 300)]];
+//    
+//    [message setThumbImage:img];
+//    
+//    WXWebpageObject *webObject = [WXWebpageObject object];
+//    
+//    webObject.webpageUrl = _shareURL;
+//    
+//    message.mediaObject = webObject;
+//    
+//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+//    
+//    req.bText = NO;
+//    
+//    req.message = message;
+//    
+//    req.scene = [title isEqualToString:@"微信"] ? WXSceneSession: WXSceneTimeline;
+//    
+//    [WXApi sendReq:req];
+//    
+//    [TLWXManager manager].wxShare = self.shareBlock;
     
 }
 

@@ -132,8 +132,8 @@
         GengXinModel *update = [GengXinModel mj_objectWithKeyValues:responseObject[@"data"]];
         [self removePlaceholderView];
         //获取当前版本号
-//        NSString *currentVersion = [self buildVersion];
-        NSString *currentVersion = [self buildShortVersionString];
+        NSString *currentVersion = [self buildVersion];
+//        NSString *currentVersion = [self buildShortVersionString];
         //1:已shangxian 0:未shangxian
         if (![currentVersion isEqualToString:update.version] && [update.isUpdated isEqualToString:@"1"]) {
 

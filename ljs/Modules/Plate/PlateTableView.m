@@ -43,7 +43,7 @@ static NSString *currencyCell = @"PlateCell";
     PlateMineModel *model = self.models[indexPath.row];
     
     PlateCell *cell = [tableView dequeueReusableCellWithIdentifier:currencyCell forIndexPath:indexPath];
-    
+    cell.backgroundColor = kWhiteColor;
     cell.model = model;
     
     return cell;

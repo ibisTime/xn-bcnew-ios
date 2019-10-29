@@ -47,41 +47,30 @@
 }
 
 - (void)createSubControllers {
-    
-    NSArray *titles = @[@"首页", @"行情",@"版块", @"活动", @"我的"];
-    
-    NSArray *normalImages = @[@"home", @"行情未点击",@"板块", @"活动未点击", @"我的未点击"];
-    
-    NSArray *selectImages = @[@"home_select", @"行情已点击",@"板块点击", @"活动点击", @"我的点击"];
-    
+    NSArray *titles = @[@"首页", @"行情", @"我的"];
+    NSArray *normalImages = @[@"home", @"行情未点击", @"我的未点击"];
+    NSArray *selectImages = @[@"home_select", @"行情已点击", @"我的点击"];
 //    NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"ForumVC", @"MineVC"];
-     NSArray *vcNames = @[@"HomeVC", @"QuotesVC",@"TLPlateVC", @"ActivityVC", @"MineVC"];
-    
+    NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"MineVC"];
     for (int i = 0; i < normalImages.count; i++) {
-        
         [self addChildVCWithTitle:titles[i]
                            vcName:vcNames[i]
                         imgNormal:normalImages[i]
                       imgSelected:selectImages[i]];
     }
-    
 }
 
 - (void)addChildVCWithTitle:(NSString *)title
                      vcName:(NSString *)vcName
                   imgNormal:(NSString *)imgNormal
                 imgSelected:(NSString *)imgSelected {
-    
     //对选中图片进行渲染
     UIImage *selectedImg = [[UIImage imageNamed:imgSelected] tintedImageWithColor:kAppCustomMainColor];
-    
     UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title
                                                              image:[UIImage imageNamed:imgNormal]
                                                      selectedImage:selectedImg];
-    
     tabBarItem.selectedImage = [tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     tabBarItem.image= [tabBarItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
     //title颜色
     [tabBarItem setTitleTextAttributes:@{
                                          NSForegroundColorAttributeName : kAppCustomMainColor
@@ -89,13 +78,9 @@
     [tabBarItem setTitleTextAttributes:@{
                                          NSForegroundColorAttributeName : kTextColor
                                          } forState:UIControlStateNormal];
-    
     UIViewController *vc = [[NSClassFromString(vcName) alloc] init];
-    
     NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-    
     vc.tabBarItem = tabBarItem;
-    
     [self addChildViewController:nav];
 }
 

@@ -37,8 +37,8 @@
     [self initCollection];
     [self initTableView];
 
-    [self requestPlatform];
-    [self.topView beginRefreshing];
+    [self requestBottom];
+//    [self.topView beginRefreshing];
     
     // Do any additional setup after loading the view.
 }
@@ -55,54 +55,56 @@
 - (void)initCollection
 {
     
-    
+    UIView *topBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 320)];
+    topBackView.backgroundColor = kWhiteColor;
     UILabel *lable = [UILabel labelWithTitle:@"热门版块" frame:CGRectMake(10, 10, kScreenWidth -30, 30)];
     lable.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:lable];
+    [topBackView addSubview:lable];
     lable.font = [UIFont systemFontOfSize:17.0];
     lable.textColor = kTextColor;
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(lable.frame)+5, kScreenWidth-30, 2)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(15, 50, kScreenWidth-30, 1)];
     self.topLine = line;
-    [self.view addSubview:line];
+    [topBackView addSubview:line];
     line.backgroundColor = kLineColor;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(100, 80);
-    layout.minimumLineSpacing = 10.0; // 竖
-    layout.minimumInteritemSpacing = 10.0; // 横
-    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    layout.itemSize = CGSizeMake(kScreenWidth/3, 80);
+    layout.minimumLineSpacing = 0.0; // 竖
+    layout.minimumInteritemSpacing = 0.0; // 横
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     UIImage *image1 = [UIImage imageNamed:@"金"];
     UIImage *image2 = [UIImage imageNamed:@"银"];
     UIImage *image3 = [UIImage imageNamed:@"铜"];
     NSArray *array = @[image2, image2, image3, image2, image3, image1, image3, image1, image1];
     
-    TLTopCollectionView *topView = [[TLTopCollectionView alloc] initWithFrame:CGRectMake(0, 60, kScreenWidth, 200-35) collectionViewLayout:layout withImage:array];
+    TLTopCollectionView *topView = [[TLTopCollectionView alloc] initWithFrame:CGRectMake(0, 60, kScreenWidth, 160) collectionViewLayout:layout withImage:array];
     self.topView = topView;
     topView.refreshDelegate = self;
-    [self.view addSubview:topView];
-    topView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
+    [topBackView addSubview:topView];
+//    topView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
     
     UIView *lineView = [[UIView alloc] init];
     self.bottomLine = lineView;
     CGFloat f = CGRectGetMaxY(topView.frame);
     lineView.frame = CGRectMake(0, f, kScreenWidth, 10);
-    [self.view addSubview:lineView];
+    [topBackView addSubview:lineView];
     lineView.backgroundColor = kHexColor(@"#F5F5F5");
     
     
-    UILabel *lable1 = [UILabel labelWithTitle:@"全部版块" frame:CGRectMake(15, CGRectGetMaxY(lineView.frame), kScreenWidth -30, 30)];
+    
+    UILabel *lable1 = [UILabel labelWithTitle:@"全部版块" frame:CGRectMake(15, 230, kScreenWidth -30, 50)];
     lable1.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:lable1];
+    [topBackView addSubview:lable1];
     lable1.font = [UIFont systemFontOfSize:17.0];
     lable1.textColor = kTextColor;
     
     
     UIView *titleView = [[UIView alloc] init];
     CGFloat f1 = CGRectGetMaxY(lable1.frame);
-    titleView.frame = CGRectMake(0, f1+5, kScreenWidth, 34);
-    [self.view addSubview:titleView];
+    titleView.frame = CGRectMake(0, 285, kScreenWidth, 34);
+    [topBackView addSubview:titleView];
     titleView.backgroundColor = kHexColor(@"#F5F5F5");
     
     UILabel *lab = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14];
@@ -120,9 +122,13 @@
     lab3.text = @"涨跌幅";
 
 
-    self.tableView = [[PlateTableView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(titleView.frame), kScreenWidth -30, 250) style:UITableViewStylePlain];
-    BaseWeakSelf;
+    
+    
+    self.tableView = [[PlateTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth , kScreenHeight - kNavigationBarHeight - kTabBarHeight) style:UITableViewStylePlain];
+//    BaseWeakSelf;
     [self.view addSubview:self.tableView];
+    
+    self.tableView.tableHeaderView = topBackView;
     
     
    self.hold  = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无信息"];
@@ -136,7 +142,7 @@
 - (void)loadMoreNews
 {
     
-    [self requestPlatform];
+    [self requestBottom];
     
 }
 - (void)search {
@@ -163,98 +169,118 @@
 
 - (void)requestPlatform
 {
-    [self.topView.mj_header beginRefreshing];
-    [self.tableView beginRefreshing];
+//    [self.topView.mj_header beginRefreshing];
+//    [self.tableView beginRefreshing];
     BaseWeakSelf;
 
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     
-    helper.code = @"628615";
-    helper.showView = self.view;
-   
-    helper.parameters[@"start"] = @"1";
-    helper.parameters[@"limit"] = @"10";
-    helper.parameters[@"location"] = @"1";
-
-    
-    helper.collectionView = self.topView;
-    [helper modelClass:[PlateMineModel class]];
-    
-    self.helper = helper;
-
-    [self.topView addRefreshAction:^{
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            [weakSelf requestBottom];
-            [weakSelf.tableView beginRefreshing];
-            NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
-            
-            if (objs.count <= 0) {
-                
-                [weakSelf.tableView addSubview:weakSelf.hold];
-                return ;
-            }
-            if (objs.count > 5) {
-                
-                
-                for (int i =  0 ; i<6; i++) {
-                    [temp addObject:objs[i]];
-                    
-                }
-            }else
-            {
-                for (int i =  0 ; i<objs.count; i++) {
-                    [temp addObject:objs[i]];
-                    
-                }
-            }
-            [weakSelf.hold removeFromSuperview];
-            weakSelf.Plateforms = temp;
-            weakSelf.topView.models = temp;
-            [weakSelf.topView reloadData];
-            NSLog(@"%@",objs);
-            
-        } failure:^(NSError *error) {
-            [weakSelf.tableView addSubview:weakSelf.hold];
-            
-        }];
-    }];
-    [self.topView addLoadMoreAction:^{
-        [weakSelf.tableView beginRefreshing];
-
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
-            
-            if (objs.count <= 0) {
-                
-                [weakSelf.topView addSubview:weakSelf.hold];
-                return ;
-            }
-            if (objs.count > 5) {
-                
-                
-                for (int i =  0 ; i<6; i++) {
-                    [temp addObject:objs[i]];
-                    
-                }
-            }else
-            {
-                for (int i =  0 ; i<objs.count; i++) {
-                    [temp addObject:objs[i]];
-                    
-                }
-            }
-            [weakSelf.hold removeFromSuperview];
-            weakSelf.Plateforms = temp;
-            weakSelf.topView.models = temp;
-            [weakSelf.topView reloadData];
-            NSLog(@"%@",objs);
-            
-        } failure:^(NSError *error) {
-            [weakSelf.topView addSubview:weakSelf.hold];
-
-        }];
+    TLNetworking *http = [TLNetworking new];
+    http.code = @"628615";
+    http.parameters[@"start"] = @"1";
+    http.parameters[@"limit"] = @"6";
+    http.parameters[@"location"] = @"1";
+    [http postWithSuccess:^(id responseObject) {
+        //        self.headView.dataDic = responseObject[@"data"];
+//        self.headView.currenctModel = [CurrencyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        weakSelf.Plateforms = [PlateMineModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"list"]];
+        weakSelf.topView.models = [PlateMineModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"list"]];
+        [weakSelf.topView reloadData];
+        //        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
     }];
     
+    
+    
+//    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+//
+//    helper.code = @"628615";
+//    helper.showView = self.view;
+//
+//    helper.parameters[@"start"] = @"1";
+//    helper.parameters[@"limit"] = @"10";
+//    helper.parameters[@"location"] = @"1";
+//
+//
+//    helper.collectionView = self.topView;
+//    [helper modelClass:[PlateMineModel class]];
+//
+//    self.helper = helper;
+//
+//    [self.topView addRefreshAction:^{
+//        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//            [weakSelf requestBottom];
+//            [weakSelf.tableView beginRefreshing];
+//            NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
+//
+//            if (objs.count <= 0) {
+//
+//                [weakSelf.tableView addSubview:weakSelf.hold];
+//                return ;
+//            }
+//            if (objs.count > 5) {
+//
+//
+//                for (int i =  0 ; i<6; i++) {
+//                    [temp addObject:objs[i]];
+//
+//                }
+//            }else
+//            {
+//                for (int i =  0 ; i<objs.count; i++) {
+//                    [temp addObject:objs[i]];
+//
+//                }
+//            }
+//            [weakSelf.hold removeFromSuperview];
+//            weakSelf.Plateforms = temp;
+//            weakSelf.topView.models = temp;
+//            [weakSelf.topView reloadData];
+//            NSLog(@"%@",objs);
+//
+//        } failure:^(NSError *error) {
+//            [weakSelf.tableView addSubview:weakSelf.hold];
+//
+//        }];
+//    }];
+//    [self.topView addLoadMoreAction:^{
+//        [weakSelf.tableView beginRefreshing];
+//
+//        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//            NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
+//
+//            if (objs.count <= 0) {
+//
+//                [weakSelf.topView addSubview:weakSelf.hold];
+//                return ;
+//            }
+//            if (objs.count > 5) {
+//
+//
+//                for (int i =  0 ; i<6; i++) {
+//                    [temp addObject:objs[i]];
+//
+//                }
+//            }else
+//            {
+//                for (int i =  0 ; i<objs.count; i++) {
+//                    [temp addObject:objs[i]];
+//
+//                }
+//            }
+//            [weakSelf.hold removeFromSuperview];
+//            weakSelf.Plateforms = temp;
+//            weakSelf.topView.models = temp;
+//            [weakSelf.topView reloadData];
+//            NSLog(@"%@",objs);
+//
+//        } failure:^(NSError *error) {
+//            [weakSelf.topView addSubview:weakSelf.hold];
+//
+//        }];
+//    }];
+//
 }
 
 - (void)requestBottom
@@ -265,16 +291,15 @@
     
     helper.code = @"628615";
     helper.showView = self.view;
-    
     helper.parameters[@"start"] = @"1";
     helper.parameters[@"limit"] = @"10";
-    
-    
     helper.tableView = self.tableView;
     [helper modelClass:[PlateMineModel class]];
-    
     self.help = helper;
     [self.tableView addRefreshAction:^{
+        
+        [weakSelf requestPlatform];
+        
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
             
             weakSelf.bottomPlateforms = objs;
@@ -301,6 +326,7 @@
         }];
     }];
     
+    [self.tableView.mj_header beginRefreshing];
    
     
 }

@@ -24,13 +24,13 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
         _imageArr = image;
         _Layout = (UICollectionViewFlowLayout *)layout;
         self.pagingEnabled = NO;
-        _Layout.minimumLineSpacing      = 8.f;
-        _Layout.minimumInteritemSpacing = 8.f;
+//        _Layout.minimumLineSpacing      = 8.f;
+//        _Layout.minimumInteritemSpacing = 8.f;
         _Layout.scrollDirection         = UICollectionViewScrollDirectionVertical;
         self.allowsSelection = YES;
         self.allowsMultipleSelection = YES;
         //        self.bounces = NO;
-        self.backgroundColor = kBackgroundColor;
+        self.backgroundColor = kWhiteColor;
         self.delegate = self;
         self.dataSource = self;
 //        self.userInteractionEnabled = NO;
@@ -51,10 +51,9 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-        TLPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifierCell forIndexPath:indexPath];
-        cell.model = self.models[indexPath.row];
     
-        
+    TLPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifierCell forIndexPath:indexPath];
+    cell.model = self.models[indexPath.row];
     return cell;
     
     

@@ -41,19 +41,13 @@ void TLLog(NSString *format, ...) {
     
     self.companyCode = @"CD-BCINF0019";
     self.systemCode = @"CD-BCINF0019";
-    
     switch (_runEnv) {
-            
         case RunEnvRelease: {
-            
-
 //            self.addr = @"http://47.97.214.223:2201";
-            self.addr = @"http://47.75.175.18:2201";
-            self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
+            self.addr = @"http://info.front.faedy.com/api";
+            self.qiniuDomain = @"http://image.wallet.hichengdai.com";
         }break;
-            
         case RunEnvDev: {
-            
             self.addr = @"http://47.97.214.223:2301";
             self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
         }break;
@@ -71,7 +65,7 @@ void TLLog(NSString *format, ...) {
 
 - (NSString *)getUrl {
 
-    return [self.addr stringByAppendingString:@"/forward-service/api"];
+    return self.addr;
 }
 
 - (NSString *)wxKey {

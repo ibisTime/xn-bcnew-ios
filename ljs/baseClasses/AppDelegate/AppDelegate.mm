@@ -16,9 +16,9 @@
 #import "TLWXManager.h"
 #import <UMMobClick/MobClick.h>
 //Extension
-#import <TencentOpenAPI/TencentOAuth.h>
-#import <TencentOpenAPI/QQApiInterface.h>
-#import "WXApi.h"
+//#import <TencentOpenAPI/TencentOAuth.h>
+//#import <TencentOpenAPI/QQApiInterface.h>
+//#import "WXApi.h"
 #import "IQKeyboardManager.h"
 //C
 #import "NavigationController.h"
@@ -45,9 +45,9 @@
     // Override point for customization after application launch.
     
     //配置QQ
-    [self configQQ];
+//    [self configQQ];
     //配置微信
-    [self configWeChat];
+//    [self configWeChat];
     [self configUManalytics];
     //服务器环境
     [self configServiceAddress];
@@ -76,19 +76,13 @@
 
 // iOS9 NS_AVAILABLE_IOS
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
 //    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
-    
     if ([url.host containsString:@"qq"]) {
-        
-        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+//        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 //        [TencentOAuth HandleOpenURL:url];
-        
     } else {
-
-        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
     }
-    
     return YES;
 }
 
@@ -99,27 +93,27 @@
 
     if ([url.host containsString:@"qq"]) {
 
-        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+//        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 //        [TencentOAuth HandleOpenURL:url];
 
     } else {
 
-        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
 
     }
     return YES;
 }
 
 #pragma mark - Config
-- (void)configQQ {
-    
-    [[QQManager manager] registerApp];
-}
-
-- (void)configWeChat {
-    
-    [[TLWXManager manager] registerApp];
-}
+//- (void)configQQ {
+//
+//    [[QQManager manager] registerApp];
+//}
+//
+//- (void)configWeChat {
+//
+//    [[TLWXManager manager] registerApp];
+//}
 
 - (void)configServiceAddress {
     

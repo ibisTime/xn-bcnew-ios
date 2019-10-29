@@ -60,12 +60,12 @@
 
 + (NSString *)serveUrl {
     
-    return [[self baseUrl] stringByAppendingString:@"/forward-service/api"];
+    return [self baseUrl];
 }
 
 + (NSString *)ipUrl {
 
-    return [[self baseUrl] stringByAppendingString:@"/forward-service/ip"];
+    return [self baseUrl];
 }
 
 

@@ -83,60 +83,60 @@
     switch (type) {
         case ThirdTypeWeChat:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneSession
-                                           title:self.mineModel.name
-                                            desc:self.content
-                                             url:self.shareUrl];
-            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
-                
-                if (isSuccess) {
-                    
-                    [TLAlert alertWithSucces:@"分享成功"];
-                } else {
-                    
-                    [TLAlert alertWithError:@"分享失败"];
-                }
-            };
+//            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+//                                           title:self.mineModel.name
+//                                            desc:self.content
+//                                             url:self.shareUrl];
+//            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+//
+//                if (isSuccess) {
+//
+//                    [TLAlert alertWithSucces:@"分享成功"];
+//                } else {
+//
+//                    [TLAlert alertWithError:@"分享失败"];
+//                }
+//            };
             
         }break;
             
         case ThirdTypeTimeLine:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
-                                           title:self.mineModel.name
-                                            desc:self.content
-                                             url:self.shareUrl];
-            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
-                
-                if (isSuccess) {
-                    
-                    [TLAlert alertWithSucces:@"分享成功"];
-                } else {
-                    
-                    [TLAlert alertWithError:@"分享失败"];
-                }
-            };
+//            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
+//                                           title:self.mineModel.name
+//                                            desc:self.content
+//                                             url:self.shareUrl];
+//            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+//
+//                if (isSuccess) {
+//
+//                    [TLAlert alertWithSucces:@"分享成功"];
+//                } else {
+//
+//                    [TLAlert alertWithError:@"分享失败"];
+//                }
+//            };
             
         }break;
             
         case ThirdTypeQQ:
         {
-            [QQManager manager].qqShare = ^(BOOL isSuccess, int errorCode) {
-                
-                if (isSuccess) {
-                    
-                    [TLAlert alertWithSucces:@"分享成功"];
-                }else {
-                    
-                    [TLAlert alertWithError:@"分享失败"];
-                }
-            };
-            
-            [QQManager qqShareWebPageWithScene:0
-                                         title:self.mineModel.name
-                                          desc:desc
-                                           url:self.shareUrl
-                                  previewImage:nil];
+//            [QQManager manager].qqShare = ^(BOOL isSuccess, int errorCode) {
+//
+//                if (isSuccess) {
+//
+//                    [TLAlert alertWithSucces:@"分享成功"];
+//                }else {
+//
+//                    [TLAlert alertWithError:@"分享失败"];
+//                }
+//            };
+//
+//            [QQManager qqShareWebPageWithScene:0
+//                                         title:self.mineModel.name
+//                                          desc:desc
+//                                           url:self.shareUrl
+//                                  previewImage:nil];
             
         }break;
             

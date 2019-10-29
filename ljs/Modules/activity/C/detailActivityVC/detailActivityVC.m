@@ -197,39 +197,39 @@
     switch (type) {
         case ThirdTypeWeChat:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneSession
-                                           title:self.detailActModel.title
-                                            desc:desc
-                                             url:self.url];
-            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
-                
-                if (isSuccess) {
-                    
-                    [TLAlert alertWithSucces:@"分享成功"];
-                } else {
-                    
-                    [TLAlert alertWithError:@"分享失败"];
-                }
-            };
+//            [TLWXManager wxShareWebPageWithScene:WXSceneSession
+//                                           title:self.detailActModel.title
+//                                            desc:desc
+//                                             url:self.url];
+//            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+//
+//                if (isSuccess) {
+//
+//                    [TLAlert alertWithSucces:@"分享成功"];
+//                } else {
+//
+//                    [TLAlert alertWithError:@"分享失败"];
+//                }
+//            };
             
         }break;
             
         case ThirdTypeTimeLine:
         {
-            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
-                                           title:self.detailActModel.title
-                                            desc:desc
-                                             url:self.url];
-            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
-                
-                if (isSuccess) {
-                    
-                    [TLAlert alertWithSucces:@"分享成功"];
-                } else {
-                    
-                    [TLAlert alertWithError:@"分享失败"];
-                }
-            };
+//            [TLWXManager wxShareWebPageWithScene:WXSceneTimeline
+//                                           title:self.detailActModel.title
+//                                            desc:desc
+//                                             url:self.url];
+//            [TLWXManager manager].wxShare = ^(BOOL isSuccess, int errorCode) {
+//                
+//                if (isSuccess) {
+//                    
+//                    [TLAlert alertWithSucces:@"分享成功"];
+//                } else {
+//                    
+//                    [TLAlert alertWithError:@"分享失败"];
+//                }
+//            };
             
         }break;
             
