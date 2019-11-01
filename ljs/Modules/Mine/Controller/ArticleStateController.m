@@ -126,7 +126,9 @@
     self.infoTableView = [[ArticleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无文章" text:@"暂无文章"];
+//    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无文章" text:@"暂无文章"];
+    self.infoTableView.defaultNoDataText = @"暂无文章";
+    self.infoTableView.defaultNoDataImage = kImage(@"暂无文章");
     self.infoTableView.placeHolderView = self.holdView;
 
     self.infoTableView.tableFooterView = [UIView new];

@@ -126,8 +126,10 @@
     
     self.historyTableView = [[SearchHistoryTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.historyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
+//    self.historyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
     
+    self.historyTableView.defaultNoDataText = @"没有查找到历史搜索";
+    self.historyTableView.defaultNoDataImage = kImage(@"暂无动态");
     self.historyTableView.refreshDelegate = self;
     
     [self.view addSubview:self.historyTableView];
@@ -141,7 +143,10 @@
     
     self.forumTableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.forumTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币吧"];
+//    self.forumTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币吧"];
+    
+    self.historyTableView.defaultNoDataText = @"没有搜索到币吧";
+    self.historyTableView.defaultNoDataImage = kImage(@"暂无动态");
     self.forumTableView.refreshDelegate = self;
     
     [self.view addSubview:self.forumTableView];

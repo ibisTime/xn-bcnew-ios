@@ -45,7 +45,10 @@
     self.tableView = [[CircleCommentTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.isReplyMe = [self.type isEqualToString:@"0"] ? YES: NO;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
+//    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
+    
+    self.tableView.defaultNoDataText = text;
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.placeHolderView = self.holdView;
 
     self.tableView.refreshDelegate = self;

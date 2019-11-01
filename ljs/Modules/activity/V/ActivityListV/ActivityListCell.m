@@ -223,7 +223,6 @@
 -(void)setActModel:(activityModel *)actModel
 {
     _actModel  = actModel;
-    ;
     [self.ActivityImg sd_setImageWithURL:[NSURL URLWithString:[actModel.advPic convertImageUrl]] placeholderImage:[UIImage imageNamed:@"占位图"]];
     NSString *state = [NSString stringWithFormat:@"%@",actModel.isEnroll];
     if ([state isEqualToString:@"9"]) {

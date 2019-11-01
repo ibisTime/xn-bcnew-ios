@@ -66,7 +66,7 @@
     [self.readCountDet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleView.mas_top).offset(10);
         make.left.equalTo(self.titleDet.mas_right).offset(5);
-        make.width.offset(80);
+        make.width.offset(200);
 
     }];
     

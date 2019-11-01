@@ -70,43 +70,44 @@
     
     
 //***********设置顶部条**************************
-    NSArray *titleArr = @[@"资讯",
-                          @"快讯"
-                          ];
+//    NSArray *titleArr = @[@"资讯",
+//                          @"快讯"
+//                          ];
     
     self.statusList = @[kAllNewsFlash, kHotNewsFlash];
     self.titles = [NSMutableArray array];
     CGFloat h = 34;
-    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(200), (44-h), kWidth(199), h)];
-    
-    self.labelUnil.delegate = self;
+//    self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(kScreenWidth/2 - kWidth(200), (44-h), kWidth(199), h)];
+//
+//    self.labelUnil.delegate = self;
 //    self.labelUnil.backgroundColor = [UIColor clearColor];
 //    self.labelUnil.titleNormalColor = kWhiteColor;
 //    self.labelUnil.titleSelectColor = kAppCustomMainColor;
-    self.labelUnil.titleFont = Font(18);
-    self.labelUnil.lineType = LineTypeButtonLength;
-    self.labelUnil.titleArray = titleArr;
-    self.labelUnil.layer.cornerRadius = h/2.0;
-    self.labelUnil.layer.borderWidth = 1;
+//    self.labelUnil.titleFont = Font(18);
+//    self.labelUnil.lineType = LineTypeButtonLength;
+//    self.labelUnil.titleArray = titleArr;
+//    self.labelUnil.layer.cornerRadius = h/2.0;
+//    self.labelUnil.layer.borderWidth = 1;
 //    self.labelUnil.layer.borderColor = kWhiteColor.CGColor;
-    self.labelUnil.backgroundColor = kWhiteColor;
-    self.labelUnil.titleNormalColor = kTextColor2;
-    self.labelUnil.titleSelectColor = kAppCustomMainColor;
-    self.labelUnil.layer.borderColor = kLineColor.CGColor;
-    self.navigationItem.titleView = self.labelUnil;
+//    self.labelUnil.backgroundColor = kWhiteColor;
+//    self.labelUnil.titleNormalColor = kTextColor2;
+//    self.labelUnil.titleSelectColor = kAppCustomMainColor;
+//    self.labelUnil.layer.borderColor = kLineColor.CGColor;
+//    self.navigationItem.titleView = self.labelUnil;
+    self.title = @"资讯";
     //******************************************
     
     //1.切换背景
     self.switchSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight)];
     [self.view addSubview:self.switchSV];
-    [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
+//    [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
     //2.订单列表
     NSArray *kindArr = @[kInformation ,kNewsFlash];
     
-    self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
-    [self initSelectScrollView:1];
-    self.kind = kNewsFlash;
+//    self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
+//    [self initSelectScrollView:1];
+//    self.kind = kNewsFlash;
     
     [self requestInfoTypeList];
     [UIBarButtonItem addRightItemWithImageName:@"搜索" frame:CGRectMake(0, 0, 40, 40) vc:self action:@selector(search)];
@@ -162,16 +163,11 @@
     for (NSInteger i = 0; i < self.titles.count; i++) {
         
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
-        if (index == 1) {
-            childVC.status = self.statusList[i];
-            childVC.kind = @"1";
-        } else {
-            childVC.code = self.infoTypeList[i].code;
-            childVC.titleStr = self.titles[i];
-            childVC.kind = @"2";
-            if (i == 0) {
-                childVC.isActivity = YES;
-            }
+        childVC.code = self.infoTypeList[i].code;
+        childVC.titleStr = self.titles[i];
+        childVC.kind = @"2";
+        if (i == 0) {
+            childVC.isActivity = YES;
         }
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         [self addChildViewController:childVC];

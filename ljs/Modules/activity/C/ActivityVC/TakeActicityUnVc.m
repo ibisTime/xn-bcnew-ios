@@ -72,7 +72,10 @@
     
     //    self.repaymentListTableView.refreshDelegate = self;
     
-    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无活动"];
+//    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无活动"];
+    
+    self.ActivityListTableView.defaultNoDataText = @"暂无活动";
+    self.ActivityListTableView.defaultNoDataImage = kImage(@"暂无动态");
     self.ActivityListTableView.placeHolderView =self.holfView;
     self.ActivityListTableView.refreshDelegate = self;
     self.ActivityListTableView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActivity)];

@@ -36,7 +36,9 @@
     //    self.repaymentListTableView.refreshDelegate = self;
 
     self.ActivityListTableView.placeHolderView  =self.holdView;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无收藏"];
+//    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无收藏"];
+    self.ActivityListTableView.defaultNoDataText = @"暂无收藏";
+    self.ActivityListTableView.defaultNoDataImage = kImage(@"暂无动态");
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];
     [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {

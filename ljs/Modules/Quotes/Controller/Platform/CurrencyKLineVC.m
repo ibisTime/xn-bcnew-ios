@@ -104,14 +104,14 @@
     symbolNameLbl.textAlignment = NSTextAlignmentCenter;
     symbolNameLbl.numberOfLines = 0;
     
-    NSString *toSymbol = [NSString stringWithFormat:@"%@/%@",[self.platform.symbol uppercaseString],[self.platform.toSymbol uppercaseString]];
+    symbolNameLbl.text = [NSString stringWithFormat:@"%@/%@",[self.platform.symbol uppercaseString],[self.platform.toSymbol uppercaseString]];
     
-    NSString *text = [NSString stringWithFormat:@"%@\n%@", self.platform.exchangeCname,toSymbol];
+//    NSString *text = [NSString stringWithFormat:@"%@\n%@", self.platform.exchangeCname,toSymbol];
     
-    [symbolNameLbl labelWithString:text
-                             title:toSymbol
-                              font:Font(11.0)
-                             color:kWhiteColor];
+//    [symbolNameLbl labelWithString:text
+//                             title:toSymbol
+//                              font:Font(11.0)
+//                             color:kWhiteColor];
     
     [titleView addSubview:symbolNameLbl];
     [symbolNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {

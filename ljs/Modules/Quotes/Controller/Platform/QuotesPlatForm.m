@@ -217,8 +217,10 @@
         [weakSelf pushCurrencyKLineVCWith:idear];
     };
     self.tableView.type = PlatformTypePlatform;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
     
+    self.tableView.defaultNoDataText = @"暂无平台";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     [self.view addSubview:self.tableView];
     self.tableView.pagingEnabled = false;
 

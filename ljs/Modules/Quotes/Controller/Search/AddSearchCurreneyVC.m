@@ -124,8 +124,6 @@
        
 
         [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
-
         TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
         tabbarCtrl.selectedIndex = 1;
@@ -265,7 +263,7 @@
     UIImage *image3 = [UIImage imageNamed:@"铜"];
     NSArray *array = @[image2, image2, image3, image2, image3, image1, image3, image1, image1];
     
-    QHCollectionViewNine *bottomView = [[QHCollectionViewNine alloc] initWithFrame:CGRectMake(0, 300, kScreenWidth, 200) collectionViewLayout:layout withImage:array];
+    QHCollectionViewNine *bottomView = [[QHCollectionViewNine alloc] initWithFrame:CGRectMake(0, 300, kScreenWidth, kScreenHeight - 300 - kNavigationBarHeight) collectionViewLayout:layout withImage:array];
     self.bottomView = bottomView;
     bottomView.refreshDelegate = self;
     self.bottomView.type = SearchTypeBottom;
@@ -302,9 +300,7 @@
     [self.searchTF addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
     [searchBgView addSubview:self.searchTF];
     [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.edges.mas_equalTo(UIEdgeInsetsMake(0, 13, 0, 0));
-        
         make.width.mas_greaterThanOrEqualTo(kScreenWidth - 20 - 40 -50-  15 - 13);
     }];
     

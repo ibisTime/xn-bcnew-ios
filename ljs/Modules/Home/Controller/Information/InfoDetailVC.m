@@ -21,6 +21,7 @@
 #import "InfoDetailModel.h"
 #import "InfoCommentModel.h"
 //V
+
 #import "BaseView.h"
 #import "InformationDetailTableView.h"
 #import "InformationDetailHeaderView.h"
@@ -32,11 +33,13 @@
 #import "NavigationController.h"
 #import "TLUserLoginVC.h"
 #import "HTMLStrVC.h"
+#import "UIButton+SGImagePosition.h"
 
 #define kBottomHeight 50
 
 @interface InfoDetailVC ()<InputTextViewDelegate, RefreshDelegate>
 //评论
+
 @property (nonatomic, strong) InformationDetailTableView *tableView;
 //头部
 @property (nonatomic, strong) InformationDetailHeaderView *headerView;
@@ -174,25 +177,26 @@
 //        make.width.height.equalTo(@(100));
 //
 //    }];
-    if (self.IsNeed == YES) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"投稿" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
-        [item setTintColor:[UIColor whiteColor]];
-        self.item = item;
-        self.navigationItem.rightBarButtonItem = item;
-    }
+//    if (self.IsNeed == YES) {
+//        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"投稿" style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
+//        [item setTintColor:[UIColor whiteColor]];
+//        self.item = item;
+//        self.navigationItem.rightBarButtonItem = item;
+//    }
     
     
     self.tableView = [[InformationDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
-    
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
+    self.tableView.defaultNoDataText = @"暂无数据";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.edges.mas_equalTo(0);
-        make.bottom.equalTo(@(-kBottomHeight-kBottomInsetHeight));
+        make.bottom.equalTo(@(0));
     }];
     
 }
@@ -211,23 +215,29 @@
 
 - (void)initBottomView {
     
-    self.bottomView = [[BaseView alloc] initWithFrame:CGRectMake(0, kSuperViewHeight - kBottomHeight - kBottomInsetHeight, kScreenWidth, kBottomHeight)];
-    
+    self.bottomView = [[BaseView alloc] initWithFrame:CGRectMake(15, kSuperViewHeight - kBottomHeight - 20 , kScreenWidth - 30, kBottomHeight)];
+//    kViewRadius(self.bottomView, 25);
+//    [self.bottomView theme_setBackgroundColorIdentifier:TabbarColor moduleName:ColorName];
+    self.bottomView.layer.cornerRadius=25;
+    self.bottomView.layer.shadowOpacity = 0.12;// 阴影透明度
+    self.bottomView.layer.shadowColor = [UIColor grayColor].CGColor;// 阴影的颜色
+    self.bottomView.layer.shadowRadius=3;// 阴影扩散的范围控制iiiiiiiu
+    self.bottomView.layer.shadowOffset = CGSizeMake(1, 1);// 阴
     self.bottomView.backgroundColor = kWhiteColor;
     
     [self.view addSubview:self.bottomView];
     //topLine
     UIView *topLine = [[UIView alloc] init];
-    
+    topLine.frame = CGRectMake(kScreenWidth/2 - 15, 15.5, 1, 18);
     topLine.backgroundColor = kLineColor;
     
     [self.bottomView addSubview:topLine];
-    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.top.equalTo(@0);
-        make.height.equalTo(@0.5);
-        
-    }];
+//    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.right.top.equalTo(@0);
+//        make.height.equalTo(@0.5);
+//
+//    }];
 //    //分享
 //    UIButton *shareBtn = [UIButton buttonWithImageName:@"分享"];
 //    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
@@ -239,90 +249,96 @@
     
     
     //分享
-    UIButton *collectionBtn = [UIButton buttonWithImageName:@"分享"];
-    
-//    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
-    
-//    [collectionBtn setImage:kImage(image) forState:UIControlStateNormal];
-    
+    UIButton *collectionBtn = [UIButton buttonWithTitle:@"分享" titleColor:kHexColor(@"#818181") backgroundColor:kClearColor titleFont:14];
     [collectionBtn addTarget:self action:@selector(shareInfo) forControlEvents:UIControlEventTouchUpInside];
-    collectionBtn.contentMode = UIViewContentModeScaleAspectFit;
-
-    [self.bottomView addSubview:collectionBtn];
-    [collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self.bottomView.mas_right).offset(-15);
-        make.centerY.equalTo(@0);
-        make.width.height.equalTo(@20);
+    collectionBtn.frame = CGRectMake(kScreenWidth/2 - 15, 0, kScreenWidth/2 - 15, 50);
+    [collectionBtn SG_imagePositionStyle:(SGImagePositionStyleDefault) spacing:7 imagePositionBlock:^(UIButton *button) {
+//        NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+        [button setImage:kImage(@"分享") forState:UIControlStateNormal];
     }];
+    collectionBtn.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [self.bottomView addSubview:collectionBtn];
+//    [collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(self.bottomView.mas_right).offset(0);
+//        make.centerY.equalTo(@0);
+//        make.width.height.equalTo(@20);
+//    }];
     
     self.collectionBtn = collectionBtn;
-    //分享
-    UIButton *collection = [UIButton buttonWithImageName:@"收藏"];
     
-    NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+    
+    //分享
+    UIButton *collection = [UIButton buttonWithTitle:@"收藏" titleColor:kHexColor(@"#818181") backgroundColor:kClearColor titleFont:14];
+    collection.frame = CGRectMake(0, 0, kScreenWidth/2 - 15, 50);
+    [collection SG_imagePositionStyle:(SGImagePositionStyleDefault) spacing:7 imagePositionBlock:^(UIButton *button) {
+        NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
 
-    [collection setImage:kImage(image) forState:UIControlStateNormal];
+        [button setImage:kImage(image) forState:UIControlStateNormal];
+    }];
+    
+    
     
     [collection addTarget:self action:@selector(collectionInfo:) forControlEvents:UIControlEventTouchUpInside];
     collection.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.bottomView addSubview:collection];
-    [collection mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self.collectionBtn.mas_left).offset(-15);
-        make.centerY.equalTo(@0);
-        make.width.height.equalTo(@20);
-    }];
+//    [collection mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(self.collectionBtn.mas_left).offset(-15);
+//        make.centerY.equalTo(@0);
+//        make.width.height.equalTo(@20);
+//    }];
     
     self.collection = collection;
     
     //评论数
-    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"留言"];
-    
-    commentNumBtn.contentMode = UIViewContentModeScaleAspectFit;
-    [commentNumBtn addTarget:self action:@selector(lookAllComment) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.bottomView addSubview:commentNumBtn];
-    
-    [commentNumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(collection.mas_left).offset(-15);
-        make.centerY.equalTo(@0);
-        make.width.height.equalTo(@20);
-    }];
-    
-    self.commentNumLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                 textColor:kThemeColor
-                                                      font:9.0];
-    
-    self.commentNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.commentCount];
-
-    [self.bottomView addSubview:self.commentNumLbl];
-    [self.commentNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(commentNumBtn.mas_top).offset(-1);
-        make.centerX.equalTo(commentNumBtn.mas_right).offset(-5);
-    }];
+//    UIButton *commentNumBtn = [UIButton buttonWithImageName:@"留言"];
+//
+//    commentNumBtn.contentMode = UIViewContentModeScaleAspectFit;
+//    [commentNumBtn addTarget:self action:@selector(lookAllComment) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self.bottomView addSubview:commentNumBtn];
+//
+//    [commentNumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(collection.mas_left).offset(-15);
+//        make.centerY.equalTo(@0);
+//        make.width.height.equalTo(@20);
+//    }];
+//
+//    self.commentNumLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                                 textColor:kThemeColor
+//                                                      font:9.0];
+//
+//    self.commentNumLbl.text = [NSString stringWithFormat:@"%ld", self.detailModel.commentCount];
+//
+//    [self.bottomView addSubview:self.commentNumLbl];
+//    [self.commentNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(commentNumBtn.mas_top).offset(-1);
+//        make.centerX.equalTo(commentNumBtn.mas_right).offset(-5);
+//    }];
     
     //点击评论
-    UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
-                                          titleColor:kHexColor(@"#9E9E9E")
-                                     backgroundColor:kHexColor(@"E5E5E5")
-                                           titleFont:12.0
-                                        cornerRadius:17.5];
-    
-    [commentBtn addTarget:self action:@selector(clickComment) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomView addSubview:commentBtn];
-    [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(@15);
-        make.height.equalTo(@35);
-        make.centerY.equalTo(@0);
-        make.right.equalTo(commentNumBtn.mas_left).offset(-15);
-    }];
-    
-    [commentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, kWidth(-100), 0, 0)];
+//    UIButton *commentBtn = [UIButton buttonWithTitle:@"说出你的看法"
+//                                          titleColor:kHexColor(@"#9E9E9E")
+//                                     backgroundColor:kHexColor(@"E5E5E5")
+//                                           titleFont:12.0
+//                                        cornerRadius:17.5];
+//
+//    [commentBtn addTarget:self action:@selector(clickComment) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomView addSubview:commentBtn];
+//    [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(@15);
+//        make.height.equalTo(@35);
+//        make.centerY.equalTo(@0);
+//        make.right.equalTo(commentNumBtn.mas_left).offset(-15);
+//    }];
+//
+//    [commentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, kWidth(-100), 0, 0)];
 }
 
 
@@ -407,9 +423,19 @@
         [http postWithSuccess:^(id responseObject) {
             
             weakSelf.detailModel = [InfoDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
-            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+//            NSString *image = [weakSelf.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+            NSString *image = [self.detailModel.isCollect isEqualToString:@"1"] ? @"收藏": @"未收藏";
+//            [weakSelf.collection setImage:kImage(image) forState:UIControlStateNormal];
+            [weakSelf.collection setTitle:image forState:(UIControlStateNormal)];
+            [weakSelf.collection SG_imagePositionStyle:(SGImagePositionStyleDefault) spacing:7 imagePositionBlock:^(UIButton *button) {
+                
+                
+                [button setImage:kImage(image) forState:UIControlStateNormal];
+            }];
             
-            [weakSelf.collection setImage:kImage(image) forState:UIControlStateNormal];
+            
+            
+            
             
         } failure:^(NSError *error) {
             

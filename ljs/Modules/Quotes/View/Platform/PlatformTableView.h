@@ -11,7 +11,6 @@
 #import "PlatformModel.h"
 
 typedef NS_ENUM(NSInteger, PlatformType) {
-    
     PlatformTypeAll = 0,        //全部
     PlatformTypeMoney,          //资金
     PlatformTypePlatform,       //具体平台

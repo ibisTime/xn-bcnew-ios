@@ -25,6 +25,7 @@
 #import "BaseViewController.h"
 
 @interface InformationDetailHeaderView()
+@property (nonatomic, strong)UILabel *AbstractLbl;
 //标题
 @property (nonatomic, strong) UILabel *titleLbl;
 //富文本
@@ -44,7 +45,7 @@
 @property (nonatomic, strong) BaseView *shareView;
 
 @property (nonatomic, strong) UIButton *seeNumber;
-
+@property (nonatomic, strong) UILabel *theLabel;
 @end
 
 @implementation InformationDetailHeaderView
@@ -70,7 +71,7 @@
         
         BaseWeakSelf;
         
-        _detailView = [[DetailWebView alloc] initWithFrame:CGRectMake(0, self.sourceView.yy + 20, kScreenWidth, 50)];
+        _detailView = [[DetailWebView alloc] initWithFrame:CGRectMake(0, self.AbstractLbl.yy + 20, kScreenWidth, 50)];
         
         _detailView.webViewBlock = ^(CGFloat height) {
             
@@ -158,6 +159,27 @@
         make.right.equalTo(@(-10));
         make.top.equalTo(self.authorLbl.mas_top);
     }];
+    
+    _theLabel = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentCenter) backgroundColor:kHexColor(@"#EF5959") font:FONT(11) textColor:kWhiteColor];
+    _theLabel.text = @"摘要";
+//    _theLabel = theLabel;
+    kViewRadius(_theLabel, 2);
+    [self addSubview:_theLabel];
+    
+    
+    
+    _AbstractLbl = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentLeft) backgroundColor:kClearColor font:FONT(16) textColor:kHexColor(@"3A3A3A")];
+    _AbstractLbl.numberOfLines = 0;
+    [self addSubview:_AbstractLbl];
+    
+    
+    
+    [_AbstractLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
+        make.right.mas_equalTo(-15);
+    }];
+    
 }
 
 - (void)initShareView {
@@ -257,12 +279,19 @@
         make.height.equalTo(@70);
     }];
     
+    [_theLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
+        make.width.mas_equalTo(32);
+        make.height.mas_equalTo(19);
+    }];
+    
     //内容
     [self.detailView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@2);
         make.width.equalTo(@(kScreenWidth - 4));
-        make.top.equalTo(self.sourceView.mas_bottom).offset(20);
+        make.top.equalTo(self.AbstractLbl.mas_bottom).offset(20);
         make.height.equalTo(@(height));
     }];
     //点赞
@@ -385,6 +414,14 @@
     UIColor *textColor = [detailModel.isPoint isEqualToString:@"0"] ? kTextColor: kHexColor(@"#FF4747");
     self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", detailModel.pointCount];
     self.zanNumLbl.textColor = textColor;
+    if (detailModel.summary) {
+        _theLabel.hidden = NO;
+        _AbstractLbl.text = [NSString stringWithFormat:@"         %@",detailModel.summary];
+    }else
+    {
+        _theLabel.hidden = YES;
+    }
+    
 }
 
 @end

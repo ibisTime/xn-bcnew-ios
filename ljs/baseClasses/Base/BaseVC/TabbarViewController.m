@@ -47,11 +47,10 @@
 }
 
 - (void)createSubControllers {
-    NSArray *titles = @[@"首页", @"行情", @"我的"];
-    NSArray *normalImages = @[@"home", @"行情未点击", @"我的未点击"];
-    NSArray *selectImages = @[@"home_select", @"行情已点击", @"我的点击"];
-//    NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"ForumVC", @"MineVC"];
-    NSArray *vcNames = @[@"HomeVC", @"QuotesVC", @"MineVC"];
+    NSArray *titles = @[@"首页", @"行情",@"快讯", @"我的"];
+    NSArray *normalImages = @[@"home", @"行情未点击",@"板块", @"我的未点击"];
+    NSArray *selectImages = @[@"home_select", @"行情已点击",@"板块点击",@"我的点击"];
+    NSArray *vcNames = @[@"HomeVC", @"MarketVC", @"NewsVC",@"MineVC"];
     for (int i = 0; i < normalImages.count; i++) {
         [self addChildVCWithTitle:titles[i]
                            vcName:vcNames[i]
@@ -95,7 +94,6 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     
     BaseWeakSelf;
-    
     NSInteger idx = tabBarController.selectedIndex;
     
     //判断点击的Controller是不是需要登录，如果是，那就登录

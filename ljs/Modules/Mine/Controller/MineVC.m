@@ -131,50 +131,50 @@
     
    
     //资讯评论
-    MineModel *infoComment = [MineModel new];
-    
-    infoComment.text = @"评论";
-    infoComment.imgName = @"评论";
-    infoComment.action = ^{
-        
-        [weakSelf checkLogin:^{
-            
-            InfoCommentVC *commentVC = [InfoCommentVC new];
-            
-            [weakSelf.navigationController pushViewController:commentVC animated:YES];
-        }];
-    };
-    //圈子评论
-   MineModel *forumComment = [MineModel new];
-    forumComment.text = @"我参与的活动";
-    forumComment.imgName = @"参加的活动";
-    forumComment.action = ^{
-        
-        [weakSelf checkLogin:^{
-            
-//            CircleCommentVC *commentVC = [CircleCommentVC new];
-            TakeActivityVCr *takeVc = [TakeActivityVCr new];
-            takeVc.view.frame = CGRectMake(0, 0, 375, 667);
-            takeVc.view.backgroundColor = kBackgroundColor;
-            [weakSelf.navigationController pushViewController:takeVc animated:YES];
-        }];
-    };
-    //清除缓存
-    MineModel *cache = [MineModel new];
-    
-    cache.text = @"我的文章";
-//    cache.isSpecial = YES;
-    cache.imgName = @"我的文章";
-
-//    cache.isHiddenArrow = YES;
-    cache.action = ^{
-        
-        [self checkLogin:^{
-            MyArticleViewController *myArticle = [[MyArticleViewController alloc] init];
-            [self.navigationController pushViewController:myArticle animated:YES];
-        }];
-      
-    };
+//    MineModel *infoComment = [MineModel new];
+//
+//    infoComment.text = @"评论";
+//    infoComment.imgName = @"评论";
+//    infoComment.action = ^{
+//
+//        [weakSelf checkLogin:^{
+//
+//            InfoCommentVC *commentVC = [InfoCommentVC new];
+//
+//            [weakSelf.navigationController pushViewController:commentVC animated:YES];
+//        }];
+//    };
+//    //圈子评论
+//   MineModel *forumComment = [MineModel new];
+//    forumComment.text = @"我参与的活动";
+//    forumComment.imgName = @"参加的活动";
+//    forumComment.action = ^{
+//
+//        [weakSelf checkLogin:^{
+//
+////            CircleCommentVC *commentVC = [CircleCommentVC new];
+//            TakeActivityVCr *takeVc = [TakeActivityVCr new];
+//            takeVc.view.frame = CGRectMake(0, 0, 375, 667);
+//            takeVc.view.backgroundColor = kBackgroundColor;
+//            [weakSelf.navigationController pushViewController:takeVc animated:YES];
+//        }];
+//    };
+//    //清除缓存
+//    MineModel *cache = [MineModel new];
+//
+//    cache.text = @"我的文章";
+////    cache.isSpecial = YES;
+//    cache.imgName = @"我的文章";
+//
+////    cache.isHiddenArrow = YES;
+//    cache.action = ^{
+//
+//        [self checkLogin:^{
+//            MyArticleViewController *myArticle = [[MyArticleViewController alloc] init];
+//            [self.navigationController pushViewController:myArticle animated:YES];
+//        }];
+//
+//    };
     
     //关于
     MineModel *aboutUs = [MineModel new];
@@ -193,7 +193,7 @@
     self.group = [MineGroup new];
     
 //    self.group.sections = @[@[collection, forumComment, infoComment, aboutUs, cache]];
-    self.group.sections = @[@[collection, infoComment,forumComment,cache, aboutUs]];
+    self.group.sections = @[@[collection, aboutUs]];
 
     
     self.tableView.mineGroup = self.group;
@@ -281,6 +281,15 @@
     return _imagePicker;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self changeInfo];
+    // 设置导航栏背景色
+    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 #pragma mark - Notification
 - (void)addNotification {
     
@@ -303,7 +312,6 @@
         self.navigationItem.rightBarButtonItem = nil;
         
     } else {
-        
         [self.headerView.nameBtn setTitle:[TLUser user].nickname forState:UIControlStateNormal];
 
         self.tableView.tableFooterView.hidden = NO;
@@ -457,10 +465,10 @@
         }break;
         case MineHeaderSeletedTypeDefault:
         {
-            [self checkLogin:^{
-                [self goUserDetail];
-
-            }];
+//            [self checkLogin:^{
+//                [self goUserDetail];
+//
+//            }];
             NSLog(@"点击了头像");
         }break;
             

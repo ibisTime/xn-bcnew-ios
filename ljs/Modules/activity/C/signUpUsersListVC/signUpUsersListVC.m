@@ -195,7 +195,9 @@
     self.signUpUserListV.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     
-    self.signUpUserListV.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+//    self.signUpUserListV.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+    self.signUpUserListV.defaultNoDataText = @"暂无用户";
+    self.signUpUserListV.defaultNoDataImage = kImage(@"暂无动态");
     
     [self.view addSubview:self.signUpUserListV];
     [self.signUpUserListV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,7 +238,7 @@
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
 //            NSArray *qq = objs[approvedList];
             if (objs.count == 0 || !objs) {
-                weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+//                weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
                 [weakSelf.signUpUserListV reloadData_tl];
 
                 return ;
@@ -265,7 +267,7 @@
             [weakSelf.signUpUserListV reloadData_tl];
             
         } failure:^(NSError *error) {
-             weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+//             weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
         }];
         
     }];

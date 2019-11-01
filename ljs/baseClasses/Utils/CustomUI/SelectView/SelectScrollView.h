@@ -14,6 +14,8 @@ typedef void(^SelectBlock)(NSInteger index);
 
 @interface SelectScrollView : UIView
 
+@property (nonatomic, assign) CGFloat width;
+
 @property (nonatomic, strong) UIScrollView *scrollView;
 //头部
 @property (nonatomic, strong) SortBar *headView;
@@ -24,10 +26,9 @@ typedef void(^SelectBlock)(NSInteger index);
 
 @property (nonatomic, copy) SelectBlock selectBlock;
 @property (nonatomic, assign) BOOL IsUserList;
-
-
 @property (nonatomic, assign) BOOL IsCurrency;
 
 - (instancetype)initWithFrame:(CGRect)frame itemTitles:(NSArray *)itemTitles;
+
 
 @end

@@ -94,8 +94,10 @@
     
     
     self.tableView = [[HomePageInfoTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) style:UITableViewStyleGrouped];
-    self.holderView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无动态"];
+//    self.holderView = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂无动态"];
 
+    self.tableView.defaultNoDataText = @"暂无动态";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
 //    self.tableView.placeHolderView = self.holderView;
     [self.view addSubview:self.tableView];

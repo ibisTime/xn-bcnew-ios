@@ -85,7 +85,7 @@
         self.tableView.forums = nil;
         [self.tableView reloadData];
         self.tableView.hiddenHeader = YES;
-        self.tableView.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币吧"];
+
         return ;
     }
     //刷新币吧列表
@@ -103,7 +103,8 @@
     self.tableView = [[ForumListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.tableView.refreshDelegate = self;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币吧"];
+    self.tableView.defaultNoDataText = @"暂无币吧";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.postType = self.type;
     
     [self.view addSubview:self.tableView];

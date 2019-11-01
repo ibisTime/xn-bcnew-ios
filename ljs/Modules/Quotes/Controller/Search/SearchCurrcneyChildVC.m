@@ -41,7 +41,9 @@
     
     self.tableView = [[SearchCurrencyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无热门币种"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无热门币种"];
+    self.tableView.defaultNoDataText = @"暂无热门币种";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];

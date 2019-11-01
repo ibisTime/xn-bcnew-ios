@@ -120,23 +120,7 @@
     }];
 }
 
-//- (void)initCommentTableView1 {
-//
-//    self.tableView1 = [[InfoCommentDetailTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-//
-//    self.tableView.refreshDelegate = self;
-//
-//    [self.view addSubview:self.tableView];
-//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.edges.mas_equalTo(0);
-//        make.bottom.equalTo(@(-kBottomHeight-kBottomInsetHeight));
-//    }];
-//
-//    self.footerView = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来, 坐下谈谈"];
-//
-//    self.footerView.backgroundColor = kHexColor(@"FAFCFF");
-//}
+
 #pragma mark - Init
 - (InputTextView *)inputTV {
     
@@ -170,8 +154,10 @@
     
     self.tableView = [[ActivityNewsCommentView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
     
+    self.tableView.defaultNoDataText = @"暂无评论";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];

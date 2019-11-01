@@ -60,7 +60,7 @@
         case PHAuthorizationStatusRestricted: {
             //提示用户打开相册，并返回
             
-            [TLAlert alertWithTitle:nil msg:@"您尚未允许链接社访问您的相册" confirmMsg:@"设置" cancleMsg:@"取消" maker:self.navigationController cancle:^(UIAlertAction *action) {
+            [TLAlert alertWithTitle:nil msg:@"您尚未允许币对财经访问您的相册" confirmMsg:@"设置" cancleMsg:@"取消" maker:self.navigationController cancle:^(UIAlertAction *action) {
                 
                 
             } confirm:^(UIAlertAction *action) {
@@ -79,7 +79,7 @@
             //提示用户打开相册，并返回
 //            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             
-            [TLAlert alertWithTitle:nil msg:@"您尚未允许链接社访问您的相册" confirmMsg:@"设置" cancleMsg:@"取消" maker:self.navigationController cancle:^(UIAlertAction *action) {
+            [TLAlert alertWithTitle:nil msg:@"您尚未允许币对财经访问您的相册" confirmMsg:@"设置" cancleMsg:@"取消" maker:self.navigationController cancle:^(UIAlertAction *action) {
                 
                 
             } confirm:^(UIAlertAction *action) {

@@ -68,7 +68,7 @@
     
     if (self.type == CurrencyTypePrice) {
         //获取币价
-        [self requestCurrencyPriceList];
+//        [self requestCurrencyPriceList];
 ;
         
 //        return ;
@@ -419,7 +419,9 @@
         weakSelf.selectBlock(tosymbol);
     };
     self.tableView.type = self.type;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无币种"];
+    self.tableView.defaultNoDataText = @"暂无币种";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.pagingEnabled = false;
@@ -446,53 +448,53 @@
 }
 
 #pragma mark - Data
-- (void)requestCurrencyPriceList {
-    
-    BaseWeakSelf;
-    
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
-    helper.code = @"628341";
-    helper.parameters[@"symbol"] = @"BTC";
-    helper.tableView = self.tableView;
-    helper.showView = self.view;
-    [helper modelClass:[CurrencyPriceModel class]];
-    self.helper = helper;
-    
-    [self.tableView addRefreshAction:^{
-        
-        weakSelf.view.userInteractionEnabled = NO;
-
-        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.currencyPrices = objs;
-            
-            weakSelf.tableView.currencyPrices = objs;
-            
-            [weakSelf.tableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
-    
-    [self.tableView addLoadMoreAction:^{
-        
-        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            
-            weakSelf.currencyPrices = objs;
-            
-            weakSelf.tableView.currencyPrices = objs;
-            
-            [weakSelf.tableView reloadData_tl];
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }];
-    
-    [self.tableView endRefreshingWithNoMoreData_tl];
-}
+//- (void)requestCurrencyPriceList {
+//
+//    BaseWeakSelf;
+//
+//    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+//
+//    helper.code = @"628341";
+//    helper.parameters[@"symbol"] = @"BTC";
+//    helper.tableView = self.tableView;
+//    helper.showView = self.view;
+//    [helper modelClass:[CurrencyPriceModel class]];
+//    self.helper = helper;
+//
+//    [self.tableView addRefreshAction:^{
+//
+//        weakSelf.view.userInteractionEnabled = NO;
+//
+//        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//            weakSelf.currencyPrices = objs;
+//
+//            weakSelf.tableView.currencyPrices = objs;
+//
+//            [weakSelf.tableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//    }];
+//
+//    [self.tableView addLoadMoreAction:^{
+//
+//        [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//            weakSelf.currencyPrices = objs;
+//
+//            weakSelf.tableView.currencyPrices = objs;
+//
+//            [weakSelf.tableView reloadData_tl];
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//    }];
+//
+//    [self.tableView endRefreshingWithNoMoreData_tl];
+//}
 
 /**
  获取币种列表

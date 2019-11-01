@@ -48,12 +48,12 @@
                                                    textColor:kTextColor
                                                         font:17.0];
     //平台名称
-    self.syomblName = [UILabel labelWithBackgroundColor:kClearColor
-                                                   textColor:kTextColor
-                                                        font:14.0];
+//    self.syomblName = [UILabel labelWithBackgroundColor:kClearColor
+//                                                   textColor:kTextColor
+//                                                        font:14.0];
     
     [self addSubview:self.platformNameLbl];
-    [self addSubview:self.syomblName];
+//    [self addSubview:self.syomblName];
     self.IsWarnImage = [[UIImageView alloc] init];
     self.IsWarnImage.image = [UIImage imageNamed:@"闹钟"];
     [self addSubview:self.IsWarnImage];
@@ -84,21 +84,19 @@
 
 - (void)setSubviewLayout {
     
-    [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(@10);
-        make.width.height.equalTo(@13);
-        make.centerY.equalTo(@0);
-
-
-    }];
+    
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.mas_equalTo(self.IsWarnImage.mas_right).offset(10);
-//        make.width.equalTo(@70);
+        make.left.mas_equalTo(15);
         make.centerY.equalTo(@0);
     }];
+     
+     [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.equalTo(self.platformNameLbl.mas_right).mas_offset(5);;
+         make.width.height.equalTo(@13);
+         make.centerY.equalTo(@0);
+
+     }];
     
     [self.syomblName mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -134,35 +132,35 @@
     _currency = currency;
     
     //平台名称
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
+//    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
 //    [self.platformNameLbl sizeToFit];
-     self.syomblName.text = [NSString stringWithFormat:@"%@/%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
+     self.platformNameLbl.text = [NSString stringWithFormat:@"%@/%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
     self.IsWarnImage.hidden = [currency.isWarn isEqualToString:@"0"];
-    if (self.platformNameLbl.frame.origin.x <= self.IsWarnImage.frame.origin.x) {
-        
-        if ([currency.isWarn isEqualToString:@"0"]) {
-            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(@10);
-                make.width.equalTo(@70);
-                make.centerY.equalTo(@0);
-            }];
-        }else{
-            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.IsWarnImage.mas_right).offset(10);
+//    if (self.platformNameLbl.frame.origin.x <= self.IsWarnImage.frame.origin.x) {
+    
+//        if ([currency.isWarn isEqualToString:@"0"]) {
+//            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(@10);
 //                make.width.equalTo(@70);
-                make.centerY.equalTo(@0);
-            }];
-        }
-    }else
-    {
-        if ([currency.isWarn isEqualToString:@"0"]) {
-            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(@10);
-                make.width.equalTo(@70);
-                make.centerY.equalTo(@0);
-            }];
-        }
-    }
+//                make.centerY.equalTo(@0);
+//            }];
+//        }else{
+//            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(self.IsWarnImage.mas_right).offset(10);
+////                make.width.equalTo(@70);
+//                make.centerY.equalTo(@0);
+//            }];
+//        }
+//    }else
+//    {
+//        if ([currency.isWarn isEqualToString:@"0"]) {
+//            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(@10);
+//                make.width.equalTo(@70);
+//                make.centerY.equalTo(@0);
+//            }];
+//        }
+//    }
     
     //对应币种价格
     self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", [currency.lastPrice convertToRealMoneyWithNum:8]];

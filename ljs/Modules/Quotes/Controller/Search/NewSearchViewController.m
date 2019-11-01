@@ -99,13 +99,11 @@
     
     BaseWeakSelf;
     
-    self.titles = @[@"币种",@"平台",@"资讯",@"快讯",@"活动"];
+    self.titles = @[@"币种",@"资讯",@"快讯"];
     
     self.selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - kBottomInsetHeight) itemTitles:self.titles];
     self.selectSV.selectBlock = ^(NSInteger index) {
-        
         [weakSelf didSelectWithIndex:index];
-        
     };
     [self.view addSubview:self.selectSV];
     
@@ -120,25 +118,28 @@
             [self addChildViewController:self.currencyvc];
             [self.selectSV.scrollView addSubview:self.currencyvc.view];
         }
+//        else if (index == 1) {
+//            self.platformvc = [[PlatformAndOtherVC alloc]init];
+//            self.platformvc.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+//            [self addChildViewController:self.platformvc];
+//            [self.selectSV.scrollView addSubview:self.platformvc.view];
+//        }
         else if (index == 1) {
-            self.platformvc = [[PlatformAndOtherVC alloc]init];
-            self.platformvc.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            [self addChildViewController:self.platformvc];
-            [self.selectSV.scrollView addSubview:self.platformvc.view];
-        }
-        else if (index == 2) {
             
             self.information = [[HomeChildVC alloc] init];
             self.information.status = @"1";
             self.information.kind = @"2";
             self.information.isSearch = YES;
+//            self.information.status = @"";
+//            self.information.kind = @"1";
+//            self.information.isSearch = YES;
             self.information.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
             
             [self addChildViewController:self.information];
             
             [self.selectSV.scrollView addSubview:self.information.view];
         }
-        else if (index == 3) {
+        else if (index == 2) {
             self.alerts = [[HomeChildVC alloc] init];
             self.alerts.status = @"";
             self.alerts.kind = @"1";
@@ -148,14 +149,14 @@
             
             [self.selectSV.scrollView addSubview:self.alerts.view];
         }
-        else if (index == 4)
-        {
-            self.activity = [[SearchActivityVC alloc]init];
-            self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
-            [self addChildViewController:self.activity];
-            [self.selectSV.scrollView addSubview:self.activity.view];
-
-        }
+//        else if (index == 4)
+//        {
+//            self.activity = [[SearchActivityVC alloc]init];
+//            self.activity.view.frame = CGRectMake(kScreenWidth*index, 1, kScreenWidth, kSuperViewHeight - kTabBarHeight);
+//            [self addChildViewController:self.activity];
+//            [self.selectSV.scrollView addSubview:self.activity.view];
+//
+//        }
     }
 }
 //UITextFieldDelegate
@@ -164,31 +165,35 @@
     int index = self.selectSV.scrollView.contentOffset.x / kScreenWidth;
     [textField resignFirstResponder];
 
-    switch (index) {
-        case 0:
-            [self.currencyvc searchRequestWith:textField.text];
-
-            break;
-        case 1:
-            [self.platformvc searchRequestWith:textField.text];
-
-            break;
-        case 2:
-            [self.information searchRequestWith:textField.text];
-
-            break;
-        case 3:
-            [self.alerts searchRequestWith:textField.text];
-
-            break;
-        case 4:
-            [self.activity searchRequestWith:textField.text];
-
-            break;
-            
-        default:
-            break;
-    }
+    [self.currencyvc searchRequestWith:textField.text];
+    [self.information searchRequestWith:textField.text];
+    [self.alerts searchRequestWith:textField.text];
+    
+//    switch (index) {
+//        case 0:
+//            [self.currencyvc searchRequestWith:textField.text];
+//
+//            break;
+////        case 1:
+////            [self.platformvc searchRequestWith:textField.text];
+////
+////            break;
+//        case 2:
+//            [self.alerts searchRequestWith:textField.text];
+//
+//            break;
+//        case 3:
+//            [self.information searchRequestWith:textField.text];
+//
+//            break;
+//        case 4:
+//            [self.activity searchRequestWith:textField.text];
+//
+//            break;
+//
+//        default:
+//            break;
+//    }
     
     return YES;
 }

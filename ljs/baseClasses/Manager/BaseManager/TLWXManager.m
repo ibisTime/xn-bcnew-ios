@@ -90,8 +90,8 @@
 //        return;
 //    }
     
-    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"链接社";
-    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用链接社";
+    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
+    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
     // -- //
 //    WXWebpageObject *webObj = [WXWebpageObject object];
 //    webObj.webpageUrl = url;
@@ -124,8 +124,8 @@
 //        return;
 //    }
 //
-//    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"链接社";
-//    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用链接社";
+//    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
+//    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
 //    UIImage *shareImage = image;
 //
 //    // -- //

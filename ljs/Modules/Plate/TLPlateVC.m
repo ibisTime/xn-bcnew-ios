@@ -131,7 +131,9 @@
     self.tableView.tableHeaderView = topBackView;
     
     
-   self.hold  = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无信息"];
+//   self.hold  = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无信息"];
+    self.tableView.defaultNoDataText = @"暂无信息";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.placeHolderView = self.hold;
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];

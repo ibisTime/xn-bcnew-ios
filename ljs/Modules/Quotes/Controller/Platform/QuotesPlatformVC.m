@@ -367,11 +367,13 @@
 //    self.tableView.type = self.type;
     self.tableView.refreshBlock = ^{
         weakSelf.tableView.tableFooterView = weakSelf.footerView;
-        weakSelf.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
+//        weakSelf.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
     };
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无自选"];
 
+    self.tableView.defaultNoDataText = @"暂无自选";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     [self.view addSubview:self.tableView];
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //

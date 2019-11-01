@@ -131,7 +131,10 @@
     
     self.currencyTableView = [[SearchCurrencyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.currencyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币种或平台"];
+//    self.currencyTableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"没有搜索到币种或平台"];
+    
+    self.currencyTableView.defaultNoDataText = @"没有搜索到币种或平台";
+    self.currencyTableView.defaultNoDataImage = kImage(@"暂无动态");
     self.currencyTableView.refreshDelegate = self;
     
     [self.view addSubview:self.currencyTableView];

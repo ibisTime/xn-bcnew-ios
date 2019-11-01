@@ -132,12 +132,13 @@
     self.flashTableView.isAll = [self.status isEqualToString:kAllNewsFlash];
     self.flashTableView.refreshDelegate = self;
     if (self.isSearch == YES) {
-        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
-
+//        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+        self.flashTableView.defaultNoDataText = @"暂时没有搜索到你想要的信息";
+        self.flashTableView.defaultNoDataImage = kImage(@"暂无搜索结果");
     }else{
-        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
-
-        
+//        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
+        self.flashTableView.defaultNoDataText = @"暂时没有资讯";
+        self.flashTableView.defaultNoDataImage = kImage(@"暂无动态");
     }
 
 //    self.flashTableView.placeHolderView = self.hold;
@@ -154,13 +155,19 @@
     self.infoTableView = [[InformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     self.infoTableView.refreshDelegate = self;
+    
+    
     if (self.isSearch == YES) {
-        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
-        
+        self.infoTableView.defaultNoDataText = @"暂时没有搜索到你想要的信息";
+        self.infoTableView.defaultNoDataImage = kImage(@"暂无搜索结果");
+//        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+//
     }else{
-        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
-        
-        
+        self.infoTableView.defaultNoDataText = @"暂时没有资讯";
+        self.infoTableView.defaultNoDataImage = kImage(@"暂无动态");
+//        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
+//
+//
     }
     self.infoTableView.placeHolderView = self.hold;
 
@@ -210,6 +217,7 @@
             if (objs.count <= 0) {
                 weakSelf.flashTableView.placeHolderView = weakSelf.hold;
                 [weakSelf.flashTableView addSubview:weakSelf.hold];
+                [weakSelf.flashTableView reloadData];
                 return ;
             }
             
@@ -239,6 +247,7 @@
                 weakSelf.flashTableView.placeHolderView = weakSelf.hold;
 
                 [weakSelf.flashTableView addSubview:weakSelf.hold];
+                [weakSelf.flashTableView reloadData];
                 return ;
             }
             
@@ -284,6 +293,7 @@
             if (objs.count <= 0) {
                 weakSelf.infoTableView.placeHolderView = weakSelf.hold;
                 [weakSelf.infoTableView addSubview:weakSelf.hold];
+                [weakSelf.infoTableView reloadData];
                 return ;
             }
             
@@ -314,6 +324,7 @@
                 weakSelf.infoTableView.placeHolderView = weakSelf.hold;
 
                 [weakSelf.infoTableView addSubview:weakSelf.hold];
+                [weakSelf.infoTableView reloadData];
                 return ;
             }
             
@@ -422,9 +433,7 @@
                         [weakSelf.navigationController pushViewController:webv animated:YES];
                     }
                     break;
-                    
                 case 2:
-                    
                     if (model.url.length!= 0) {
                         InfoDetailVC *detailVC = [InfoDetailVC new];
                         detailVC.IsNeed = YES;
@@ -438,7 +447,6 @@
                 case 3:
                     if (model.url.length !=0) {
                         detailActivityVC* detOfActVC = [[detailActivityVC alloc ] init ];
-                        
                         detOfActVC.code = model.url;
                         [weakSelf.navigationController pushViewController:detOfActVC animated:YES];
 
@@ -479,6 +487,13 @@
                 [nameArry addObject:obj.name];
             }
         }];
+        if (self.bannerRoom.count > 0) {
+            [self.hold removeFromSuperview];
+        }else
+        {
+            self.flashTableView.placeHolderView = self.hold;
+            [self.flashTableView addSubview:self.hold];
+        }
         self.bannerView.imgUrls = imgUrls;
         self.bannerView.nameArry = nameArry;
         //        self.infoTableView.tableHeaderView = self.headerView;

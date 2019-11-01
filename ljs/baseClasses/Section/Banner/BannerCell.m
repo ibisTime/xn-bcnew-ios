@@ -33,23 +33,23 @@
         
         [self.contentView addSubview:iv];
         iv.clipsToBounds = YES;
-        iv.contentMode = UIViewContentModeScaleAspectFill;
+//        iv.contentMode = UIViewContentModeScaleAspectFill;
         self.imageIV = iv;
         
         
         
-        self.nameLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.nameLabel.font = [UIFont systemFontOfSize:16];
-        self.nameLabel.textColor = [UIColor whiteColor];
-        self.nameLabel.textAlignment = NSTextAlignmentLeft;
-        [self.contentView addSubview:self.nameLabel];
-        
-        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView.mas_left).with.offset(10);
-            make.right.equalTo(self.contentView.mas_right).with.offset(-10);
-            make.bottom.equalTo(self.contentView.mas_bottom);
-            make.height.mas_equalTo(20);
-        }];
+//        self.nameLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+//        self.nameLabel.font = [UIFont systemFontOfSize:16];
+//        self.nameLabel.textColor = [UIColor whiteColor];
+//        self.nameLabel.textAlignment = NSTextAlignmentLeft;
+//        [self.contentView addSubview:self.nameLabel];
+//
+//        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.contentView.mas_left).with.offset(10);
+//            make.right.equalTo(self.contentView.mas_right).with.offset(-10);
+//            make.bottom.equalTo(self.contentView.mas_bottom);
+//            make.height.mas_equalTo(20);
+//        }];
         
     }
     return self;

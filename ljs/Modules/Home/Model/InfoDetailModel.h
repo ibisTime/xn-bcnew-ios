@@ -12,6 +12,8 @@
 #import "InfoCommentModel.h"
 
 @interface InfoDetailModel : BaseModel
+
+@property (nonatomic, copy) NSString *summary;
 //编号
 @property (nonatomic, copy) NSString *code;
 //类型名字

@@ -34,7 +34,11 @@
     
     self.tableView = [[SearchHistoryTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithText:@"没有查找到历史搜索" topMargin:100];
+    
+    
+    self.tableView.defaultNoDataText = @"没有查找到历史搜索";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     
     self.tableView.refreshDelegate = self;
     

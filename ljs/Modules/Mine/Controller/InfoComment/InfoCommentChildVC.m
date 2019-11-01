@@ -47,7 +47,8 @@
     
     self.tableView.isReplyMe = [self.type isEqualToString:@"0"] ? YES: NO;
     self.tableView.placeHolderView = self.holdView;
-    self.holdView = [TLPlaceholderView placeholderViewWithImage:@"" text:text];
+    self.tableView.defaultNoDataText = text;
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

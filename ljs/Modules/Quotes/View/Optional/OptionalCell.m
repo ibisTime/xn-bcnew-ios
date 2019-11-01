@@ -153,7 +153,7 @@
     //币种名称
     self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
-    self.platformNameLbl.text = optional.exchangeEname;
+//    self.platformNameLbl.text = optional.exchangeEname;
 //    = [optional.isWarn isEqualToString:@"0"];
 //    if (self.currencyNameLbl.frame.origin.x <= self.isWarnView.frame.origin.x) {
 //

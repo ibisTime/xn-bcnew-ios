@@ -106,7 +106,10 @@
     
     //    self.repaymentListTableView.refreshDelegate = self;
     
-    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+//    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
+    
+    self.ActivityListTableView.defaultNoDataText = @"暂时没有搜索到你想要的信息";
+    self.ActivityListTableView.defaultNoDataImage = kImage(@"暂无搜索结果");
     self.ActivityListTableView.placeHolderView =self.holfView;
     self.ActivityListTableView.refreshDelegate = self;
     [self.view addSubview:self.ActivityListTableView];

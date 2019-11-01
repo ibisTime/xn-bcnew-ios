@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <UMMobClick/MobClick.h>
 #import "CoinHeader.h"
+#import "UITableView+AddForPlaceholder.h"
+
+
 @interface BaseViewController : UIViewController <UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSString *titleStr;

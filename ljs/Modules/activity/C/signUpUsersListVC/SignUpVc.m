@@ -96,8 +96,10 @@
     self.signUpUserListV.tableFooterView = [UIView new];
     self.signUpUserListV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     self.signUpUserListV.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopic)];
-    self.signUpUserListV.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+//    self.signUpUserListV.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
     
+    self.signUpUserListV.defaultNoDataText = @"暂无用户";
+    self.signUpUserListV.defaultNoDataImage = kImage(@"暂无动态");
     [self.view addSubview:self.signUpUserListV];
     [self.signUpUserListV mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -171,8 +173,6 @@
             
             if (self.type != self.currtntType) {
                 self.signUpUserListV.signUpUsersListM = [NSMutableArray array];
-                
-                weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
             }else{
                 
                 
@@ -189,8 +189,7 @@
         
         
     } failure:^(NSError *error) {
-        
-        weakSelf.signUpUserListV.tableFooterView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无用户"];
+
         if (self.page != 1) {
             self.page --;
         }

@@ -162,8 +162,8 @@
 //        return;
 //    }
 //
-//    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"链接社";
-//    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用链接社";
+//    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
+//    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
 //
 //    NSData *imgData = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width, image.size.height)];
 //

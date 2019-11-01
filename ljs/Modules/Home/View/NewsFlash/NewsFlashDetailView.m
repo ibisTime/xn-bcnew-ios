@@ -98,7 +98,7 @@
                                                 textColor:kTextColor2
                                                      font:14.0];
     
-    textLbl.text = @"更多资讯请下载\n链接社APP";
+    textLbl.text = @"更多资讯请下载\n币对财经APP";
     textLbl.numberOfLines = 0;
     textLbl.textAlignment = NSTextAlignmentCenter;
     

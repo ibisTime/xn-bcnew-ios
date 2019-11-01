@@ -59,12 +59,19 @@
     
     self.tableView = [[InfoAllCommentListTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无评论"];
     
-    TLPlaceholderView *holder = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来坐下谈谈"];;
-    holder.backgroundColor = kHexColor(@"#F7F7F7");
-    self.holde = holder;
+    self.tableView.defaultNoDataText = @"暂无评论";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
+    
+//    TLPlaceholderView *holder = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来坐下谈谈"];;
+//    holder.backgroundColor = kHexColor(@"#F7F7F7");
+//    self.holde = holder;
 
+    
+    self.tableView.defaultNoDataText = @"来坐下谈谈";
+    self.tableView.defaultNoDataImage = kImage(@"沙发");
+    
     self.tableView.refreshDelegate = self;
     
     [self.view addSubview:self.tableView];

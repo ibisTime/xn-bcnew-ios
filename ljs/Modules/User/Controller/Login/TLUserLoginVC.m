@@ -102,14 +102,14 @@
     UIImageView *nameImage = [[UIImageView alloc] init];
 //    self.bgImage = bgImage;
     [self.view addSubview:nameImage];
-    //    bgImage.contentMode = UIViewContentModeScaleToFill;
-    nameImage.image = kImage(@"链接社");
+    nameImage.contentMode = UIViewContentModeScaleToFill;
+    nameImage.image = kImage(@"币对财经");
     
     [nameImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(kWidth(70)));
+        make.top.equalTo(@(kWidth(60)));
         make.centerX.equalTo(self.bgImage.mas_centerX);
-        make.height.equalTo(@(kHeight(35)));
-        make.width.equalTo(@(kWidth(98)));
+        make.height.equalTo(@(kHeight(55)));
+        make.width.equalTo(@(kWidth(120)));
 
     }];
     
@@ -396,8 +396,9 @@
 
         //初始化用户信息
         [[TLUser user] setUserInfoWithDict:userInfo];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
+        [self back];
+//        self p
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
         
     } failure:^(NSError *error) {
         

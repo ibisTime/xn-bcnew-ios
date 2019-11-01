@@ -49,7 +49,7 @@
 
 + (instancetype)placeholderViewWithImage:(NSString *)image text:(NSString *)text {
     
-    TLPlaceholderView *placeholderView = [[TLPlaceholderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+    TLPlaceholderView *placeholderView = [[TLPlaceholderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNavigationBarHeight - kTabBarHeight)];
     
     UIImageView *orderIV = [[UIImageView alloc] init];
     orderIV.image = kImage(image);
@@ -59,7 +59,7 @@
     [orderIV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerX.equalTo(@0);
-        make.top.equalTo(@90);
+        make.top.mas_equalTo((kScreenHeight - kNavigationBarHeight - kTabBarHeight)/2 - 45);
         
     }];
     

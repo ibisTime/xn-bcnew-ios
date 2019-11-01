@@ -109,9 +109,10 @@
         make.bottom.equalTo(@(-kBottomHeight-kBottomInsetHeight));
     }];
     
-    self.footerView = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来, 坐下谈谈"];
-    
-    self.footerView.backgroundColor = kHexColor(@"FAFCFF");
+//    self.footerView = [TLPlaceholderView placeholderViewWithImage:@"沙发" text:@"来, 坐下谈谈"];
+    self.tableView.defaultNoDataText = @"来, 坐下谈谈";
+    self.tableView.defaultNoDataImage = kImage(@"沙发");
+//    self.footerView.backgroundColor = kHexColor(@"FAFCFF");
 }
 
 - (void)initBottomView {

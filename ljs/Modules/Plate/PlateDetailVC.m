@@ -68,7 +68,9 @@
     BaseWeakSelf;
     [self.view addSubview:self.tableView];
     
-    self.hold = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无数据"];
+//    self.hold = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无数据"];
+    self.tableView.defaultNoDataText = @"暂无数据";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.placeHolderView = self.hold;
 
     self.tableView.refreshDelegate = self;

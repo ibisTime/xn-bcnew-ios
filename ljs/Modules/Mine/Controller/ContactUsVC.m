@@ -20,7 +20,7 @@
     UILabel *contentLab = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:18];
     [self.view addSubview:contentLab];
     contentLab.textAlignment = NSTextAlignmentCenter;
-    contentLab.text = @"如有问题请加链接社 QQ:676573836";
+    contentLab.text = @"如有问题请加币对财经 QQ:676573836";
     [contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@30);
         make.left.right.equalTo(@0);

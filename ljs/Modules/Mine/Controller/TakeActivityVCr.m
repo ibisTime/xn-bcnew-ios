@@ -121,37 +121,7 @@
 //
 - (void)initActivityListTableView {
     
-//    self.ActivityListTableView = [[AcvitityInformationListTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-//
-//
-//    //    self.repaymentListTableView.refreshDelegate = self;
-//
-//    self.holfView = [TLPlaceholderView placeholderViewWithImage:@"暂无活动" text:@"暂无活动"];
-//    self.ActivityListTableView.placeHolderView =self.holfView;
-//    self.ActivityListTableView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActivity)];
-//    self.ActivityListTableView.mj_footer = [MJRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextActivity)];
-//    self.ActivityListTableView.refreshDelegate = self;
-//    [self.view addSubview:self.ActivityListTableView];
-//    [self.ActivityListTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.edges.mas_equalTo(UIEdgeInsetsMake(kTabBarHeight, 0, 0, 0));
-//    }];
 }
-
-//- (void)loadMoreActivity
-//{
-//    [self.ActivityListTableView.mj_header beginRefreshing];
-//    [self requestActivityList];
-//
-//}
-//- (void)loadNextActivity
-//{
-//    [self.ActivityListTableView.mj_header beginRefreshing];
-//
-//    [self requestActivityList];
-//
-//
-//}
 
 #pragma mark - Data
 - (void)requestActivityList {

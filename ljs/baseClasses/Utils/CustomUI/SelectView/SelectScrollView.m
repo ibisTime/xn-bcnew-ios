@@ -17,7 +17,9 @@
 #define kHeadBarHeight 45
 
 @interface SelectScrollView ()<UIScrollViewDelegate>
-
+{
+    CGFloat width;
+}
 @property (nonatomic, strong) NSArray *itemTitles;
 
 @property (nonatomic, strong) NSMutableArray *btnArray;
@@ -31,7 +33,7 @@
 - (instancetype)initWithFrame:(CGRect)frame itemTitles:(NSArray *)itemTitles {
     
     if (self = [super initWithFrame:frame]) {
-        
+        width = frame.size.width;
         _itemTitles = itemTitles;
         
         _btnArray = [NSMutableArray array];
@@ -51,7 +53,7 @@
     
     BaseWeakSelf;
     
-    _headView = [[SortBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kHeadBarHeight) sortNames:_itemTitles sortBlock:^(NSInteger index) {
+    _headView = [[SortBar alloc] initWithFrame:CGRectMake(0, 0, width, kHeadBarHeight) sortNames:_itemTitles sortBlock:^(NSInteger index) {
         
         weakSelf.selectIndex = index;
         

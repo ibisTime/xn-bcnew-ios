@@ -197,9 +197,8 @@
             }
         }];
     }
-    
-    
 }
+
 - (void)choseOptionList : (NSNotification *)notification
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -483,8 +482,9 @@
     };
     self.tableView.pagingEnabled = false;
     self.tableView.type = PlatformTypePlatform;
-    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
-
+//    self.tableView.placeHolderView = [TLPlaceholderView placeholderViewWithImage:@"" text:@"暂无平台"];
+    self.tableView.defaultNoDataText = @"暂无币种";
+    self.tableView.defaultNoDataImage = kImage(@"暂无动态");
    [self.selectSV addSubview:self.tableView];
 //       self.tableView.tableHeaderView = self.headerView;
 //    [self requestPlatform];
@@ -696,9 +696,9 @@
         BaseWeakSelf;
     [self.MbHud show:YES];
     self.view.userInteractionEnabled = NO;
-        TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-        
-        helper.code = @"628350";
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    helper.code = @"628350";
     for (SelectScrollView *selectview in self.view.subviews) {
         helper.showView = selectview;
     }

@@ -47,7 +47,7 @@ typedef void (^ClickBtnBlock)(NSInteger index);
 //segment 默认选中按钮/视图 1
 @property(nonatomic,assign) NSInteger defaultSelectIndex;
 //segment 点击按钮触发事件代理
-@property(nonatomic, assign) id<SegmentDelegate> delegate;
+@property(nonatomic, assign) id <SegmentDelegate> delegate;
 //底部线条长度
 @property (nonatomic, assign) LineType lineType;
 //小红点
