@@ -60,7 +60,6 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
         AddSearchBottomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:bottomIdentifierCell forIndexPath:indexPath];
         cell.title = self.bottomtitles[indexPath.row];
         return cell;
-        
     }
     
  

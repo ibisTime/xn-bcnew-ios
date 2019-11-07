@@ -14,6 +14,7 @@
 #import "NSNumber+Extension.h"
 @interface OptionalCell()
 
+@property (nonnull, strong) UIImageView *iconImg;
 //币种名称
 @property (nonnull, strong) UILabel *currencyNameLbl;
 //平台名称
@@ -47,6 +48,9 @@
     
     //币种名称
     
+    self.iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 35, 35)];
+    [self addSubview:self.iconImg];
+    
     self.currencyNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor font:17.0];
      
@@ -54,6 +58,9 @@
                             
     self.isWarnView =[[UIImageView alloc] init];
     self.isWarnView.image = [UIImage imageNamed:@"闹钟"];
+    
+    
+    
     [self addSubview:self.isWarnView];
 
     //平台名称
@@ -65,9 +72,10 @@
     //24H交易量
     self.tradeVolumeLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                   textColor:kTextColor2
-                                                       font:15.0];
+                                                       font:12.0];
     
     [self addSubview:self.tradeVolumeLbl];
+    
     //涨跌情况
     self.priceFluctBtn = [UIButton buttonWithTitle:@""
                                         titleColor:kWhiteColor
@@ -95,18 +103,18 @@
 
 - (void)setSubviewLayout {
     
-    [self.isWarnView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(@10);
-        make.left.equalTo(@15);
-        make.width.height.equalTo(@15);
-    }];
+//    [self.isWarnView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(@10);
+//        make.left.equalTo(@65);
+//        make.width.height.equalTo(@15);
+//    }];
     
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(@10);
-        make.left.equalTo(self.isWarnView.mas_right).offset(10);
+        make.left.mas_equalTo(65);
     }];
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,7 +128,7 @@
     [self.tradeVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
-        make.left.equalTo(@15);
+        make.left.equalTo(@65);
         
     }];
     //涨幅
@@ -136,6 +144,7 @@
         make.right.equalTo(self.priceFluctBtn.mas_left).offset(-15);
         make.top.equalTo(self.currencyNameLbl.mas_top);
     }];
+    
     //对应币种
     [self.opppsitePriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -145,11 +154,33 @@
     
 }
 
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL)
+    {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
 #pragma mark - Setting
 - (void)setOptional:(OptionalListModel *)optional {
     
     _optional = optional;
     
+    
+    if ([self isBlankString:optional.symbolIcon] == NO) {
+        [self.iconImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[optional.symbolIcon convertImageUrl]]]];
+    }else
+    {
+        
+        self.iconImg.image = kImage(@"bbb");
+    }
     //币种名称
     self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
@@ -157,20 +188,20 @@
 //    = [optional.isWarn isEqualToString:@"0"];
 //    if (self.currencyNameLbl.frame.origin.x <= self.isWarnView.frame.origin.x) {
 //
-        if ([optional.isWarn isEqualToString:@"0"]) {
-            self.isWarnView.hidden = YES;
-            [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(@10);
-                make.left.equalTo(@15);
-            }];
-        }else{
-        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
-            self.isWarnView.hidden = NO;
-
-            make.top.equalTo(@10);
-            make.left.mas_equalTo(self.isWarnView.mas_right).offset(10);
-        }];
-        }
+//        if ([optional.isWarn isEqualToString:@"0"]) {
+//            self.isWarnView.hidden = YES;
+//            [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(@10);
+//                make.left.equalTo(@15);
+//            }];
+//        }else{
+//        [self.currencyNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            self.isWarnView.hidden = NO;
+//
+//            make.top.equalTo(@10);
+//            make.left.mas_equalTo(self.isWarnView.mas_right).offset(10);
+//        }];
+//        }
 //    }else
 //    {
 //    if ([optional.isWarn isEqualToString:@"0"]) {

@@ -20,6 +20,10 @@
     if ([propertyName isEqualToString:@"cpCount"]) {
         return @"copyCount";
     }
+    if ([propertyName isEqualToString:@"SymbolIMG"]) {
+        return @"symbolIcon";
+    }
+    
     return propertyName;
 }
 

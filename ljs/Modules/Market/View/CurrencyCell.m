@@ -22,6 +22,9 @@
 @property (nonatomic, strong) UILabel *opppsitePriceLbl;
 //当前人民币价格
 @property (nonatomic, strong) UILabel *rmbPriceLbl;
+
+@property (nonatomic, strong) UIImageView *iconImg;
+@property (nonatomic, strong) UILabel *amountLbl;
 //涨跌情况
 @property (nonatomic, strong) UIButton *priceFluctBtn;
 @property (nonatomic, strong) UIImageView *IsWarnImage;
@@ -43,6 +46,10 @@
 #pragma mark - Init
 - (void)initSubviews {
     
+    
+    self.iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 35, 35)];
+    [self addSubview:_iconImg];
+    
     //平台名称
     self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                    textColor:kTextColor
@@ -53,6 +60,19 @@
 //                                                        font:14.0];
     
     [self addSubview:self.platformNameLbl];
+    
+    self.amountLbl = [UILabel labelWithBackgroundColor:kClearColor
+                                                   textColor:kTextColor
+                                                        font:12.0];
+    //平台名称
+    //    self.syomblName = [UILabel labelWithBackgroundColor:kClearColor
+    //                                                   textColor:kTextColor
+    //                                                        font:14.0];
+    
+    [self addSubview:self.amountLbl];
+    
+    
+    
 //    [self addSubview:self.syomblName];
     self.IsWarnImage = [[UIImageView alloc] init];
     self.IsWarnImage.image = [UIImage imageNamed:@"闹钟"];
@@ -82,21 +102,42 @@
     [self setSubviewLayout];
 }
 
+-(NSString *)setAmount:(NSString *)amout
+{
+    if ([amout floatValue] > 100000000) {
+        return [NSString stringWithFormat:@"%.8f亿",[amout floatValue]/100000000];
+    }
+    if ([amout floatValue] > 10000) {
+        return [NSString stringWithFormat:@"%.8f万",[amout floatValue]/10000];
+    }
+    return amout;
+}
+
 - (void)setSubviewLayout {
     
     
     //平台
     [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.centerY.equalTo(@0);
+        make.left.mas_equalTo(65);
+//        make.centerY.equalTo(@0);
+        make.top.mas_equalTo(10);
+//        make.height.mas_equalTo(32.5);
     }];
-     
-     [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.left.equalTo(self.platformNameLbl.mas_right).mas_offset(5);;
-         make.width.height.equalTo(@13);
-         make.centerY.equalTo(@0);
+    
+    [self.amountLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(65);
+        //        make.centerY.equalTo(@0);
+        make.top.equalTo(self.rmbPriceLbl.mas_bottom).offset(10);
+//        make.height.mas_equalTo(32.5);
+    }];
 
-     }];
+    
+//     [self.IsWarnImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//         make.left.equalTo(self.platformNameLbl.mas_right).mas_offset(5);;
+//         make.width.height.equalTo(@13);
+//         make.centerY.equalTo(@0);
+//
+//     }];
     
     [self.syomblName mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -126,18 +167,44 @@
     
 }
 
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL)
+    {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - Setting
 - (void)setCurrency:(CurrencyPriceModel *)currency {
-    
     _currency = currency;
+//    if ([currency.symbol isEqualToString:@"TRX"]) {
+//        return;
+//    }
+//    NSLog(@"============= %@",currency.SymbolIMG);
+//    if ([self convertNull:currency.symbolIcon]) {
+    if ([self isBlankString:currency.symbolIcon] == NO) {
+         [self.iconImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[currency.symbolIcon convertImageUrl]]]];
+    }else
+    {
+     
+        self.iconImg.image = kImage(@"bbb");
+    }
     
+//    }
+//    self.iconImg.image = kImage(@:)
+    self.amountLbl.text = [NSString stringWithFormat:@"%@量:%@",[currency.toSymbol uppercaseString],[self setAmount:currency.amount]];
     //平台名称
 //    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
 //    [self.platformNameLbl sizeToFit];
-     self.platformNameLbl.text = [NSString stringWithFormat:@"%@/%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
+    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",[currency.symbol uppercaseString]];
     self.IsWarnImage.hidden = [currency.isWarn isEqualToString:@"0"];
 //    if (self.platformNameLbl.frame.origin.x <= self.IsWarnImage.frame.origin.x) {
-    
 //        if ([currency.isWarn isEqualToString:@"0"]) {
 //            [self.platformNameLbl mas_remakeConstraints:^(MASConstraintMaker *make) {
 //                make.left.equalTo(@10);

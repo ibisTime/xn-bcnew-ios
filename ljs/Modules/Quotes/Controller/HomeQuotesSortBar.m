@@ -95,8 +95,7 @@ static const float kAnimationdDuration = 0.3;
         self.allBtnWidth += widthMargin;
     }
     
-    NSArray *normolImgArr = @[@"涨幅榜未点击", @"跌幅榜未点击", @"跌幅榜未点击"];
-    NSArray *selectImgArr = @[@"涨幅榜", @"跌幅榜", @"预警中"];
+
     
     for (NSInteger i = 0; i < _sortNames.count; i++) {
         

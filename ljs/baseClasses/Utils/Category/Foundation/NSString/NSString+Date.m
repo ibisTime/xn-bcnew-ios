@@ -11,7 +11,20 @@
 #import "AppMacro.h"
 
 @implementation NSString (Date)
-
+- (NSString *)convertRedDate
+{
+    //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //    formatter.dateFormat = @"MM-dd hh:mm";
+    //    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MMM dd, yyyy hh:mm:ss aa";
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSDate *date01 = [formatter dateFromString:self];
+    formatter.dateFormat = @"MM-dd HH:mm";
+    formatter.locale = [NSLocale currentLocale];
+    
+    return [formatter stringFromDate:date01];
+}
 + (NSString *)stringFromDate:(NSDate *)date formatter:(NSString *)formatter {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

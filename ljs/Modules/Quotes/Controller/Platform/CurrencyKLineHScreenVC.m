@@ -39,7 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = kBlackColor;
+//    self.view.backgroundColor = kBlackColor;
     //
     [self initSubviews];
 }
@@ -55,9 +55,10 @@
         CGFloat h = kScreenWidth;
         
         _kLineView = [[DetailWebView alloc] initWithFrame:CGRectMake(0,0, w, h)];
-//        _kLineView.center = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
+        _kLineView.center = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
         
-//        _kLineView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        
+        _kLineView.transform = CGAffineTransformMakeRotation(M_PI_2);
         [self.view addSubview:_kLineView];
     }
     return _kLineView;
@@ -90,9 +91,53 @@
     //k线图
     //交易对
     NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
-    NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@&isfull=1",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
+//    NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@&isfull=1",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
     
-    [self.kLineView loadRequestWithString:html];
+//    [self.kLineView loadRequestWithString:html];
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628917";
+    http.parameters[@"ckey"] = @"h5Url";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
+        NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
+        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@&isfull=1",shareUrl, symbol, platform.exchangeEname];
+        
+        [self.kLineView loadRequestWithString:html];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+    }];
+    
+//    TLNetworking *http = [TLNetworking new];
+//
+//    http.code = @"628917";
+//    http.parameters[@"ckey"] = @"h5Url";
+//
+//    [http postWithSuccess:^(id responseObject) {
+//
+//        NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
+//        NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
+////        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@",shareUrl, symbol, platform.exchangeEname];
+//
+//
+//        NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@&isfull=1",shareUrl, symbol, platform.exchangeEname];
+//
+////        [self.kLineView loadRequestWithString:html];
+//
+//
+//
+//
+//        [self.kLineView loadRequestWithString:html];
+//
+//    } failure:^(NSError *error) {
+//        NSLog(@"error");
+//    }];
+    
+    
     //
 //    [self rightAction];
 }

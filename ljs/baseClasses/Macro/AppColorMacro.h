@@ -8,10 +8,17 @@
 
 #ifndef AppColorMacro_h
 #define AppColorMacro_h
-
+#import "TLUser.h"
 #import <UIKit/UIKit.h>
 #import "UIColor+Extension.h"
-
+#import "UILable+convience.h"
+#import "UIView+Frame.h"
+#import "UIButton+Custom.h"
+#import "NSString+Date.h"
+#import "NSString+Extension.h"
+#import <Masonry/Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
 #pragma mark - UIMacros
 
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
@@ -65,6 +72,9 @@
 #pragma mark - 界面尺寸
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
 
 #define kWidth(x) (x)*(kScreenWidth)/375.0
 #define kHeight(y) (y)*(kScreenHeight)/667.0

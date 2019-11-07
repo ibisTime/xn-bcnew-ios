@@ -188,6 +188,7 @@
         if ([model.isChoice boolValue]) {
             http.code = @"628332";
             http.showView = self.view;
+            http.parameters[@"userId"] = [TLUser user].userId;
             http.parameters[@"id"] = model.choiceId;
 
             

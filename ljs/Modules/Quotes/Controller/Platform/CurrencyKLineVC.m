@@ -224,7 +224,7 @@
     self.kLineView.horizontalScreenBlock = ^{
         
         CurrencyKLineHScreenVC *hScreenVC = [CurrencyKLineHScreenVC new];
-        
+
         hScreenVC.platform = weakSelf.platform;
         
         [weakSelf.navigationController pushViewController:hScreenVC animated:YES];

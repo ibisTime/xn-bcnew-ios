@@ -28,6 +28,9 @@
 // 根据字符串时间戳获取日历DateComponents
 - (NSDateComponents*)timeIntetvalStringToDateComponents;
 
+
+
+- (NSString *)convertRedDate;
 // 获取当前时间的日历
 + (NSDateComponents*)getCurrentComponents;
 

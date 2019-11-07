@@ -383,14 +383,14 @@
     [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
     //2.添加自选
-    self.titleBars = @[@"涨幅榜", @"跌幅榜",@"预警中"];
+    self.titleBars = @[@"市值榜", @"涨跌榜",@"成交榜"];
     self.percentChangeIndex = -1;
     self.quotesView = [[HomeQuotesView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, 46) itemTitles:self.titleBars];
     [self.view addSubview:self.quotesView];
     BaseWeakSelf;
     self.quotesView.selectBlock = ^(NSInteger index) {
        
-      // index 0 涨幅榜 1 跌幅榜 3预警中
+     
         NSLog(@"点击了%ld",index);
        
         weakSelf.percentTempIndex = -1;

@@ -225,6 +225,7 @@
     
     http.code = @"628332";
     http.showView = self.view;
+    http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"id"] = optional.choiceId;
     
     [http postWithSuccess:^(id responseObject) {

@@ -14,6 +14,7 @@
 #import "UILabel+Extension.h"
 //V
 #import "DetailWebView.h"
+#import "TLNetworking.h"
 
 @interface CurrencyTrendMapView()
 
@@ -168,10 +169,37 @@
     //趋势图
     //交易对
     NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
-    NSString *html = [NSString stringWithFormat:@"%@/charts/marketLine.html?symbol=%@&exchange=%@&period=60min",@"http://47.52.236.63:2303", symbol, platform.exchangeEname];
-    NSLog(@"html = %@", html);
     
-    [self.trendView loadRequestWithString:html];
+    
+    TLNetworking *http1 = [TLNetworking new];
+    
+    http1.code = @"628917";
+    http1.parameters[@"ckey"] = @"h5Url";
+    
+    [http1 postWithSuccess:^(id responseObject) {
+        
+        NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
+        NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
+        //        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@",shareUrl, symbol, platform.exchangeEname];
+        
+        NSString *html = [NSString stringWithFormat:@"%@/charts/marketLine.html?symbol=%@&exchange=%@&period=60min",shareUrl, symbol, platform.exchangeEname];
+        NSLog(@"html = %@", html);
+        
+        [self.trendView loadRequestWithString:html];
+        
+//        NSString *html = [NSString stringWithFormat:@"%@/index.html?symbol=%@&exchange=%@&isfull=1",shareUrl, symbol, platform.exchangeEname];
+//
+//        //        [self.kLineView loadRequestWithString:html];
+//
+//
+//
+//
+//        [self.kLineView loadRequestWithString:html];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+    }];
+    
 }
 
 @end

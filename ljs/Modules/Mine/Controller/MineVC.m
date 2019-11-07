@@ -40,6 +40,7 @@
 #import "Html5Vc.h"
 #import "HomePageInfoVC.h"
 #import "MineCenterViewController.h"
+#import "TLQusertionVC.h"
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
 @property (nonatomic, strong) MineGroup *group;
@@ -189,11 +190,30 @@
         
         [weakSelf.navigationController pushViewController:htmlVC animated:YES];
     };
+    
+    
+    MineModel *cache = [MineModel new];
+    
+    cache.text = @"意见反馈";
+    //    cache.isSpecial = YES;
+    cache.imgName = @"我的文章";
+    
+    //    cache.isHiddenArrow = YES;
+    cache.action = ^{
+        
+        [self checkLogin:^{
+            TLQusertionVC *myArticle = [[TLQusertionVC alloc] init];
+            [self.navigationController pushViewController:myArticle animated:YES];
+        }];
+        
+    };
+
+    
    
     self.group = [MineGroup new];
     
 //    self.group.sections = @[@[collection, forumComment, infoComment, aboutUs, cache]];
-    self.group.sections = @[@[collection, aboutUs]];
+    self.group.sections = @[@[collection,cache,aboutUs]];
 
     
     self.tableView.mineGroup = self.group;
@@ -465,10 +485,10 @@
         }break;
         case MineHeaderSeletedTypeDefault:
         {
-//            [self checkLogin:^{
-//                [self goUserDetail];
-//
-//            }];
+            [self checkLogin:^{
+                [self goUserDetail];
+
+            }];
             NSLog(@"点击了头像");
         }break;
             

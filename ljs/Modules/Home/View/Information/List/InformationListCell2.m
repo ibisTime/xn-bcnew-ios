@@ -168,9 +168,9 @@
     [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
     [infoModel.pics enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        UIImageView *iv = self.picIVArr[idx];
-        
-        [iv sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+//        UIImageView *iv = self.picIVArr[idx];
+//
+//        [iv sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(PLACEHOLDER_SMALL)];
     }];
     
     self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];

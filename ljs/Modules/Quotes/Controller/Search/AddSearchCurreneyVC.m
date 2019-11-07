@@ -497,6 +497,7 @@
                 
             }
         }
+        
         self.bottomtitles = weakSelf.tempTitles;
         self.bottomView.bottomtitles = weakSelf.tempTitles;
 //        [self.nineView reloadData];

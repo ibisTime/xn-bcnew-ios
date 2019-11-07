@@ -76,7 +76,7 @@
 -(void)setCurrentCount:(NSInteger )currentCount
 {
     _currentCount = currentCount;
-    self.titleDet.text = @"推荐栏目";
+    self.titleDet.text = @"全部栏目";
     self.readCountDet.text = [NSString stringWithFormat:@"可再选%ld个",currentCount];
 }
 @end

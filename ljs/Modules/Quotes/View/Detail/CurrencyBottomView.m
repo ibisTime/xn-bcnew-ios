@@ -69,40 +69,42 @@
         make.left.equalTo(@0);
         make.centerY.equalTo(@0);
         make.height.equalTo(@50);
-        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 10)/4 * 3);
+        make.width.mas_equalTo(kScreenWidth/3);
+//        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 10)/4 * 3);
     }];
     [optionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     
    
     //设置预警
-    UIButton *warningBtn = [UIButton buttonWithTitle:@"预警"
-                                          titleColor:[UIColor whiteColor]
-                                     backgroundColor:kClearColor
-                                           titleFont:14.0];
-    [warningBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
-    [warningBtn setImage:kImage(@"预警") forState:UIControlStateNormal];
-    warningBtn.tag = 10086;
+//    UIButton *warningBtn = [UIButton buttonWithTitle:@"预警"
+//                                          titleColor:[UIColor whiteColor]
+//                                     backgroundColor:kClearColor
+//                                           titleFont:14.0];
+//    [warningBtn addTarget:self action:@selector(settingWarning:) forControlEvents:UIControlEventTouchUpInside];
+//    [warningBtn setImage:kImage(@"预警") forState:UIControlStateNormal];
+//    warningBtn.tag = 10086;
+//
+//    [self addSubview:warningBtn];
+//    [warningBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(optionBtn.mas_right);
+//        make.centerY.equalTo(@0);
+//        make.height.equalTo(@50);
+//        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 30)/4 * 2);
+//    }];
+//    [warningBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     
-    [self addSubview:warningBtn];
-    [warningBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(optionBtn.mas_right);
-        make.centerY.equalTo(@0);
-        make.height.equalTo(@50);
-        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 30)/4 * 2);
-    }];
-    [warningBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    UIView *lineView = [[UIView alloc] init];
-    [warningBtn addSubview:lineView];
-    lineView.backgroundColor = kWhiteColor;
-    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(warningBtn.mas_right).offset(-5);
-        make.centerY.equalTo(@0);
-        make.height.equalTo(@20);
-        make.width.equalTo(@0.5);
-        
-    }];
+//    UIView *lineView = [[UIView alloc] init];
+//    [warningBtn addSubview:lineView];
+//    lineView.backgroundColor = kWhiteColor;
+//    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(warningBtn.mas_right).offset(-5);
+//        make.centerY.equalTo(@0);
+//        make.height.equalTo(@20);
+//        make.width.equalTo(@0.5);
+//
+//    }];
     UIButton *AnalysisBtn = [UIButton buttonWithTitle:@"介绍"
                                        titleColor:[UIColor whiteColor]
                                   backgroundColor:kClearColor
@@ -113,10 +115,10 @@
     [self addSubview:AnalysisBtn];
     [AnalysisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(warningBtn.mas_right);
+        make.left.equalTo(optionBtn.mas_right);
         make.centerY.equalTo(@0);
         make.height.equalTo(@50);
-        make.right.equalTo(self.mas_right).with.offset(-(kScreenWidth - 30)/4);
+        make.width.mas_equalTo(kScreenWidth/3);
         
     }];
     [AnalysisBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];

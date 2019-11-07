@@ -64,17 +64,17 @@
 - (void)setSubviewLayout {
     
     //名称
-    [self.nameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.unitLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(@0);
         make.left.equalTo(@15);
     }];
     //单位
-    [self.unitLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.nameLbl.mas_right).offset(6);
-        make.centerY.equalTo(self.nameLbl.mas_centerY);
-    }];
+//    [self.unitLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.left.equalTo(self.nameLbl.mas_right).offset(6);
+//        make.centerY.equalTo(self.nameLbl.mas_centerY);
+//    }];
     //添加
     [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -101,7 +101,7 @@
     _optional = optional;
     
     //名称
-    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.toSymbol: optional.exchangeCname;
+//    self.nameLbl.text =  [self.type isEqualToString:kOptionalTypePlatform] ? optional.toSymbol: optional.exchangeCname;
     //单位
    
     self.unitLbl.text =[self.type isEqualToString:kOptionalTypePlatform] ? [optional.toSymbol uppercaseString] :optional.toSymbol;

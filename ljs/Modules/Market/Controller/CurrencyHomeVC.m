@@ -41,18 +41,22 @@
     // Do any additional setup after loading the view.
     [self initTableView];
     
+    self.orderDir = @"";
+    self.orderColumn = @"";
     BaseWeakSelf;
     [self.tableView addRefreshAction:^{
         [weakSelf loadData];
     }];
     [self.tableView beginRefreshing];
+    
     //通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InfoNotificationAction:) name:@"SwitchDirection" object:nil];
 }
 
 #pragma mark -- 接收到通知
 - (void)InfoNotificationAction:(NSNotification *)notification{
-    self.direction = notification.userInfo[@"direction"];
+    self.orderDir = notification.userInfo[@"orderDir"];
+    self.orderColumn =  notification.userInfo[@"orderColumn"];
     [self loadData];
 }
 
@@ -95,16 +99,11 @@
     http.parameters[@"start"] = @"1";
     http.parameters[@"limit"] = @"1000";
     http.parameters[@"symbol"] = self.symbol;
-    http.parameters[@"direction"] = self.direction;
-    if ([TLUser user].isLogin == NO && [self.direction isEqualToString:@"2"]) {
-        return;
-    }else
-    {
-     
-        http.parameters[@"userId"] = [TLUser user].userId;
-    }
+    http.parameters[@"orderColumn"] = self.orderColumn;
+    http.parameters[@"orderDir"] = self.orderDir;
+
     [http postWithSuccess:^(id responseObject) {
-        weakSelf.platforms = [PlatformModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"list"]];
+        weakSelf.platforms = [CurrencyPriceModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"list"]];
         weakSelf.tableView.currencyPrices = weakSelf.platforms;
         [weakSelf.tableView reloadData];
         [weakSelf.tableView endRefreshHeader];

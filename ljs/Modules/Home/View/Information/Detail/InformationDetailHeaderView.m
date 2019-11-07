@@ -160,25 +160,25 @@
         make.top.equalTo(self.authorLbl.mas_top);
     }];
     
-    _theLabel = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentCenter) backgroundColor:kHexColor(@"#EF5959") font:FONT(11) textColor:kWhiteColor];
-    _theLabel.text = @"摘要";
-//    _theLabel = theLabel;
-    kViewRadius(_theLabel, 2);
-    [self addSubview:_theLabel];
-    
-    
-    
-    _AbstractLbl = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentLeft) backgroundColor:kClearColor font:FONT(16) textColor:kHexColor(@"3A3A3A")];
-    _AbstractLbl.numberOfLines = 0;
-    [self addSubview:_AbstractLbl];
-    
-    
-    
-    [_AbstractLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
-        make.right.mas_equalTo(-15);
-    }];
+//    _theLabel = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentCenter) backgroundColor:kHexColor(@"#EF5959") font:FONT(11) textColor:kWhiteColor];
+//    _theLabel.text = @"摘要";
+////    _theLabel = theLabel;
+//    kViewRadius(_theLabel, 2);
+//    [self addSubview:_theLabel];
+//
+//
+//
+//    _AbstractLbl = [UILabel labelWithFrame:CGRectZero textAligment:(NSTextAlignmentLeft) backgroundColor:kClearColor font:FONT(16) textColor:kHexColor(@"3A3A3A")];
+//    _AbstractLbl.numberOfLines = 0;
+//    [self addSubview:_AbstractLbl];
+//
+//
+//
+//    [_AbstractLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(15);
+//        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
+//        make.right.mas_equalTo(-15);
+//    }];
     
 }
 
@@ -279,19 +279,19 @@
         make.height.equalTo(@70);
     }];
     
-    [_theLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
-        make.width.mas_equalTo(32);
-        make.height.mas_equalTo(19);
-    }];
+//    [_theLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(15);
+//        make.top.equalTo(self.sourceView.mas_bottom).mas_equalTo(17);
+//        make.width.mas_equalTo(32);
+//        make.height.mas_equalTo(19);
+//    }];
     
     //内容
     [self.detailView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@2);
         make.width.equalTo(@(kScreenWidth - 4));
-        make.top.equalTo(self.AbstractLbl.mas_bottom).offset(20);
+        make.top.equalTo(self.sourceView.mas_bottom).offset(20);
         make.height.equalTo(@(height));
     }];
     //点赞
@@ -397,6 +397,20 @@
     }];
 }
 
+
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL)
+    {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - Setting
 - (void)setDetailModel:(InfoDetailModel *)detailModel {
     
@@ -410,17 +424,19 @@
     self.timeLbl.text = [detailModel.showDatetime convertToDetailDate];
     NSString *image = [detailModel.isPoint isEqualToString:@"0"] ? @"圆未点赞": @"圆点赞";
     [self.zanBtn setImage:kImage(image) forState:UIControlStateNormal];
-    [self.detailView loadWebWithString:detailModel.content];
+    if ([self isBlankString:detailModel.content] == NO) {
+        [self.detailView loadWebWithString:detailModel.content];
+    }
     UIColor *textColor = [detailModel.isPoint isEqualToString:@"0"] ? kTextColor: kHexColor(@"#FF4747");
     self.zanNumLbl.text = [NSString stringWithFormat:@"%ld", detailModel.pointCount];
     self.zanNumLbl.textColor = textColor;
-    if (detailModel.summary) {
-        _theLabel.hidden = NO;
-        _AbstractLbl.text = [NSString stringWithFormat:@"         %@",detailModel.summary];
-    }else
-    {
-        _theLabel.hidden = YES;
-    }
+//    if (detailModel.summary) {
+//        _theLabel.hidden = NO;
+//        _AbstractLbl.text = [NSString stringWithFormat:@"         %@",detailModel.summary];
+//    }else
+//    {
+//        _theLabel.hidden = YES;
+//    }
     
 }
 

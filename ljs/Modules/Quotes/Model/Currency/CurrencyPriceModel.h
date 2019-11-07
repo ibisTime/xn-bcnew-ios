@@ -10,6 +10,9 @@
 
 @interface CurrencyPriceModel : BaseModel
 
+@property (nonatomic, strong) NSString *symbolIcon;
+
+@property (nonatomic, copy) NSString *SymbolIMG;
 @property (nonatomic, copy) NSString *ID;
 
 @property (nonatomic, copy) NSString *priceBtc;

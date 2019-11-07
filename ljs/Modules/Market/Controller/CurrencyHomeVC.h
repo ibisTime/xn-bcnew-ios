@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CurrencyHomeVC : BaseViewController
 
 @property (nonatomic , strong)NSString *symbol;
-@property (nonatomic , strong)NSString *direction;
-
+@property (nonatomic , strong)NSString *orderColumn;
+@property (nonatomic , strong)NSString *orderDir;
 @end
 
 NS_ASSUME_NONNULL_END

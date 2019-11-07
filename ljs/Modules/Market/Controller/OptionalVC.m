@@ -21,6 +21,8 @@
 @interface OptionalVC ()
 {
     UIButton *selectBtn;
+    NSString *orderDir;
+    NSString *orderColumn;
 }
 //@property (nonatomic, strong) PlatformTableView *tableView;
 
@@ -52,13 +54,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSArray *titleAry = @[@"涨幅榜",@"跌幅版",@"预警中"];
+    NSArray *titleAry = @[@"市值榜",@"涨跌幅",@"成交量"];
     for (int i = 0; i < 3; i ++) {
         UIButton *chooseBtn = [UIButton buttonWithTitle:titleAry[i] titleColor:kHexColor(@"#818181") backgroundColor:kWhiteColor titleFont:14];
         chooseBtn.frame = CGRectMake( i % 3 * (kScreenWidth/3), 0, kScreenWidth/3, 35);
         [chooseBtn SG_imagePositionStyle:(SGImagePositionStyleRight) spacing:4.5 imagePositionBlock:^(UIButton *button) {
             [button setImage:kImage(@"TriangleNomall") forState:(UIControlStateNormal)];
-            [button setImage:kImage(@"TriangleSelect") forState:(UIControlStateSelected)];
+//            [button setImage:kImage(@"TriangleSelect") forState:(UIControlStateSelected)];
         }];
         [chooseBtn addTarget:self action:@selector(chooseBtnClick:) forControlEvents:(UIControlEventTouchUpInside)];
         chooseBtn.tag = i;
@@ -156,7 +158,8 @@
         http.code = @"628351";
         http.parameters[@"start"] = @"1";
         http.parameters[@"limit"] = @"1000";
-        http.parameters[@"direction"] = self.direction;
+        http.parameters[@"direction"] = orderColumn;
+        http.parameters[@"orderDir"] = orderDir;
         if ([TLUser user].userId) {
             http.parameters[@"userId"] = [TLUser user].userId;
         }
@@ -181,44 +184,36 @@
 
 -(void)chooseBtnClick:(UIButton *)sender
 {
-    if(![TLUser user].isLogin) {
-        TLUserLoginVC *loginVC = [TLUserLoginVC new];
-        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:nav animated:YES completion:nil];
-        return;
-    }
-    
     [TLProgressHUD show];
     sender.selected = !sender.selected;
     if (selectBtn.selected == YES && selectBtn != sender) {
         selectBtn.selected = !selectBtn.selected;
     }
     selectBtn = sender;
-    if (selectBtn.selected == YES) {
-        switch (selectBtn.tag) {
-            case 0:
-            {
-                self.direction = @"1";
-            }
-                break;
-            case 1:
-            {
-                self.direction = @"0";
-            }
-                break;
-            case 2:
-            {
-                self.direction = @"2";
-            }
-                break;
-                
-            default:
-                break;
-        }
-    }else
-    {
-        self.direction = @"";
+    
+    
+    NSDictionary *dic;
+    
+    
+    if (![orderDir isEqualToString:[NSString stringWithFormat:@"%ld",sender.tag]]) {
+        orderDir = @"";
+        orderColumn = @"";
     }
+    
+    orderColumn = [NSString stringWithFormat:@"%ld",sender.tag];
+    if ([orderDir isEqualToString:@""]) {
+        orderDir = @"1";
+    }else if ([orderDir isEqualToString:@"1"]) {
+        orderDir = @"0";
+    }else if ([orderDir isEqualToString:@"0"]) {
+        orderDir = @"";
+    }
+    
+    dic = @{@"orderColumn":orderColumn,
+            @"orderDir":orderDir
+            };
+//    NSNotification *notification =[NSNotification notificationWithName:@"SwitchDirection" object:nil userInfo:dic];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self loadData];
     
     

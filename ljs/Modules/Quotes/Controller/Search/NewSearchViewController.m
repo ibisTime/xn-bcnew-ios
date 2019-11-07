@@ -80,7 +80,7 @@
     self.searchTF = [[TLTextField alloc] initWithFrame:CGRectZero
                                              leftTitle:@""
                                             titleWidth:0
-                                           placeholder:@"请输入平台/币种"];
+                                           placeholder:@"请输入关键字"];
     self.searchTF.delegate = self;
     self.searchTF.returnKeyType = UIReturnKeySearch;
     
