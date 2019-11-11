@@ -18,7 +18,7 @@
 //Extension
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
-//#import "WXApi.h"
+#import "WXApi.h"
 #import "IQKeyboardManager.h"
 //C
 #import "NavigationController.h"
@@ -33,7 +33,7 @@
 
 //#import "AppDelegate+Launch.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -47,7 +47,7 @@
     //配置QQ
 //    [self configQQ];
     //配置微信
-//    [self configWeChat];
+    [self configWeChat];
     [self configUManalytics];
     //服务器环境
     [self configServiceAddress];
@@ -58,8 +58,41 @@
     //配置根控制器
     [self configRootViewController];
     
+    [WXApi registerApp:@"wxcd83a2f195d1070f"
+         universalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/"];
     return YES;
 }
+
+//- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRest
+//                                                                                                                                 oring>> * __nullable restorableObjects))restorationHandler {
+//    return [WXApi handleOpenUniversalLink:userActivity delegate:self];
+//}
+
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    return  [WXApi handleOpenURL:url delegate:self];
+//}
+//
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    return [WXApi handleOpenURL:url delegate:self];
+//}
+
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler
+{
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webpageURL = userActivity.webpageURL;
+        NSString *host = webpageURL.host;
+//        if ([host isEqualToString:@"yohunl.com"]) {
+//            //进行我们需要的处理
+//        }
+//        else {
+//            [[UIApplication sharedApplication]openURL:webpageURL];
+//        }
+    }
+    return YES;
+
+}
+
 
 - (void)configUManalytics
 {
@@ -81,39 +114,39 @@
 //        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 //        [TencentOAuth HandleOpenURL:url];
     } else {
-//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
     }
     return YES;
 }
 
 // iOS9 NS_DEPRECATED_IOS
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
+
 //    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 
-    if ([url.host containsString:@"qq"]) {
+//    if ([url.host containsString:@"qq"]) {
 
 //        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 //        [TencentOAuth HandleOpenURL:url];
 
-    } else {
-
-//        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
-
-    }
+//    } else {
+//
+        return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
+//
+//    }
     return YES;
 }
 
 #pragma mark - Config
-//- (void)configQQ {
+- (void)configQQ {
+
+    [[QQManager manager] registerApp];
+}
 //
-//    [[QQManager manager] registerApp];
-//}
-//
-//- (void)configWeChat {
-//
-//    [[TLWXManager manager] registerApp];
-//}
+- (void)configWeChat {
+
+    [[TLWXManager manager] registerApp];
+}
 
 - (void)configServiceAddress {
     

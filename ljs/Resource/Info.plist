@@ -27,7 +27,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wxa12600b532ed996e</string>
+				<string>wxcd83a2f195d1070f</string>
 			</array>
 		</dict>
 		<dict>
@@ -60,6 +60,7 @@
 		<string>uppayx3</string>
 		<string>wechat</string>
 		<string>weixin</string>
+		<string>weixinULAPI</string>
 		<string>sinaweibohd</string>
 		<string>sinaweibo</string>
 		<string>sinaweibosso</string>

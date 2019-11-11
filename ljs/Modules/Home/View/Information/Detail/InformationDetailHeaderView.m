@@ -188,74 +188,74 @@
     
     [self addSubview:self.shareView];
     //朋友圈
-    UIButton *timelineBtn = [UIButton buttonWithTitle:@"朋友圈"
-                                           titleColor:kTextColor
-                                      backgroundColor:kClearColor
-                                            titleFont:17.0];
+//    UIButton *timelineBtn = [UIButton buttonWithTitle:@"朋友圈"
+//                                           titleColor:kTextColor
+//                                      backgroundColor:kClearColor
+//                                            titleFont:17.0];
+//
+//    [timelineBtn addTarget:self action:@selector(shareToTimeLine) forControlEvents:UIControlEventTouchUpInside];
+//    [timelineBtn setImage:kImage(@"timeline_small") forState:UIControlStateNormal];
+//
+//    [self.shareView addSubview:timelineBtn];
+//    [timelineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.width.equalTo(@100);
+//        make.height.equalTo(@40);
+//        make.top.equalTo(@0);
+//        make.right.equalTo(@(-15));
+//    }];
+//
+//    [timelineBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+//
+//    //微信好友
+//    UIButton *wechatBtn = [UIButton buttonWithTitle:@"微信"
+//                                         titleColor:kTextColor
+//                                    backgroundColor:kClearColor
+//                                          titleFont:17.0];
+//
+//    [wechatBtn addTarget:self action:@selector(shareToWechat) forControlEvents:UIControlEventTouchUpInside];
+//    [wechatBtn setImage:kImage(@"wechat_small") forState:UIControlStateNormal];
+//
+//    [self.shareView addSubview:wechatBtn];
+//    [wechatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.width.equalTo(@100);
+//        make.height.equalTo(@40);
+//        make.top.equalTo(@0);
+//        make.right.equalTo(timelineBtn.mas_left).offset(-10);
+//    }];
+//
+//    [wechatBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
     
-    [timelineBtn addTarget:self action:@selector(shareToTimeLine) forControlEvents:UIControlEventTouchUpInside];
-    [timelineBtn setImage:kImage(@"timeline_small") forState:UIControlStateNormal];
-    
-    [self.shareView addSubview:timelineBtn];
-    [timelineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.width.equalTo(@100);
-        make.height.equalTo(@40);
-        make.top.equalTo(@0);
-        make.right.equalTo(@(-15));
-    }];
-    
-    [timelineBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
-
-    //微信好友
-    UIButton *wechatBtn = [UIButton buttonWithTitle:@"微信"
-                                         titleColor:kTextColor
-                                    backgroundColor:kClearColor
-                                          titleFont:17.0];
-    
-    [wechatBtn addTarget:self action:@selector(shareToWechat) forControlEvents:UIControlEventTouchUpInside];
-    [wechatBtn setImage:kImage(@"wechat_small") forState:UIControlStateNormal];
-    
-    [self.shareView addSubview:wechatBtn];
-    [wechatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.width.equalTo(@100);
-        make.height.equalTo(@40);
-        make.top.equalTo(@0);
-        make.right.equalTo(timelineBtn.mas_left).offset(-10);
-    }];
-    
-    [wechatBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
-    
-    //text
-    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                               textColor:kTextColor
-                                                    font:17.0];
-    textLbl.text = @"分享至";
-    [self.shareView addSubview:textLbl];
-    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(@15);
-        make.centerY.equalTo(wechatBtn.mas_centerY);
-    }];
-    
-    //判断用户是否安装微信
-    BOOL installedWechat = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]];
-
-    self.shareView.hidden = !installedWechat;
-    
-    //bottomLine
-    UIView *bottomLine = [[UIView alloc] init];
-    
-    bottomLine.backgroundColor = kBackgroundColor;
-    
-    [self addSubview:bottomLine];
-    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.equalTo(@0);
-        make.height.equalTo(@10);
-        make.top.equalTo(self.shareView.mas_bottom);
-    }];
+//    //text
+//    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                               textColor:kTextColor
+//                                                    font:17.0];
+//    textLbl.text = @"分享至";
+//    [self.shareView addSubview:textLbl];
+//    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(@15);
+//        make.centerY.equalTo(wechatBtn.mas_centerY);
+//    }];
+//
+//    //判断用户是否安装微信
+//    BOOL installedWechat = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]] || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"wechat://"]];
+//
+//    self.shareView.hidden = !installedWechat;
+//
+//    //bottomLine
+//    UIView *bottomLine = [[UIView alloc] init];
+//
+//    bottomLine.backgroundColor = kBackgroundColor;
+//
+//    [self addSubview:bottomLine];
+//    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.right.equalTo(@0);
+//        make.height.equalTo(@10);
+//        make.top.equalTo(self.shareView.mas_bottom);
+//    }];
 }
 
 /**
@@ -309,13 +309,13 @@
     }];
     //分享
     [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+
         make.left.equalTo(@0);
         make.top.equalTo(self.zanNumLbl.mas_bottom).offset(50);
         make.height.equalTo(@40);
         make.width.equalTo(@(kScreenWidth));
     }];
-    
+//
     //
     [self layoutIfNeeded];
     

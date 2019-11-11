@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:http://info.front.faedy.com/api</string>
+		<string>applinks:info.bdcaijing.faedy.com</string>
 	</array>
 </dict>
 </plist>

@@ -30,11 +30,11 @@
     return manager;
 }
 
-//- (void)registerApp {
-//
-//    [WXApi registerApp:[AppConfig config].wxKey];
-//}
-//
+- (void)registerApp {
+
+    [WXApi registerApp:[AppConfig config].wxKey universalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/"];
+}
+
 //
 //-(void) onReq:(BaseReq*)req {
 //
@@ -53,7 +53,7 @@
 //        }
 //
 //    } else if([resp isKindOfClass:[SendMessageToWXResp class]]) { //分享回调
-//        
+//
 //        if (self.wxShare) {
 //
 //            self.wxShare(resp.errCode == 0,resp.errCode);
@@ -63,89 +63,93 @@
 
 + (BOOL)judgeAndHintInstalllWX {
     
-//    if (![WXApi isWXAppInstalled]) {
-//
-//        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
-//
-//        } confirm:^(UIAlertAction *action) {
-//
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
-//        }];
-//        return NO;
-//    }
+    if (![WXApi isWXAppInstalled]) {
+
+        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
+
+        } confirm:^(UIAlertAction *action) {
+
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
+        }];
+        return NO;
+    }
     
     return YES;
 }
 
 + (void)wxShareWebPageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc url:(NSString *)url {
     
-//    if (![WXApi isWXAppInstalled]) {
-//
-//        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
-//
-//        } confirm:^(UIAlertAction *action) {
-//
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
-//        }];
-//        return;
-//    }
+    if (![WXApi isWXAppInstalled]) {
+
+        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
+
+        } confirm:^(UIAlertAction *action) {
+
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
+        }];
+        return;
+    }
     
     NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
     NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
     // -- //
-//    WXWebpageObject *webObj = [WXWebpageObject object];
-//    webObj.webpageUrl = url;
-//    //
-//    WXMediaMessage *message = [WXMediaMessage message];
-//    message.title = shareTitle;
-//    message.description = shareDesc;
-//    message.mediaObject = webObj;
-//
-//    [message setThumbImage:kImage(APP_ICON)];
-//    //
-//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-//    req.bText = NO;
-//    req.message = message;
-//    req.scene = scene;
-//    [WXApi sendReq:req];
+    WXWebpageObject *webObj = [WXWebpageObject object];
+    webObj.webpageUrl = url;
+    //
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = shareTitle;
+    message.description = shareDesc;
+    message.mediaObject = webObj;
+
+    [message setThumbImage:kImage(APP_ICON)];
+    //
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;
+    [WXApi sendReq:req completion:^(BOOL success) {
+        
+    }];
 }
 
 
 + (void)wxShareImageWithScene:(int)scene title:(NSString *)title desc:(NSString *)desc image:(UIImage *)image {
     
-//    if (![WXApi isWXAppInstalled]) {
-//
-//        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
-//
-//        } confirm:^(UIAlertAction *action) {
-//
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
-//        }];
-//        return;
-//    }
-//
-//    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
-//    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
-//    UIImage *shareImage = image;
-//
-//    // -- //
-//    WXImageObject *imageObj = [WXImageObject object];
-//    imageObj.imageData = UIImagePNGRepresentation(shareImage);
-//    //
-//    WXMediaMessage *message = [WXMediaMessage message];
-//    message.title = shareTitle;
-//    message.description = shareDesc;
-//    message.mediaObject = imageObj;
-//
-//    UIImage *img = [UIImage imageWithData:[self imageWithImage:shareImage scaledToSize:CGSizeMake(300, 300)]];
-//
-//    [message setThumbImage:img];
-//    //
-//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-//    req.bText = NO;
-//    req.message = message;
-//    req.scene = scene;
-//    [WXApi sendReq:req];
+    if (![WXApi isWXAppInstalled]) {
+
+        [TLAlert alertWithTitle:@"" msg:@"您还没有安装微信,前往安装" confirmMsg:@"好的" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
+
+        } confirm:^(UIAlertAction *action) {
+
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?mt=8"]];
+        }];
+        return;
+    }
+
+    NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
+    NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
+    UIImage *shareImage = image;
+
+    // -- //
+    WXImageObject *imageObj = [WXImageObject object];
+    imageObj.imageData = UIImagePNGRepresentation(shareImage);
+    //
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = shareTitle;
+    message.description = shareDesc;
+    message.mediaObject = imageObj;
+
+    UIImage *img = [UIImage imageWithData:[self imageWithImage:shareImage scaledToSize:CGSizeMake(300, 300)]];
+
+    [message setThumbImage:img];
+    //
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;
+    [WXApi sendReq:req completion:^(BOOL success) {
+        
+    }];
 }
 
 + (NSData *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
@@ -159,7 +163,7 @@
 
 + (void)wxShareWebPageWith:(NSString *)title desc:(NSString *)desc url:(NSString *)url {
     
-//    [self wxShareWebPageWithScene:WXSceneTimeline title:title desc:desc url:url];
+    [self wxShareWebPageWithScene:WXSceneTimeline title:title desc:desc url:url];
 }
 
 @end

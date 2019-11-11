@@ -70,22 +70,20 @@ void TLLog(NSString *format, ...) {
 
 - (NSString *)wxKey {
     
-    return @"wxa12600b532ed996e";
+    return @"45b1577ecb4e9503037acf4c118d872c";
 }
 
 - (NSString *)qqKey {
     
-    return @"bf8p9yaX7wbnW6bK";
+    return @"aeda9d2b0b7275cad82efc301e991d42";
 }
 
 - (NSString *)qqId {
     
-    return @"1106869720";
+    return @"101824324";
 }
 
 - (NSString *)pushKey {
-    
     return @"1c959a496681efca3fd77e30";
-    
 }
 @end

@@ -57,6 +57,7 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:self.titleStr];
 }
+
 - (UIScrollView *)bgSV {
     
     if (!_bgSV) {

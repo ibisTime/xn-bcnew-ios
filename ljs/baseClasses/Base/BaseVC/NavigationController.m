@@ -54,6 +54,7 @@
 //    TabbarViewController *tabbarCrl = (TabbarViewController*)self.tabBarController;
     //[tabbarCrl removeOriginTabbarButton];
 }
+
 #pragma mark - 横屏
 - (BOOL)shouldAutorotate{
     
