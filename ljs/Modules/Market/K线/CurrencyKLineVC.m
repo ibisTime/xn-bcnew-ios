@@ -149,8 +149,7 @@
     [settingBtn sizeToFit];
     UIBarButtonItem *settingBtnItem = [[UIBarButtonItem alloc] initWithCustomView:settingBtn];
     
-    
-    
+
     self.navigationItem.rightBarButtonItems  = @[fixedSpaceBarButtonItem,settingBtnItem];
     
 }
@@ -224,7 +223,6 @@
     self.kLineView.horizontalScreenBlock = ^{
         
         CurrencyKLineHScreenVC *hScreenVC = [CurrencyKLineHScreenVC new];
-
         hScreenVC.platform = weakSelf.platform;
         
         [weakSelf.navigationController pushViewController:hScreenVC animated:YES];

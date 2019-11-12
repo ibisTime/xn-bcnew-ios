@@ -20,7 +20,8 @@
 #import "NSString+Extension.h"
 #import "TLAlert.h"
 
-@interface QQManager()<TencentSessionDelegate>
+@interface QQManager()
+<TencentSessionDelegate>
 //
 @property (nonatomic, strong) TencentOAuth *tencentOAuth;
 //授权内容
@@ -31,23 +32,27 @@
 @implementation QQManager
 
 + (instancetype)manager {
-    
+
     static QQManager *manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
+
         manager = [[QQManager alloc] init];
     });
     return manager;
 }
 
 - (void)registerApp {
-    
-    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:[AppConfig config].qqId andDelegate:self];
+
+//    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:[AppConfig config].qqId andDelegate:self];
+    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"101824324" andDelegate:self];
+//    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:[AppConfig config].qqId andUniversalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/" andDelegate:self];
     _tencentOAuth.redirectURI = @"www.qq.com";
     _permissions = [NSArray arrayWithObjects:@"get_user_info",@"get_simple_userinfo", @"add_t", nil];
 //    QQ第三方授权登录，此处不需要。该方法执行后会直接跳转QQ进行快捷登录
-    [_tencentOAuth authorize:_permissions inSafari:NO];
+//    [_tencentOAuth authorize:_permissions inSafari:NO];
+//    101824324
+    
 }
 
 - (void) onReq:(QQBaseReq*)req {

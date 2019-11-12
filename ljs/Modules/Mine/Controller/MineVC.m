@@ -41,6 +41,7 @@
 #import "HomePageInfoVC.h"
 #import "MineCenterViewController.h"
 #import "TLQusertionVC.h"
+#import "TabbarViewController.h"
 @interface MineVC ()<MineHeaderSeletedDelegate>
 //模型
 @property (nonatomic, strong) MineGroup *group;
@@ -392,10 +393,16 @@
     } confirm:^(UIAlertAction *action) {
         
         self.tableView.tableFooterView.hidden = YES;
+        
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+        tabbarCtrl.selectedIndex = 1;
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
       //发布通知要退出了
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
     }];
-    
 }
 
 /**

@@ -12,7 +12,7 @@
 #import "NSString+Extension.h"
 #import <UIImageView+WebCache.h>
 #import "UILabel+Extension.h"
-
+#import "UIButton+SGImagePosition.h"
 @interface InformationListCell2()
 //缩略图
 @property (nonatomic, strong) UIImageView *infoIV;
@@ -61,6 +61,7 @@
         
         UIImageView *infoIV = [[UIImageView alloc] init];
         
+        infoIV.tag = 1000+i;
         infoIV.contentMode = UIViewContentModeScaleAspectFill;
         infoIV.clipsToBounds = YES;
         infoIV.layer.cornerRadius = 4;
@@ -75,10 +76,10 @@
     [self addSubview:self.timeLbl];
     
     self.seeNumber = [UIButton buttonWithTitle:@"0"
-                                 titleColor:[UIColor blackColor]
+                                 titleColor:kTextColor2
                             backgroundColor:kClearColor
-                                  titleFont:16.0];
-    [self.seeNumber setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
+                                  titleFont:13.0];
+//    [self.seeNumber setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
     [self addSubview:self.seeNumber];
 //    //收藏数
 //    self.collectNumLbl = [UILabel labelWithBackgroundColor:kClearColor
@@ -166,16 +167,35 @@
     _infoModel = infoModel;
     
     [self.titleLbl labelWithTextString:infoModel.title lineSpace:5];
-    [infoModel.pics enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-//        UIImageView *iv = self.picIVArr[idx];
-//
-//        [iv sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(PLACEHOLDER_SMALL)];
-    }];
+    
+    
+    UIImageView *iv1 = [self viewWithTag:1000];
+    UIImageView *iv2 = [self viewWithTag:1001];
+    UIImageView *iv3 = [self viewWithTag:1002];
+    if (infoModel.pics.count == 1) {
+        [iv1 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[0] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+        iv2.image = kImage(@"");
+        iv3.image = kImage(@"");
+    }
+    if (infoModel.pics.count == 2) {
+        [iv1 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[0] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+        [iv2 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[1] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+        iv3.image = kImage(@"");
+    }
+    if (infoModel.pics.count >= 3) {
+        [iv1 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[0] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+        [iv2 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[1] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+        [iv3 sd_setImageWithURL:[NSURL URLWithString:[infoModel.pics[2] convertImageUrl]] placeholderImage:kImage(PLACEHOLDER_SMALL)];
+    }
+    
+    
     
     self.timeLbl.text = [infoModel.showDatetime convertToDetailDate];
 //    self.collectNumLbl.text = [NSString stringWithFormat:@"%ld 收藏", infoModel.collectCount];
-    [self.seeNumber setTitle:@"10" forState:UIControlStateNormal];
+    [self.seeNumber setTitle:infoModel.readCount forState:UIControlStateNormal];
+    [self.seeNumber SG_imagePositionStyle:(SGImagePositionStyleDefault) spacing:5 imagePositionBlock:^(UIButton *button) {
+        [button setImage:[UIImage imageNamed:@"已报名浏览"] forState:UIControlStateNormal];
+    }];
     //布局
     [self setSubviewLayout];
     //

@@ -14,10 +14,10 @@
 #import "TLUser.h"
 #import "QQManager.h"
 #import "TLWXManager.h"
-#import <UMMobClick/MobClick.h>
+//#import <UMMobClick/MobClick.h>
 //Extension
-//#import <TencentOpenAPI/TencentOAuth.h>
-//#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "IQKeyboardManager.h"
 //C
@@ -45,7 +45,7 @@
     // Override point for customization after application launch.
     
     //配置QQ
-//    [self configQQ];
+    [self configQQ];
     //配置微信
     [self configWeChat];
     [self configUManalytics];
@@ -59,7 +59,8 @@
     [self configRootViewController];
     
     [WXApi registerApp:@"wxcd83a2f195d1070f"
-         universalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/"];
+         universalLink:@"https://info.bdcaijing.faedy.com/"];
+    
     return YES;
 }
 
@@ -77,8 +78,10 @@
 //}
 
 
+
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler
 {
+    NSLog(@"userActivity : %@",userActivity.webpageURL.description);
     if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
         NSURL *webpageURL = userActivity.webpageURL;
         NSString *host = webpageURL.host;
@@ -89,6 +92,7 @@
 //            [[UIApplication sharedApplication]openURL:webpageURL];
 //        }
     }
+    
     return YES;
 
 }
@@ -97,22 +101,22 @@
 - (void)configUManalytics
 {
     
-    UMConfigInstance.appKey = @"5a4b2a008f4a9d1e570000ea";
-    UMConfigInstance.channelId = @"App Store";//一般是这样写，用于友盟后台的渠道统计，当然苹果也不会有其他渠道，写死就好
-    UMConfigInstance.ePolicy =SEND_INTERVAL; //上传模式，这种为最小间隔发送90S，也可按照要求选择其他上传模式。也可不设置，在友盟后台修改。
-    [MobClick startWithConfigure:UMConfigInstance];//开启SDK
-   
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
-    [MobClick setAppVersion:version];
+//    UMConfigInstance.appKey = @"5a4b2a008f4a9d1e570000ea";
+//    UMConfigInstance.channelId = @"App Store";//一般是这样写，用于友盟后台的渠道统计，当然苹果也不会有其他渠道，写死就好
+//    UMConfigInstance.ePolicy =SEND_INTERVAL; //上传模式，这种为最小间隔发送90S，也可按照要求选择其他上传模式。也可不设置，在友盟后台修改。
+//    [MobClick startWithConfigure:UMConfigInstance];//开启SDK
+//   
+//    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+//    [MobClick setAppVersion:version];
 //    [MobClick setLogEnabled:YES];
 }
 
 // iOS9 NS_AVAILABLE_IOS
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-//    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
     if ([url.host containsString:@"qq"]) {
-//        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
-//        [TencentOAuth HandleOpenURL:url];
+        return  [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+        [TencentOAuth HandleOpenURL:url];
     } else {
         return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
     }
@@ -122,29 +126,24 @@
 // iOS9 NS_DEPRECATED_IOS
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 
-//    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+    BOOL isQQ = [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
 
-//    if ([url.host containsString:@"qq"]) {
-
-//        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
-//        [TencentOAuth HandleOpenURL:url];
-
-//    } else {
-//
+    if ([url.host containsString:@"qq"]) {
+        return [QQApiInterface handleOpenURL:url delegate:[QQManager manager]];
+        [TencentOAuth HandleOpenURL:url];
+    } else {
         return [WXApi handleOpenURL:url delegate:[TLWXManager manager]];
-//
-//    }
+    }
     return YES;
 }
 
 #pragma mark - Config
 - (void)configQQ {
-
     [[QQManager manager] registerApp];
 }
+
 //
 - (void)configWeChat {
-
     [[TLWXManager manager] registerApp];
 }
 

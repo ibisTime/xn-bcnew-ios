@@ -18,11 +18,13 @@
 #import "QuotesOptionalChildVC.h"
 
 @interface QuotesOptionalVC ()
+
+@property (nonatomic, strong) NSString *cvalue;
 //
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
-@property (nonatomic, strong) NSArray <OptionalTitleModel *>*titleList;
-@property (nonatomic, strong) NSMutableArray *titles;
+@property (nonatomic, strong) NSArray *titleList;
+@property (nonatomic, strong) NSArray *titles;
 //statusList
 @property (nonatomic, strong) NSArray *statusList;
 
@@ -37,7 +39,21 @@
     //完成
     [self addItem];
     //获取自选title
-    [self requestTitleList];
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"628917";
+    
+    http.parameters[@"ckey"] = @"choice_coin_list";
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.cvalue = responseObject[@"data"][@"cvalue"];
+        [self initSelectScrollView];
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
 }
 
 #pragma mark - Init
@@ -48,27 +64,25 @@
 
 - (void)initSelectScrollView {
     
-    self.titles = [NSMutableArray array];
+//    self.titles = [NSMutableArray array];
     
-    [self.titleList enumerateObjectsUsingBlock:^(OptionalTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [self.titles addObject:obj.sname];
-    }];
+    self.titles = [_cvalue componentsSeparatedByString:@","];
     
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight) itemTitles:self.titles.copy];
     
     [self.view addSubview:selectSV];
     
     self.selectSV = selectSV;
+    [self addSubViewController];
 }
 
 - (void)addSubViewController {
     
-    for (NSInteger i = 0; i < self.titleList.count; i++) {
+    for (NSInteger i = 0; i < self.titles.count; i++) {
         //可选
         QuotesOptionalChildVC *childVC = [[QuotesOptionalChildVC alloc] init];
         
-        childVC.titleModel = self.titleList[i];
+        childVC.titleStr = self.titles[i];
         childVC.addSuccess = self.addSuccess;
         
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40);
@@ -91,26 +105,26 @@
 #pragma mark - Data
 - (void)requestTitleList {
     
-    BaseWeakSelf;
-    
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
-    helper.code = @"628335";
-    helper.isList = YES;
-    
-    [helper modelClass:[OptionalTitleModel class]];
-    
-    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        
-        weakSelf.titleList = objs;
-        //
-        [weakSelf initSelectScrollView];
-        //
-        [weakSelf addSubViewController];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+//    BaseWeakSelf;
+//
+//    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+//
+//    helper.code = @"628335";
+//    helper.isList = YES;
+//
+//    [helper modelClass:[OptionalTitleModel class]];
+//
+//    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+//
+//        weakSelf.titleList = objs;
+//        //
+//        [weakSelf initSelectScrollView];
+//        //
+//        [weakSelf addSubViewController];
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

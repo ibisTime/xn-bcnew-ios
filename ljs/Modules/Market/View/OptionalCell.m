@@ -56,22 +56,22 @@
      
     [self addSubview:self.currencyNameLbl];
                             
-    self.isWarnView =[[UIImageView alloc] init];
-    self.isWarnView.image = [UIImage imageNamed:@"闹钟"];
+//    self.isWarnView =[[UIImageView alloc] init];
+//    self.isWarnView.image = [UIImage imageNamed:@"闹钟"];
     
     
     
-    [self addSubview:self.isWarnView];
+//    [self addSubview:self.isWarnView];
 
     //平台名称
-    self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                   textColor:kTextColor2
-                                                        font:14.0];
-    
-    [self addSubview:self.platformNameLbl];
+//    self.platformNameLbl = [UILabel labelWithBackgroundColor:kClearColor
+//                                                   textColor:kTextColor2
+//                                                        font:14.0];
+//
+//    [self addSubview:self.platformNameLbl];
     //24H交易量
     self.tradeVolumeLbl = [UILabel labelWithBackgroundColor:kClearColor
-                                                  textColor:kTextColor2
+                                                  textColor:kBlackColor
                                                        font:12.0];
     
     [self addSubview:self.tradeVolumeLbl];
@@ -87,14 +87,14 @@
     //当前对应币种价格
     self.opppsitePriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kHexColor(@"#595A6E")
-                                                    font:14.0];
+                                                    font:12.0];
     
     [self addSubview:self.opppsitePriceLbl];
     
     //当前人民币价格
     self.rmbPriceLbl = [UILabel labelWithBackgroundColor:kClearColor
                                                textColor:kTextColor
-                                                    font:15.0];
+                                                    font:12.0];
     
     [self addSubview:self.rmbPriceLbl];
     //布局
@@ -113,22 +113,23 @@
     //币种名称
     [self.currencyNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@10);
+        make.top.mas_equalTo(10);
         make.left.mas_equalTo(65);
+//        make.height.mas_equalTo(17);
     }];
     //平台
-    [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.currencyNameLbl.mas_right).offset(10);
-        make.centerY.equalTo(self.currencyNameLbl.mas_centerY);
-    }];
-    
+//    [self.platformNameLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.currencyNameLbl.mas_right).offset(10);
+//        make.centerY.equalTo(self.currencyNameLbl.mas_centerY);
+//    }];
+//
    
     //一日交易量
     [self.tradeVolumeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.currencyNameLbl.mas_bottom).offset(10);
-        make.left.equalTo(@65);
+        make.left.mas_equalTo(@65);
         
     }];
     //涨幅
@@ -138,9 +139,9 @@
         make.centerY.equalTo(@0);
         make.height.equalTo(@37);
     }];
+    
     //rmb价格
     [self.rmbPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.right.equalTo(self.priceFluctBtn.mas_left).offset(-15);
         make.top.equalTo(self.currencyNameLbl.mas_top);
     }];
@@ -182,7 +183,7 @@
         self.iconImg.image = kImage(@"bbb");
     }
     //币种名称
-    self.currencyNameLbl.text = [optional.symbol uppercaseString];;
+//    self.currencyNameLbl.text = [optional.symbol uppercaseString];;
     //平台名称
 //    self.platformNameLbl.text = optional.exchangeEname;
 //    = [optional.isWarn isEqualToString:@"0"];
@@ -214,11 +215,23 @@
     //一日交易量
 //    CGFloat volume = [optional.one_day_volume_cny doubleValue];
     
-    NSString *volumeStr = [NSString stringWithFormat:@"%.2f万",optional.volume.floatValue/10000];
-    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [optional.toSymbol uppercaseString],volumeStr];
+    
+    NSString *all = [NSString stringWithFormat:@"%@ /%@",[optional.symbol uppercaseString],[optional.toSymbol uppercaseString]];
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:all];
+    //字体
+    [attributedStr addAttribute:NSFontAttributeName value:FONT(11) range:NSMakeRange(optional.symbol.length, all.length - optional.symbol.length)];
+    //颜色
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:kHexColor(@"#999999") range:NSMakeRange(optional.symbol.length, all.length - optional.symbol.length)];
+    self.currencyNameLbl.attributedText = attributedStr;
+    
+    
+    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"24H量:%@",[self setAmount:optional.amount]];
+    
+//    NSString *volumeStr = [NSString stringWithFormat:@"%.2f万",optional.volume.floatValue/10000];
+//    self.tradeVolumeLbl.text = [NSString stringWithFormat:@"%@ 量%@", [optional.toSymbol uppercaseString],volumeStr];
 
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@",[optional.lastPrice convertToRealMoneyWithNum:8]];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"$%@",[optional.lastUsdPrice convertToRealMoneyWithNum:8]];
 //    self.usdPriceLbl.textColor = optional.bgColor;
     //人民币价格
     self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf",[optional.lastCnyPrice doubleValue]];
@@ -247,6 +260,17 @@
         make.width.equalTo(@(btnW > 75 ? btnW: 75));
     }];
     
+}
+
+-(NSString *)setAmount:(NSString *)amout
+{
+    if ([amout floatValue] > 100000000) {
+        return [NSString stringWithFormat:@"%.2f亿",[amout floatValue]/100000000];
+    }
+    if ([amout floatValue] > 10000) {
+        return [NSString stringWithFormat:@"%.2f万",[amout floatValue]/10000];
+    }
+    return amout;
 }
 
 @end

@@ -118,13 +118,8 @@
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
     helper.code = @"628350";
     
-    if ([self.titleModel.type isEqualToString:kOptionalTypeCurrency]) {
-        
-        helper.parameters[@"symbol"] = self.titleModel.ename;
-    }else {
-        
-        helper.parameters[@"exchangeEname"] = self.titleModel.ename;
-    }
+    helper.parameters[@"toSymbol"] = self.titleStr;
+    helper.parameters[@"exchangeEname"] = self.titleStr;
     helper.parameters[@"start"] = @"0";
     helper.parameters[@"limit"] = @"20";
 //    helper.parameters[@"direction"] = @"1";

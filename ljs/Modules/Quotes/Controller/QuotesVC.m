@@ -11,7 +11,7 @@
 #import "UIBarButtonItem+convience.h"
 #import <MBProgressHUD.h>
 //M
-#import "QuotesManager.h"
+//#import "QuotesManager1.h"
 #import "OptionalListModel.h"
 #import "PlatformTitleModel.h"
 #import "CurrencyTitleModel.h"
@@ -251,7 +251,7 @@
     [self.MbHud show:YES];
     [self addItem];
     [self requestPlatformTitleList];
-    self.kind = kCurrency;
+    self.kind = @"3";
 
     [self initSelectScrollViewIdx:1];
     //
@@ -549,7 +549,7 @@
     BaseWeakSelf;
 
     for (NSInteger i = 0; i < self.titles.count; i++) {
-        if ([self.kind isEqualToString:kCurrency]) {
+        if ([self.kind isEqualToString:@"3"]) {
             //币种
             QuotesCurrencyVC *childVC = [[QuotesCurrencyVC alloc] init];
             self.CurrencyVC = childVC;
@@ -572,7 +572,7 @@
             [self.CurrencyVCs addObject:childVC];
             [self.selectSV.scrollView addSubview:childVC.view];
            
-        }else if ([self.kind isEqualToString:kOptional])
+        }else if ([self.kind isEqualToString:@"1"])
         {
             
             //自选
@@ -996,7 +996,7 @@
             }
         }];
         self.platformTitleModel = self.platformTitleList[0];
-        self.kind = kPlatform;
+        self.kind = @"2";
 //        [self initHeaderView];
         [self initSelectScrollViewWithIdx:0];
         [self addSubViewController];
@@ -1045,7 +1045,7 @@
             }
         }];
         }
-        weakSelf.kind = kCurrency;
+        weakSelf.kind = @"3";
         
         //添加滚动
         [weakSelf initSelectScrollViewWithIdx:1];
@@ -1137,7 +1137,7 @@
     //    return;
    
     TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    weakSelf.kind = kOptional;
+    weakSelf.kind = @"1";
     self.titles = [NSMutableArray arrayWithObjects:@"自选", nil];
 
     helper.code = @"628351";
@@ -1174,7 +1174,7 @@
         weakSelf.optionals = objs;
         //遍历标题
         weakSelf.titles = [NSMutableArray array];
-        weakSelf.kind = kOptional;
+        weakSelf.kind = @"1";
         [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             if (obj.symbol) {

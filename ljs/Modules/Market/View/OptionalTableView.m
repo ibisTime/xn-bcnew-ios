@@ -110,7 +110,6 @@ static NSString *identifierCell = @"OptionalCell";
     editAction.backgroundColor = kHexColor(@"#C3C3C3");
     
     [actionArr addObject:editAction];
-
     return actionArr;
 }
 
@@ -165,30 +164,33 @@ static NSString *identifierCell = @"OptionalCell";
     OptionalListModel *optional = self.optionals[index];
     
     TLNetworking *http = [TLNetworking new];
-    
+    http.parameters[@"userId"] = [TLUser user].userId;
     http.code = @"628331";
     http.showView = self;
-    http.parameters[@"id"] = optional.ID;
+    http.parameters[@"id"] = optional.choiceId;
     
     [http postWithSuccess:^(id responseObject) {
         
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        NSIndexPath *resultIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         
-        //置顶数据源中的数据
-        [self.optionals removeObjectAtIndex:index];
-        [self.optionals insertObject:optional atIndex:0];
+        [self.refreshDelegate refreshTableViewEventClick:self selectRowAtIndex:10000];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        NSIndexPath *resultIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//
+//        //置顶数据源中的数据
+//        [self.optionals removeObjectAtIndex:index];
+//        [self.optionals insertObject:optional atIndex:0];
+//
+//        [self moveRowAtIndexPath:indexPath toIndexPath:resultIndexPath];
+//
+//        [TLAlert alertWithSucces:@"置顶成功"];
+//
+//        [self reloadRowsAtIndexPaths:@[resultIndexPath] withRowAnimation:UITableViewRowAnimationTop];
+//
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//            [self reloadData];
+//        });
         
-        [self moveRowAtIndexPath:indexPath toIndexPath:resultIndexPath];
-        
-        [TLAlert alertWithSucces:@"置顶成功"];
-        
-        [self reloadRowsAtIndexPaths:@[resultIndexPath] withRowAnimation:UITableViewRowAnimationTop];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self reloadData];
-        });
         
     } failure:^(NSError *error) {
         

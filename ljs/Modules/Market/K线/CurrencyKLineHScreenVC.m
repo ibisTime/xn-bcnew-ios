@@ -27,6 +27,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -54,9 +55,9 @@
         CGFloat w = kScreenHeight;
         CGFloat h = kScreenWidth;
         
-        _kLineView = [[DetailWebView alloc] initWithFrame:CGRectMake(0,0, w, h)];
+        _kLineView = [[DetailWebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_HEIGHT, SCREEN_WIDTH)];
         _kLineView.center = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
-        
+//        _kLineView.backgroundColor = kBlackColor;
         
         _kLineView.transform = CGAffineTransformMakeRotation(M_PI_2);
         [self.view addSubview:_kLineView];
@@ -67,8 +68,8 @@
 - (void)initSubviews {
     
     //返回
-    CGFloat rightMargin = -kBottomInsetHeight - kHeight(20);
-    CGFloat topMargin = 10;
+    CGFloat rightMargin = -SCREEN_HEIGHT - kHeight(80);
+    CGFloat topMargin = 0;
     
     UIButton *backBtn = [UIButton buttonWithImageName:@""];
     
@@ -78,8 +79,8 @@
         
         make.top.equalTo(@(topMargin));
         make.right.equalTo(@(rightMargin));
-        make.width.equalTo(@(kHeight(40)));
-        make.height.equalTo(@(kHeight(40)));
+        make.width.equalTo(@(kHeight(80)));
+        make.height.equalTo(@(kHeight(80)));
     }];
 }
 
@@ -104,7 +105,7 @@
         
         NSString *shareUrl = [NSString stringWithFormat:@"%@", responseObject[@"data"][@"cvalue"]];
         NSString *symbol = [NSString stringWithFormat:@"%@/%@", platform.symbol, platform.toSymbol];
-        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@&isfull=1",shareUrl, symbol, platform.exchangeEname];
+        NSString *html = [NSString stringWithFormat:@"%@/charts/index.html?symbol=%@&exchange=%@&isfull=0",shareUrl, symbol, platform.exchangeEname];
         
         [self.kLineView loadRequestWithString:html];
         

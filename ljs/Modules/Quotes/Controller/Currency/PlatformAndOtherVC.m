@@ -185,7 +185,7 @@
         CurrencyPriceModel *model = [self.platformArry objectAtIndex:indexpath.row];
         TLNetworking *http = [TLNetworking new];
         
-        if ([model.isChoice boolValue]) {
+        if ([model.isChoice integerValue] == 1) {
             http.code = @"628332";
             http.showView = self.view;
             http.parameters[@"userId"] = [TLUser user].userId;
@@ -195,6 +195,7 @@
             [http postWithSuccess:^(id responseObject) {
                 
                 [TLAlert alertWithSucces:@"移除成功"];
+                
                 
                 model.isChoice = @"0";
                 [weakSelf.platformArry replaceObjectAtIndex:indexpath.row withObject:model];
@@ -215,8 +216,8 @@
             
             [http postWithSuccess:^(id responseObject) {
                 
-                [TLAlert alertWithSucces:@"添加成功"];
                 
+                [TLAlert alertWithSucces:@"添加成功"];
                 model.isChoice = @"1";
                 [weakSelf.platformArry replaceObjectAtIndex:indexpath.row withObject:model];
                 [weakSelf.platformTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];

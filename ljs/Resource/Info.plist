@@ -37,12 +37,12 @@
 			<string>QQ</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41f97dd8</string>
+				<string>tencent101824324</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>

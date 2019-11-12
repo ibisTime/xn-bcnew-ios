@@ -14,6 +14,8 @@
 //币种中文名
 @property (nonatomic, copy) NSString *cname;
 
+@property (nonatomic, copy) NSString *navName;
+
 @property (nonatomic, copy) NSString *maxSupply;
 //展示用的
 @property (nonatomic, copy) NSString *symbol;

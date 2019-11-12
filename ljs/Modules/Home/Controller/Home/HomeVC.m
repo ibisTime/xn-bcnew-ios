@@ -103,7 +103,7 @@
 //    [self.switchSV setContentSize:CGSizeMake(titleArr.count*self.switchSV.width, self.switchSV.height)];
     self.switchSV.scrollEnabled = NO;
     //2.订单列表
-    NSArray *kindArr = @[kInformation ,kNewsFlash];
+//    NSArray *kindArr = @[kInformation ,kNewsFlash];
     
 //    self.titles = [NSMutableArray arrayWithObjects:@"全部", @"热点", nil];
 //    [self initSelectScrollView:1];
@@ -145,15 +145,19 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)initSelectScrollView:(NSInteger)index {
+- (void)initSelectScrollView:(NSInteger)index1 {
     
-    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(index*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
+    SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(index1*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
-    selectSV.tag = 2500 + index;
-    
+    selectSV.tag = 2500 + index1;
+    selectSV.selectBlock = ^(NSInteger index) {
+        NSDictionary *dic = @{@"index":@(index)};
+        NSNotification *notification =[NSNotification notificationWithName:@"SelectScrollViewNotification" object:nil userInfo:dic];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    };
     [self.switchSV addSubview:selectSV];
     
-    [self addSubViewController:index];
+    [self addSubViewController:index1];
 }
 
 - (void)addSubViewController:(NSInteger)index {
@@ -165,7 +169,9 @@
         HomeChildVC *childVC = [[HomeChildVC alloc] init];
         childVC.code = self.infoTypeList[i].code;
         childVC.titleStr = self.titles[i];
+        
         childVC.kind = @"2";
+        childVC.index = i;
         if (i == 0) {
             childVC.isActivity = YES;
         }

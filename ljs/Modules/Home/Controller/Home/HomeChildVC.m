@@ -84,7 +84,75 @@
         //刷新
         [self.infoTableView beginRefreshing];
     }
+    //通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InfoNotificationAction:) name:@"SelectScrollViewNotification" object:nil];
 }
+
+
+
+
+#pragma mark -- 接收到通知
+- (void)InfoNotificationAction:(NSNotification *)notification{
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    if (_index == index) {
+        
+        //获取轮番图
+        BaseWeakSelf;
+        
+        TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+        
+        helper.code = @"628205";
+        
+        helper.parameters[@"type"] = self.code;
+        
+        helper.tableView = self.infoTableView;
+        
+        [helper modelClass:[InformationModel class]];
+        
+        if (weakSelf.currentSearch.length > 0) {
+            helper.parameters[@"keywords"] = weakSelf.currentSearch;
+            
+        }
+        [weakSelf requestBannerList];
+        [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+            if (objs.count <= 0) {
+                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
+                [weakSelf.infoTableView addSubview:weakSelf.hold];
+                [weakSelf.infoTableView reloadData];
+                return ;
+            }
+            
+            [weakSelf.hold removeFromSuperview];
+            weakSelf.infos = objs;
+            //数据转给tableview
+            weakSelf.infoTableView.infos = objs;
+            
+            if (!weakSelf.isSearch) {
+                [weakSelf.infoTableView reloadData_tl];
+                
+            }
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
+
+#pragma mark -- 删除通知
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SelectScrollViewNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+
+
+
+
+
 
 #pragma mark - Init
 - (void)addNotification {
@@ -268,6 +336,7 @@
     
     [self.flashTableView endRefreshingWithNoMoreData_tl];
 }
+
 //
 - (void)requestInfoList {
     
@@ -502,10 +571,7 @@
         
     }];
 }
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

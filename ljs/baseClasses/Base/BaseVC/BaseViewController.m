@@ -45,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:self.titleStr];
+//    [MobClick beginLogPageView:self.titleStr];
 
     // 设置导航栏背景色
     [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -55,7 +55,7 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:self.titleStr];
+//    [MobClick endLogPageView:self.titleStr];
 }
 
 - (UIScrollView *)bgSV {

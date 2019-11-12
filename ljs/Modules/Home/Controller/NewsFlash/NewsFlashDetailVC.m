@@ -63,7 +63,7 @@
     self.detailView = [[NewsFlashDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 50 - kBottomInsetHeight)];
     
     self.detailView.flashModel = self.flashModel;
-    self.detailView.url = @"https://www.baidu.com";
+//    self.detailView.url = @"https://www.baidu.com";
     
     [self.view addSubview:self.detailView];
 }

@@ -81,6 +81,7 @@
     }];
 }
 
+
 /**
  搜索
  */
@@ -100,7 +101,6 @@
     NSArray *titleArr = @[
                           @"币种",
                           @"自选"];
-    
     CGFloat h = 34-4;
     
     self.labelUnil = [[TopLabelUtil alloc]initWithFrame:CGRectMake(0, 0, 200, 30)];

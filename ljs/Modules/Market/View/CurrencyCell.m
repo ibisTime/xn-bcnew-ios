@@ -105,10 +105,10 @@
 -(NSString *)setAmount:(NSString *)amout
 {
     if ([amout floatValue] > 100000000) {
-        return [NSString stringWithFormat:@"%.8f亿",[amout floatValue]/100000000];
+        return [NSString stringWithFormat:@"%.2f亿",[amout floatValue]/100000000];
     }
     if ([amout floatValue] > 10000) {
-        return [NSString stringWithFormat:@"%.8f万",[amout floatValue]/10000];
+        return [NSString stringWithFormat:@"%.2f万",[amout floatValue]/10000];
     }
     return amout;
 }
@@ -192,17 +192,29 @@
          [self.iconImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[currency.symbolIcon convertImageUrl]]]];
     }else
     {
-     
         self.iconImg.image = kImage(@"bbb");
     }
     
-//    }
-//    self.iconImg.image = kImage(@:)
-    self.amountLbl.text = [NSString stringWithFormat:@"%@量:%@",[currency.toSymbol uppercaseString],[self setAmount:currency.amount]];
+    
+    NSString *all = [NSString stringWithFormat:@"%@ /%@",[currency.symbol uppercaseString],[currency.toSymbol uppercaseString]];
+    
+//    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",[currency.symbol uppercaseString]];
+    
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:all];
+    
+//    NSRange range = [string rangeOfString:title];
+    //字体
+    [attributedStr addAttribute:NSFontAttributeName value:FONT(11) range:NSMakeRange(currency.symbol.length, all.length - currency.symbol.length)];
+    //颜色
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:kHexColor(@"#999999") range:NSMakeRange(currency.symbol.length, all.length - currency.symbol.length)];
+    self.platformNameLbl.attributedText = attributedStr;
+    
+    
+    self.amountLbl.text = [NSString stringWithFormat:@"24H量:%@",[self setAmount:currency.amount]];
     //平台名称
 //    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",currency.exchangeCname];
 //    [self.platformNameLbl sizeToFit];
-    self.platformNameLbl.text = [NSString stringWithFormat:@"%@",[currency.symbol uppercaseString]];
+    
     self.IsWarnImage.hidden = [currency.isWarn isEqualToString:@"0"];
 //    if (self.platformNameLbl.frame.origin.x <= self.IsWarnImage.frame.origin.x) {
 //        if ([currency.isWarn isEqualToString:@"0"]) {
@@ -230,7 +242,7 @@
 //    }
     
     //对应币种价格
-    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"%@", [currency.lastPrice convertToRealMoneyWithNum:8]];
+    self.opppsitePriceLbl.text = [NSString stringWithFormat:@"$%@", [currency.lastUsdPrice convertToRealMoneyWithNum:8]];
     
     //人民币价格
     self.rmbPriceLbl.text = [NSString stringWithFormat:@"￥%.2lf", [currency.lastCnyPrice doubleValue]];

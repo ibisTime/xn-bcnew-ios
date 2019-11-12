@@ -18,7 +18,7 @@
 #import "QuotesOptionalVC.h"
 #import "OptionalTableView.h"
 #import "OptionalListModel.h"
-@interface OptionalVC ()
+@interface OptionalVC ()<RefreshDelegate>
 {
     UIButton *selectBtn;
     NSString *orderDir;
@@ -50,6 +50,11 @@
     self.timer = nil;
 }
 
+-(void)refreshTableViewEventClick:(TLTableView *)refreshTableview selectRowAtIndex:(NSInteger)index
+{
+    [self loadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -59,7 +64,7 @@
         UIButton *chooseBtn = [UIButton buttonWithTitle:titleAry[i] titleColor:kHexColor(@"#818181") backgroundColor:kWhiteColor titleFont:14];
         chooseBtn.frame = CGRectMake( i % 3 * (kScreenWidth/3), 0, kScreenWidth/3, 35);
         [chooseBtn SG_imagePositionStyle:(SGImagePositionStyleRight) spacing:4.5 imagePositionBlock:^(UIButton *button) {
-            [button setImage:kImage(@"TriangleNomall") forState:(UIControlStateNormal)];
+            [button setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
 //            [button setImage:kImage(@"TriangleSelect") forState:(UIControlStateSelected)];
         }];
         [chooseBtn addTarget:self action:@selector(chooseBtnClick:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -68,13 +73,19 @@
     }
     [self initTableView];
     [self initFooterView];
-    [self loadData];
+    
+    BaseWeakSelf;
+    [self.tableView addRefreshAction:^{
+        [weakSelf loadData];
+    }];
+    [self.tableView beginRefreshing];
 }
 
 - (void)initTableView {
     
     self.tableView = [[OptionalTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     BaseWeakSelf;
+    self.tableView.refreshDelegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsMake(35, 0, 0, 0));
@@ -89,6 +100,8 @@
     };
     [self.view addSubview:self.tableView];
 }
+
+
 
 - (void)initFooterView {
     
@@ -158,22 +171,25 @@
         http.code = @"628351";
         http.parameters[@"start"] = @"1";
         http.parameters[@"limit"] = @"1000";
-        http.parameters[@"direction"] = orderColumn;
+        http.parameters[@"orderColumn"] = orderColumn;
         http.parameters[@"orderDir"] = orderDir;
         if ([TLUser user].userId) {
             http.parameters[@"userId"] = [TLUser user].userId;
         }
+        
         [http postWithSuccess:^(id responseObject) {
             weakSelf.platforms = [OptionalListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"list"]];
-            weakSelf.tableView.optionals = weakSelf.platforms;
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView endRefreshHeader];
             if (weakSelf.platforms.count > 0) {
                 self.footerView.hidden = YES;
-            }else
+            }
+            else
             {
                 self.footerView.hidden = NO;
             }
+            weakSelf.tableView.optionals = weakSelf.platforms;
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView endRefreshHeader];
+            
             [TLProgressHUD dismiss];
         } failure:^(NSError *error) {
             [weakSelf.tableView endRefreshHeader];
@@ -188,25 +204,28 @@
     sender.selected = !sender.selected;
     if (selectBtn.selected == YES && selectBtn != sender) {
         selectBtn.selected = !selectBtn.selected;
+        [selectBtn setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
     }
+    [selectBtn setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
     selectBtn = sender;
     
-    
     NSDictionary *dic;
-    
-    
-    if (![orderDir isEqualToString:[NSString stringWithFormat:@"%ld",sender.tag]]) {
+    if (![orderColumn isEqualToString:[NSString stringWithFormat:@"%ld",sender.tag]]) {
         orderDir = @"";
         orderColumn = @"";
     }
     
     orderColumn = [NSString stringWithFormat:@"%ld",sender.tag];
     if ([orderDir isEqualToString:@""]) {
+        
         orderDir = @"1";
+        [selectBtn setImage:kImage(@"行情涨") forState:(UIControlStateNormal)];
     }else if ([orderDir isEqualToString:@"1"]) {
         orderDir = @"0";
+        [selectBtn setImage:kImage(@"行情跌") forState:(UIControlStateNormal)];
     }else if ([orderDir isEqualToString:@"0"]) {
         orderDir = @"";
+        [selectBtn setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
     }
     
     dic = @{@"orderColumn":orderColumn,

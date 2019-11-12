@@ -22,5 +22,7 @@
 
 - (void)searchRequestWith:(NSString *)search;
 
+@property (nonatomic , assign)NSInteger index;
+
 
 @end

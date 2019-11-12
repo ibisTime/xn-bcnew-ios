@@ -11,6 +11,7 @@
 @class Marketfxh;
 
 @interface OptionalListModel : BaseModel
+@property (nonatomic, copy) NSString *lastUsdPrice;
 @property (nonatomic, copy) NSString *symbolIcon;
 @property (nonatomic, copy) NSString *userId;
 

@@ -164,7 +164,7 @@
     
     _currency = currency;
     
-    if ([currency.isChoice boolValue]) {
+    if (![currency.isChoice boolValue]) {
         [self.addBtn setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
 
     }

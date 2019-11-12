@@ -23,6 +23,7 @@
 #import "TLPickerTextField.h"
 #import "CaptchaView.h"
 #import "BaseView.h"
+#import "TabbarViewController.h"
 
 @interface TLUserLoginVC ()
 
@@ -278,6 +279,7 @@
     
     [self.view endEditing:YES];
     
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -392,11 +394,13 @@
         
         //保存用户信息
         [[TLUser user] saveUserInfo:userInfo];
-        [MobClick profileSignInWithPUID:[TLUser user].userId];
+//        [MobClick profileSignInWithPUID:[TLUser user].userId];
 
         //初始化用户信息
         [[TLUser user] setUserInfoWithDict:userInfo];
-        [self back];
+//        [self back];
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
 //        self p
 //        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
         

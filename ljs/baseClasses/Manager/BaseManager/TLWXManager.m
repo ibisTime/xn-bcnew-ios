@@ -32,7 +32,7 @@
 
 - (void)registerApp {
 
-    [WXApi registerApp:[AppConfig config].wxKey universalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/"];
+    [WXApi registerApp:[AppConfig config].wxKey universalLink:@"https://info.bdcaijing.faedy.com/"];
 }
 
 //
@@ -90,6 +90,8 @@
         return;
     }
     
+   
+    
     NSString *shareTitle = PASS_NULL_TO_NIL(title).length > 0 ? title : @"币对财经";
     NSString *shareDesc = PASS_NULL_TO_NIL(desc).length > 0 ? desc : @"欢迎使用币对财经";
     // -- //
@@ -101,7 +103,7 @@
     message.description = shareDesc;
     message.mediaObject = webObj;
 
-    [message setThumbImage:kImage(APP_ICON)];
+    [message setThumbImage:kImage(@"1024-直角的副本 5")];
     //
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;

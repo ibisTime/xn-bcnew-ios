@@ -107,48 +107,69 @@
     
     [UIBarButtonItem addRightItemWithTitle:@"保存" titleColor:kWhiteColor frame:CGRectMake(0, 0, 35, 44) vc:self action:@selector(saveCurreney)];
 }
+
+
 -(void)saveCurreney{
      CurrencyTitleModel * title;
-    self.resultTitleList = [NSMutableArray array];
+//    self.resultTitleList = [NSMutableArray array];
+    
+    NSMutableArray *nameArray = [NSMutableArray array];
     for (int i = 0; i < self.titles.count; i++) {
-        title = self.titles[i];
-        for (CurrencyTitleModel *titleModel in self.currencyTitleList) {
-            if (title.symbol == titleModel.symbol) {
-                [self.resultTitleList addObject:titleModel];
-            }
+//        title = self.titles[i];
+        if (![self.titles[i].symbol isEqualToString:@"全部"]) {
+            [nameArray addObject:self.titles[i].symbol];
         }
-        
+//        for (CurrencyTitleModel *titleModel in self.currencyTitleList) {
+//            if (title.symbol == titleModel.symbol) {
+//
+//            }
+//        }
     }
     
-    if (self.resultTitleList.count > 0) {
-       
-
-        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
-        tabbarCtrl.selectedIndex = 1;
-    }else{
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+    http.code = @"628400";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"type"] = @"C";
+    http.parameters[@"enameList"] = nameArray;
+    //解析
+    [http postWithSuccess:^(id responseObject) {
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+        
         TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
         tabbarCtrl.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+   
+    
+//    if (self.resultTitleList.count > 0) {
+//
+//
 //        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-
-    }
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-//    TabbarViewController *tab = [[TabbarViewController alloc] init];
-//    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
-//    tab.selectedIndex = 1;
-    
-    //
-    
+//        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+//        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+//        tabbarCtrl.selectedIndex = 1;
+//    }else{
+//
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+//
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+////        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
+//        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+//        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+//        tabbarCtrl.selectedIndex = 1;
+////        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
+//    }
+//    [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
+
 - (void)saveObject:(id)obj withKey:(NSString *)key
 
 {
@@ -307,6 +328,7 @@
 }
 - (void)refreshCollectionView:(QHCollectionViewNine *)refreshCollectionview didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [self.searchTF resignFirstResponder];
     if (refreshCollectionview.type == SearchTypeTop) {
         //上面的要删除

@@ -14,6 +14,8 @@ typedef void(^AddQuotesSuccess)();
 
 @interface QuotesOptionalChildVC : BaseViewController
 //
+
+@property (nonatomic , strong)NSString *titleStr;
 @property (nonatomic, strong) OptionalTitleModel *titleModel;
 //添加成功
 @property (nonatomic, copy) AddQuotesSuccess addSuccess;

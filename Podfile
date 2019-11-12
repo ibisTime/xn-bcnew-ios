@@ -19,10 +19,11 @@ target ‘ljs’ do
     pod 'PYPhotoBrowser',           '1.1.5'
     pod 'TZImagePickerController',  '1.8.0'
     pod 'FDFullscreenPopGesture',   '1.1'
-    pod'UMengAnalytics-NO-IDFA'
+    pod 'UMengAnalytics-NO-IDFA'
     #七牛云
     pod 'Qiniu',                    '7.1.5'
     # pod 'Realm',                    '2.8.0'
+#    pod 'TencentOpenAPI',
     #极光
     pod 'JPush',                    '3.0.8'
     #公共库
