@@ -12,5 +12,6 @@
 @interface AddSearchCell : UICollectionViewCell
 @property (nonatomic , strong) AddNumberModel *numberModel;
 @property (nonatomic , copy) CurrencyTitleModel *title;
-
+@property (nonatomic , copy) CurrencyTitleModel *toptitle;
+@property (nonatomic, strong) UIButton *selectedBtn;
 @end

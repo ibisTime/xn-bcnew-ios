@@ -25,6 +25,8 @@
 #define USER_CHANGE_USER_PHOTO @"805080"// 修改头像
 #define USER_CHANGE_USER_INFO @"805074" //修改用户资料
 
+#define Get_Seven_Cattle_Address @"Get_Seven_Cattle_Address"
+
 //根据ckey查询系统参数
 #define USER_CKEY_CVALUE    @"628917"
 #define SYS_KEY @"ckey"

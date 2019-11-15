@@ -75,10 +75,11 @@
     [self initFooterView];
     
     BaseWeakSelf;
+    [weakSelf loadData];
     [self.tableView addRefreshAction:^{
         [weakSelf loadData];
     }];
-    [self.tableView beginRefreshing];
+    
 }
 
 - (void)initTableView {
@@ -97,6 +98,10 @@
     self.tableView.defaultNoDataImage = kImage(@"暂无动态");
     self.tableView.selectBlock = ^(NSString *idear) {
         [weakSelf pushCurrencyKLineVCWith:idear];
+    };
+    
+    self.tableView.refreshBlock = ^{
+        [weakSelf loadData];
     };
     [self.view addSubview:self.tableView];
 }
@@ -159,6 +164,7 @@
 {
     BaseWeakSelf;
     if ([TLUser user].isLogin == NO) {
+        [weakSelf.tableView endRefreshHeader];
         [TLProgressHUD dismiss];
         weakSelf.platforms = [PlatformModel mj_objectArrayWithKeyValuesArray:@[]];
         weakSelf.tableView.optionals = weakSelf.platforms;
@@ -225,6 +231,7 @@
         [selectBtn setImage:kImage(@"行情跌") forState:(UIControlStateNormal)];
     }else if ([orderDir isEqualToString:@"0"]) {
         orderDir = @"";
+        orderColumn = @"";
         [selectBtn setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
     }
     

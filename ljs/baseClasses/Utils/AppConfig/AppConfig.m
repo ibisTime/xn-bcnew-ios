@@ -45,11 +45,11 @@ void TLLog(NSString *format, ...) {
         case RunEnvRelease: {
 //            self.addr = @"http://47.97.214.223:2201";
             self.addr = @"http://info.front.faedy.com/api";
-            self.qiniuDomain = @"http://image.wallet.hichengdai.com";
+            self.qiniuDomain = [[NSUserDefaults standardUserDefaults]objectForKey:@"Get_Seven_Cattle_Address"];
         }break;
         case RunEnvDev: {
             self.addr = @"http://47.97.214.223:2301";
-            self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
+            self.qiniuDomain = [[NSUserDefaults standardUserDefaults]objectForKey:@"Get_Seven_Cattle_Address"];
         }break;
             
         case RunEnvTest: {
@@ -58,7 +58,7 @@ void TLLog(NSString *format, ...) {
 //            self.addr = @"http://47.75.175.18:2201"; //生产
             self.addr = @"http://47.75.175.18:2205";//研发
 
-            self.qiniuDomain = @"http://p6aev1fk1.bkt.clouddn.com";
+            self.qiniuDomain = [[NSUserDefaults standardUserDefaults]objectForKey:@"Get_Seven_Cattle_Address"];
         }break;
     }
 }
@@ -75,15 +75,15 @@ void TLLog(NSString *format, ...) {
 
 - (NSString *)qqKey {
     
-    return @"aeda9d2b0b7275cad82efc301e991d42";
+    return @"26ed6bc89f45a6a936362a344fbc33b8";
 }
 
 - (NSString *)qqId {
     
-    return @"101824324";
+    return @"101824028";
 }
 
 - (NSString *)pushKey {
-    return @"1c959a496681efca3fd77e30";
+    return @"c147abfaf26b66762a5cb19f";
 }
 @end

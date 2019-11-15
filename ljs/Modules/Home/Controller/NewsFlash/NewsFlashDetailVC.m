@@ -53,8 +53,7 @@
     self.title = @"快讯分享";
     //获取快讯详情
     [self requestFlashDetail];
-    //获取AppUrl
-    [self requestAppUrl];
+    
 }
 
 #pragma mark - Init
@@ -188,7 +187,8 @@
         [self initDetailView];
         //底部按钮
         [self initShareView];
-        
+        //获取AppUrl
+        [self requestAppUrl];
     } failure:^(NSError *error) {
         
         [TLProgressHUD dismiss];

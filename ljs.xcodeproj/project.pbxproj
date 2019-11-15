@@ -1569,6 +1569,14 @@
 				21288246205776F000A57A5A /* OptionalTableView.m */,
 				212882482057774900A57A5A /* OptionalCell.h */,
 				212882492057774900A57A5A /* OptionalCell.m */,
+				B8DEF9B420BD3A6500E3D7C5 /* QHCollectionViewNine.h */,
+				B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */,
+				B8DEF9B720BD447F00E3D7C5 /* AddSearchCell.h */,
+				B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */,
+				B8F513B220BE3E0C00AC7FAD /* AddSearchBottomCell.h */,
+				B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */,
+				2124BEBB2062907000CB79E8 /* SearchCurrencyVC.h */,
+				2124BEBC2062907000CB79E8 /* SearchCurrencyVC.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2048,10 +2056,6 @@
 		2124BEBA2062904100CB79E8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				B8DEF9B420BD3A6500E3D7C5 /* QHCollectionViewNine.h */,
-				B8DEF9B520BD3A6500E3D7C5 /* QHCollectionViewNine.m */,
-				2124BEBB2062907000CB79E8 /* SearchCurrencyVC.h */,
-				2124BEBC2062907000CB79E8 /* SearchCurrencyVC.m */,
 				2124BEC22062983700CB79E8 /* SearchCurrcneyChildVC.h */,
 				2124BEC32062983700CB79E8 /* SearchCurrcneyChildVC.m */,
 				2124BED520635B9300CB79E8 /* SearchHistoryChildVC.h */,
@@ -2080,10 +2084,6 @@
 				B8DEF9AC20BD2E0600E3D7C5 /* AddSearchHeadView.m */,
 				B8DEF9AE20BD2E3600E3D7C5 /* AddSearchBottomView.h */,
 				B8DEF9AF20BD2E3600E3D7C5 /* AddSearchBottomView.m */,
-				B8DEF9B720BD447F00E3D7C5 /* AddSearchCell.h */,
-				B8DEF9B820BD447F00E3D7C5 /* AddSearchCell.m */,
-				B8F513B220BE3E0C00AC7FAD /* AddSearchBottomCell.h */,
-				B8F513B320BE3E0C00AC7FAD /* AddSearchBottomCell.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";

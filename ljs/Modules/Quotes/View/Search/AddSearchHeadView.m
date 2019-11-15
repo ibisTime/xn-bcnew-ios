@@ -86,7 +86,7 @@
 {
     _currentCount = currentCount;
     self.titleDet.text = @"已选栏目";
-    self.readCountDet.text = [NSString stringWithFormat:@"(%ld/9)",currentCount];
+    self.readCountDet.text = [NSString stringWithFormat:@"(%ld/6)",currentCount];
     self.placeholderLab.text = @"点击可移除";
 }
 

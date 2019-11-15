@@ -54,12 +54,15 @@
 
 @property (nonatomic, strong)  AddSearchHeadView *headView;
 @property (nonatomic, strong)  AddSearchBottomView *bottomTitle;
+
 @property (nonatomic, strong) NSMutableArray *topNames;
 @property (nonatomic, strong) NSMutableArray *bottomNames;
 
 @end
 
 @implementation AddSearchCurreneyVC
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,15 +71,94 @@
     [self initSearchBar];
     [self initSubViews];
     [self initCollectionViewBottom];
+    
+    
     self.nineView.titles = self.titles;
     self.headView.currentCount = self.titles.count ;
     self.bottomTitle.currentCount = 8-self.titles.count + 1;
-    self.bottomtitles = [NSMutableArray array];
-    self.bottomView.bottomtitles = self.bottomtitles;
-    [self requestCurrencyTitleList];
+//    self.bottomtitles = [NSMutableArray array];
+//    self.bottomView.bottomtitles = self.bottomtitles;
+    
+    [self topCurrencyTitleList];
+    
 
     // Do any additional setup after loading the view.
 }
+
+-(void)topCurrencyTitleList
+{
+    TLNetworking *http = [TLNetworking new];
+    http.showView = self.view;
+    http.code = @"628405";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"type"] = @"C";
+    //解析
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.titles = [CurrencyTitleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.nineView.titles = self.titles;
+        self.headView.currentCount = self.titles.count;
+        self.bottomTitle.currentCount = self.titles.count;
+        [self.nineView reloadData];
+        [self requestCurrencyTitleList];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+
+- (void)requestCurrencyTitleList {
+    
+    BaseWeakSelf;
+    
+    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+    
+    helper.code = @"628307";
+    helper.isList = YES;
+    
+    [helper modelClass:[CurrencyTitleModel class]];
+    
+    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+        weakSelf.currencyTitleList = objs;
+
+        for (int i = 0; i < weakSelf.titles.count; i++) {
+            for (int j = 0; j < weakSelf.currencyTitleList.count; j ++ ) {
+                if ([weakSelf.titles[i].navName isEqualToString:weakSelf.currencyTitleList[j].symbol]) {
+//                    NSInteger intger  =  [weakSelf.bottomNames indexOfObject:weakSelf.topNames[i]];
+                    CurrencyTitleModel *title = weakSelf.currencyTitleList[j];
+                    title.IsSelect = YES;
+                    
+                }
+            }
+        }
+        
+        
+        self.bottomtitles = weakSelf.currencyTitleList;
+        
+        self.bottomView.bottomtitles = weakSelf.bottomtitles;
+        
+        
+        //        [self.nineView reloadData];
+        
+        [self.bottomView reloadData];
+        
+        //数组去重
+        
+        
+    } failure:^(NSError *error) {
+    }];
+}
+
+
+
+
+
+
+
+
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -88,14 +170,21 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
 
-//    if (self.currencyBlock) {
-//        self.currencyBlock();
-//    }
+    if (self.currencyBlock) {
+        self.currencyBlock();
+    }
+//    TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+//    tabbarCtrl.selectedIndex = 1;
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+
+    
+    
     //显示第三方键盘
-    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
-    [[IQKeyboardManager sharedManager] setEnable:YES];
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+//    [[IQKeyboardManager sharedManager] setEnable:YES];
     
 }
 - (void)didReceiveMemoryWarning {
@@ -105,134 +194,23 @@
 #pragma mark - Init
 - (void)addSearchlItem {
     
-    [UIBarButtonItem addRightItemWithTitle:@"保存" titleColor:kWhiteColor frame:CGRectMake(0, 0, 35, 44) vc:self action:@selector(saveCurreney)];
+    [UIBarButtonItem addRightItemWithTitle:@"搜索" titleColor:kWhiteColor frame:CGRectMake(0, 0, 35, 44) vc:self action:@selector(saveCurreney)];
 }
 
 
 -(void)saveCurreney{
-     CurrencyTitleModel * title;
-//    self.resultTitleList = [NSMutableArray array];
-    
-    NSMutableArray *nameArray = [NSMutableArray array];
-    for (int i = 0; i < self.titles.count; i++) {
-//        title = self.titles[i];
-        if (![self.titles[i].symbol isEqualToString:@"全部"]) {
-            [nameArray addObject:self.titles[i].symbol];
-        }
-//        for (CurrencyTitleModel *titleModel in self.currencyTitleList) {
-//            if (title.symbol == titleModel.symbol) {
-//
-//            }
-//        }
-    }
-    
-    TLNetworking *http = [TLNetworking new];
-    http.showView = self.view;
-    http.code = @"628400";
-    http.parameters[@"userId"] = [TLUser user].userId;
-    http.parameters[@"type"] = @"C";
-    http.parameters[@"enameList"] = nameArray;
-    //解析
-    [http postWithSuccess:^(id responseObject) {
-        
-        
-        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
-        tabbarCtrl.selectedIndex = 1;
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-    
-   
-    
-//    if (self.resultTitleList.count > 0) {
-//
-//
-//        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-//        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-//        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
-//        tabbarCtrl.selectedIndex = 1;
-//    }else{
-//
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
-//
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"choseOptionList" object:self.resultTitleList];
-////        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"choseOptionList"];
-//        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-//        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
-//        tabbarCtrl.selectedIndex = 1;
-////        [self saveObject:self.resultTitleList withKey:@"choseOptionList"];
-//    }
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-
-
-- (void)saveObject:(id)obj withKey:(NSString *)key
-
-{
-    
-    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+//     CurrencyTitleModel * title;
     
     
+    self.searchStr = self.searchTF.text;
     
-    //如果是自定义对象放在数组中，先要转成NSData再保存
-    
-    if([obj isKindOfClass:[NSMutableArray class]]){
-        
-        //如果数组为空，return
-        
-        if([(NSMutableArray *)obj count] <= 0){
-            
-            return ;
-            
-        }
-        
-        
-        
-        //如果数组装载 Model对象
-        
-        if ([[(NSMutableArray *)obj objectAtIndex:0] isKindOfClass:[CurrencyTitleModel class]]){
-            
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-            
-            [udf setObject:data forKey:key];
-            
-        }else{ //单纯的数组
-            
-            [udf setObject:obj forKey:key];
-            
-        }
-        
-        
-        
-        [udf synchronize];
-        
-        return ;
-        
-    }
-    
-    
-    
-    if([obj isKindOfClass:[BaseModel class]]){ //如果是自定义对象，先要转成NSData再保存
-        
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-        
-        [udf setObject:data forKey:key];
-        
-    }else{
-        
-        [udf setObject:obj forKey:key];
-        
-    }
-    
-    
-    
-    [udf synchronize];
+    //保存搜索记录
+    //获取搜索结果
+    self.helper.parameters[@"keywords"] = self.searchStr;
+    [self requestSearchResult];
     
 }
+
 - (void)initSubViews
 {
     
@@ -243,7 +221,10 @@
     
     AddSearchHeadView *headView = [[AddSearchHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
     self.headView = headView;
+    
     headView.numberModel = [AddNumberModel new];
+    
+    
     AddSearchBottomView *bottomTitle = [[AddSearchBottomView alloc] initWithFrame:CGRectMake(0, 250, kScreenWidth, 35)];
     self.bottomTitle = bottomTitle;
     bottomTitle.numberModel = [AddNumberModel new];
@@ -335,64 +316,61 @@
         if (indexPath.row == 0) {
             return;
         }
-//        if (!self.bottomtitles) {
-//            self.bottomtitles = [NSMutableArray array];
-//        }
-        NSMutableArray *arr = self.bottomtitles;
-        CurrencyTitleModel *title = self.titles[indexPath.row];
-        for (int i = 0; i < self.bottomtitles.count; i++) {
-            if ([self.bottomNames containsObject:title.symbol]) {
-                for (CurrencyTitleModel *titleModel in arr) {
-                    if (titleModel.symbol == title.symbol) {
-                        titleModel.IsSelect = NO;
+        TLNetworking *http = [TLNetworking new];
+        http.showView = self.view;
+        http.code = @"628401";
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"type"] = @"C";
+        http.parameters[@"id"] = self.titles[indexPath.row - 1].ID;
+        //解析
+        [http postWithSuccess:^(id responseObject) {
+            
+            [self topCurrencyTitleList];
+            [TLAlert alertWithSucces:@"移除成功"];
+            
+        } failure:^(NSError *error) {
+            
+        }];
 
-                    }
-                }
-                
-            }
-        }
-        self.bottomtitles = arr;
-        self.bottomView.bottomtitles = self.bottomtitles;
-        [self.titles removeObjectAtIndex:indexPath.row];
-        self.nineView.titles = self.titles;
-       
-        [self.nineView reloadData];
-        [self.bottomView reloadData];
-        self.headView.currentCount = self.titles.count;
-        self.bottomTitle.currentCount = 8-self.titles.count +1;
-
+        
 
     }else{
 
-        NSMutableArray *arr = self.titles;
-        CurrencyTitleModel *tit = self.bottomtitles[indexPath.row];
-            if ([arr containsObject:tit.symbol]) {
-                return;
-                
-            }else{
-                
-                CurrencyTitleModel *title =self.bottomtitles[indexPath.row];
-                if (self.titles.count == 9) {
-                    [TLAlert alertWithMsg:@"最多只能选8个"];
-                    return;
-                }
-                if (title.IsSelect == YES) {
-                    return;
-                }
-                title.IsSelect = YES;
-                [self.titles addObject:self.bottomtitles[indexPath.row]];
-
-            }
         
+        for (int i = 0; i < self.titles.count; i ++) {
+            if ([self.bottomtitles[indexPath.row].symbol isEqualToString:self.titles[i].navName]) {
+                [TLAlert alertWithSucces:@"已存在该币种"];
+                return;
+            }
+        }
+        
+        
+        
+        TLNetworking *http = [TLNetworking new];
+        http.showView = self.view;
+        http.code = @"628400";
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"type"] = @"C";
+        http.parameters[@"enameList"] = @[self.bottomtitles[indexPath.row].ename];
+        //解析
+        [http postWithSuccess:^(id responseObject) {
+            
+            [self topCurrencyTitleList];
+            [TLAlert alertWithSucces:@"操作成功"];
+            
+            
+            
+            
+//            TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+//            [UIApplication sharedApplication].keyWindow.rootViewController = tabbarCtrl;
+//            tabbarCtrl.selectedIndex = 1;
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        } failure:^(NSError *error) {
+            
+        }];
 
-        self.nineView.titles = self.titles;
-
-        self.bottomView.bottomtitles = self.bottomtitles;
-        [self.nineView reloadData];
-        [self.bottomView reloadData];
-        self.headView.currentCount = self.titles.count;
-        self.bottomTitle.currentCount = 8 - self.titles.count + 1;
-
+        
 
     }
     
@@ -434,6 +412,8 @@
     
     return YES;
 }
+
+
 - (void)requestSearchResult
 {
     
@@ -444,6 +424,7 @@
     
     helper.code = @"628350";
     helper.isList = NO;
+    
     if ([TLUser user].userId) {
         
         helper.parameters[@"userId"] = [TLUser user].userId;
@@ -454,10 +435,29 @@
     
     [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
         
-        weakSelf.tempTitles = objs;
-        weakSelf.bottomtitles = objs;
-        weakSelf.bottomView.bottomtitles = objs;
-        [weakSelf.bottomView reloadData];
+        weakSelf.currencyTitleList = objs;
+        
+        for (int i = 0; i < weakSelf.titles.count; i++) {
+            for (int j = 0; j < weakSelf.currencyTitleList.count; j ++ ) {
+                if ([weakSelf.titles[i].navName isEqualToString:weakSelf.currencyTitleList[j].symbol]) {
+                    //                    NSInteger intger  =  [weakSelf.bottomNames indexOfObject:weakSelf.topNames[i]];
+                    CurrencyTitleModel *title = weakSelf.currencyTitleList[j];
+                    title.IsSelect = YES;
+                    
+                }
+            }
+        }
+        
+        
+        self.bottomtitles = weakSelf.currencyTitleList;
+        
+        self.bottomView.bottomtitles = weakSelf.bottomtitles;
+        
+        
+        //        [self.nineView reloadData];
+        
+        [self.bottomView reloadData];
+        
     } failure:^(NSError *error) {
         
     }];
@@ -467,70 +467,6 @@
     
     
     
-}
-- (void)requestCurrencyTitleList {
-    
-    BaseWeakSelf;
-    
-    TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
-    
-    helper.code = @"628307";
-    helper.isList = YES;
-    
-    [helper modelClass:[CurrencyTitleModel class]];
-    
-    [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-        weakSelf.currencyTitleList = objs;
-        //遍历标题
-        
-        weakSelf.tempTitles = [NSMutableArray array];
-        [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (obj.symbol) {
-                
-                [weakSelf.tempTitles addObject:obj];
-            }
-        }];
-        
-        weakSelf.topNames = [NSMutableArray array];
-        
-        [weakSelf.titles enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (obj.symbol) {
-                
-                [weakSelf.topNames addObject:obj.symbol];
-            }
-        }];
-        [weakSelf.topNames removeObjectAtIndex:0];
-        weakSelf.bottomNames = [NSMutableArray array];
-        
-        [weakSelf.tempTitles enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (obj.symbol) {
-                
-                [weakSelf.bottomNames addObject:obj.symbol];
-            }
-        }];
-        for (int i = 0; i < weakSelf.topNames.count; i++) {
-            if ([weakSelf.bottomNames containsObject:weakSelf.topNames[i]]) {
-             NSInteger intger  =  [weakSelf.bottomNames indexOfObject:weakSelf.topNames[i]];
-                CurrencyTitleModel *title =weakSelf.tempTitles[intger];
-                title.IsSelect = YES;
-                
-            }
-        }
-        
-        self.bottomtitles = weakSelf.tempTitles;
-        self.bottomView.bottomtitles = weakSelf.tempTitles;
-//        [self.nineView reloadData];
-        
-        [self.bottomView reloadData];
-
-        //数组去重
-        
-    
-    } failure:^(NSError *error) {
-    }];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

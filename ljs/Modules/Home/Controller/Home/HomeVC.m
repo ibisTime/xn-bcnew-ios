@@ -21,6 +21,9 @@
 #import "NewSearchViewController.h"
 #import "NavigationController.h"
 @interface HomeVC ()<SegmentDelegate>
+{
+    
+}
 //顶部切换
 @property (nonatomic, strong) TopLabelUtil *labelUnil;
 //大滚动
@@ -29,6 +32,8 @@
 @property (nonatomic, strong) SelectScrollView *selectSV;
 //titles
 @property (nonatomic, strong) NSMutableArray *titles;
+
+@property (nonatomic , assign)NSInteger index;
 //statusList
 @property (nonatomic, strong) NSArray *statusList;
 //类型
@@ -39,7 +44,17 @@
 
 @implementation HomeVC
 
+-(void)viewWillAppear:(BOOL)animated
+{
+//    NSNotification *notification =[NSNotification notificationWithName:@"SelectScrollViewNotification" object:nil userInfo:dic];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSDictionary *dic = @{@"index":@(self.index)};
+    NSNotification *notification =[NSNotification notificationWithName:@"SelectScrollViewNotification" object:nil userInfo:dic];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
 - (void)viewDidLoad {
+    self.index = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //监听推送
@@ -150,7 +165,9 @@
     SelectScrollView *selectSV = [[SelectScrollView alloc] initWithFrame:CGRectMake(index1*kScreenWidth, 0, kScreenWidth, kSuperViewHeight - kTabBarHeight) itemTitles:self.titles];
     
     selectSV.tag = 2500 + index1;
+    BaseWeakSelf;
     selectSV.selectBlock = ^(NSInteger index) {
+        weakSelf.index = index;
         NSDictionary *dic = @{@"index":@(index)};
         NSNotification *notification =[NSNotification notificationWithName:@"SelectScrollViewNotification" object:nil userInfo:dic];
         [[NSNotificationCenter defaultCenter] postNotification:notification];

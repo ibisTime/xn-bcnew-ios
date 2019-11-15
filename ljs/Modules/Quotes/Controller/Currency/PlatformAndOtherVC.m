@@ -186,17 +186,17 @@
         TLNetworking *http = [TLNetworking new];
         
         if ([model.isChoice integerValue] == 1) {
-            http.code = @"628332";
+            http.code = @"628330";
             http.showView = self.view;
             http.parameters[@"userId"] = [TLUser user].userId;
-            http.parameters[@"id"] = model.choiceId;
-
+            http.parameters[@"exchangeEname"] = model.exchangeEname;
+            http.parameters[@"symbol"] = model.symbol;
+            http.parameters[@"toSymbol"] = model.toSymbol;
             
             [http postWithSuccess:^(id responseObject) {
                 
+                
                 [TLAlert alertWithSucces:@"移除成功"];
-                
-                
                 model.isChoice = @"0";
                 [weakSelf.platformArry replaceObjectAtIndex:indexpath.row withObject:model];
                 [weakSelf.platformTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];

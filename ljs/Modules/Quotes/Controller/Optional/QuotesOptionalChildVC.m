@@ -193,9 +193,16 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        [TLAlert alertWithSucces:@"添加成功"];
         
-        optional.isChoice = @"1";
+        if ([optional.isChoice isEqualToString:@"0"]) {
+            optional.isChoice = @"1";
+            [TLAlert alertWithSucces:@"添加成功"];
+        }else
+        {
+            optional.isChoice = @"0";
+            [TLAlert alertWithSucces:@"移除成功"];
+        }
+        
     
         [self.tableView reloadData];
         
@@ -241,12 +248,12 @@
     
     OptionalModel *optional = self.optionals[indexPath.row];
 
-    if ([optional.isChoice isEqualToString:@"0"] || ! optional.isChoice) {
-        
+//    if ([optional.isChoice isEqualToString:@"0"] || ! optional.isChoice) {
+    
         //添加币种
         [self addOptional:indexPath.row];
-        return ;
-    }
+//        return ;
+//    }
     
 //    //删除币种
 //    [self deleteOptional:indexPath.row];

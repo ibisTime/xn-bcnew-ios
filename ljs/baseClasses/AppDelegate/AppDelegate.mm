@@ -59,7 +59,7 @@
     [self configRootViewController];
     
     [WXApi registerApp:@"wxcd83a2f195d1070f"
-         universalLink:@"https://info.bdcaijing.faedy.com/"];
+         universalLink:@"https://info.bdshare.faedy.com/apple-app-site-association/"];
     
     return YES;
 }

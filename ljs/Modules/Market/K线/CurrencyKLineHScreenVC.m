@@ -33,7 +33,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [UIApplication sharedApplication].statusBarHidden = YES;
-    [self rightAction];
+//    [self rightAction];
 }
 
 - (void)viewDidLoad {
@@ -56,31 +56,36 @@
         CGFloat h = kScreenWidth;
         
         _kLineView = [[DetailWebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_HEIGHT, SCREEN_WIDTH)];
-        _kLineView.center = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
+//        _kLineView.center = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
 //        _kLineView.backgroundColor = kBlackColor;
-        
         _kLineView.transform = CGAffineTransformMakeRotation(M_PI_2);
-        [self.view addSubview:_kLineView];
+        _kLineView.centerX = self.view.centerX;
+        _kLineView.centerY = self.view.centerY;
+//        _kLineView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        
     }
     return _kLineView;
 }
 
 - (void)initSubviews {
     
+    [self.view addSubview:self.kLineView];
     //返回
     CGFloat rightMargin = -SCREEN_HEIGHT - kHeight(80);
     CGFloat topMargin = 0;
     
     UIButton *backBtn = [UIButton buttonWithImageName:@""];
-    
+//    backBtn.backgroundColor = kBlackColor;
     [backBtn addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
-    [self.kLineView addSubview:backBtn];
+    [self.view addSubview:backBtn];
+    
+    
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(topMargin));
-        make.right.equalTo(@(rightMargin));
-        make.width.equalTo(@(kHeight(80)));
-        make.height.equalTo(@(kHeight(80)));
+        make.bottom.equalTo(@(0));
+        make.right.equalTo(@(0));
+        make.width.equalTo(@(kHeight(100)));
+        make.height.equalTo(@(kHeight(100)));
     }];
 }
 
@@ -146,41 +151,41 @@
 #pragma mark - Events
 - (void)clickBack {
     
-    [self leftAction];
+//    [self leftAction];
 
     [self.navigationController popViewControllerAnimated:YES];
     
 }
 
-- (BOOL)prefersHomeIndicatorAutoHidden{
-    
-    return YES;
-}
+//- (BOOL)prefersHomeIndicatorAutoHidden{
+//
+//    return YES;
+//}
 
 #pragma mark - 横屏
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
+//- (BOOL)shouldAutorotate
+//{
+//    return YES;
+//}
 
-- (void)leftAction
-{
-    [self interfaceOrientation:UIInterfaceOrientationPortrait];
-}
-
-- (void)rightAction
-{
-    [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
-}
-
-- (void)interfaceOrientation:(UIInterfaceOrientation)orientation
-{
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        
-        NSNumber *orientationTarget = [NSNumber numberWithInt:orientation];
-        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-    }
-}
+//- (void)leftAction
+//{
+//    [self interfaceOrientation:UIInterfaceOrientationPortrait];
+//}
+//
+//- (void)rightAction
+//{
+//    [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+//}
+//
+//- (void)interfaceOrientation:(UIInterfaceOrientation)orientation
+//{
+//    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+//
+//        NSNumber *orientationTarget = [NSNumber numberWithInt:orientation];
+//        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -184,41 +184,78 @@
     }
     
     [self checkLogin:^{
-        [searchVC.titles addObject:titleModel];
-        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        //        self.currencyTitleList  =[NSMutableArray array];
-        NSData *data = [user objectForKey:@"choseOptionList"];
-        searchVC.currencyTitleList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        if (searchVC.currencyTitleList.count <= 0) {
-            searchVC.currencyTitleList = weakSelf.currencyTitleList;
-        }
-        
-        [weakSelf.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (obj) {
-                obj.IsSelect = YES;
-                [searchVC.titles addObject:obj];
-            }
-        }];
-        
+
         [weakSelf.navigationController pushViewController:searchVC animated:YES];
-        
-        
     }];
     
     
     searchVC.currencyBlock = ^{
-        //            UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        //            UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
-        //            [currentVC.view addSubview:weakSelf.smallBtn];
-//        weakSelf.smallBtn.hidden = NO;
         
-        //            [weakSelf.tableView beginRefreshing];
+        if ([TLUser user].isLogin == YES) {
+
+            TLNetworking *http = [TLNetworking new];
+            http.showView = self.view;
+            http.code = @"628405";
+            http.parameters[@"userId"] = [TLUser user].userId;
+            http.parameters[@"type"] = @"C";
+            //解析
+            [http postWithSuccess:^(id responseObject) {
+                
+                
+                self.currencyTitleList = [CurrencyTitleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+                self.titles = [NSMutableArray arrayWithObject:@"全部"];
+                if (self.currencyTitleList.count > 0) {
+                    [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        
+                        obj.symbol = obj.navName;
+                        if (obj.navName && ![obj.navName isEqualToString:@""]) {
+                            [self.titles addObject:obj.navName];
+                        }
+                    }];
+                }
+                [self chose];
+                
+            } failure:^(NSError *error) {
+                
+            }];
+            
+        }else
+        {
+            BaseWeakSelf;
+            
+            
+            
+            TLPageDataHelper *helper = [[TLPageDataHelper alloc] init];
+            
+            helper.code = @"628335";
+            //        helper.parameters[@"location"] = @"1";
+            helper.isList = YES;
+            
+            [helper modelClass:[CurrencyTitleModel class]];
+            
+            [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
+                
+                weakSelf.currencyTitleList = objs;
+                self.titles = [NSMutableArray arrayWithObject:@"全部"];
+                if (self.currencyTitleList.count > 0) {
+                    [self.currencyTitleList enumerateObjectsUsingBlock:^(CurrencyTitleModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        
+                        if (obj.ename && ![obj.ename isEqualToString:@""]) {
+                            [self.titles addObject:obj.ename];
+                        }
+                    }];
+                }
+                [self chose];
+                
+            } failure:^(NSError *error) {
+            }];
+            
+            
+        }
+        
+        orderDir = @"";
+        orderColumn = @"";
     };
-    
-    //    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:searchVC];
-    //    [self presentViewController:searchVC animated:YES completion:nil];
-    
 }
 
 -(void)chooseBtnClick:(UIButton *)sender
@@ -259,6 +296,7 @@
     }else if ([orderDir isEqualToString:@"0"]) {
         orderDir = @"";
         [selectBtn setImage:kImage(@"行情未选中") forState:(UIControlStateNormal)];
+        orderColumn = @"";
     }
     
     dic = @{@"orderColumn":orderColumn,

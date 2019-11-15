@@ -13,7 +13,7 @@
 @interface AddSearchCell()
 
 @property (nonatomic, strong) UIImageView *photoImageView;
-@property (nonatomic, strong) UIButton *selectedBtn;
+//@property (nonatomic, strong) UIButton *selectedBtn;
 
 @end
 @implementation AddSearchCell
@@ -78,6 +78,13 @@
     [self.selectedBtn setTitle:title.symbol forState:UIControlStateNormal];
     
 }
+
+-(void)setToptitle:(CurrencyTitleModel *)toptitle
+{
+    _toptitle = toptitle;
+    [self.selectedBtn setTitle:toptitle.navName forState:UIControlStateNormal];
+}
+
 - (void)setNumberModel:(AddNumberModel *)numberModel
 {
     

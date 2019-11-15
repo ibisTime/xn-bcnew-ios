@@ -170,10 +170,11 @@
         //            childVC.status = self.statusList[i];
         //
         //        } else {
-        
+        childVC.index = i;
         childVC.code = self.infoTypeList[i].code;
         childVC.titleStr = self.titles[i];
         //        }
+        
         childVC.kind = self.kind;
         childVC.view.frame = CGRectMake(kScreenWidth*i, 1, kScreenWidth, kSuperViewHeight - 40 - kTabBarHeight);
         

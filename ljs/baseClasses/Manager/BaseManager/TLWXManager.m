@@ -32,7 +32,7 @@
 
 - (void)registerApp {
 
-    [WXApi registerApp:[AppConfig config].wxKey universalLink:@"https://info.bdcaijing.faedy.com/"];
+    [WXApi registerApp:[AppConfig config].wxKey universalLink:@"https://info.bdshare.faedy.com/apple-app-site-association/"];
 }
 
 //

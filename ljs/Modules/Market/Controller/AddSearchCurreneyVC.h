@@ -13,7 +13,7 @@ typedef void(^AddCurrencyBlock)();
 
 @interface AddSearchCurreneyVC : BaseViewController
 @property (nonatomic, copy) AddCurrencyBlock currencyBlock;
-@property (nonatomic, strong) NSArray <CurrencyTitleModel *>*currencyTitleList;
+@property (nonatomic, strong) NSMutableArray <CurrencyTitleModel *>*currencyTitleList;
 @property (nonatomic, strong) NSMutableArray <CurrencyTitleModel *>*resultTitleList;
 
 @property (nonatomic, strong) NSMutableArray <CurrencyTitleModel *>*titles;

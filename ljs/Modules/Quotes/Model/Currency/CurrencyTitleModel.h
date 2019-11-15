@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *ID;
 //币种中文名
 @property (nonatomic, copy) NSString *cname;
-
+@property (nonatomic, copy) NSString *navCode;
 @property (nonatomic, copy) NSString *navName;
 
 @property (nonatomic, copy) NSString *maxSupply;

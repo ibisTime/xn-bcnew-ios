@@ -121,55 +121,84 @@
 //#pragma mark - Config
 - (void)configUpdate {
 
-    //1:iOS 2:安卓
-    TLNetworking *http = [[TLNetworking alloc] init];
+    
+    
+    TLNetworking *http1 = [TLNetworking new];
+    http1.code = @"628917";
 
-    http.code = @"628918";
-    http.parameters[@"type"] = @"ios-c";
-
-    [http postWithSuccess:^(id responseObject) {
-
-        GengXinModel *update = [GengXinModel mj_objectWithKeyValues:responseObject[@"data"]];
-        [self removePlaceholderView];
-        //获取当前版本号
-        NSString *currentVersion = [self buildVersion];
-//        NSString *currentVersion = [self buildShortVersionString];
-        //1:已shangxian 0:未shangxian
-        if (![currentVersion isEqualToString:update.version] && [update.isUpdated isEqualToString:@"1"]) {
-
-            if ([update.forceUpdate isEqualToString:@"0"]) {
-
-                //不强制
-                [TLAlert alertWithTitle:@"更新提醒" msg:update.note confirmMsg:@"立即升级" cancleMsg:@"稍后提醒" cancle:^(UIAlertAction *action) {
-
-                    [self setRootVC];
-
-                } confirm:^(UIAlertAction *action) {
-
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.xiaZaiUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-                      [self goLjClubWeb:update.downloadUrl];
-                }];
-
-            } else {
-
-                //强制
-                [TLAlert alertWithTitle:@"更新提醒" message:update.note confirmMsg:@"立即升级" confirmAction:^{
-
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.xiaZaiUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-                    [self goLjClubWeb:update.downloadUrl];
-
-                }];
-            }
-        } else {
+    http1.parameters[@"ckey"] = @"qiniu_domain";
+    [http1 postWithSuccess:^(id responseObject) {
+        
+        
+        
+    
+        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"http://%@", responseObject[@"data"][@"cvalue"]] forKey:@"Get_Seven_Cattle_Address"];
+        
+        [AppConfig config].qiniuDomain = [NSString stringWithFormat:@"http://%@", responseObject[@"data"][@"cvalue"]];
+    
+        
+        
+        //1:iOS 2:安卓
+        TLNetworking *http = [[TLNetworking alloc] init];
+        
+        http.code = @"628918";
+        http.parameters[@"type"] = @"ios-c";
+        
+        [http postWithSuccess:^(id responseObject) {
             
-            [self setRootVC];
-        }
+            GengXinModel *update = [GengXinModel mj_objectWithKeyValues:responseObject[@"data"]];
+            [self removePlaceholderView];
+            //获取当前版本号
+            NSString *currentVersion = [self buildVersion];
+            //        NSString *currentVersion = [self buildShortVersionString];
+            //1:已shangxian 0:未shangxian
+            if (![currentVersion isEqualToString:update.version] && [update.isUpdated isEqualToString:@"1"]) {
+                
+                if ([update.forceUpdate isEqualToString:@"0"]) {
+                    
+                    //不强制
+                    [TLAlert alertWithTitle:@"更新提醒" msg:update.note confirmMsg:@"立即升级" cancleMsg:@"稍后提醒" cancle:^(UIAlertAction *action) {
+                        
+                        [self setRootVC];
+                        
+                    } confirm:^(UIAlertAction *action) {
+                        
+                        //                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.xiaZaiUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+                        [self goLjClubWeb:update.downloadUrl];
+                    }];
+                    
+                } else {
+                    
+                    //强制
+                    [TLAlert alertWithTitle:@"更新提醒" message:update.note confirmMsg:@"立即升级" confirmAction:^{
+                        
+                        //                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.xiaZaiUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+                        [self goLjClubWeb:update.downloadUrl];
+                        
+                    }];
+                }
+            } else {
+                
+                [self setRootVC];
+            }
+            
+        } failure:^(NSError *error) {
+            
+            [self addPlaceholderView];
+        }];
 
+        
+        
+    
     } failure:^(NSError *error) {
-
         [self addPlaceholderView];
     }];
-
+    
+        
+        
+    
+    
+    
 }
 
 - (void)goLjClubWeb:(NSString *)var {

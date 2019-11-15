@@ -77,6 +77,6 @@
 {
     _currentCount = currentCount;
     self.titleDet.text = @"全部栏目";
-    self.readCountDet.text = [NSString stringWithFormat:@"可再选%ld个",currentCount];
+    self.readCountDet.text = [NSString stringWithFormat:@"可再选%ld个",6 - currentCount];
 }
 @end

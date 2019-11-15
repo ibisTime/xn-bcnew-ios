@@ -56,6 +56,8 @@
 
 @implementation HomeChildVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -78,7 +80,6 @@
         [self initInfoTableView];
         //获取资讯列表
         [self requestInfoList];
-        
         //获取轮番图
         [self requestBannerList];
         //刷新
@@ -205,7 +206,7 @@
         self.flashTableView.defaultNoDataImage = kImage(@"暂无搜索结果");
     }else{
 //        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
-        self.flashTableView.defaultNoDataText = @"暂时没有资讯";
+        self.flashTableView.defaultNoDataText = @"暂时没有搜索到你想要的信息";
         self.flashTableView.defaultNoDataImage = kImage(@"暂无动态");
     }
 
@@ -231,7 +232,7 @@
 //        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无搜索结果" text:@"暂时没有搜索到你想要的信息"];
 //
     }else{
-        self.infoTableView.defaultNoDataText = @"暂时没有资讯";
+        self.infoTableView.defaultNoDataText = @"暂时没有搜索到你想要的信息";
         self.infoTableView.defaultNoDataImage = kImage(@"暂无动态");
 //        self.hold = [TLPlaceholderView placeholderViewWithImage:@"暂无动态" text:@"暂时没有资讯"];
 //
@@ -282,14 +283,14 @@
         }
 
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            if (objs.count <= 0) {
-                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
-                [weakSelf.flashTableView addSubview:weakSelf.hold];
-                [weakSelf.flashTableView reloadData];
-                return ;
-            }
+//            if (objs.count <= 0) {
+//                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
+//                [weakSelf.flashTableView addSubview:weakSelf.hold];
+//                [weakSelf.flashTableView reloadData];
+//                return ;
+//            }
             
-            [weakSelf.hold removeFromSuperview];
+//            [weakSelf.hold removeFromSuperview];
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
@@ -311,15 +312,15 @@
         }
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
            //中转
-            if (objs.count <= 0) {
-                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
-
-                [weakSelf.flashTableView addSubview:weakSelf.hold];
-                [weakSelf.flashTableView reloadData];
-                return ;
-            }
-            
-            [weakSelf.hold removeFromSuperview];
+//            if (objs.count <= 0) {
+//                weakSelf.flashTableView.placeHolderView = weakSelf.hold;
+//
+//                [weakSelf.flashTableView addSubview:weakSelf.hold];
+//                [weakSelf.flashTableView reloadData];
+//                return ;
+//            }
+//
+//            [weakSelf.hold removeFromSuperview];
             weakSelf.news = objs;
             
             weakSelf.flashTableView.news = objs;
@@ -359,14 +360,14 @@
         }
         [weakSelf requestBannerList];
         [helper refresh:^(NSMutableArray *objs, BOOL stillHave) {
-            if (objs.count <= 0) {
-                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
-                [weakSelf.infoTableView addSubview:weakSelf.hold];
-                [weakSelf.infoTableView reloadData];
-                return ;
-            }
-            
-            [weakSelf.hold removeFromSuperview];
+//            if (objs.count <= 0) {
+//                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
+//                [weakSelf.infoTableView addSubview:weakSelf.hold];
+//                [weakSelf.infoTableView reloadData];
+//                return ;
+//            }
+//
+//            [weakSelf.hold removeFromSuperview];
             weakSelf.infos = objs;
             //数据转给tableview
             weakSelf.infoTableView.infos = objs;
@@ -389,15 +390,15 @@
 
         }
         [helper loadMore:^(NSMutableArray *objs, BOOL stillHave) {
-            if (objs.count <= 0) {
-                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
-
-                [weakSelf.infoTableView addSubview:weakSelf.hold];
-                [weakSelf.infoTableView reloadData];
-                return ;
-            }
-            
-            [weakSelf.hold removeFromSuperview];
+//            if (objs.count <= 0) {
+//                weakSelf.infoTableView.placeHolderView = weakSelf.hold;
+//
+//                [weakSelf.infoTableView addSubview:weakSelf.hold];
+//                [weakSelf.infoTableView reloadData];
+//                return ;
+//            }
+//
+//            [weakSelf.hold removeFromSuperview];
             weakSelf.infos = objs;
             
             weakSelf.infoTableView.infos = objs;

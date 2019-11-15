@@ -45,13 +45,13 @@
 - (void)registerApp {
 
 //    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:[AppConfig config].qqId andDelegate:self];
-    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"101824324" andDelegate:self];
+    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"101824028" andDelegate:self];
 //    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:[AppConfig config].qqId andUniversalLink:@"https://info.bdcaijing.faedy.com/apple-app-site-association/" andDelegate:self];
     _tencentOAuth.redirectURI = @"www.qq.com";
     _permissions = [NSArray arrayWithObjects:@"get_user_info",@"get_simple_userinfo", @"add_t", nil];
 //    QQ第三方授权登录，此处不需要。该方法执行后会直接跳转QQ进行快捷登录
 //    [_tencentOAuth authorize:_permissions inSafari:NO];
-//    101824324
+//    101824028
     
 }
 

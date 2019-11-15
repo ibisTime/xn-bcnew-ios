@@ -41,7 +41,7 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
 #pragma mark - UICollectionViewDelegate, UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.type == SearchTypeTop) {
-        return self.titles.count;
+        return self.titles.count + 1;
 
     }else{
         
@@ -54,7 +54,14 @@ static NSString *bottomIdentifierCell = @"AddSearchBottomCell";
     
     if (self.type == SearchTypeTop) {
         AddSearchCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifierCell forIndexPath:indexPath];
-        cell.title = self.titles[indexPath.row];
+        if (indexPath.row == 0) {
+            [cell.selectedBtn setTitle:@"全部" forState:(UIControlStateNormal)];
+        }else
+        {
+            cell.toptitle = self.titles[indexPath.row - 1];
+        }
+        
+
         return cell;
     }else{
         AddSearchBottomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:bottomIdentifierCell forIndexPath:indexPath];

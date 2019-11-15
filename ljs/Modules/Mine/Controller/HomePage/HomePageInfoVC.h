@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *userId;
 //类型
 @property (nonatomic, copy) NSString *kind;
+@property (nonatomic, assign) NSInteger index;
 //状态
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic, assign) BOOL IsCenter ;
